@@ -253,7 +253,7 @@ class Local_Pickup_Time {
 	 * @since    1.0.0
 	 */
 	public function local_pickup_create_hour_options() {
-		date_default_timezone_set( 'America/New_York' );
+		date_default_timezone_set( get_option( 'timezone_string', 'America/New_York' ) );
 
 		$one_hour_later_hour = date( 'H', strtotime( "+1 hour" ) );
 		$one_hour_later_minute = date( 'i', strtotime( "+1 hour" ) );
@@ -297,12 +297,12 @@ class Local_Pickup_Time {
 	 * @since    1.0.0
 	 */
 	public function local_pickup_time_select( $checkout ) {
-		echo '<div id="local-pickup-time-select"><h2>'.__( 'Pickup Time' ).'</h2>';
+		echo '<div id="local-pickup-time-select"><h2>'.__( 'Pickup Time', $domain ).'</h2>';
 
 		woocommerce_form_field( 'local_pickup_time_select', array(
 			'type'          => 'select',
 			'class'         => array( 'local-pickup-time-select-field form-row-wide' ),
-			'label'         => __( 'Pickup Time' ),
+			'label'         => __( 'Pickup Time', $domain ),
 			'options'		=> self::local_pickup_create_hour_options()
 		), $checkout->get_value( 'local_pickup_time_select' ));
 
@@ -321,7 +321,7 @@ class Local_Pickup_Time {
 
 		// Check if set, if its not set add an error.
 		if ( !$_POST['local_pickup_time_select'] )
-			 $woocommerce->add_error( __('Please select a pickup time.') );
+			 $woocommerce->add_error( __( 'Please select a pickup time.', $domain ) );
 	}
 
 	/**
