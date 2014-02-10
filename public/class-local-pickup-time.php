@@ -371,7 +371,7 @@ class Local_Pickup_Time {
 	 * @since    1.0.0
 	 */
 	public function update_order_email( $keys ) {
-		$keys[] = 'Pickup Time';
+		$keys['Pickup time'] = '_local_pickup_time_select';
 		return $keys;
 	}
 
