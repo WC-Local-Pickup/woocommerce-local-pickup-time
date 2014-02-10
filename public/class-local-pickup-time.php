@@ -75,7 +75,7 @@ class Local_Pickup_Time {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @return    Plugin slug variable.
+	 * @return    Local_Pickup_Time slug variable.
 	 */
 	public function get_plugin_slug() {
 		return $this->plugin_slug;
@@ -253,22 +253,30 @@ class Local_Pickup_Time {
 	 * @since    1.0.0
 	 */
 	public function local_pickup_create_hour_options() {
+		// Make sure we have a time zone set
 		date_default_timezone_set( get_option( 'timezone_string', 'America/New_York' ) );
 
+		// Setup time variables for calculations
 		$one_hour_later_hour = date( 'H', strtotime( "+1 hour" ) );
 		$one_hour_later_minute = date( 'i', strtotime( "+1 hour" ) );
 		$two_hour_later_hour = date( 'H', strtotime( "+2 hours" ) );
+		$today_name = strtolower( date( 'l' ) );
+		$today_date = date( 'm/d/Y' );
 
-		$open_time = "11:00";
+		// Get days closed textarea from settings, explode into an array
+		$closing_days_raw = trim( get_option( 'local_pickup_hours_closings' ) );
+		$closing_days = explode( "\n", $closing_days_raw );
+		$closing_days = array_filter( $closing_days, 'trim' );
 
-		if ( date( 'l' ) === 'Sunday' ) {
-			$close_time = "17:00";
-		}
-		else {
-			$close_time = "19:00";
-		}
+		// Get today's opening and closing times
+		$open_time = get_option( 'local_pickup_hours_' . $today_name . '_start', '10:00' );
+		$close_time = get_option( 'local_pickup_hours_' . $today_name . '_end', '19:00' );
 
-		$pickup_time_begin = ( $one_hour_later_minute < 30 ) ? $one_hour_later_hour . ":30" : $two_hour_later_hour . ":00";
+		// Get pickup interval
+		$interval = get_option( 'local_pickup_hours_interval', 30 );
+
+		// Setup start and end times for pickup options
+		$pickup_time_begin = ( $one_hour_later_minute < $interval ) ? $one_hour_later_hour . ":$interval" : $two_hour_later_hour . ":00";
 
 		$start_time = ( strtotime( $pickup_time_begin ) < strtotime( $open_time ) ) ? $open_time : $pickup_time_begin;
 
@@ -279,13 +287,20 @@ class Local_Pickup_Time {
 
 		$pickup_options = '';
 
-		while( $tNow <= $tEnd ){
-			$option_key = date( "l_h_i", $tNow );
-			$option_value = 'Today ' . date( "g:i", $tNow );
+		// If Closed today, don't allow a pickup option
+		if ( in_array( $today_date, $closing_days ) ) {
+			$pickup_options['closed_today'] = 'Closed today, please check back tomorrow!';
+		}
+		else {
+			// Create array of time options to return to woocommerce_form_field
+			while( $tNow <= $tEnd ){
+				$option_key = date( "l_h_i", $tNow );
+				$option_value = 'Today ' . date( "g:i", $tNow );
 
-			$pickup_options[$option_value] = $option_value;
+				$pickup_options[$option_key] = $option_value;
 
-			$tNow = strtotime( '+30 minutes', $tNow );
+				$tNow = strtotime( "+$interval minutes", $tNow );
+			}
 		}
 
 		return $pickup_options;
@@ -297,12 +312,12 @@ class Local_Pickup_Time {
 	 * @since    1.0.0
 	 */
 	public function local_pickup_time_select( $checkout ) {
-		echo '<div id="local-pickup-time-select"><h2>'.__( 'Pickup Time', $domain ).'</h2>';
+		echo '<div id="local-pickup-time-select"><h2>'.__( 'Pickup Time', $this->plugin_slug ).'</h2>';
 
 		woocommerce_form_field( 'local_pickup_time_select', array(
 			'type'          => 'select',
 			'class'         => array( 'local-pickup-time-select-field form-row-wide' ),
-			'label'         => __( 'Pickup Time', $domain ),
+			'label'         => __( 'Pickup Time', $this->plugin_slug ),
 			'options'		=> self::local_pickup_create_hour_options()
 		), $checkout->get_value( 'local_pickup_time_select' ));
 
@@ -321,7 +336,7 @@ class Local_Pickup_Time {
 
 		// Check if set, if its not set add an error.
 		if ( !$_POST['local_pickup_time_select'] )
-			 $woocommerce->add_error( __( 'Please select a pickup time.', $domain ) );
+			 $woocommerce->add_error( __( 'Please select a pickup time.', $this->plugin_slug ) );
 	}
 
 	/**
