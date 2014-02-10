@@ -53,12 +53,12 @@ class Local_Pickup_Time_Admin {
 		/*
 		 * Show Pickup Time Settings in the WooCommerce -> General Admin Screen
 		 */
-		add_filter( 'woocommerce_general_settings', array( $this, 'mblpt_add_hours_and_closings_options' ) );
+		add_filter( 'woocommerce_general_settings', array( $this, 'add_hours_and_closings_options' ) );
 
 		/*
 		 * Show Pickup Time in the Order Details in the Admin Screen
 		 */
-		add_action( 'woocommerce_admin_order_data_after_billing_address', array( $this, 'mblpt_local_pickup_time_show_metabox' ), 10, 1 );
+		add_action( 'woocommerce_admin_order_data_after_billing_address', array( $this, 'local_pickup_time_show_metabox' ), 10, 1 );
 
 	}
 
@@ -83,7 +83,7 @@ class Local_Pickup_Time_Admin {
 	 * Show Pickup Time Settings in the WooCommerce -> General Admin Screen
 	 * @since    1.0.0
 	 */
-	public function mblpt_add_hours_and_closings_options( $settings ) {
+	public function add_hours_and_closings_options( $settings ) {
 		$updated_settings = array();
 
 		$updated_settings[] = array(
@@ -259,7 +259,7 @@ class Local_Pickup_Time_Admin {
 	 * Show Pickup Time in the Order Details in the Admin Screen
 	 * @since    1.0.0
 	 */
-	public function mblpt_local_pickup_time_show_metabox( $order ){
+	public function local_pickup_time_show_metabox( $order ){
 		echo "<p><strong>Pickup Time:</strong> " . $order->order_custom_fields['_local_pickup_time_select'][0] . "</p>";
 	}
 
