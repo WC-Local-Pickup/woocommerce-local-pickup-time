@@ -292,7 +292,11 @@ class Local_Pickup_Time {
 
 		// If Closed today, don't allow a pickup option
 		if ( in_array( $today_date, $closing_days ) ) {
+			// Set drop down text to let user know store is closed
 			$pickup_options['closed_today'] = 'Closed today, please check back tomorrow!';
+
+			// Hide Order Review so user doesn't order anything today
+			remove_action( 'woocommerce_checkout_order_review', 'woocommerce_order_review', 10 );
 		}
 		else {
 			// Create array of time options to return to woocommerce_form_field
