@@ -257,7 +257,17 @@ class Local_Pickup_Time {
 	 */
 	public function create_hour_options() {
 		// Make sure we have a time zone set
-		date_default_timezone_set( get_option( 'timezone_string', 'America/New_York' ) );
+		$offset = get_option( 'gmt_offset' );
+		$timezone_setting = get_option( 'timezone_string' );
+
+		if ( $timezone_setting ) {
+			date_default_timezone_set( get_option( 'timezone_string', 'America/New_York' ) );
+		}
+		else {
+			$timezone = timezone_name_from_abbr( null, $offset * 3600, true );
+			if( $timezone === false ) $timezone = timezone_name_from_abbr( null, $offset * 3600, false );
+			date_default_timezone_set( $timezone );
+		}
 
 		// Setup time variables for calculations
 		$one_hour_later_hour = date( 'H', strtotime( "+1 hour" ) );
