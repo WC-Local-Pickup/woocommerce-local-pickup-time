@@ -58,7 +58,7 @@ class Local_Pickup_Time_Admin {
 		/*
 		 * Show Pickup Time in the Order Details in the Admin Screen
 		 */
-		add_action( 'woocommerce_admin_order_data_after_billing_address', array( $this, 'local_pickup_time_show_metabox' ), 10, 1 );
+		add_action( 'woocommerce_admin_order_data_after_billing_address', array( $this, 'show_metabox' ), 10, 1 );
 
 	}
 
@@ -259,7 +259,7 @@ class Local_Pickup_Time_Admin {
 	 * Show Pickup Time in the Order Details in the Admin Screen
 	 * @since    1.0.0
 	 */
-	public function local_pickup_time_show_metabox( $order ){
+	public function show_metabox( $order ){
 		echo "<p><strong>Pickup Time:</strong> " . $order->order_custom_fields['_local_pickup_time_select'][0] . "</p>";
 	}
 

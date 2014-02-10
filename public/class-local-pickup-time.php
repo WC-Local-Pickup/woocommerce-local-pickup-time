@@ -60,16 +60,16 @@ class Local_Pickup_Time {
 		add_action( 'wpmu_new_blog', array( $this, 'activate_new_site' ) );
 
 		// Add the local pickup time field to the checkout page
-		add_action( 'woocommerce_after_order_notes', array( $this, 'local_pickup_time_select' ) );
+		add_action( 'woocommerce_after_order_notes', array( $this, 'time_select' ) );
 
 		// Process the checkout
-		add_action( 'woocommerce_checkout_process', array( $this, 'local_pickup_time_field_process' ) );
+		add_action( 'woocommerce_checkout_process', array( $this, 'field_process' ) );
 
 		// Update the order meta with local pickup time field value
-		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'local_pickup_time_update_order_meta' ) );
+		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'update_order_meta' ) );
 
 		// Add local pickup time field to order emails
-		add_filter('woocommerce_email_order_meta_keys', array( $this, 'local_pickup_time_update_order_email' ) );
+		add_filter('woocommerce_email_order_meta_keys', array( $this, 'update_order_email' ) );
 
 	}
 
@@ -255,7 +255,7 @@ class Local_Pickup_Time {
 	 *
 	 * @since    1.0.0
 	 */
-	public function local_pickup_create_hour_options() {
+	public function create_hour_options() {
 		// Make sure we have a time zone set
 		date_default_timezone_set( get_option( 'timezone_string', 'America/New_York' ) );
 
@@ -318,17 +318,17 @@ class Local_Pickup_Time {
 	 *
 	 * @since    1.0.0
 	 */
-	public function local_pickup_time_select( $checkout ) {
+	public function time_select( $checkout ) {
 		echo '<div id="local-pickup-time-select"><h2>'.__( 'Pickup Time', $this->plugin_slug ).'</h2>';
 
 		woocommerce_form_field( 'local_pickup_time_select', array(
 			'type'          => 'select',
 			'class'         => array( 'local-pickup-time-select-field form-row-wide' ),
 			'label'         => __( 'Pickup Time', $this->plugin_slug ),
-			'options'		=> self::local_pickup_create_hour_options()
+			'options'		=> self::create_hour_options()
 		), $checkout->get_value( 'local_pickup_time_select' ));
 
-		self::local_pickup_create_hour_options();
+		self::create_hour_options();
 
 		echo '</div>';
 	}
@@ -338,7 +338,7 @@ class Local_Pickup_Time {
 	 *
 	 * @since    1.0.0
 	 */
-	public function local_pickup_time_field_process() {
+	public function field_process() {
 		global $woocommerce;
 
 		// Check if set, if its not set add an error.
@@ -351,7 +351,7 @@ class Local_Pickup_Time {
 	 *
 	 * @since    1.0.0
 	 */
-	public function local_pickup_time_update_order_meta( $order_id ) {
+	public function update_order_meta( $order_id ) {
 		if ( $_POST['local_pickup_time_select'] ) update_post_meta( $order_id, '_local_pickup_time_select', esc_attr($_POST['local_pickup_time_select']) );
 	}
 
@@ -360,7 +360,7 @@ class Local_Pickup_Time {
 	 *
 	 * @since    1.0.0
 	 */
-	public function local_pickup_time_update_order_email( $keys ) {
+	public function update_order_email( $keys ) {
 		$keys[] = 'Pickup Time';
 		return $keys;
 	}
