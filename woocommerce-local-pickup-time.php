@@ -19,7 +19,7 @@
  * Version:     1.0.0
  * Author:      Matt Banks
  * Author URI:  http://mattbanks.me
- * Text Domain: local-pickup-time
+ * Text Domain: woocommerce-local-pickup-time
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  * Domain Path: /lang
