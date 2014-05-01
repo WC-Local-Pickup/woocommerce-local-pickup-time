@@ -1,14 +1,10 @@
 <?php
 /**
- * WooCommerce Local Pickup Time Select Options
+ * WooCommerce Local Pickup Time Select
  *
  * Plugin to add an an option to WooCommerce checkout pages for Local Pickup only
  * that allows the user to choose a pickup time. Time choices begin 1 hour from order time
  * rounded to closest hour or half hour and go in 30 minute intervals until store closing time.
- *
- * Developed for Putnam Market, so store closing times are theirs.
- *
- * TODO: Add options in WooCommerce settings to define store closing times per day.
  *
  * @package   WooCommerce Local Pickup Time Select
  * @author    Matt Banks <mjbanks@gmail.com>
@@ -23,7 +19,7 @@
  * Version:     1.0.0
  * Author:      Matt Banks
  * Author URI:  http://mattbanks.me
- * Text Domain: local-pickup-time-locale
+ * Text Domain: local-pickup-time
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  * Domain Path: /lang
