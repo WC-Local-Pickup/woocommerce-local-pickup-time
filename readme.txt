@@ -59,7 +59,6 @@ Make sure to set your Timezone on the WordPress Admin Settings page.
 == Screenshots ==
 
 1. Front-end display on Checkout page
-2. WooCommerce -> Settings -> General page, showing plugin options
 
 == Changelog ==
 
