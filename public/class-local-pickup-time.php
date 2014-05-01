@@ -1,6 +1,6 @@
 <?php
 /**
- * Local Pickup Time.
+ * Local Pickup Time
  *
  * @package   Local_Pickup_Time
  * @author    Matt Banks <mjbanks@gmail.com>
@@ -34,7 +34,7 @@ class Local_Pickup_Time {
 	 *
 	 * @var      string
 	 */
-	protected $plugin_slug = 'local-plugin-time';
+	protected $plugin_slug = 'woocommerce-local-plugin-time';
 
 	/**
 	 * Instance of this class.
@@ -303,7 +303,7 @@ class Local_Pickup_Time {
 		// If Closed today, don't allow a pickup option
 		if ( in_array( $today_date, $closing_days ) ) {
 			// Set drop down text to let user know store is closed
-			$pickup_options['closed_today'] = 'Closed today, please check back tomorrow!';
+			$pickup_options['closed_today'] = __( 'Closed today, please check back tomorrow!', $this->plugin_slug );
 
 			// Hide Order Review so user doesn't order anything today
 			remove_action( 'woocommerce_checkout_order_review', 'woocommerce_order_review', 10 );
@@ -329,7 +329,7 @@ class Local_Pickup_Time {
 	 * @since    1.0.0
 	 */
 	public function time_select( $checkout ) {
-		echo '<div id="local-pickup-time-select"><h2>'.__( 'Pickup Time', $this->plugin_slug ).'</h2>';
+		echo '<div id="local-pickup-time-select"><h2>' . __( 'Pickup Time', $this->plugin_slug ) . '</h2>';
 
 		woocommerce_form_field( 'local_pickup_time_select', array(
 			'type'          => 'select',
@@ -362,7 +362,7 @@ class Local_Pickup_Time {
 	 * @since    1.0.0
 	 */
 	public function update_order_meta( $order_id ) {
-		if ( $_POST['local_pickup_time_select'] ) update_post_meta( $order_id, '_local_pickup_time_select', esc_attr($_POST['local_pickup_time_select']) );
+		if ( $_POST['local_pickup_time_select'] ) update_post_meta( $order_id, '_local_pickup_time_select', esc_attr( $_POST['local_pickup_time_select']) );
 	}
 
 	/**
