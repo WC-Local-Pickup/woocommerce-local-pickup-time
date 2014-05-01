@@ -224,7 +224,7 @@ class Local_Pickup_Time {
 	 * @since    1.0.0
 	 */
 	private static function single_activate() {
-		// @TODO: Define activation functionality here
+		// No activation functionality needed... yet
 	}
 
 	/**
@@ -233,7 +233,7 @@ class Local_Pickup_Time {
 	 * @since    1.0.0
 	 */
 	private static function single_deactivate() {
-		// @TODO: Define deactivation functionality here
+		// No deactivation functionality needed... yet
 	}
 
 	/**
