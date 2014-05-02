@@ -298,11 +298,12 @@ class Local_Pickup_Time {
 		$tStart = strtotime( $start_time );
 		$tEnd = strtotime( $close_time );
 		$tNow = $tStart;
+		$current_time = time();
 
 		$pickup_options = '';
 
-		// If Closed today, don't allow a pickup option
-		if ( in_array( $today_date, $closing_days ) ) {
+		// If Closed today or today's pickup times are over, don't allow a pickup option
+		if ( in_array( $today_date, $closing_days ) || $current_time >= $tEnd  ) {
 			// Set drop down text to let user know store is closed
 			$pickup_options['closed_today'] = __( 'Closed today, please check back tomorrow!', $this->plugin_slug );
 
