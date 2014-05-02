@@ -4,7 +4,7 @@ Donate link: http://mattbanks.me/donate/
 Tags: woocommcerce, shipping, local pickup, checkout fields, ecommerce, e-commerce, wordpress ecommerce
 Requires at least: 3.8
 Tested up to: 3.9
-Stable tag: 1.0.0
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -62,5 +62,11 @@ Make sure to set your Timezone on the WordPress Admin Settings page.
 
 == Changelog ==
 
-= 1.0 =
+= 1.0.2 =
+* fix typos
+
+= 1.0.1 =
+* properly set closing time if trying to order after hours
+
+= 1.0.0 =
 * initial version
