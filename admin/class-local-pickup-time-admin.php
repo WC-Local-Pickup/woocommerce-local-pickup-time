@@ -260,7 +260,9 @@ class Local_Pickup_Time_Admin {
 	 * @since    1.0.0
 	 */
 	public function show_metabox( $order ){
-		echo '<p><strong>' . __( 'Pickup Time:', $this->plugin_slug ) . '</strong> ' . $order->order_custom_fields['_local_pickup_time_select'][0] . '</p>';
+		$order_meta = get_post_custom( $order->id );
+
+		echo '<p><strong>' . __( 'Pickup Time:', $this->plugin_slug ) . '</strong> ' . $order_meta['_local_pickup_time_select'][0] . '</p>';
 	}
 
 }
