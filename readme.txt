@@ -71,7 +71,8 @@ The location, by default, is hooked to `woocommerce_admin_order_data_after_billi
 == Changelog ==
 
 = 1.1.0 =
-* added `local_pickup_time_hooked_location` filter to customize location of pickup time select during checkout
+* added `local_pickup_time_select_location` filter to customize location of pickup time select during checkout
+* added `local_pickup_time_admin_location` filter to customize location of pickup time shown in the admin Order Details screen
 
 = 1.0.3 =
 * replace deprecated call to $order->order_custom_fields, which no longer words in WooCommerce 2.1
