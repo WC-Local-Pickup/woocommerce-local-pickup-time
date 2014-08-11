@@ -58,7 +58,8 @@ class Local_Pickup_Time_Admin {
 		/*
 		 * Show Pickup Time in the Order Details in the Admin Screen
 		 */
-		add_action( 'woocommerce_admin_order_data_after_billing_address', array( $this, 'show_metabox' ), 10, 1 );
+		$admin_hooked_location = apply_filters( 'local_pickup_time_admin_location', 'woocommerce_admin_order_data_after_billing_address' );
+		add_action( $admin_hooked_location, array( $this, 'show_metabox' ), 10, 1 );
 
 	}
 
