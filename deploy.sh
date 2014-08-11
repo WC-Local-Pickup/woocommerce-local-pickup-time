@@ -8,7 +8,6 @@
 PLUGINSLUG=${PWD##*/} # returns basename of current directory
 CURRENTDIR=`pwd`
 MAINFILE="woocommerce-local-pickup-time.php" # this should be the name of your main php file in the wordpress plugin
-SVNUSER="mjbanks" # your svn username
 
 # git config
 GITPATH="$CURRENTDIR/" # this file should be in the base of your git repository
@@ -16,6 +15,7 @@ GITPATH="$CURRENTDIR/" # this file should be in the base of your git repository
 # svn config
 SVNPATH="/tmp/$PLUGINSLUG" # path to a temp SVN repo. No trailing slash required and don't add trunk.
 SVNURL="http://plugins.svn.wordpress.org/$PLUGINSLUG" # Remote SVN repo on wordpress.org, with no trailing slash
+SVNUSER="mjbanks" # your svn username
 
 # Let's begin...
 echo ".........................................."
@@ -26,9 +26,9 @@ echo ".........................................."
 echo
 
 # Check version in readme.txt is the same as plugin file
-NEWVERSION1=`grep "^Stable tag" "$GITPATH/readme.txt" | awk -F' ' '{print $3}' | sed 's/[[:space:]]//g'`
+NEWVERSION1=`grep "^Stable tag" $GITPATH/readme.txt | awk -F' ' '{print $3}' | sed 's/[[:space:]]//g'`
 echo "readme version: $NEWVERSION1"
-NEWVERSION2=`grep "^Version" "$GITPATH/$MAINFILE" | awk -F' ' '{print $2}' | sed 's/[[:space:]]//g'`
+NEWVERSION2=`grep "Version" $GITPATH/$MAINFILE | awk -F' ' '{print $3}' | sed 's/[[:space:]]//g'`
 echo "$MAINFILE version: $NEWVERSION2"
 
 if [ "$NEWVERSION1" != "$NEWVERSION2" ]; then echo "Versions don't match. Exiting...."; exit 1; fi
@@ -40,14 +40,13 @@ echo -e "Enter a commit message for this new version: \c"
 read COMMITMSG
 # git commit -am "$COMMITMSG"
 
-echo "Tagging new version in git"
-git tag -a "$NEWVERSION1" -m "Tagging version $NEWVERSION1"
+# echo "Tagging new version in git"
+# git tag -a "$NEWVERSION1" -m "Tagging version $NEWVERSION1"
 
-echo "Pushing latest commit to origin, with tags"
-git push origin master
-git push origin master --tags
+# echo "Pushing latest commit to origin, with tags"
+# git push origin master
+# git push origin master --tags
 
-echo
 echo "Creating local copy of SVN repo ..."
 svn co $SVNURL $SVNPATH
 
@@ -68,7 +67,7 @@ svn commit --username=$SVNUSER -m "$COMMITMSG"
 
 # echo "Creating new SVN tag & committing it"
 cd $SVNPATH
-svn copy trunk/ tags/$NEWVERSION1/
+svn copy trunk tags/$NEWVERSION1
 cd $SVNPATH/tags/$NEWVERSION1
 svn commit --username=$SVNUSER -m "Tag $NEWVERSION1"
 
