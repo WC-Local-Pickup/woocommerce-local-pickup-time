@@ -3,8 +3,8 @@ Contributors: mjbanks
 Donate link: http://mattbanks.me/donate/
 Tags: woocommcerce, shipping, local pickup, checkout fields, ecommerce, e-commerce, wordpress ecommerce
 Requires at least: 3.8
-Tested up to: 3.9
-Stable tag: 1.0.3
+Tested up to: 3.9.2
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -56,11 +56,22 @@ Go to `WooCommerce -> Settings -> General` and Save Changes to trigger the optio
 
 Make sure to set your Timezone on the WordPress Admin Settings page.
 
+= How do I change the location of the pickup time select box during checkout? =
+
+The location, by default, is hooked to `woocommerce_after_order_notes`. This can be overridden using the `local_pickup_time_select_location` filter. [A list of available hooks can be seen in the WooCommerce documentation](http://docs.woothemes.com/document/hooks/).
+
+= How do I change the location of the pickup time shown in the admin Order Details screen? =
+
+The location, by default, is hooked to `woocommerce_admin_order_data_after_billing_address`. This can be overridden using the `local_pickup_time_admin_location` filter. [A list of available hooks can be seen in the WooCommerce documentation](http://docs.woothemes.com/document/hooks/).
+
 == Screenshots ==
 
 1. Front-end display on Checkout page
 
 == Changelog ==
+
+= 1.1.0 =
+* added `local_pickup_time_hooked_location` filter to customize location of pickup time select during checkout
 
 = 1.0.3 =
 * replace deprecated call to $order->order_custom_fields, which no longer words in WooCommerce 2.1
