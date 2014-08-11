@@ -60,7 +60,8 @@ class Local_Pickup_Time {
 		add_action( 'wpmu_new_blog', array( $this, 'activate_new_site' ) );
 
 		// Add the local pickup time field to the checkout page
-		add_action( 'woocommerce_after_order_notes', array( $this, 'time_select' ) );
+		$public_hooked_location = apply_filters( 'local_pickup_time_select_location', 'woocommerce_after_order_notes' );
+		add_action( $public_hooked_location, array( $this, 'time_select' ) );
 
 		// Process the checkout
 		add_action( 'woocommerce_checkout_process', array( $this, 'field_process' ) );
