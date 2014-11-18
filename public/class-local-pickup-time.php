@@ -25,7 +25,7 @@ class Local_Pickup_Time {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '1.0.3';
+	const VERSION = '1.2.0';
 
 	/**
 	 * Unique identifier for plugin.
@@ -288,6 +288,10 @@ class Local_Pickup_Time {
 		$today_name = strtolower( date( 'l' ) );
 		$today_date = date( 'm/d/Y' );
 
+		// Create an empty array for our dates
+		$pickup_options = array();
+
+		// Loop through all days ahead and add the pickup time options to the array
 		for ( $i = 0; $i < $num_days_allowed; $i++ ) {
 
 			// Get the date of current iteration
@@ -308,8 +312,6 @@ class Local_Pickup_Time {
 			$tEnd = strtotime( $close_time );
 			$tNow = $tStart;
 			$current_time = time();
-
-			$pickup_options = '';
 
 			// If Closed today or today's pickup times are over, don't allow a pickup option
 			if ( in_array( $today_date, $closing_days ) || $current_time >= $tEnd  ) {
@@ -334,7 +336,7 @@ class Local_Pickup_Time {
 				}
 			}
 
-		}
+		} // end for loop
 
 		return $pickup_options;
 	}
