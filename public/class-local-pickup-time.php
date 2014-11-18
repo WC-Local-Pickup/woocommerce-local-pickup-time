@@ -25,7 +25,7 @@ class Local_Pickup_Time {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '1.0.3';
+	const VERSION = '1.2.0';
 
 	/**
 	 * Unique identifier for plugin.
@@ -271,57 +271,72 @@ class Local_Pickup_Time {
 			date_default_timezone_set( $timezone );
 		}
 
-		// Setup time variables for calculations
-		$one_hour_later_hour = date( 'H', strtotime( "+1 hour" ) );
-		$one_hour_later_minute = date( 'i', strtotime( "+1 hour" ) );
-		$two_hour_later_hour = date( 'H', strtotime( "+2 hours" ) );
-		$today_name = strtolower( date( 'l' ) );
-		$today_date = date( 'm/d/Y' );
-
 		// Get days closed textarea from settings, explode into an array
 		$closing_days_raw = trim( get_option( 'local_pickup_hours_closings' ) );
 		$closing_days = explode( "\n", $closing_days_raw );
 		$closing_days = array_filter( $closing_days, 'trim' );
 
-		// Get today's opening and closing times
-		$open_time = get_option( 'local_pickup_hours_' . $today_name . '_start', '10:00' );
-		$close_time = get_option( 'local_pickup_hours_' . $today_name . '_end', '19:00' );
-
-		// Get pickup interval
+		// Get delay, interval, and number of days ahead settings
+		$delay_minutes = get_option( 'local_pickup_delay_minutes', 60 );
 		$interval = get_option( 'local_pickup_hours_interval', 30 );
+		$num_days_allowed = get_option( 'local_pickup_days_ahead', 1 );
 
-		// Setup start and end times for pickup options
-		$pickup_time_begin = ( $one_hour_later_minute < $interval ) ? $one_hour_later_hour . ":$interval" : $two_hour_later_hour . ":00";
+		// Setup time variables for calculations
+		$delay_ahead_hour = date( 'H', strtotime( "+$delay_minutes minutes" ) );
+		$delay_ahead_minute = date( 'i', strtotime( "+$delay_minutes minutes" ) );
+		$double_delay_ahead_hour = date( 'H', strtotime( "+2 hours" ) );
+		$today_name = strtolower( date( 'l' ) );
+		$today_date = date( 'm/d/Y' );
 
-		$start_time = ( strtotime( $pickup_time_begin ) < strtotime( $open_time ) ) ? $open_time : $pickup_time_begin;
+		// Create an empty array for our dates
+		$pickup_options = array();
 
-		// Today
-		$tStart = strtotime( $start_time );
-		$tEnd = strtotime( $close_time );
-		$tNow = $tStart;
-		$current_time = time();
+		// Loop through all days ahead and add the pickup time options to the array
+		for ( $i = 0; $i < $num_days_allowed; $i++ ) {
 
-		$pickup_options = '';
+			// Get the date of current iteration
+			$current_day_name = date( 'l', strtotime( "+$i days" ) );
+			$current_day_name_lower = strtolower( $current_day_name );
 
-		// If Closed today or today's pickup times are over, don't allow a pickup option
-		if ( in_array( $today_date, $closing_days ) || $current_time >= $tEnd  ) {
-			// Set drop down text to let user know store is closed
-			$pickup_options['closed_today'] = __( 'Closed today, please check back tomorrow!', $this->plugin_slug );
+			// Get the day's opening and closing times
+			$open_time = get_option( 'local_pickup_hours_' . $current_day_name_lower . '_start', '10:00' );
+			$close_time = get_option( 'local_pickup_hours_' . $current_day_name_lower . '_end', '19:00' );
 
-			// Hide Order Review so user doesn't order anything today
-			remove_action( 'woocommerce_checkout_order_review', 'woocommerce_order_review', 10 );
-		}
-		else {
-			// Create array of time options to return to woocommerce_form_field
-			while( $tNow <= $tEnd ){
-				$option_key = date( "l_h_i", $tNow );
-				$option_value = 'Today ' . date( "g:i", $tNow );
+			// Setup start and end times for pickup options
+			$pickup_time_begin = ( $delay_ahead_minute < $interval ) ? $delay_ahead_hour . ":$interval" : $double_delay_ahead_hour . ":00";
 
-				$pickup_options[$option_key] = $option_value;
+			$start_time = ( strtotime( $pickup_time_begin ) < strtotime( $open_time ) ) ? $open_time : $pickup_time_begin;
 
-				$tNow = strtotime( "+$interval minutes", $tNow );
+			// Today
+			$tStart = strtotime( $start_time );
+			$tEnd = strtotime( $close_time );
+			$tNow = $tStart;
+			$current_time = time();
+
+			// If Closed today or today's pickup times are over, don't allow a pickup option
+			if ( in_array( $today_date, $closing_days ) || $current_time >= $tEnd  ) {
+				// Set drop down text to let user know store is closed
+				$pickup_options['closed_today'] = __( 'Closed today, please check back tomorrow!', $this->plugin_slug );
+
+				// Hide Order Review so user doesn't order anything today
+				remove_action( 'woocommerce_checkout_order_review', 'woocommerce_order_review', 10 );
 			}
-		}
+			else {
+				// Create array of time options to return to woocommerce_form_field
+				while ( $tNow <= $tEnd ) {
+
+					$day_name = ( $i === 0 ) ? 'Today' : $current_day_name;
+
+					$option_key = $current_day_name . date( "_h_i", $tNow );
+					$option_value = $day_name . ' ' . date( "g:i", $tNow );
+
+					$pickup_options[$option_key] = $option_value;
+
+					$tNow = strtotime( "+$interval minutes", $tNow );
+				}
+			}
+
+		} // end for loop
 
 		return $pickup_options;
 	}

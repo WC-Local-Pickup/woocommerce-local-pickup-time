@@ -4,7 +4,7 @@ Donate link: http://mattbanks.me/donate/
 Tags: woocommcerce, shipping, local pickup, checkout fields, ecommerce, e-commerce, wordpress ecommerce
 Requires at least: 3.8
 Tested up to: 4.0
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -69,6 +69,10 @@ The location, by default, is hooked to `woocommerce_admin_order_data_after_billi
 1. Front-end display on Checkout page
 
 == Changelog ==
+
+= 1.2.0 =
+* added option to select the delay from the current time until the order can be picked up
+* added option to select the number of days ahead for allowing orders to be picked up
 
 = 1.1.0 =
 * added `local_pickup_time_select_location` filter to customize location of pickup time select during checkout
