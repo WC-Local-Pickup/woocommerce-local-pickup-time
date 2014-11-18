@@ -323,9 +323,9 @@ class Local_Pickup_Time {
 				// Create array of time options to return to woocommerce_form_field
 				while ( $tNow <= $tEnd ) {
 
-					$day_name = ( $i = 0 ) ? 'Today' : $current_day_name;
+					$day_name = ( $i === 0 ) ? 'Today' : $current_day_name;
 
-					$option_key = date( "l_h_i", $tNow );
+					$option_key = $current_day_name . date( "_h_i", $tNow );
 					$option_value = $day_name . ' ' . date( "g:i", $tNow );
 
 					$pickup_options[$option_key] = $option_value;
