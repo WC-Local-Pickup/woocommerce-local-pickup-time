@@ -261,7 +261,9 @@ class Local_Pickup_Time {
 		// Make sure we have a time zone set
 		$offset = get_option( 'gmt_offset' );
 		$timezone_setting = get_option( 'timezone_string' );
-
+		
+		setlocale(LC_TIME, get_locale());
+		
 		if ( $timezone_setting ) {
 			date_default_timezone_set( get_option( 'timezone_string', 'America/New_York' ) );
 		}
@@ -295,7 +297,9 @@ class Local_Pickup_Time {
 		for ( $i = 0; $i < $num_days_allowed; $i++ ) {
 
 			// Get the date of current iteration
-			$current_day_name = date( 'l', strtotime( "+$i days" ) );
+			//$current_day_name = date( 'l', strtotime( "+$i days" ) );
+			$current_day_name = strftime("%A", strtotime( "+$i days" ) );
+
 			$current_day_name_lower = strtolower( $current_day_name );
 
 			// Get the day's opening and closing times
