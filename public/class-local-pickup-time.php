@@ -34,7 +34,7 @@ class Local_Pickup_Time {
 	 *
 	 * @var      string
 	 */
-	protected $plugin_slug = 'woocommerce-local-plugin-time';
+	protected $plugin_slug = 'woocommerce-local-pickup-time';
 
 	/**
 	 * Instance of this class.
