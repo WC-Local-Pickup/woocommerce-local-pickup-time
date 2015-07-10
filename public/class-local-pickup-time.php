@@ -347,7 +347,7 @@ class Local_Pickup_Time {
 	 * @since    1.0.0
 	 */
 	public function time_select( $checkout ) {
-		echo '<div id="local-pickup-time-select"><h2>' . __( 'Pickup Time', $this->plugin_slug ) . '</h2>';
+		echo '<div id="local-pickup-time-select"><h3>' . __( 'Pickup Time', $this->plugin_slug ) . '</h3>';
 
 		woocommerce_form_field( 'local_pickup_time_select', array(
 			'type'          => 'select',
