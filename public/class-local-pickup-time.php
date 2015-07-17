@@ -261,7 +261,9 @@ class Local_Pickup_Time {
 		// Make sure we have a time zone set
 		$offset = get_option( 'gmt_offset' );
 		$timezone_setting = get_option( 'timezone_string' );
-
+		
+		setlocale(LC_TIME, get_locale());
+		
 		if ( $timezone_setting ) {
 			date_default_timezone_set( get_option( 'timezone_string', 'America/New_York' ) );
 		}
@@ -295,7 +297,9 @@ class Local_Pickup_Time {
 		for ( $i = 0; $i < $num_days_allowed; $i++ ) {
 
 			// Get the date of current iteration
-			$current_day_name = date( 'l', strtotime( "+$i days" ) );
+			//$current_day_name = date( 'l', strtotime( "+$i days" ) );
+			$current_day_name = strftime("%A", strtotime( "+$i days" ) );
+
 			$current_day_name_lower = strtolower( $current_day_name );
 
 			// Get the day's opening and closing times
@@ -325,10 +329,10 @@ class Local_Pickup_Time {
 				// Create array of time options to return to woocommerce_form_field
 				while ( $tNow <= $tEnd ) {
 
-					$day_name = ( $i === 0 ) ? 'Today' : $current_day_name;
+					$day_name = ( $i === 0 ) ?  __( 'Today', $this->plugin_slug ) : $current_day_name;
 
-					$option_key = $current_day_name . date( "_h_i", $tNow );
-					$option_value = $day_name . ' ' . date( "g:i", $tNow );
+					$option_key = $current_day_name . date( "_H_i", $tNow );
+					$option_value = $day_name . ' ' . date( "H:i", $tNow );
 
 					$pickup_options[$option_key] = $option_value;
 
@@ -347,7 +351,7 @@ class Local_Pickup_Time {
 	 * @since    1.0.0
 	 */
 	public function time_select( $checkout ) {
-		echo '<div id="local-pickup-time-select"><h2>' . __( 'Pickup Time', $this->plugin_slug ) . '</h2>';
+		echo '<div id="local-pickup-time-select"><h3>' . __( 'Pickup Time', $this->plugin_slug ) . '</h3>';
 
 		woocommerce_form_field( 'local_pickup_time_select', array(
 			'type'          => 'select',
