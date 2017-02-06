@@ -347,8 +347,8 @@ class Local_Pickup_Time {
 
 							$day_name = __( 'Today', $this->plugin_slug );
 
-							$option_key = $current_day_name . date( "_h_i", $tNow );
-							$option_value = $day_name . ' ' . date( "g:i", $tNow );
+							$option_key = $current_day_name . date( "_H_i", $tNow );
+							$option_value = $day_name . ' ' . date( "H:i", $tNow );
 
 							$pickup_options[$option_key] = $option_value;
 
