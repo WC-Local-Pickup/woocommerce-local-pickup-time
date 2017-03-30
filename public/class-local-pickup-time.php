@@ -336,7 +336,7 @@ class Local_Pickup_Time {
 						// Fix tNow if is pickup possible today				
 						if ( $i == 0 ) {
 							$todayStart = $tStart;
-							$delayStart = strtotime("+$delay_minutes minutes", $todayStart);
+							$delayStart = strtotime("+$delay_minutes minutes", $current_time);
 							while ( $todayStart <= $delayStart ) {
 								$todayStart = strtotime("+$interval minutes", $todayStart);
 							}
