@@ -318,6 +318,10 @@ class Local_Pickup_Time {
 			$tNow = $tStart;
 			$current_time = time();
 
+			// Date format based on user settings
+			$date_format = get_option('time_format');
+			$date_format_key = preg_replace("/[^\w]+/", "_", $date_format);
+
 			// If Closed today or today's pickup times are over, don't allow a pickup option
 			if ( ( in_array( $today_date, $closing_days ) || ( $current_time >= $tEnd ) )  && $num_days_allowed == 1 ) {
 
@@ -370,8 +374,8 @@ class Local_Pickup_Time {
 
 							$day_name = __( $current_day_name, $this->plugin_slug );
 
-							$option_key = $current_day_name . date( "_H_i", $tNow );
-							$option_value = $day_name . ' ' . date( "H:i", $tNow );
+							$option_key = $current_day_name . date( $date_format_key, $tNow );
+							$option_value = $day_name . ' ' . date( $date_format, $tNow );
 
 							$pickup_options[$option_key] = $option_value;
 
