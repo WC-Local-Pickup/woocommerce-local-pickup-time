@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce Local Pickup Time Select\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-07 00:12+0100\n"
+"POT-Creation-Date: 2017-05-11 11:01+0200\n"
 "POT-Revision-Date: Fri Jul 10 2015 12:46:48 GMT+0200 (CEST)\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Matt Banks <mjbanks@gmail.com>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 1.8.12\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: _:1;gettext:1;dgettext:2;ngettext:1,2;dngettext:2,3;"
 "__:1;_e:1;_c:1;_n:1,2;_n_noop:1,2;_nc:1,2;__ngettext:1,2;__ngettext_noop:1,2;"
@@ -265,47 +265,53 @@ msgstr ""
 msgid "Pickup Time:"
 msgstr ""
 
-#: public/class-local-pickup-time.php:292
+#: public/class-local-pickup-time.php:293
 msgid "Monday"
 msgstr ""
 
-#: public/class-local-pickup-time.php:293
+#: public/class-local-pickup-time.php:294
 msgid "Tuesday"
 msgstr ""
 
-#: public/class-local-pickup-time.php:294
+#: public/class-local-pickup-time.php:295
 msgid "Wednesday"
 msgstr ""
 
-#: public/class-local-pickup-time.php:295
+#: public/class-local-pickup-time.php:296
 msgid "Thursday"
 msgstr ""
 
-#: public/class-local-pickup-time.php:296
+#: public/class-local-pickup-time.php:297
 msgid "Friday"
 msgstr ""
 
-#: public/class-local-pickup-time.php:297
+#: public/class-local-pickup-time.php:298
 msgid "Saturday"
 msgstr ""
 
-#: public/class-local-pickup-time.php:298
+#: public/class-local-pickup-time.php:299
 msgid "Sunday"
 msgstr ""
 
-#: public/class-local-pickup-time.php:322
+#: public/class-local-pickup-time.php:302
+msgid "Select time"
+msgstr ""
+
+#: public/class-local-pickup-time.php:329
+#: public/class-local-pickup-time.php:391
 msgid "Closed today, please check back tomorrow!"
 msgstr ""
 
-#: public/class-local-pickup-time.php:348
+#: public/class-local-pickup-time.php:357
 msgid "Today"
 msgstr ""
 
-#: public/class-local-pickup-time.php:390
-#: public/class-local-pickup-time.php:395
+#: public/class-local-pickup-time.php:412
+#: public/class-local-pickup-time.php:417
+#: public/class-local-pickup-time.php:458
 msgid "Pickup Time"
 msgstr ""
 
-#: public/class-local-pickup-time.php:414
+#: public/class-local-pickup-time.php:436
 msgid "Please select a pickup time."
 msgstr ""
