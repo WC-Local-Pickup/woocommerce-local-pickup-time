@@ -366,33 +366,33 @@ class Local_Pickup_Time {
 				} else {
 
 					if ( !empty($open_time) && !empty($close_time )) {					
-							while ( $tNow <= $tEnd ) {
+						while ( $tNow <= $tEnd ) {
 
-								$day_name = __( $current_day_name, $this->plugin_slug );
+							$day_name = __( $current_day_name, $this->plugin_slug );
 
-								$option_key = $current_day_name . date( "_H_i", $tNow );
-								$option_value = $day_name . ' ' . date( "H:i", $tNow );
+							$option_key = $current_day_name . date( "_H_i", $tNow );
+							$option_value = $day_name . ' ' . date( "H:i", $tNow );
 
-								$pickup_options[$option_key] = $option_value;
+							$pickup_options[$option_key] = $option_value;
 
-								$tNow = strtotime( "+$interval minutes", $tNow );
-							}
+							$tNow = strtotime( "+$interval minutes", $tNow );
+
 						}
 
 					}
+				}
 
-					if ( count($pickup_options) == 1) {
-						// Set drop down text to let user know store is closed
-						$pickup_options['closed_today'] = __( 'Closed today, please check back tomorrow!', $this->plugin_slug );
+				if ( count($pickup_options) == 1) {
+					// Set drop down text to let user know store is closed
+					$pickup_options['closed_today'] = __( 'Closed today, please check back tomorrow!', $this->plugin_slug );
 
-						// Hide Order Review so user doesn't order anything today
-						remove_action( 'woocommerce_checkout_order_review', 'woocommerce_order_review', 10 );
-						remove_action( 'woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20 );
-					}
-
+					// Hide Order Review so user doesn't order anything today
+					remove_action( 'woocommerce_checkout_order_review', 'woocommerce_order_review', 10 );
+					remove_action( 'woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20 );
 				}
 
 			}
+
 
 		} // end for loop
 
