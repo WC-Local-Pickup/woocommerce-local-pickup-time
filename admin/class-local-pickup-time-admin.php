@@ -309,8 +309,22 @@ class Local_Pickup_Time_Admin {
 	 */
 	public function show_metabox( $order ){
 		$order_meta = get_post_custom( $order->id );
+		
+		echo '<p><strong>' . __( 'Pickup Time:', $this->plugin_slug ) . '</strong> ' . $this->pickup_time_select_translatable( $order_meta['_local_pickup_time_select'][0]) . '</p>';
 
-		echo '<p><strong>' . __( 'Pickup Time:', $this->plugin_slug ) . '</strong> ' . $order_meta['_local_pickup_time_select'][0] . '</p>';
 	}
+
+	/**
+	 * Return translatable pickup time
+	 *
+	 * @since    1.2.1
+	 */
+	public function pickup_time_select_translatable( $value ) {
+		$value = preg_replace('/(\d)_(\d)/','$1:$2', $value);
+		$value = explode('_', $value);
+		$return = __( $value[0], $this->plugin_slug ). ' ' .$value[1];
+		return $return;
+	}
+
 
 }
