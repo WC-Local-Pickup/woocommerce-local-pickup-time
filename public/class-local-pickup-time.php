@@ -384,21 +384,20 @@ class Local_Pickup_Time {
 						}
 
 					}
-				}
-
-				if ( count($pickup_options) == 1) {
-					// Set drop down text to let user know store is closed
-					$pickup_options['closed_today'] = __( 'Closed today, please check back tomorrow!', $this->plugin_slug );
-
-					// Hide Order Review so user doesn't order anything today
-					remove_action( 'woocommerce_checkout_order_review', 'woocommerce_order_review', 10 );
-					remove_action( 'woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20 );
-				}
+				}				
 
 			}
 
-
 		} // end for loop
+
+		if ( count($pickup_options) == 1) {
+			// Set drop down text to let user know store is closed
+			$pickup_options['closed_today'] = __( 'Closed today, please check back tomorrow!', $this->plugin_slug );
+
+			// Hide Order Review so user doesn't order anything today
+			remove_action( 'woocommerce_checkout_order_review', 'woocommerce_order_review', 10 );
+			remove_action( 'woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20 );
+		}
 
 		return $pickup_options;
 	}
