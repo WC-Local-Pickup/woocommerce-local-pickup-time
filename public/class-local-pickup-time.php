@@ -70,7 +70,8 @@ class Local_Pickup_Time {
 		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'update_order_meta' ) );
 
 		// Add local pickup time field to order emails
-		add_filter('woocommerce_email_order_meta_keys', array( $this, 'update_order_email' ) );
+		add_filter('woocommerce_email_order_meta_fields', array( $this, 'update_order_email_fields' ), 10, 3 );
+
 
 	}
 
@@ -282,14 +283,23 @@ class Local_Pickup_Time {
 		$num_days_allowed = get_option( 'local_pickup_days_ahead', 1 );
 
 		// Setup time variables for calculations
-		$delay_ahead_hour = date( 'H', strtotime( "+$delay_minutes minutes" ) );
-		$delay_ahead_minute = date( 'i', strtotime( "+$delay_minutes minutes" ) );
-		$double_delay_ahead_hour = date( 'H', strtotime( "+2 hours" ) );
 		$today_name = strtolower( date( 'l' ) );
 		$today_date = date( 'm/d/Y' );
 
 		// Create an empty array for our dates
 		$pickup_options = array();
+
+		//Translateble days
+		__( 'Monday', $this->plugin_slug );
+		__( 'Tuesday', $this->plugin_slug );
+		__( 'Wednesday', $this->plugin_slug );
+		__( 'Thursday', $this->plugin_slug );
+		__( 'Friday', $this->plugin_slug );
+		__( 'Saturday', $this->plugin_slug );
+		__( 'Sunday', $this->plugin_slug );
+
+		// Add empty option
+		$pickup_options[''] = __( 'Select time', $this->plugin_slug );
 
 		// Loop through all days ahead and add the pickup time options to the array
 		for ( $i = 0; $i < $num_days_allowed; $i++ ) {
@@ -302,41 +312,92 @@ class Local_Pickup_Time {
 			$open_time = get_option( 'local_pickup_hours_' . $current_day_name_lower . '_start', '10:00' );
 			$close_time = get_option( 'local_pickup_hours_' . $current_day_name_lower . '_end', '19:00' );
 
-			// Setup start and end times for pickup options
-			$pickup_time_begin = ( $delay_ahead_minute < $interval ) ? $delay_ahead_hour . ":$interval" : $double_delay_ahead_hour . ":00";
-
-			$start_time = ( strtotime( $pickup_time_begin ) < strtotime( $open_time ) ) ? $open_time : $pickup_time_begin;
-
 			// Today
-			$tStart = strtotime( $start_time );
+			$tStart = strtotime( $open_time );
 			$tEnd = strtotime( $close_time );
 			$tNow = $tStart;
 			$current_time = time();
 
+			// Date format based on user settings
+			$date_format = get_option('time_format');
+			$date_format_key = preg_replace("/[^\w]+/", "_", $date_format);
+
 			// If Closed today or today's pickup times are over, don't allow a pickup option
-			if ( in_array( $today_date, $closing_days ) || $current_time >= $tEnd  ) {
+			if ( ( in_array( $today_date, $closing_days ) || ( $current_time >= $tEnd ) )  && $num_days_allowed == 1 ) {
+
 				// Set drop down text to let user know store is closed
 				$pickup_options['closed_today'] = __( 'Closed today, please check back tomorrow!', $this->plugin_slug );
 
 				// Hide Order Review so user doesn't order anything today
 				remove_action( 'woocommerce_checkout_order_review', 'woocommerce_order_review', 10 );
+				remove_action( 'woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20 );
+
 			}
 			else {
 				// Create array of time options to return to woocommerce_form_field
-				while ( $tNow <= $tEnd ) {
+				
+				// Today
+				if ( $i == 0) {
 
-					$day_name = ( $i === 0 ) ? 'Today' : $current_day_name;
+					// Check if it's not too late for pickup
+					if ( $current_time < $tEnd ) {
 
-					$option_key = $current_day_name . date( "_h_i", $tNow );
-					$option_value = $day_name . ' ' . date( "g:i", $tNow );
+						// Fix tNow if is pickup possible today				
+						if ( $i == 0 ) {
+							$todayStart = $tStart;
+							$delayStart = strtotime("+$delay_minutes minutes", $current_time);
+							while ( $todayStart <= $delayStart ) {
+								$todayStart = strtotime("+$interval minutes", $todayStart);
+							}
+							$tNow = $todayStart;
+						}
 
-					$pickup_options[$option_key] = $option_value;
+						while ( $tNow <= $tEnd ) {
 
-					$tNow = strtotime( "+$interval minutes", $tNow );
-				}
+							$day_name = __( 'Today', $this->plugin_slug );
+
+							$option_key = $current_day_name . date( $date_format_key, $tNow );
+							$option_value = $day_name . ' ' . date( $date_format, $tNow );
+
+							$pickup_options[$option_key] = $option_value;
+
+							$tNow = strtotime( "+$interval minutes", $tNow );
+						}
+
+					}
+
+				// Other days
+				} else {
+
+					if ( !empty($open_time) && !empty($close_time )) {					
+						while ( $tNow <= $tEnd ) {
+
+							$day_name = __( $current_day_name, $this->plugin_slug );
+
+							$option_key = $current_day_name . date( $date_format_key, $tNow );
+							$option_value = $day_name . ' ' . date( $date_format, $tNow );
+
+							$pickup_options[$option_key] = $option_value;
+
+							$tNow = strtotime( "+$interval minutes", $tNow );
+
+						}
+
+					}
+				}				
+
 			}
 
 		} // end for loop
+
+		if ( count($pickup_options) == 1) {
+			// Set drop down text to let user know store is closed
+			$pickup_options['closed_today'] = __( 'Closed today, please check back tomorrow!', $this->plugin_slug );
+
+			// Hide Order Review so user doesn't order anything today
+			remove_action( 'woocommerce_checkout_order_review', 'woocommerce_order_review', 10 );
+			remove_action( 'woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20 );
+		}
 
 		return $pickup_options;
 	}
@@ -353,6 +414,7 @@ class Local_Pickup_Time {
 			'type'          => 'select',
 			'class'         => array( 'local-pickup-time-select-field form-row-wide' ),
 			'label'         => __( 'Pickup Time', $this->plugin_slug ),
+			'required'		=> true,
 			'options'		=> self::create_hour_options()
 		), $checkout->get_value( 'local_pickup_time_select' ));
 
@@ -364,14 +426,14 @@ class Local_Pickup_Time {
 	/**
 	 * Process the checkout
 	 *
-	 * @since    1.0.0
+	 * @since    1.2.1
 	 */
 	public function field_process() {
 		global $woocommerce;
 
 		// Check if set, if its not set add an error.
-		if ( !$_POST['local_pickup_time_select'] )
-			 $woocommerce->add_error( __( 'Please select a pickup time.', $this->plugin_slug ) );
+ 		if (!$_POST['local_pickup_time_select']) wc_add_notice(__( 'Please select a pickup time.', $this->plugin_slug ), 'error');
+
 	}
 
 	/**
@@ -384,13 +446,31 @@ class Local_Pickup_Time {
 	}
 
 	/**
-	 * Add local pickup time field to order emails
+	 * Add local pickup time fields to order emails, since the previous function has been deprecated
 	 *
-	 * @since    1.0.0
+	 * @since    1.2.1
 	 */
-	public function update_order_email( $keys ) {
-		$keys['Pickup time'] = '_local_pickup_time_select';
-		return $keys;
+	public function update_order_email_fields ( $fields, $sent_to_admin, $order ) {
+
+		$value = $this->pickup_time_select_translatable( get_post_meta( $order->id, '_local_pickup_time_select', true ));
+		$fields['meta_key'] = array(
+				'label' => __('Pickup Time', $this->plugin_slug),
+				'value' => $value);
+
+		return $fields;
 	}
+
+	/**
+	 * Return translatable pickup time
+	 *
+	 * @since    1.2.1
+	 */
+	public function pickup_time_select_translatable( $value ) {
+		$value = preg_replace('/(\d)_(\d)/','$1:$2', $value);
+		$value = explode('_', $value);
+		$return = __( $value[0], $this->plugin_slug ). ' ' .$value[1];
+		return $return;
+	}
+
 
 }
