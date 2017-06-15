@@ -6,7 +6,7 @@
  * @author    Matt Banks <mjbanks@gmail.com>
  * @license   GPL-2.0+
  * @link      http://mattbanks.me
- * @copyright 2014 Matt Banks
+ * @copyright 2014-2017 Matt Banks
  */
 
 /**
@@ -14,7 +14,7 @@
  * Defines public-facing functionality
  *
  * @package Local_Pickup_Time
- * @author  Your Name <mjbanks@gmail.com>
+ * @author  Matt Banks <mjbanks@gmail.com>
  */
 class Local_Pickup_Time {
 
@@ -25,7 +25,7 @@ class Local_Pickup_Time {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '1.2.0';
+	const VERSION = '1.3.0';
 
 	/**
 	 * Unique identifier for plugin.
@@ -335,14 +335,14 @@ class Local_Pickup_Time {
 			}
 			else {
 				// Create array of time options to return to woocommerce_form_field
-				
+
 				// Today
 				if ( $i == 0) {
 
 					// Check if it's not too late for pickup
 					if ( $current_time < $tEnd ) {
 
-						// Fix tNow if is pickup possible today				
+						// Fix tNow if is pickup possible today
 						if ( $i == 0 ) {
 							$todayStart = $tStart;
 							$delayStart = strtotime("+$delay_minutes minutes", $current_time);
@@ -369,7 +369,7 @@ class Local_Pickup_Time {
 				// Other days
 				} else {
 
-					if ( !empty($open_time) && !empty($close_time )) {					
+					if ( !empty($open_time) && !empty($close_time )) {
 						while ( $tNow <= $tEnd ) {
 
 							$day_name = __( $current_day_name, $this->plugin_slug );
@@ -384,7 +384,7 @@ class Local_Pickup_Time {
 						}
 
 					}
-				}				
+				}
 
 			}
 
@@ -426,7 +426,7 @@ class Local_Pickup_Time {
 	/**
 	 * Process the checkout
 	 *
-	 * @since    1.2.1
+	 * @since    1.3.0
 	 */
 	public function field_process() {
 		global $woocommerce;
@@ -448,7 +448,7 @@ class Local_Pickup_Time {
 	/**
 	 * Add local pickup time fields to order emails, since the previous function has been deprecated
 	 *
-	 * @since    1.2.1
+	 * @since    1.3.0
 	 */
 	public function update_order_email_fields ( $fields, $sent_to_admin, $order ) {
 
@@ -463,7 +463,7 @@ class Local_Pickup_Time {
 	/**
 	 * Return translatable pickup time
 	 *
-	 * @since    1.2.1
+	 * @since    1.3.0
 	 */
 	public function pickup_time_select_translatable( $value ) {
 		$value = preg_replace('/(\d)_(\d)/','$1:$2', $value);
