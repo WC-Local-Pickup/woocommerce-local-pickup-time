@@ -1,27 +1,29 @@
-# Loco Gettext template
-#, fuzzy
+# Copyright (C) 2018 Matt Banks
+# This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Local Pickup Time Select\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-11 11:01+0200\n"
-"POT-Revision-Date: Fri Jul 10 2015 12:46:48 GMT+0200 (CEST)\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Matt Banks <mjbanks@gmail.com>\n"
-"Language-Team: Matt Banks <mjbanks@gmail.com>\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION\n"
+"Project-Id-Version: WooCommerce Local Pickup Time Select 1.3.1\n"
+"Report-Msgid-Bugs-To: "
+"https://wordpress.org/support/plugin/woocommerce-local-pickup-time\n"
+"POT-Creation-Date: 2018-06-12 03:22:16+00:00\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2018-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Country: United States\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 1.8.12\n"
-"X-Poedit-Basepath: ..\n"
-"X-Poedit-KeywordsList: _:1;gettext:1;dgettext:2;ngettext:1,2;dngettext:2,3;"
-"__:1;_e:1;_c:1;_n:1,2;_n_noop:1,2;_nc:1,2;__ngettext:1,2;__ngettext_noop:1,2;"
-"_x:1,2c;_ex:1,2c;_nx:1,2,4c;_nx_noop:1,2,3c;_n_js:1,2;_nx_js:1,2,3c;"
-"esc_attr__:1;esc_html__:1;esc_attr_e:1;esc_html_e:1;esc_attr_x:1,2c;"
-"esc_html_x:1,2c;comments_number_link:2,3;t:1;st:1;trans:1;transChoice:1,2\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_"
+"attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
+"X-Poedit-Basepath: ../\n"
 "X-Poedit-SearchPath-0: .\n"
+"X-Poedit-Bookmarks: \n"
+"X-Textdomain-Support: yes\n"
+"X-Generator: grunt-wp-i18n1.0.2\n"
 
 #: admin/class-local-pickup-time-admin.php:92
 msgid "Store Hours and Closings for Local Pickup"
@@ -213,55 +215,35 @@ msgid ""
 "orders."
 msgstr ""
 
+#: admin/class-local-pickup-time-admin.php:270
+msgid "4 hours"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:271
+msgid "8 hours"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:272
+msgid "16 hours"
+msgstr ""
+
 #: admin/class-local-pickup-time-admin.php:273
-msgid "Pickup Time Days Ahead"
+msgid "24 hours"
 msgstr ""
 
 #: admin/class-local-pickup-time-admin.php:274
+msgid "36 hours"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:278
+msgid "Pickup Time Days Ahead"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:279
 msgid "Choose the number of days ahead for allowing local pickup orders."
 msgstr ""
 
-#: admin/class-local-pickup-time-admin.php:282
-msgid "1 day"
-msgstr ""
-
-#: admin/class-local-pickup-time-admin.php:283
-msgid "2 days"
-msgstr ""
-
-#: admin/class-local-pickup-time-admin.php:284
-msgid "3 days"
-msgstr ""
-
-#: admin/class-local-pickup-time-admin.php:285
-msgid "4 days"
-msgstr ""
-
-#: admin/class-local-pickup-time-admin.php:286
-msgid "5 days"
-msgstr ""
-
-#: admin/class-local-pickup-time-admin.php:287
-msgid "6 days"
-msgstr ""
-
-#: admin/class-local-pickup-time-admin.php:288
-msgid "7 days"
-msgstr ""
-
-#: admin/class-local-pickup-time-admin.php:289
-msgid "8 days"
-msgstr ""
-
-#: admin/class-local-pickup-time-admin.php:290
-msgid "9 days"
-msgstr ""
-
-#: admin/class-local-pickup-time-admin.php:291
-msgid "10 days"
-msgstr ""
-
-#: admin/class-local-pickup-time-admin.php:313
+#: admin/class-local-pickup-time-admin.php:309
 msgid "Pickup Time:"
 msgstr ""
 
@@ -297,21 +279,39 @@ msgstr ""
 msgid "Select time"
 msgstr ""
 
-#: public/class-local-pickup-time.php:329
-#: public/class-local-pickup-time.php:391
+#: public/class-local-pickup-time.php:331
+#: public/class-local-pickup-time.php:400
 msgid "Closed today, please check back tomorrow!"
 msgstr ""
 
-#: public/class-local-pickup-time.php:357
+#: public/class-local-pickup-time.php:362
 msgid "Today"
 msgstr ""
 
-#: public/class-local-pickup-time.php:412
-#: public/class-local-pickup-time.php:417
-#: public/class-local-pickup-time.php:458
+#: public/class-local-pickup-time.php:416
+#: public/class-local-pickup-time.php:421
+#: public/class-local-pickup-time.php:462
 msgid "Pickup Time"
 msgstr ""
 
-#: public/class-local-pickup-time.php:436
+#: public/class-local-pickup-time.php:440
 msgid "Please select a pickup time."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Local Pickup Time Select"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://mattbanks.me"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Add an an option to WooCommerce checkout pages for Local Pickup that allows "
+"the user to choose a pickup time."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Matt Banks"
 msgstr ""

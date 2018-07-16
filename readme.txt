@@ -1,10 +1,10 @@
 === WooCommerce Local Pickup Time Select ===
-Contributors: mjbanks, vyskoczilova
+Contributors: mjbanks, vyskoczilova, tnolte
 Donate link: http://mattbanks.me
 Tags: woocommcerce, shipping, local pickup, checkout fields, ecommerce, e-commerce, wordpress ecommerce
 Requires at least: 3.8
 Tested up to: 4.8
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -69,6 +69,12 @@ The location, by default, is hooked to `woocommerce_admin_order_data_after_billi
 1. Front-end display on Checkout page
 
 == Changelog ==
+
+= 1.3.1 =
+* expands pickup time delay to include 4/8/16/24/36 hours.
+* changes days ahead setting to allow any number of days via text input.
+* changes customer display of pickup time to include the date using the WordPress date format setting.
+* removes closed dates from option list even if it's not today.
 
 = 1.3.0 =
 * fix pickup time for multiple locales and update translations (props vyskoczilova)

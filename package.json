@@ -1,0 +1,31 @@
+{
+  "name": "woocommerce-local-pickup-time",
+  "version": "1.3.1",
+  "description": "Add an an option to WooCommerce checkout pages for Local Pickup that allows the user to choose a pickup time.",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mattbanks/woocommerce-local-pickup-time"
+  },
+  "keywords": [
+    "wordpress",
+    "woocommerce"
+  ],
+  "author": "Matt Banks",
+  "license": "GPL-2.0+",
+  "bugs": {
+    "url": "https://github.com/mattbanks/woocommerce-local-pickup-time/issues"
+  },
+  "homepage": "https://github.com/mattbanks/woocommerce-local-pickup-time#readme",
+  "devDependencies": {
+    "grunt": "^1.0.3",
+    "grunt-po2mo": "^0.1.2",
+    "grunt-wp-i18n": "^1.0.2"
+  },
+  "dependencies": {
+    "dev-require": "^0.1.0"
+  }
+}
