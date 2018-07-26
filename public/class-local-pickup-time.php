@@ -334,9 +334,9 @@ class Local_Pickup_Time {
 				remove_action( 'woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20 );
 
       }
-      elseif ( in_array( $current_date, $closing_days ) ) {
-        continue;
-      }
+			elseif ( in_array( $current_date, $closing_days ) ) {
+				continue;
+			}
 			else {
 				// Create array of time options to return to woocommerce_form_field
 
@@ -371,20 +371,20 @@ class Local_Pickup_Time {
 				// Other days
 				} else {
 
-         	$delayStart = strtotime( "+$delay_minutes minutes" );
-          if ( !empty($open_time) && !empty($close_time )) {
+					$delayStart = strtotime( "+$delay_minutes minutes" );
+					if ( !empty($open_time) && !empty($close_time )) {
 
-            while ( $tNow <= $tEnd ) {
+						while ( $tNow <= $tEnd ) {
               
-              if ( $tNow > $delayStart ) {
-                $day_name = __( $current_date_fmt, $this->plugin_slug, 'woocommerce-local-pickup-time' );
+							if ( $tNow > $delayStart ) {
+								$day_name = __( $current_date_fmt, $this->plugin_slug, 'woocommerce-local-pickup-time' );
 
-							  $option_key = $current_date . date( $date_format_key, $tNow );
-							  $option_value = $day_name . ' @ ' . date( $date_format, $tNow );
+								$option_key = $current_date . date( $date_format_key, $tNow );
+								$option_value = $day_name . ' @ ' . date( $date_format, $tNow );
 
-                $pickup_options[$option_key] = $option_value;
+								$pickup_options[$option_key] = $option_value;
 
-              }
+							}
 
 							$tNow = strtotime( "+$interval minutes", $tNow );
 
