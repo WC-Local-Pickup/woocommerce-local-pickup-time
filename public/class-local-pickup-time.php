@@ -333,7 +333,7 @@ class Local_Pickup_Time {
 				remove_action( 'woocommerce_checkout_order_review', 'woocommerce_order_review', 10 );
 				remove_action( 'woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20 );
 
-      }
+			}
 			elseif ( in_array( $current_date, $closing_days ) ) {
 				continue;
 			}
@@ -349,9 +349,13 @@ class Local_Pickup_Time {
 						// Fix tNow if is pickup possible today
 						$todayStart = $tStart;
 						$delayStart = strtotime("+$delay_minutes minutes", $current_time);
+
 						while ( $todayStart <= $delayStart ) {
+
 							$todayStart = strtotime("+$interval minutes", $todayStart);
-						}
+
+            }
+
 						$tNow = $todayStart;
 
 						while ( $tNow <= $tEnd ) {
@@ -364,6 +368,7 @@ class Local_Pickup_Time {
 							$pickup_options[$option_key] = $option_value;
 
 							$tNow = strtotime( "+$interval minutes", $tNow );
+
 						}
 
 					}
@@ -372,11 +377,13 @@ class Local_Pickup_Time {
 				} else {
 
 					$delayStart = strtotime( "+$delay_minutes minutes" );
+
 					if ( !empty($open_time) && !empty($close_time )) {
 
 						while ( $tNow <= $tEnd ) {
-              
+
 							if ( $tNow > $delayStart ) {
+
 								$day_name = __( $current_date_fmt, $this->plugin_slug, 'woocommerce-local-pickup-time' );
 
 								$option_key = $current_date . date( $date_format_key, $tNow );
@@ -391,6 +398,7 @@ class Local_Pickup_Time {
 						}
 
 					}
+
 				}
 
 			}
@@ -398,12 +406,14 @@ class Local_Pickup_Time {
 		} // end for loop
 
 		if ( count($pickup_options) == 1) {
+
 			// Set drop down text to let user know store is closed
 			$pickup_options['closed_today'] = __( 'Closed today, please check back tomorrow!', $this->plugin_slug, 'woocommerce-local-pickup-time' );
 
 			// Hide Order Review so user doesn't order anything today
 			remove_action( 'woocommerce_checkout_order_review', 'woocommerce_order_review', 10 );
 			remove_action( 'woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20 );
+
 		}
 
 		return $pickup_options;
