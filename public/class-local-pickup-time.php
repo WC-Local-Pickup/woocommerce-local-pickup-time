@@ -354,7 +354,7 @@ class Local_Pickup_Time {
 
 							$todayStart = strtotime("+$interval minutes", $todayStart);
 
-            }
+						}
 
 						$tNow = $todayStart;
 
