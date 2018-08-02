@@ -1,7 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WooCommerce Local Pickup Time Select\n"
-"POT-Creation-Date: 2017-05-11 11:01+0200\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-local-"
+"pickup-time\n"
+"POT-Creation-Date: 2018-06-12 03:22:16+00:00\n"
 "PO-Revision-Date: 2017-05-11 11:03+0200\n"
 "Last-Translator: Karolína Vyskočilová <karolina@kybernaut.cz>\n"
 "Language-Team: Matt Banks <mjbanks@gmail.com>\n"
@@ -208,55 +210,35 @@ msgid ""
 "orders."
 msgstr ""
 
+#: admin/class-local-pickup-time-admin.php:270
+msgid "4 hours"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:271
+msgid "8 hours"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:272
+msgid "16 hours"
+msgstr ""
+
 #: admin/class-local-pickup-time-admin.php:273
-msgid "Pickup Time Days Ahead"
+msgid "24 hours"
 msgstr ""
 
 #: admin/class-local-pickup-time-admin.php:274
+msgid "36 hours"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:278
+msgid "Pickup Time Days Ahead"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:279
 msgid "Choose the number of days ahead for allowing local pickup orders."
 msgstr ""
 
-#: admin/class-local-pickup-time-admin.php:282
-msgid "1 day"
-msgstr ""
-
-#: admin/class-local-pickup-time-admin.php:283
-msgid "2 days"
-msgstr ""
-
-#: admin/class-local-pickup-time-admin.php:284
-msgid "3 days"
-msgstr ""
-
-#: admin/class-local-pickup-time-admin.php:285
-msgid "4 days"
-msgstr ""
-
-#: admin/class-local-pickup-time-admin.php:286
-msgid "5 days"
-msgstr ""
-
-#: admin/class-local-pickup-time-admin.php:287
-msgid "6 days"
-msgstr ""
-
-#: admin/class-local-pickup-time-admin.php:288
-msgid "7 days"
-msgstr ""
-
-#: admin/class-local-pickup-time-admin.php:289
-msgid "8 days"
-msgstr ""
-
-#: admin/class-local-pickup-time-admin.php:290
-msgid "9 days"
-msgstr ""
-
-#: admin/class-local-pickup-time-admin.php:291
-msgid "10 days"
-msgstr ""
-
-#: admin/class-local-pickup-time-admin.php:313
+#: admin/class-local-pickup-time-admin.php:309
 msgid "Pickup Time:"
 msgstr ""
 
@@ -292,21 +274,39 @@ msgstr ""
 msgid "Select time"
 msgstr ""
 
-#: public/class-local-pickup-time.php:329
-#: public/class-local-pickup-time.php:391
+#: public/class-local-pickup-time.php:331
+#: public/class-local-pickup-time.php:400
 msgid "Closed today, please check back tomorrow!"
 msgstr ""
 
-#: public/class-local-pickup-time.php:357
+#: public/class-local-pickup-time.php:362
 msgid "Today"
 msgstr ""
 
-#: public/class-local-pickup-time.php:412
-#: public/class-local-pickup-time.php:417
-#: public/class-local-pickup-time.php:458
+#: public/class-local-pickup-time.php:416
+#: public/class-local-pickup-time.php:421
+#: public/class-local-pickup-time.php:462
 msgid "Pickup Time"
 msgstr ""
 
-#: public/class-local-pickup-time.php:436
+#: public/class-local-pickup-time.php:440
 msgid "Please select a pickup time."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Local Pickup Time Select"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://mattbanks.me"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Add an an option to WooCommerce checkout pages for Local Pickup that allows "
+"the user to choose a pickup time."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Matt Banks"
 msgstr ""

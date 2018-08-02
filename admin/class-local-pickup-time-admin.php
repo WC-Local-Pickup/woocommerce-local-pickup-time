@@ -89,14 +89,14 @@ class Local_Pickup_Time_Admin {
 
 		$updated_settings[] = array(
 			array(
-				'title' => __( 'Store Hours and Closings for Local Pickup', $this->plugin_slug ),
+				'title' => __( 'Store Hours and Closings for Local Pickup', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
 				'type' => 'title',
-				'desc' => __('The following options affect when order pickups begin and end each day, and which days to not allow order pickups.', $this->plugin_slug ),
+				'desc' => __('The following options affect when order pickups begin and end each day, and which days to not allow order pickups.', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
 				'id' => 'local_pickup_hours'
 			),
 			array(
-				'title'     => __( 'Monday Pickup Start Time (use 24-hour time)', $this->plugin_slug ),
-				'desc'     => __( 'This sets the pickup start time for Monday. Use 24-hour time format.', $this->plugin_slug ),
+				'title'     => __( 'Monday Pickup Start Time (use 24-hour time)', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+				'desc'     => __( 'This sets the pickup start time for Monday. Use 24-hour time format.', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
 				'id'       => 'local_pickup_hours_monday_start',
 				'css'      => 'width:100px;',
 				'default'  => '10:00',
@@ -104,8 +104,8 @@ class Local_Pickup_Time_Admin {
 				'desc_tip' =>  true,
 			),
 			array(
-				'title'     => __( 'Monday Pickup End Time (use 24-hour time)', $this->plugin_slug ),
-				'desc'     => __( 'This sets the pickup end time for Monday. Use 24-hour time format.', $this->plugin_slug ),
+				'title'     => __( 'Monday Pickup End Time (use 24-hour time)', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+				'desc'     => __( 'This sets the pickup end time for Monday. Use 24-hour time format.', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
 				'id'       => 'local_pickup_hours_monday_end',
 				'css'      => 'width:100px;',
 				'default'  => '19:00',
@@ -113,8 +113,8 @@ class Local_Pickup_Time_Admin {
 				'desc_tip' =>  true,
 			),
 			array(
-				'title'     => __( 'Tuesday Pickup Start Time (use 24-hour time)', $this->plugin_slug ),
-				'desc'     => __( 'This sets the pickup start time for Tuesday. Use 24-hour time format.', $this->plugin_slug ),
+				'title'     => __( 'Tuesday Pickup Start Time (use 24-hour time)', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+				'desc'     => __( 'This sets the pickup start time for Tuesday. Use 24-hour time format.', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
 				'id'       => 'local_pickup_hours_tuesday_start',
 				'css'      => 'width:100px;',
 				'default'  => '10:00',
@@ -122,8 +122,8 @@ class Local_Pickup_Time_Admin {
 				'desc_tip' =>  true,
 			),
 			array(
-				'title'     => __( 'Tuesday Pickup End Time (use 24-hour time)', $this->plugin_slug ),
-				'desc'     => __( 'This sets the pickup end time for Tuesday. Use 24-hour time format.', $this->plugin_slug ),
+				'title'     => __( 'Tuesday Pickup End Time (use 24-hour time)', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+				'desc'     => __( 'This sets the pickup end time for Tuesday. Use 24-hour time format.', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
 				'id'       => 'local_pickup_hours_tuesday_end',
 				'css'      => 'width:100px;',
 				'default'  => '19:00',
@@ -131,8 +131,8 @@ class Local_Pickup_Time_Admin {
 				'desc_tip' =>  true,
 			),
 			array(
-				'title'     => __( 'Wednesday Pickup Start Time (use 24-hour time)', $this->plugin_slug ),
-				'desc'     => __( 'This sets the pickup start time for Wednesday. Use 24-hour time format.', $this->plugin_slug ),
+				'title'     => __( 'Wednesday Pickup Start Time (use 24-hour time)', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+				'desc'     => __( 'This sets the pickup start time for Wednesday. Use 24-hour time format.', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
 				'id'       => 'local_pickup_hours_wednesday_start',
 				'css'      => 'width:100px;',
 				'default'  => '10:00',
@@ -140,8 +140,8 @@ class Local_Pickup_Time_Admin {
 				'desc_tip' =>  true,
 			),
 			array(
-				'title'     => __( 'Wednesday Pickup End Time (use 24-hour time)', $this->plugin_slug ),
-				'desc'     => __( 'This sets the pickup end time for Wednesday. Use 24-hour time format.', $this->plugin_slug ),
+				'title'     => __( 'Wednesday Pickup End Time (use 24-hour time)', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+				'desc'     => __( 'This sets the pickup end time for Wednesday. Use 24-hour time format.', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
 				'id'       => 'local_pickup_hours_wednesday_end',
 				'css'      => 'width:100px;',
 				'default'  => '19:00',
@@ -149,8 +149,8 @@ class Local_Pickup_Time_Admin {
 				'desc_tip' =>  true,
 			),
 			array(
-				'title'     => __( 'Thursday Pickup Start Time (use 24-hour time)', $this->plugin_slug ),
-				'desc'     => __( 'This sets the pickup start time for Thursday. Use 24-hour time format.', $this->plugin_slug ),
+				'title'     => __( 'Thursday Pickup Start Time (use 24-hour time)', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+				'desc'     => __( 'This sets the pickup start time for Thursday. Use 24-hour time format.', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
 				'id'       => 'local_pickup_hours_thursday_start',
 				'css'      => 'width:100px;',
 				'default'  => '10:00',
@@ -158,8 +158,8 @@ class Local_Pickup_Time_Admin {
 				'desc_tip' =>  true,
 			),
 			array(
-				'title'     => __( 'Thursday Pickup End Time (use 24-hour time)', $this->plugin_slug ),
-				'desc'     => __( 'This sets the pickup end time for Thursday. Use 24-hour time format.', $this->plugin_slug ),
+				'title'     => __( 'Thursday Pickup End Time (use 24-hour time)', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+				'desc'     => __( 'This sets the pickup end time for Thursday. Use 24-hour time format.', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
 				'id'       => 'local_pickup_hours_thursday_end',
 				'css'      => 'width:100px;',
 				'default'  => '19:00',
@@ -167,8 +167,8 @@ class Local_Pickup_Time_Admin {
 				'desc_tip' =>  true,
 			),
 			array(
-				'title'     => __( 'Friday Pickup Start Time (use 24-hour time)', $this->plugin_slug ),
-				'desc'     => __( 'This sets the pickup start time for Friday. Use 24-hour time format.', $this->plugin_slug ),
+				'title'     => __( 'Friday Pickup Start Time (use 24-hour time)', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+				'desc'     => __( 'This sets the pickup start time for Friday. Use 24-hour time format.', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
 				'id'       => 'local_pickup_hours_friday_start',
 				'css'      => 'width:100px;',
 				'default'  => '10:00',
@@ -176,8 +176,8 @@ class Local_Pickup_Time_Admin {
 				'desc_tip' =>  true,
 			),
 			array(
-				'title'     => __( 'Friday Pickup End Time (use 24-hour time)', $this->plugin_slug ),
-				'desc'     => __( 'This sets the pickup end time for Friday. Use 24-hour time format.', $this->plugin_slug ),
+				'title'     => __( 'Friday Pickup End Time (use 24-hour time)', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+				'desc'     => __( 'This sets the pickup end time for Friday. Use 24-hour time format.', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
 				'id'       => 'local_pickup_hours_friday_end',
 				'css'      => 'width:100px;',
 				'default'  => '19:00',
@@ -185,8 +185,8 @@ class Local_Pickup_Time_Admin {
 				'desc_tip' =>  true,
 			),
 			array(
-				'title'     => __( 'Saturday Pickup Start Time (use 24-hour time)', $this->plugin_slug ),
-				'desc'     => __( 'This sets the pickup start time for Saturday. Use 24-hour time format.', $this->plugin_slug ),
+				'title'     => __( 'Saturday Pickup Start Time (use 24-hour time)', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+				'desc'     => __( 'This sets the pickup start time for Saturday. Use 24-hour time format.', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
 				'id'       => 'local_pickup_hours_saturday_start',
 				'css'      => 'width:100px;',
 				'default'  => '10:00',
@@ -194,8 +194,8 @@ class Local_Pickup_Time_Admin {
 				'desc_tip' =>  true,
 			),
 			array(
-				'title'     => __( 'Saturday Pickup End Time (use 24-hour time)', $this->plugin_slug ),
-				'desc'     => __( 'This sets the pickup end time for Saturday. Use 24-hour time format.', $this->plugin_slug ),
+				'title'     => __( 'Saturday Pickup End Time (use 24-hour time)', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+				'desc'     => __( 'This sets the pickup end time for Saturday. Use 24-hour time format.', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
 				'id'       => 'local_pickup_hours_saturday_end',
 				'css'      => 'width:100px;',
 				'default'  => '19:00',
@@ -203,8 +203,8 @@ class Local_Pickup_Time_Admin {
 				'desc_tip' =>  true,
 			),
 			array(
-				'title'     => __( 'Sunday Pickup Start Time (use 24-hour time)', $this->plugin_slug ),
-				'desc'     => __( 'This sets the pickup start time for Sunday. Use 24-hour time format.', $this->plugin_slug ),
+				'title'     => __( 'Sunday Pickup Start Time (use 24-hour time)', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+				'desc'     => __( 'This sets the pickup start time for Sunday. Use 24-hour time format.', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
 				'id'       => 'local_pickup_hours_sunday_start',
 				'css'      => 'width:100px;',
 				'default'  => '10:00',
@@ -212,8 +212,8 @@ class Local_Pickup_Time_Admin {
 				'desc_tip' =>  true,
 			),
 			array(
-				'title'     => __( 'Sunday Pickup End Time (use 24-hour time)', $this->plugin_slug ),
-				'desc'     => __( 'This sets the pickup end time for Sunday. Use 24-hour time format.', $this->plugin_slug ),
+				'title'     => __( 'Sunday Pickup End Time (use 24-hour time)', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+				'desc'     => __( 'This sets the pickup end time for Sunday. Use 24-hour time format.', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
 				'id'       => 'local_pickup_hours_sunday_end',
 				'css'      => 'width:100px;',
 				'default'  => '19:00',
@@ -221,8 +221,8 @@ class Local_Pickup_Time_Admin {
 				'desc_tip' =>  true,
 			),
 			array(
-				'title'     => __( 'Store Closing Days (use MM/DD/YYYY format)', $this->plugin_slug ),
-				'desc'     => __( 'This sets the days the store is closed. Enter one date per line, in format MM/DD/YYYY.', $this->plugin_slug ),
+				'title'     => __( 'Store Closing Days (use MM/DD/YYYY format)', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+				'desc'     => __( 'This sets the days the store is closed. Enter one date per line, in format MM/DD/YYYY.', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
 				'id'       => 'local_pickup_hours_closings',
 				'css'      => 'width:250px;height:150px;',
 				'default'  => '01/01/2014',
@@ -230,8 +230,8 @@ class Local_Pickup_Time_Admin {
 				'desc_tip' =>  true,
 			),
 			array(
-				'title'     => __( 'Pickup Time Interval', $this->plugin_slug ),
-				'desc'     => __( 'Choose the time interval for allowing local pickup orders.', $this->plugin_slug ),
+				'title'     => __( 'Pickup Time Interval', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+				'desc'     => __( 'Choose the time interval for allowing local pickup orders.', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
 				'id'       => 'local_pickup_hours_interval',
 				'css'      => 'width:100px;',
 				'default'  => '30',
@@ -239,19 +239,19 @@ class Local_Pickup_Time_Admin {
 				'class'		=> 'chosen_select',
 				'desc_tip' =>  true,
 				'options' => array(
-					'5'      => __( '5 minutes', $this->plugin_slug ),
-					'10'      => __( '10 minutes', $this->plugin_slug ),
-					'15'      => __( '15 minutes', $this->plugin_slug ),
-					'20'      => __( '20 minutes', $this->plugin_slug ),
-					'30'	  => __( '30 minutes', $this->plugin_slug ),
-					'45'	  => __( '45 minutes', $this->plugin_slug ),
-					'60'	  => __( '1 hour', $this->plugin_slug ),
-					'120'	  => __( '2 hours', $this->plugin_slug ),
+					'5'      => __( '5 minutes', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+					'10'      => __( '10 minutes', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+					'15'      => __( '15 minutes', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+					'20'      => __( '20 minutes', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+					'30'	  => __( '30 minutes', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+					'45'	  => __( '45 minutes', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+					'60'	  => __( '1 hour', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+					'120'	  => __( '2 hours', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
 				)
 			),
 			array(
-				'title'     => __( 'Pickup Time Delay', $this->plugin_slug ),
-				'desc'     => __( 'Choose the time delay from the time of ordering for allowing local pickup orders.', $this->plugin_slug ),
+				'title'     => __( 'Pickup Time Delay', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+				'desc'     => __( 'Choose the time delay from the time of ordering for allowing local pickup orders.', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
 				'id'       => 'local_pickup_delay_minutes',
 				'css'      => 'width:100px;',
 				'default'  => '60',
@@ -259,37 +259,33 @@ class Local_Pickup_Time_Admin {
 				'class'		=> 'chosen_select',
 				'desc_tip' =>  true,
 				'options' => array(
-					'5'      => __( '5 minutes', $this->plugin_slug ),
-					'10'      => __( '10 minutes', $this->plugin_slug ),
-					'15'      => __( '15 minutes', $this->plugin_slug ),
-					'20'      => __( '20 minutes', $this->plugin_slug ),
-					'30'	  => __( '30 minutes', $this->plugin_slug ),
-					'45'	  => __( '45 minutes', $this->plugin_slug ),
-					'60'	  => __( '1 hour', $this->plugin_slug ),
-					'120'	  => __( '2 hours', $this->plugin_slug ),
+					'5'      => __( '5 minutes', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+					'10'      => __( '10 minutes', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+					'15'      => __( '15 minutes', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+					'20'      => __( '20 minutes', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+					'30'	  => __( '30 minutes', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+					'45'	  => __( '45 minutes', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+					'60'	  => __( '1 hour', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+					'120'	  => __( '2 hours', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+					'240'   => __( '4 hours', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+					'480'   => __( '8 hours', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+					'960'   => __( '16 hours', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+					'1440'  => __( '24 hours', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+					'2160'  => __( '36 hours', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
 				)
 			),
 			array(
-				'title'     => __( 'Pickup Time Days Ahead', $this->plugin_slug ),
-				'desc'     => __( 'Choose the number of days ahead for allowing local pickup orders.', $this->plugin_slug ),
+				'title'     => __( 'Pickup Time Days Ahead', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
+				'desc'     => __( 'Choose the number of days ahead for allowing local pickup orders.', $this->plugin_slug, 'woocommerce-local-pickup-time' ),
 				'id'       => 'local_pickup_days_ahead',
 				'css'      => 'width:100px;',
 				'default'  => '1',
-				'type'     => 'select',
-				'class'		=> 'chosen_select',
+				'type'     => 'number',
+				'input_attrs' => array(
+					'min'  => 0,
+					'step' => 1,
+				),
 				'desc_tip' =>  true,
-				'options' => array(
-					'1'      => __( '1 day', $this->plugin_slug ),
-					'2'      => __( '2 days', $this->plugin_slug ),
-					'3'      => __( '3 days', $this->plugin_slug ),
-					'4'      => __( '4 days', $this->plugin_slug ),
-					'5'	  	 => __( '5 days', $this->plugin_slug ),
-					'6'		 => __( '6 days', $this->plugin_slug ),
-					'7'	  	 => __( '7 days', $this->plugin_slug ),
-					'8'	  	 => __( '8 days', $this->plugin_slug ),
-					'9'	  	 => __( '9 days', $this->plugin_slug ),
-					'10'	 => __( '10 days', $this->plugin_slug ),
-				)
 			),
 			array( 'type' => 'sectionend', 'id' => 'pricing_options' ),
 		);
@@ -310,7 +306,7 @@ class Local_Pickup_Time_Admin {
 	public function show_metabox( $order ){
 		$order_meta = get_post_custom( $order->id );
 
-		echo '<p><strong>' . __( 'Pickup Time:', $this->plugin_slug ) . '</strong> ' . $this->pickup_time_select_translatable( $order_meta['_local_pickup_time_select'][0]) . '</p>';
+		echo '<p><strong>' . __( 'Pickup Time:', $this->plugin_slug, 'woocommerce-local-pickup-time' ) . '</strong> ' . $this->pickup_time_select_translatable( $order_meta['_local_pickup_time_select'][0]) . '</p>';
 
 	}
 
@@ -322,7 +318,7 @@ class Local_Pickup_Time_Admin {
 	public function pickup_time_select_translatable( $value ) {
 		$value = preg_replace('/(\d)_(\d)/','$1:$2', $value);
 		$value = explode('_', $value);
-		$return = __( $value[0], $this->plugin_slug ). ' ' .$value[1];
+		$return = __( $value[0], $this->plugin_slug, 'woocommerce-local-pickup-time' ). ' ' .$value[1];
 		return $return;
 	}
 
