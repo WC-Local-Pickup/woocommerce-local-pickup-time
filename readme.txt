@@ -70,6 +70,10 @@ The location, by default, is hooked to `woocommerce_admin_order_data_after_billi
 
 == Changelog ==
 
+= 1.3.2 =
+* fixes issue with missing space in pickup time options, from 1.3.1.
+* adds pickup date/time to Order List in Admin Dashboard.
+
 = 1.3.1 =
 * expands pickup time delay to include 4/8/16/24/36 hours.
 * changes days ahead setting to allow any number of days via text input.
