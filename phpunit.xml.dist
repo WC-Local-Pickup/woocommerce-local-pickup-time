@@ -7,24 +7,12 @@
 	convertWarningsToExceptions="true"
 	>
 	<testsuites>
-		<testsuite name="Main">
-			<file>./tests/PluginTest.php</file>
-		</testsuite>
-		
-		<testsuite name="Common">
-			<directory suffix="Test.php">./tests/Common/</directory>
-		</testsuite>
-		
 		<testsuite name="Admin">
 			<directory suffix="Test.php">./tests/Admin/</directory>
 		</testsuite>
 		
-		<testsuite name="Frontend">
-			<directory suffix="Test.php">./tests/Frontend/</directory>
-		</testsuite>
-		
-		<testsuite name="Models">
-			<directory suffix="Test.php">./tests/Models/</directory>
+		<testsuite name="Public">
+			<directory suffix="Test.php">./tests/Public/</directory>
 		</testsuite>
 	</testsuites>
 	<filter>
