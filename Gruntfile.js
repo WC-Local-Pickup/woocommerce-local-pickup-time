@@ -45,14 +45,27 @@ module.exports = function(grunt) {
                 expand: true
             }
         },
+        
+        phpunit: {
+            classes: {
+                dir: 'tests/'
+            },
+            options: {
+                bin: 'vendor/bin/phpunit',
+                bootstrap: 'tests/bootstrap.php',
+                colors: true
+            }
+        }
     });
 
     grunt.loadNpmTasks( 'grunt-wp-i18n' );
     grunt.loadNpmTasks( 'grunt-po2mo' );
     grunt.loadNpmTasks( 'grunt-wp-readme-to-markdown' );
+    grunt.loadNpmTasks( 'grunt-phpunit' );
 
 		grunt.registerTask( 'i18n', ['addtextdomain', 'makepot', 'po2mo'] );
     grunt.registerTask( 'readme', ['wp_readme_to_markdown'] );
+    grunt.registerTask( 'test', ['phpunit'] );
     //grunt.registerTask( 'default', ['makepot', 'po2mo'] );
 };
 

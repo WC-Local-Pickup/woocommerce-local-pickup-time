@@ -1,0 +1,46 @@
+<phpunit
+	bootstrap="../bootstrap.php"
+	backupGlobals="false"
+	colors="true"
+	convertErrorsToExceptions="true"
+	convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true"
+	>
+	<php>
+     <const name="WP_TESTS_MULTISITE" value="1" />
+  </php>
+  <testsuites>
+		<testsuite name="Main">
+			<file>../PluginTest.php</file>
+		</testsuite>
+		
+		<testsuite name="Common">
+			<directory suffix="Test.php">../Common/</directory>
+		</testsuite>
+		
+		<testsuite name="Admin">
+			<directory suffix="Test.php">../Admin/</directory>
+		</testsuite>
+		
+		<testsuite name="Frontend">
+			<directory suffix="Test.php">../Frontend/</directory>
+		</testsuite>
+		
+		<testsuite name="Models">
+			<directory suffix="Test.php">../Models/</directory>
+		</testsuite>
+	</testsuites>
+	<filter>
+		<whitelist processUncoveredFilesFromWhitelist="true">
+			<directory suffix=".php">../../src/</directory>
+			<!-- <file>/path/to/file</file> -->
+			<exclude>
+				<directory suffix=".php">../../src/views</directory>
+				<!-- <file>/path/to/file</file> -->
+			</exclude> -->
+		</whitelist>
+	</filter>
+	<logging>
+		<log type="coverage-clover" target="clover.xml"/>
+	</logging>
+</phpunit>
