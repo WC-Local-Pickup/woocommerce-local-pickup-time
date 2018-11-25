@@ -3,8 +3,8 @@
 **Donate link:** http://mattbanks.me  
 **Tags:** woocommcerce, shipping, local pickup, checkout fields, ecommerce, e-commerce, wordpress ecommerce  
 **Requires at least:** 3.8  
-**Tested up to:** 4.8  
-**Stable tag:** 1.3.1  
+**Tested up to:** 4.9.8  
+**Stable tag:** 1.3.2  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -14,9 +14,7 @@ Add an option to WooCommerce checkout pages for Local Pickup orders to allow the
 
 Local Pickup Time extends the [WooCommerce](http://wordpress.org/plugins/woocommerce/) Local Pickup shipping option to allow users to choose a pickup time.
 
-In the admin area, under WooCommerce -> Settings -> General, you can set the start and end times for order pickups each day, as well as define days the store is closed and allow you to select a time interval for allowing pickups.
-
-**Right now, the plugin works for pickups on the current day only. It will support an option to choose the number of days ahead to allow pickup orders in an upcoming version.**
+In the admin area, under WooCommerce -> Settings -> General, you can set the start and end times for order pickups each day, as well as define days the store is closed and allow you to select a time interval for allowing pickups. In addition, you can specify a time delay between when a customer places their order and when they can pickup their order to account for processing time, as well as how many days ahead a customer can choose for their delivery.
 
 ** Requires WooCommerce 2.x **
 
