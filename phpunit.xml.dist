@@ -1,0 +1,43 @@
+<phpunit
+	bootstrap="tests/bootstrap.php"
+	backupGlobals="false"
+	colors="true"
+	convertErrorsToExceptions="true"
+	convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true"
+	>
+	<testsuites>
+		<testsuite name="Main">
+			<file>./tests/PluginTest.php</file>
+		</testsuite>
+		
+		<testsuite name="Common">
+			<directory suffix="Test.php">./tests/Common/</directory>
+		</testsuite>
+		
+		<testsuite name="Admin">
+			<directory suffix="Test.php">./tests/Admin/</directory>
+		</testsuite>
+		
+		<testsuite name="Frontend">
+			<directory suffix="Test.php">./tests/Frontend/</directory>
+		</testsuite>
+		
+		<testsuite name="Models">
+			<directory suffix="Test.php">./tests/Models/</directory>
+		</testsuite>
+	</testsuites>
+	<filter>
+		<whitelist processUncoveredFilesFromWhitelist="true">
+			<directory suffix=".php">src/</directory>
+			<!-- <file>/path/to/file</file> -->
+			<exclude>
+				<directory suffix=".php">src/views</directory>
+				<!-- <file>/path/to/file</file> -->
+			</exclude> -->
+		</whitelist>
+	</filter>
+	<logging>
+		<log type="coverage-clover" target="clover.xml"/>
+	</logging>
+</phpunit>
