@@ -52,8 +52,7 @@ module.exports = function(grunt) {
             },
             options: {
                 bin: 'vendor/bin/phpunit',
-                bootstrap: 'tests/bootstrap.php',
-                colors: true
+                configuration: 'phpunit.xml.dist'
             }
         }
     });

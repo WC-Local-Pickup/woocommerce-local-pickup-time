@@ -8,11 +8,11 @@
 	>
 	<testsuites>
 		<testsuite name="Admin">
-			<directory suffix="Test.php">./tests/Admin/</directory>
+			<directory suffix="_test.php">./tests/admin/</directory>
 		</testsuite>
 		
 		<testsuite name="Public">
-			<directory suffix="Test.php">./tests/Public/</directory>
+			<directory suffix="_test.php">./tests/public/</directory>
 		</testsuite>
 	</testsuites>
 	<filter>
