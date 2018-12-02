@@ -151,73 +151,73 @@ class Local_Pickup_Time {
 		return self::$instance;
 	}
 
-  /**
-   * Return the plugin date format value.
-   *
-   * @since     1.3.2
-   *
-   * @return string   The date format string.
-   */
-  public function get_date_format() {
+	/**
+	 * Return the plugin date format value.
+	 *
+	 * @since     1.3.2
+	 *
+	 * @return string   The date format string.
+	 */
+	public function get_date_format() {
 
-    return $this->date_format;
+		return $this->date_format;
 
-  }
+	}
 
-  /**
-   * Return the plugin time format value.
-   *
-   * @since     1.3.2
-   *
-   * @return string   The time format string.
-   */
-  public function get_time_format() {
+	/**
+	 * Return the plugin time format value.
+	 *
+	 * @since     1.3.2
+	 *
+	 * @return string   The time format string.
+	 */
+	public function get_time_format() {
 
-    return $this->time_format;
+		return $this->time_format;
 
-  }
+	}
 
-  /**
-   * Return the plugin GMT offset value.
-   *
-   * @since     1.3.2
-   *
-   * @return string   The GMT offset number.
-   */
-  public function get_gmt_offset() {
+	/**
+	 * Return the plugin GMT offset value.
+	 *
+	 * @since     1.3.2
+	 *
+	 * @return string   The GMT offset number.
+	 */
+	public function get_gmt_offset() {
 
-    return $this->gmt_offset;
+		return $this->gmt_offset;
 
-  }
+	}
 
-  /**
-   * Return the plugin timezone value.
-   *
-   * @since     1.3.2
-   *
-   * @return string   The timezone string.
-   */
-  public function get_timezone() {
+	/**
+	 * Return the plugin timezone value.
+	 *
+	 * @since     1.3.2
+	 *
+	 * @return string   The timezone string.
+	 */
+	public function get_timezone() {
 
-    return $this->timezone;
+		return $this->timezone;
 
-  }
+	}
 
-  /**
+	/**
 	 * Fired when the plugin is activated.
 	 *
 	 * @since    1.0.0
 	 *
-	 * @param    boolean    $network_wide    True if WPMU superadmin uses
-	 *                                       "Network Activate" action, false if
-	 *                                       WPMU is disabled or plugin is
-	 *                                       activated on an individual blog.
+	 * @param    boolean $network_wide    True if WPMU superadmin uses
+	 *                                    "Network Activate" action, false if
+	 *                                    WPMU is disabled or plugin is
+	 *                                    activated on an individual blog.
 	 */
 	public static function activate( $network_wide ) {
 
 		if ( function_exists( 'is_multisite' ) && is_multisite() ) {
 
-			if ( $network_wide  ) {
+			if ( $network_wide ) {
 
 				// Get all blog ids
 				$blog_ids = self::get_blog_ids();
@@ -233,7 +233,6 @@ class Local_Pickup_Time {
 			} else {
 				self::single_activate();
 			}
-
 		} else {
 			self::single_activate();
 		}
@@ -245,10 +244,10 @@ class Local_Pickup_Time {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @param    boolean    $network_wide    True if WPMU superadmin uses
-	 *                                       "Network Deactivate" action, false if
-	 *                                       WPMU is disabled or plugin is
-	 *                                       deactivated on an individual blog.
+	 * @param    boolean $network_wide    True if WPMU superadmin uses
+	 *                                    "Network Deactivate" action, false if
+	 *                                    WPMU is disabled or plugin is
+	 *                                    deactivated on an individual blog.
 	 */
 	public static function deactivate( $network_wide ) {
 
@@ -271,7 +270,6 @@ class Local_Pickup_Time {
 			} else {
 				self::single_deactivate();
 			}
-
 		} else {
 			self::single_deactivate();
 		}
@@ -283,7 +281,7 @@ class Local_Pickup_Time {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @param    int    $blog_id    ID of the new blog.
+	 * @param    int $blog_id    ID of the new blog.
 	 */
 	public function activate_new_site( $blog_id ) {
 
@@ -349,7 +347,7 @@ class Local_Pickup_Time {
 		$locale = apply_filters( 'plugin_locale', get_locale(), $domain );
 
 		load_textdomain( $domain, trailingslashit( WP_LANG_DIR ) . $domain . '/' . $domain . '-' . $locale . '.mo' );
-		load_plugin_textdomain( $domain, FALSE, basename( plugin_dir_path( dirname( __FILE__ ) ) ) . '/languages/' );
+		load_plugin_textdomain( $domain, false, basename( plugin_dir_path( dirname( __FILE__ ) ) ) . '/languages/' );
 
 	}
 
@@ -500,7 +498,9 @@ class Local_Pickup_Time {
 		global $woocommerce;
 
 		// Check if set, if its not set add an error.
- 		if (!$_POST['local_pickup_time_select']) wc_add_notice(__( 'Please select a pickup time.', $this->plugin_slug ), 'error');
+		if ( ! $_POST['local_pickup_time_select'] ) {
+			wc_add_notice( __( 'Please select a pickup time.', $this->plugin_slug ), 'error' );
+		}
 
 	}
 
@@ -510,7 +510,9 @@ class Local_Pickup_Time {
 	 * @since    1.0.0
 	 */
 	public function update_order_meta( $order_id ) {
-		if ( $_POST['local_pickup_time_select'] ) update_post_meta( $order_id, '_local_pickup_time_select', esc_attr( $_POST['local_pickup_time_select']) );
+		if ( $_POST['local_pickup_time_select'] ) {
+			update_post_meta( $order_id, '_local_pickup_time_select', esc_attr( $_POST['local_pickup_time_select'] ) );
+		}
 	}
 
 	/**
@@ -518,12 +520,13 @@ class Local_Pickup_Time {
 	 *
 	 * @since    1.3.0
 	 */
-	public function update_order_email_fields ( $fields, $sent_to_admin, $order ) {
+	public function update_order_email_fields( $fields, $sent_to_admin, $order ) {
 
-		$value = $this->pickup_time_select_translatable( get_post_meta( $order->id, '_local_pickup_time_select', true ));
+		$value              = $this->pickup_time_select_translatable( get_post_meta( $order->id, '_local_pickup_time_select', true ) );
 		$fields['meta_key'] = array(
-				'label' => __('Pickup Time', $this->plugin_slug),
-				'value' => $value);
+			'label' => __( 'Pickup Time', $this->plugin_slug ),
+			'value' => $value,
+		);
 
 		return $fields;
 	}

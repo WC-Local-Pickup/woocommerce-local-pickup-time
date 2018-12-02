@@ -53,14 +53,12 @@ class WC_Local_Pickup_Time_Unit_Tests_Bootstrap {
 		ini_set( 'display_errors', 'on' );
 		error_reporting( E_ALL );
 		// phpcs:enable WordPress.PHP.DiscouragedPHPFunctions, WordPress.PHP.DevelopmentFunctions
-
 		// Ensure server variable is set for WP email functions.
 		// phpcs:disable WordPress.VIP.SuperGlobalInputUsage.AccessDetected
 		if ( ! isset( $_SERVER['SERVER_NAME'] ) ) {
 			$_SERVER['SERVER_NAME'] = 'localhost';
 		}
 		// phpcs:enable WordPress.VIP.SuperGlobalInputUsage.AccessDetected
-
 		$this->tests_dir    = dirname( __FILE__ );
 		$this->plugin_dir   = dirname( $this->tests_dir );
 		$this->wp_tests_dir = getenv( 'WP_TESTS_DIR' ) ? getenv( 'WP_TESTS_DIR' ) : ( getenv( 'TMPDIR' ) ? getenv( 'TMPDIR' ) : '/tmp' ) . '/wordpress-tests-lib';
