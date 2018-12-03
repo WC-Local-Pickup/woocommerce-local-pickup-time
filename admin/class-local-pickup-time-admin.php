@@ -93,6 +93,8 @@ class Local_Pickup_Time_Admin {
 	 * Show Pickup Time Settings in the WooCommerce -> General Admin Screen
 	 *
 	 * @since    1.0.0
+	 *
+	 * @param array $settings The array of WooCommerce General Plugin Settings.
 	 */
 	public function add_hours_and_closings_options( $settings ) {
 		$updated_settings = array();
@@ -269,19 +271,23 @@ class Local_Pickup_Time_Admin {
 				'class'    => 'chosen_select',
 				'desc_tip' => true,
 				'options'  => array(
-					'5'    => __( '5 minutes', $this->plugin_slug ),
-					'10'   => __( '10 minutes', $this->plugin_slug ),
-					'15'   => __( '15 minutes', $this->plugin_slug ),
-					'20'   => __( '20 minutes', $this->plugin_slug ),
-					'30'   => __( '30 minutes', $this->plugin_slug ),
-					'45'   => __( '45 minutes', $this->plugin_slug ),
-					'60'   => __( '1 hour', $this->plugin_slug ),
-					'120'  => __( '2 hours', $this->plugin_slug ),
-					'240'  => __( '4 hours', $this->plugin_slug ),
-					'480'  => __( '8 hours', $this->plugin_slug ),
-					'960'  => __( '16 hours', $this->plugin_slug ),
-					'1440' => __( '24 hours', $this->plugin_slug ),
-					'2160' => __( '36 hours', $this->plugin_slug ),
+					'5'     => __( '5 minutes', $this->plugin_slug ),
+					'10'    => __( '10 minutes', $this->plugin_slug ),
+					'15'    => __( '15 minutes', $this->plugin_slug ),
+					'20'    => __( '20 minutes', $this->plugin_slug ),
+					'30'    => __( '30 minutes', $this->plugin_slug ),
+					'45'    => __( '45 minutes', $this->plugin_slug ),
+					'60'    => __( '1 hour', $this->plugin_slug ),
+					'120'   => __( '2 hours', $this->plugin_slug ),
+					'240'   => __( '4 hours', $this->plugin_slug ),
+					'480'   => __( '8 hours', $this->plugin_slug ),
+					'960'   => __( '16 hours', $this->plugin_slug ),
+					'1440'  => __( '24 hours', $this->plugin_slug ),
+					'2160'  => __( '36 hours', $this->plugin_slug ),
+					'2880'  => __( '48 hours', $this->plugin_slug ),
+					'4320'  => __( '3 days', $this->plugin_slug ),
+					'7200'  => __( '5 days', $this->plugin_slug ),
+					'10080' => __( '1 week', $this->plugin_slug ),
 				),
 			),
 			array(
@@ -316,6 +322,8 @@ class Local_Pickup_Time_Admin {
 	 * Show Pickup Time in the Order Details in the Admin Screen
 	 *
 	 * @since    1.0.0
+	 *
+	 * @param object $order  The order object.
 	 */
 	public function show_metabox( $order ) {
 		$order_meta = get_post_custom( $order->id );
