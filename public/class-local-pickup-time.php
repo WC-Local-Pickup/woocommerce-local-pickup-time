@@ -219,7 +219,7 @@ class Local_Pickup_Time {
 
 			if ( $network_wide ) {
 
-				// Get all blog ids
+				// Get all blog ids.
 				$blog_ids = self::get_blog_ids();
 
 				foreach ( $blog_ids as $blog_id ) {
@@ -255,7 +255,7 @@ class Local_Pickup_Time {
 
 			if ( $network_wide ) {
 
-				// Get all blog ids
+				// Get all blog ids.
 				$blog_ids = self::get_blog_ids();
 
 				foreach ( $blog_ids as $blog_id ) {
@@ -309,12 +309,12 @@ class Local_Pickup_Time {
 
 		global $wpdb;
 
-		// get an array of blog ids
-		$sql = "SELECT blog_id FROM $wpdb->blogs
+		// Get an array of blog ids.
+		return $wpdb->get_col(
+			"SELECT blog_id FROM $wpdb->blogs
 			WHERE archived = '0' AND spam = '0'
-			AND deleted = '0'";
-
-		return $wpdb->get_col( $sql );
+			AND deleted = '0'"
+		);
 
 	}
 
@@ -324,7 +324,7 @@ class Local_Pickup_Time {
 	 * @since    1.0.0
 	 */
 	private static function single_activate() {
-		// No activation functionality needed... yet
+		// No activation functionality needed... yet.
 	}
 
 	/**
@@ -333,7 +333,7 @@ class Local_Pickup_Time {
 	 * @since    1.0.0
 	 */
 	private static function single_deactivate() {
-		// No deactivation functionality needed... yet
+		// No deactivation functionality needed... yet.
 	}
 
 	/**
@@ -369,13 +369,13 @@ class Local_Pickup_Time {
 		$num_days_ahead   = get_option( 'local_pickup_days_ahead', 1 );
 
 		// Translateble days.
-		__( 'Monday', $this->plugin_slug );
-		__( 'Tuesday', $this->plugin_slug );
-		__( 'Wednesday', $this->plugin_slug );
-		__( 'Thursday', $this->plugin_slug );
-		__( 'Friday', $this->plugin_slug );
-		__( 'Saturday', $this->plugin_slug );
-		__( 'Sunday', $this->plugin_slug );
+		__( 'Monday', 'woocommerce-local-pickup-time' );
+		__( 'Tuesday', 'woocommerce-local-pickup-time' );
+		__( 'Wednesday', 'woocommerce-local-pickup-time' );
+		__( 'Thursday', 'woocommerce-local-pickup-time' );
+		__( 'Friday', 'woocommerce-local-pickup-time' );
+		__( 'Saturday', 'woocommerce-local-pickup-time' );
+		__( 'Sunday', 'woocommerce-local-pickup-time' );
 
 		// Initialize DateTime object for further calculations.
 		$pickup_datetime = new DateTime();
@@ -388,7 +388,7 @@ class Local_Pickup_Time {
 		$pickup_datetime->modify( "+$delay_minutes minutes" );
 
 		// Setup options array with empty first item.
-		$pickup_options[''] = __( 'Select time', $this->plugin_slug );
+		$pickup_options[''] = __( 'Select time', 'woocommerce-local-pickup-time' );
 
 		// Build options.
 		for ( $days = 0; $days < $num_days_ahead; $days++ ) {
@@ -472,16 +472,18 @@ class Local_Pickup_Time {
 	 * Add the local pickup time field to the checkout page
 	 *
 	 * @since    1.0.0
+	 *
+	 * @param object $checkout The checkout object.
 	 */
 	public function time_select( $checkout ) {
-		echo '<div id="local-pickup-time-select"><h2>' . __( 'Pickup Time', $this->plugin_slug ) . '</h2>';
+		echo '<div id="local-pickup-time-select"><h2>' . __( 'Pickup Time', 'woocommerce-local-pickup-time' ) . '</h2>';
 
 		woocommerce_form_field(
 			'local_pickup_time_select',
 			array(
 				'type'     => 'select',
 				'class'    => array( 'local-pickup-time-select-field form-row-wide' ),
-				'label'    => __( 'Pickup Time', $this->plugin_slug ),
+				'label'    => __( 'Pickup Time', 'woocommerce-local-pickup-time' ),
 				'required' => true,
 				'options'  => self::build_pickup_time_options(),
 			),
@@ -501,7 +503,7 @@ class Local_Pickup_Time {
 
 		// Check if set, if its not set add an error.
 		if ( ! $_POST['local_pickup_time_select'] ) {
-			wc_add_notice( __( 'Please select a pickup time.', $this->plugin_slug ), 'error' );
+			wc_add_notice( __( 'Please select a pickup time.', 'woocommerce-local-pickup-time' ), 'error' );
 		}
 
 	}
@@ -510,6 +512,8 @@ class Local_Pickup_Time {
 	 * Update the order meta with local pickup time field value
 	 *
 	 * @since    1.0.0
+	 *
+	 * @param integer $order_id The ID of the order you want meta data for.
 	 */
 	public function update_order_meta( $order_id ) {
 		if ( $_POST['local_pickup_time_select'] ) {
@@ -521,12 +525,16 @@ class Local_Pickup_Time {
 	 * Add local pickup time fields to order emails, since the previous function has been deprecated
 	 *
 	 * @since    1.3.0
+	 *
+	 * @param array   $fields The array of pickup time fields.
+	 * @param boolean $sent_to_admin Flag that indicates whether the email is being sent to an admin user or not.
+	 * @param object  $order The order object that holds all the order attributes.
 	 */
 	public function update_order_email_fields( $fields, $sent_to_admin, $order ) {
 
 		$value              = $this->pickup_time_select_translatable( get_post_meta( $order->id, '_local_pickup_time_select', true ) );
 		$fields['meta_key'] = array(
-			'label' => __( 'Pickup Time', $this->plugin_slug ),
+			'label' => __( 'Pickup Time', 'woocommerce-local-pickup-time' ),
 			'value' => $value,
 		);
 
@@ -545,7 +553,7 @@ class Local_Pickup_Time {
 
 		// Only attempt date/time adjustments when a value is set.
 		if ( empty( $value ) ) {
-			return __( 'None', $this->plugin_slug );
+			return __( 'None', 'woocommerce-local-pickup-time' );
 		}
 
 		// This match is specifically to address the bug introduced in 1.3.1.
@@ -562,10 +570,7 @@ class Local_Pickup_Time {
 
 		}
 
-		$value = preg_replace( '/(\d)_(\d)/', '$1:$2', $value );
-		$value = explode( '_', $value );
-
-		return __( $value[0], $this->plugin_slug ) . ' ' . $value[1];
+		return $value;
 
 	}
 
