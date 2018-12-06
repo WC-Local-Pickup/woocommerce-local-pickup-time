@@ -69,6 +69,7 @@ class Local_Pickup_Time_Admin {
 		 */
 		add_filter( 'manage_edit-shop_order_columns', array( $this, 'add_orders_list_pickup_date_column_header' ) );
 		add_action( 'manage_shop_order_posts_custom_column', array( $this, 'add_orders_list_pickup_date_column_content' ) );
+		add_action( 'manage_edit-shop_order_sortable_columns', array( $this, 'add_orders_list_pickup_date_column_sorting' ) );
 
 	}
 
@@ -372,6 +373,22 @@ class Local_Pickup_Time_Admin {
 		if ( 'order_local_pickup_time' === $column ) {
 			echo $this->pickup_time_select_translatable( $order_meta['_local_pickup_time_select'][0] );
 		}
+
+	}
+
+	/**
+	 * Allow the Pickup Time columns to be sortable on the Orders List in the Admin Dashboard.
+	 *
+	 * @since     1.3.2
+	 *
+	 * @param array $columns  The array of Order columns.
+	 * @return  array The updated array Order columns.
+	 */
+	public function add_orders_list_pickup_date_column_sorting( $columns ) {
+
+		$new_columns = array( 'order_local_pickup_time' => '_local_pickup_time_select' );
+
+		return wp_parse_args( $new_columns, $columns );
 
 	}
 
