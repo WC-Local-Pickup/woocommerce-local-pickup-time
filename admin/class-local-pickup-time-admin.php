@@ -70,6 +70,9 @@ class Local_Pickup_Time_Admin {
 		add_filter( 'manage_edit-shop_order_columns', array( $this, 'add_orders_list_pickup_date_column_header' ) );
 		add_action( 'manage_shop_order_posts_custom_column', array( $this, 'add_orders_list_pickup_date_column_content' ) );
 		add_action( 'manage_edit-shop_order_sortable_columns', array( $this, 'add_orders_list_pickup_date_column_sorting' ) );
+		add_filter( 'posts_join', array( $this, 'order_by_pickup_date_column_join' ) );
+		add_filter( 'posts_where', array( $this, 'order_by_pickup_date_column_where' ) );
+		add_filter( 'posts_orderby', array( $this, 'order_by_pickup_date_column_orderby' ) );
 
 	}
 
@@ -371,7 +374,7 @@ class Local_Pickup_Time_Admin {
 		$order_meta = get_post_custom( $post->ID );
 
 		if ( 'order_local_pickup_time' === $column ) {
-			echo $this->pickup_time_select_translatable( $order_meta['_local_pickup_time_select'][0] );
+			echo $this->pickup_time_select_translatable( ( ! empty( $order_meta['_local_pickup_time_select'][0] ) ? $order_meta['_local_pickup_time_select'][0] : '' ) );
 		}
 
 	}
@@ -386,9 +389,73 @@ class Local_Pickup_Time_Admin {
 	 */
 	public function add_orders_list_pickup_date_column_sorting( $columns ) {
 
-		$new_columns = array( 'order_local_pickup_time' => '_local_pickup_time_select' );
+		$new_columns = array( 'order_local_pickup_time' => 'order_local_pickup_time' );
 
 		return wp_parse_args( $new_columns, $columns );
+
+	}
+
+	/**
+	 * Adds the order meta data table into the orders query as a join in order to sort on Pickup Date.
+	 *
+	 * @since     1.3.2
+	 *
+	 * @param WP_Query $query  The post query object.
+	 * @return  WP_Query $query The modified post query object, or original if no conditions are met.
+	 */
+	public function order_by_pickup_date_column_join( $query ) {
+
+		global $wpdb;
+
+		if ( is_admin() && get_query_var( 'post_type', '' ) === 'shop_order' && get_query_var( 'orderby', '' ) === 'order_local_pickup_time' ) {
+
+			return $query;
+
+		}
+
+		return $query;
+
+	}
+
+	/**
+	 * Adds the order meta data table conditions into the orders query.
+	 *
+	 * @since     1.3.2
+	 *
+	 * @param string $where  The orders query WHERE condition.
+	 * @return  string  The final orders query WHERE condition.
+	 */
+	public function order_by_pickup_date_column_where( $where ) {
+
+		global $wpdb;
+
+		if ( is_admin() && get_query_var( 'post_type', '' ) === 'shop_order' && get_query_var( 'orderby', '' ) === 'order_local_pickup_time' ) {
+
+			return $where;
+
+		}
+
+		return $where;
+
+	}
+
+	/**
+	 * Adds Pickup Time sorting to orders query.
+	 *
+	 * @since     1.3.2
+	 *
+	 * @param string $order_by The default orders query by column.
+	 * @return  string  The Pickup Time meta column for sorting the orders list.
+	 */
+	public function order_by_pickup_date_column_orderby( $order_by ) {
+
+		if ( is_admin() && get_query_var( 'post_type', '' ) === 'shop_order' && get_query_var( 'orderby', '' ) === 'order_local_pickup_time' ) {
+
+			return '_local_pickup_time_select ' . strtoupper( get_query_var( 'order', 'desc' ) );
+
+		}
+
+		return $order_by;
 
 	}
 
