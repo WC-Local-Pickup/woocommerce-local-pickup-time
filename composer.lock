@@ -1249,7 +1249,7 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.4.19",
+            "version": "v3.4.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
@@ -1362,12 +1362,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/woocommerce/woocommerce.git",
-                "reference": "7049cd28e952ad1f30a16abf9254e08f5efd95a0"
+                "reference": "c4ae48597cc16b75486bd97ceef53b33c6013156"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/woocommerce/woocommerce/zipball/7049cd28e952ad1f30a16abf9254e08f5efd95a0",
-                "reference": "7049cd28e952ad1f30a16abf9254e08f5efd95a0",
+                "url": "https://api.github.com/repos/woocommerce/woocommerce/zipball/c4ae48597cc16b75486bd97ceef53b33c6013156",
+                "reference": "c4ae48597cc16b75486bd97ceef53b33c6013156",
                 "shasum": ""
             },
             "require": {
@@ -1394,7 +1394,7 @@
             ],
             "description": "An eCommerce toolkit that helps you sell anything. Beautifully.",
             "homepage": "https://woocommerce.com/",
-            "time": "2018-11-28T19:09:26+00:00"
+            "time": "2018-12-11T19:18:19+00:00"
         },
         {
             "name": "woocommerce/woocommerce-git-hooks",

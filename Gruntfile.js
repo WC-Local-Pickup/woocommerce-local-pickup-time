@@ -1,7 +1,57 @@
 module.exports = function(grunt) {
+    
+    require('load-grunt-tasks')(grunt);
+    
+    // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
       
+        gitinfo: {
+            commands: {
+                'local.tag.current.name': ['name-rev', '--tags', '--name-only', 'HEAD'],
+                'local.tag.current.nameLong': ['describe', '--tags', '--long']
+            }
+        },
+        
+        clean: {
+            main: [ 'dist' ], //Clean up build folder
+            i18n: [ 'languages/*.mo', 'languages/*.pot' ]
+        },
+        
+        copy: {
+            // Copy the plugin to a versioned release directory
+            main: {
+                src: [
+                    '**',
+                    '!*.xml', '!*.log', //any config/log files
+                    '!node_modules/**', '!Gruntfile.js', '!package.json', //npm/Grunt
+                    '!assets/**', //wp-org assets
+                    '!dist/**', //build directory
+                    '!.git/**', //version control
+                    '!tests/**', '!scripts/**', '!phpunit.xml', '!phpunit.xml.dist', //unit testing
+                    '!vendor/**', '!composer.lock', '!composer.phar', '!composer.json', //composer
+                    '!.*', '!**/*~', //hidden files
+                    '!CONTRIBUTING.md',
+                    '!README.md',
+                    '!phpcs.xml', '!phpcs.xml.dist', // CodeSniffer Configuration
+                ],
+                dest: 'dist/',
+                options: {
+                    processContentExclude: [ '**/*.{png,gif,jpg,ico,mo}' ],
+                    processContent: function(content, srcpath) {
+                        if (srcpath == 'readme.txt' || srcpath == 'woocommerce-local-pickup-time.php') {
+                            if (grunt.config.get('gitinfo').local.tag.current.name !== 'undefined') {
+                                content = content.replace('{{version}}', grunt.config.get('gitinfo').local.tag.current.name);
+                            } else {
+                                content = content.replace('{{version}}', grunt.config.get('gitinfo').local.tag.current.nameLong);
+                            }
+                        }
+                        return content;
+                    },
+                },
+            }
+        },
+
         addtextdomain: {
             options: {
                 textdomain: 'woocommerce-local-pickup-time',    // Project text domain.
@@ -10,7 +60,7 @@ module.exports = function(grunt) {
 				        options: {
 					        updateDomains: true
 				        },
-				        src: [ '*.php', '**/*.php', '!node_modules/**', '!php-tests/**', '!bin/**' ]
+				        src: [ '*.php', '**/*.php', '!node_modules/**', '!tests/**', '!scripts/**' ]
 			      },
         },
       
@@ -46,25 +96,93 @@ module.exports = function(grunt) {
             }
         },
         
-        phpunit: {
+        checkrepo: {
+            deploy: {
+                tagged: true, // Check that the last commit (HEAD) is tagged
+                clean: true // Check that working directory is clean
+            }
+        },
+        
+        checktextdomain: {
+            options: {
+                text_domain: 'woocommerce-local-pickup-time',
+                keywords: [
+										'__:1,2d',
+                    '_e:1,2d',
+                    '_x:1,2c,3d',
+                    'esc_html__:1,2d',
+                    'esc_html_e:1,2d',
+                    'esc_html_x:1,2c,3d',
+                    'esc_attr__:1,2d',
+                    'esc_attr_e:1,2d',
+                    'esc_attr_x:1,2c,3d',
+                    '_ex:1,2c,3d',
+                    '_x:1,2c,3d',
+                    '_n:1,2,4d',
+                    '_nx:1,2,4c,5d',
+                    '_n_noop:1,2,3d',
+                    '_nx_noop:1,2,3c,4d'
+                ],
+            },
+            files: {
+                src: [
+                    '**/*.php',
+                    '!node_modules/**',
+                    '!dist/**',
+                    '!tests/**',
+                    '!vendor/**',
+                    '!*~',
+                ],
+                expand: true,
+            },
+        },
+        
+        phpcs: {
+            application: {
+                src: [
+                    '**/*.php',
+                    '!node_modules/**',
+                    '!dist/**',
+                    '!tests/**',
+                    '!vendor/**',
+                    '!*~',
+                ]
+            },
+            options: {
+                report: 'summary',
+                bin: 'vendor/bin/phpcs --colors',
+                showSniffCodes: true,
+        		}
+        },
+      	
+      	phpunit: {
             classes: {
-                dir: 'tests/'
+              dir: 'tests/'
             },
             options: {
                 bin: 'vendor/bin/phpunit',
-                configuration: 'phpunit.xml.dist'
+                configuration: 'phpunit.xml.dist',
+                colors: true,
             }
-        }
+        },
+        
+        wp_deploy: {
+            deploy: {
+                options: {
+                    plugin_slug: 'woocommerce-local-pickup-time-select',
+                    build_dir: 'dist/',
+                    assets_dir: 'assets/',
+                    max_buffer: 1024 * 1024,
+                    skip_confirmation: false,
+                },
+            }
+        },
+        
     });
 
-    grunt.loadNpmTasks( 'grunt-wp-i18n' );
-    grunt.loadNpmTasks( 'grunt-po2mo' );
-    grunt.loadNpmTasks( 'grunt-wp-readme-to-markdown' );
-    grunt.loadNpmTasks( 'grunt-phpunit' );
-
-		grunt.registerTask( 'i18n', ['addtextdomain', 'makepot', 'po2mo'] );
-    grunt.registerTask( 'readme', ['wp_readme_to_markdown'] );
-    grunt.registerTask( 'test', ['phpunit'] );
-    //grunt.registerTask( 'default', ['makepot', 'po2mo'] );
+		grunt.registerTask( 'i18n', [ 'addtextdomain', 'makepot', 'po2mo' ] );
+    grunt.registerTask( 'readme', [ 'wp_readme_to_markdown' ] );
+    grunt.registerTask( 'test', [ 'checktextdomain', 'phpcs', 'phpunit' ] );
+    //grunt.registerTask( 'default', [ 'makepot', 'po2mo' ] );
 };
 
