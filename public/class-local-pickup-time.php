@@ -381,11 +381,12 @@ class Local_Pickup_Time {
 		$pickup_datetime = new DateTime();
 		// Get the current WordPress-based date/time.
 		$pickup_datetime->setTimestamp( strtotime( current_time( $this->date_format . ' ' . $this->time_format, 0 ) ) );
-		// Adjust to next whole hour.
-		$pickup_datetime->modify( '+1 hour' );
-		$pickup_datetime->setTimestamp( floor( $pickup_datetime->getTimestamp() / 3600 ) * 3600 );
 		// Adjust for time delay.
-		$pickup_datetime->modify( "+$delay_minutes minutes" );
+		$pickup_datetime->modify( "+$delay_minutes minute" );
+		// Get to the start of the hour.
+		$pickup_datetime->setTimestamp( floor( $pickup_datetime->getTimestamp() / 3600 ) * 3600 );
+		// Adjust to next next interval.
+		$pickup_datetime->modify( "+$minutes_interval minute" );
 
 		// Setup options array with empty first item.
 		$pickup_options[''] = __( 'Select time', 'woocommerce-local-pickup-time' );

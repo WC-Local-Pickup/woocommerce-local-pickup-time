@@ -6,6 +6,31 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
       
+        composerBin: 'vendor/bin',
+        
+        shell: {
+            phpcs: {
+                options: {
+                    stdout: true
+                },
+                command: '<%= composerBin %>/phpcs --colors'
+            },
+
+            phpcbf: {
+                options: {
+                    stdout: true
+                },
+                command: '<%= composerBin %>/phpcbf'
+            },
+            
+            phpunit: {
+                options: {
+                    stdout: true
+                },
+                command: '<%= composerBin %>/phpunit'
+            },
+        },
+        
         gitinfo: {
             commands: {
                 'local.tag.current.name': ['name-rev', '--tags', '--name-only', 'HEAD'],
@@ -137,35 +162,6 @@ module.exports = function(grunt) {
             },
         },
         
-        phpcs: {
-            application: {
-                src: [
-                    '**/*.php',
-                    '!node_modules/**',
-                    '!dist/**',
-                    '!tests/**',
-                    '!vendor/**',
-                    '!*~',
-                ]
-            },
-            options: {
-                report: 'summary',
-                bin: 'vendor/bin/phpcs --colors',
-                showSniffCodes: true,
-        		}
-        },
-      	
-      	phpunit: {
-            classes: {
-              dir: 'tests/'
-            },
-            options: {
-                bin: 'vendor/bin/phpunit',
-                configuration: 'phpunit.xml.dist',
-                colors: true,
-            }
-        },
-        
         wp_deploy: {
             deploy: {
                 options: {
@@ -180,7 +176,10 @@ module.exports = function(grunt) {
         
     });
 
-		grunt.registerTask( 'i18n', [ 'addtextdomain', 'makepot', 'po2mo' ] );
+    grunt.registerTask( 'phpcs', [ 'shell:phpcs' ] );
+    grunt.registerTask( 'phpcbf', [ 'shell:phpcbf' ] );
+    grunt.registerTask( 'phpunit', [ 'shell:phpunit' ] );
+    grunt.registerTask( 'i18n', [ 'addtextdomain', 'makepot', 'po2mo' ] );
     grunt.registerTask( 'readme', [ 'wp_readme_to_markdown' ] );
     grunt.registerTask( 'test', [ 'checktextdomain', 'phpcs', 'phpunit' ] );
     //grunt.registerTask( 'default', [ 'makepot', 'po2mo' ] );

@@ -2,13 +2,24 @@
 /**
  * WooCommerce & Local Pickup Time Unit Tests Bootstrap
  *
- * @since 1.3.2
- * @author Tim Nolte
+ * @since   1.3.2
+ * @package WC_Local_Pickup_Time_Unit_Tests_Bootstrap
+ * @author  Tim Nolte <tim.nolte@ndigitals.com>
+ */
+
+/**
+ * WC_Local_Pickup_Time_Unit_Tests_Bootstrap class.
+ * Sets up unit test environment.
+ *
+ * @package WC_Local_Pickup_Time_Unit_Tests_Bootstrap
+ * @author  Tim Nolte <tim.nolte@ndigitals.com>
  */
 class WC_Local_Pickup_Time_Unit_Tests_Bootstrap {
 
 	/**
 	 * WC_Local_Pickup_Time_Unit_Tests_Bootstrap instance.
+	 *
+	 * @since 1.3.2
 	 *
 	 * @var object
 	 */
@@ -17,12 +28,16 @@ class WC_Local_Pickup_Time_Unit_Tests_Bootstrap {
 	/**
 	 * Directory where wordpress-tests-lib is installed.
 	 *
+	 * @since 1.3.2
+	 *
 	 * @var string
 	 */
 	public $wp_tests_dir;
 
 	/**
 	 * Testing directory .
+	 *
+	 * @since 1.3.2
 	 *
 	 * @var string testing directory.
 	 */
@@ -31,12 +46,16 @@ class WC_Local_Pickup_Time_Unit_Tests_Bootstrap {
 	/**
 	 * Plugin directory.
 	 *
+	 * @since 1.3.2
+	 *
 	 * @var string
 	 */
 	public $plugin_dir;
 
 	/**
 	 * Plugin loader file.
+	 *
+	 * @since 1.3.2
 	 *
 	 * @var string
 	 */
@@ -46,6 +65,8 @@ class WC_Local_Pickup_Time_Unit_Tests_Bootstrap {
 	 * Composer installed WooCommerce source path.
 	 *
 	 * @since 1.3.2
+	 *
+	 * @var string
 	 */
 	public $wc_dir;
 
@@ -53,6 +74,8 @@ class WC_Local_Pickup_Time_Unit_Tests_Bootstrap {
 	 * WooCommerce tests directory.
 	 *
 	 * @since 1.3.2
+	 *
+	 * @var string
 	 */
 	public $wc_tests_dir;
 
@@ -63,16 +86,16 @@ class WC_Local_Pickup_Time_Unit_Tests_Bootstrap {
 	 */
 	public function __construct() {
 
-		// phpcs:disable WordPress.PHP.DiscouragedPHPFunctions, WordPress.PHP.DevelopmentFunctions
+		// phpcs:disable WordPress.PHP.DiscouragedPHPFunctions, WordPress.PHP.DevelopmentFunctions .
 		ini_set( 'display_errors', 'on' );
 		error_reporting( E_ALL );
-		// phpcs:enable WordPress.PHP.DiscouragedPHPFunctions, WordPress.PHP.DevelopmentFunctions
+		// phpcs:enable WordPress.PHP.DiscouragedPHPFunctions, WordPress.PHP.DevelopmentFunctions .
 		// Ensure server variable is set for WP email functions.
-		// phpcs:disable WordPress.VIP.SuperGlobalInputUsage.AccessDetected
+		// phpcs:disable WordPress.VIP.SuperGlobalInputUsage.AccessDetected .
 		if ( ! isset( $_SERVER['SERVER_NAME'] ) ) {
 			$_SERVER['SERVER_NAME'] = 'localhost';
 		}
-		// phpcs:enable WordPress.VIP.SuperGlobalInputUsage.AccessDetected
+		// phpcs:enable WordPress.VIP.SuperGlobalInputUsage.AccessDetected .
 		$this->tests_dir    = dirname( __FILE__ );
 		$this->plugin_dir   = dirname( $this->tests_dir );
 		$this->wc_dir       = $this->plugin_dir . '/vendor/woocommerce/woocommerce';
@@ -181,6 +204,7 @@ class WC_Local_Pickup_Time_Unit_Tests_Bootstrap {
 	 * Get the single class instance.
 	 *
 	 * @since 1.3.2
+	 *
 	 * @return WC_Unit_Tests_Bootstrap
 	 */
 	public static function instance() {
