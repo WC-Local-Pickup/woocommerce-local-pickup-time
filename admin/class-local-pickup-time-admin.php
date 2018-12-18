@@ -69,10 +69,10 @@ class Local_Pickup_Time_Admin {
 		 */
 		add_filter( 'manage_edit-shop_order_columns', array( $this, 'add_orders_list_pickup_date_column_header' ) );
 		add_action( 'manage_shop_order_posts_custom_column', array( $this, 'add_orders_list_pickup_date_column_content' ) );
-		add_action( 'manage_edit-shop_order_sortable_columns', array( $this, 'add_orders_list_pickup_date_column_sorting' ) );
-		add_filter( 'posts_join', array( $this, 'order_by_pickup_date_column_join' ) );
-		add_filter( 'posts_where', array( $this, 'order_by_pickup_date_column_where' ) );
-		add_filter( 'posts_orderby', array( $this, 'order_by_pickup_date_column_orderby' ) );
+    add_action( 'manage_edit-shop_order_sortable_columns', array( $this, 'add_orders_list_pickup_date_column_sorting' ) );
+
+		// add_filter( 'posts_where', array( $this, 'order_by_pickup_date_column_where' ) );
+		// add_filter( 'posts_orderby', array( $this, 'order_by_pickup_date_column_orderby' ) );
 
 	}
 
@@ -389,31 +389,9 @@ class Local_Pickup_Time_Admin {
 	 */
 	public function add_orders_list_pickup_date_column_sorting( $columns ) {
 
-		$new_columns = array( 'order_local_pickup_time' => 'order_local_pickup_time' );
+		$new_columns = array( 'order_local_pickup_time' => '_local_pickup_time_select' );
 
 		return wp_parse_args( $new_columns, $columns );
-
-	}
-
-	/**
-	 * Adds the order meta data table into the orders query as a join in order to sort on Pickup Date.
-	 *
-	 * @since     1.3.2
-	 *
-	 * @param WP_Query $query  The post query object.
-	 * @return  WP_Query $query The modified post query object, or original if no conditions are met.
-	 */
-	public function order_by_pickup_date_column_join( $query ) {
-
-		global $wpdb;
-
-		if ( is_admin() && get_query_var( 'post_type', '' ) === 'shop_order' && get_query_var( 'orderby', '' ) === 'order_local_pickup_time' ) {
-
-			return $query;
-
-		}
-
-		return $query;
 
 	}
 
@@ -429,9 +407,9 @@ class Local_Pickup_Time_Admin {
 
 		global $wpdb;
 
-		if ( is_admin() && get_query_var( 'post_type', '' ) === 'shop_order' && get_query_var( 'orderby', '' ) === 'order_local_pickup_time' ) {
+		if ( is_admin() && get_query_var( 'post_type', '' ) === 'shop_order' && get_query_var( 'orderby', '' ) === '_local_pickup_time_select' ) {
 
-			return $where;
+			//return $where . " AND meta_key = '_local_pickup_time_select' ";
 
 		}
 
@@ -449,9 +427,9 @@ class Local_Pickup_Time_Admin {
 	 */
 	public function order_by_pickup_date_column_orderby( $order_by ) {
 
-		if ( is_admin() && get_query_var( 'post_type', '' ) === 'shop_order' && get_query_var( 'orderby', '' ) === 'order_local_pickup_time' ) {
+		if ( is_admin() && get_query_var( 'post_type', '' ) === 'shop_order' && get_query_var( 'orderby', '' ) === '_local_pickup_time_select' ) {
 
-			return '_local_pickup_time_select ' . strtoupper( get_query_var( 'order', 'desc' ) );
+      //return 'meta_value_num ' . strtoupper( get_query_var( 'order', 'desc' ) );
 
 		}
 
