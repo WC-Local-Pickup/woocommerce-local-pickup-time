@@ -10,6 +10,7 @@ notifications:
 branches:
   only:
     - master
+    - feature/pickup-date-order-sort
 
 cache:
   directories:
@@ -36,6 +37,11 @@ matrix:
       env: WP_VERSION=latest
   fast_finish: true
 
+addons:
+  apt:
+    packages:
+    - nodejs
+    
 before_install:
   - npm install grunt-cli
 
