@@ -33,8 +33,8 @@ module.exports = function(grunt) {
         
         gitinfo: {
             commands: {
-                'local.tag.current.name': ['name-rev', '--tags', '--name-only', 'HEAD'],
-                'local.tag.current.nameLong': ['describe', '--tags', '--long']
+                'local.tag.current.name': [ 'name-rev', '--tags', '--name-only', 'HEAD' ],
+                'local.tag.current.nameLong': [ 'describe', '--tags', '--long' ]
             }
         },
         
@@ -101,6 +101,14 @@ module.exports = function(grunt) {
             target: {
                 options: {
                     domainPath: '/languages',         // Where to save the POT file.
+                    exclude: [
+                        'node_modules/.*',				//npm
+                        'assets/.*', 							//wp-org assets
+                        'dist/.*', 								//build directory
+                        '.git/.*', 								//version control
+                        'tests/.*', 'scripts/.*',	//unit testing
+                        'vendor/.*', 							//composer
+                    ],                                // List of files or directories to ignore.
                     mainFile: 'woocommerce-local-pickup-time.php',                     // Main project file.
                     potFilename: 'woocommerce-local-pickup-time.pot',                  // Name of the POT file.
                     potHeaders: {
@@ -182,6 +190,9 @@ module.exports = function(grunt) {
     grunt.registerTask( 'i18n', [ 'addtextdomain', 'makepot', 'po2mo' ] );
     grunt.registerTask( 'readme', [ 'wp_readme_to_markdown' ] );
     grunt.registerTask( 'test', [ 'checktextdomain', 'phpcs', 'phpunit' ] );
-    //grunt.registerTask( 'default', [ 'makepot', 'po2mo' ] );
+    grunt.registerTask( 'build', [ 'gitinfo', 'test', 'clean', 'i18n', 'readme', 'copy' ] );
+    //grunt.registerTask( 'deploy', [ 'checkbranch:master', 'checkrepo', 'build', 'wp_deploy' ] );
+    grunt.registerTask( 'deploy', [ 'checkrepo', 'build' ] );
+
 };
 

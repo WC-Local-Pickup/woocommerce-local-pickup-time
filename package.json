@@ -26,6 +26,7 @@
     "grunt-checkrepo": "^0.1.0",
     "grunt-checktextdomain": "^1.0.1",
     "grunt-contrib-clean": "^2.0.0",
+    "grunt-contrib-copy": "^1.0.0",
     "grunt-gitinfo": "^0.1.8",
     "grunt-po2mo": "^0.1.2",
     "grunt-shell": "^2.1.0",

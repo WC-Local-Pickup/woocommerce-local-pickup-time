@@ -82,6 +82,15 @@ class Local_Pickup_Time {
 	protected $timezone = 'America/New_York';
 
 	/**
+	 * Order meta key for storing Local Pickup Time.
+	 *
+	 * @since     1.3.2
+	 *
+	 * @var       string
+	 */
+	protected $order_meta_key = '_local_pickup_time_select';
+
+	/**
 	 * Initialize the plugin by setting localization and loading public scripts
 	 * and styles.
 	 *
@@ -200,6 +209,19 @@ class Local_Pickup_Time {
 	public function get_timezone() {
 
 		return $this->timezone;
+
+	}
+
+	/**
+	 * Return the plugin order meta key used for storing the Local Pickup Time.
+	 *
+	 * @since     1.3.2
+	 *
+	 * @return string   The order meta_key that stores the Local Pickup Time.
+	 */
+	public function get_order_meta_key() {
+
+		return $this->order_meta_key;
 
 	}
 
@@ -518,7 +540,7 @@ class Local_Pickup_Time {
 	 */
 	public function update_order_meta( $order_id ) {
 		if ( $_POST['local_pickup_time_select'] ) {
-			update_post_meta( $order_id, '_local_pickup_time_select', esc_attr( $_POST['local_pickup_time_select'] ) );
+			update_post_meta( $order_id, $this->order_meta_key, esc_attr( $_POST['local_pickup_time_select'] ) );
 		}
 	}
 
@@ -533,7 +555,7 @@ class Local_Pickup_Time {
 	 */
 	public function update_order_email_fields( $fields, $sent_to_admin, $order ) {
 
-		$value              = $this->pickup_time_select_translatable( get_post_meta( $order->id, '_local_pickup_time_select', true ) );
+		$value              = $this->pickup_time_select_translatable( get_post_meta( $order->id, $this->order_meta_key, true ) );
 		$fields['meta_key'] = array(
 			'label' => __( 'Pickup Time', 'woocommerce-local-pickup-time' ),
 			'value' => $value,

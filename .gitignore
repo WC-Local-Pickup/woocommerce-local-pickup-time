@@ -42,3 +42,4 @@ intermediate
 cache
 node_modules
 vendor
+dist

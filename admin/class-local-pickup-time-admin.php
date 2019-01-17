@@ -6,7 +6,7 @@
  * @author    Matt Banks <mjbanks@gmail.com>
  * @license   GPL-2.0+
  * @link      http://mattbanks.me
- * @copyright 2014-207 Matt Banks
+ * @copyright 2014-2018 Matt Banks
  */
 
 /**
@@ -52,6 +52,8 @@ class Local_Pickup_Time_Admin {
 		$this->time_format = $plugin->get_time_format();
 		$this->gmt_offset  = $plugin->get_gmt_offset();
 		$this->timezone    = $plugin->get_timezone();
+		// Load Order meta_key defined for plugin.
+		$this->order_meta_key = $plugin->get_order_meta_key();
 
 		/*
 		 * Show Pickup Time Settings in the WooCommerce -> General Admin Screen
@@ -69,10 +71,8 @@ class Local_Pickup_Time_Admin {
 		 */
 		add_filter( 'manage_edit-shop_order_columns', array( $this, 'add_orders_list_pickup_date_column_header' ) );
 		add_action( 'manage_shop_order_posts_custom_column', array( $this, 'add_orders_list_pickup_date_column_content' ) );
-    add_action( 'manage_edit-shop_order_sortable_columns', array( $this, 'add_orders_list_pickup_date_column_sorting' ) );
-
-		// add_filter( 'posts_where', array( $this, 'order_by_pickup_date_column_where' ) );
-		// add_filter( 'posts_orderby', array( $this, 'order_by_pickup_date_column_orderby' ) );
+		add_action( 'manage_edit-shop_order_sortable_columns', array( $this, 'add_orders_list_pickup_date_column_sorting' ) );
+		add_action( 'pre_get_posts', array( $this, 'filter_orders_list_by_pickup_date' ) );
 
 	}
 
@@ -332,7 +332,7 @@ class Local_Pickup_Time_Admin {
 	public function show_metabox( $order ) {
 		$order_meta = get_post_custom( $order->id );
 
-		echo '<p><strong>' . __( 'Pickup Time:', 'woocommerce-local-pickup-time' ) . '</strong> ' . $this->pickup_time_select_translatable( $order_meta['_local_pickup_time_select'][0] ) . '</p>';
+		echo '<p><strong>' . __( 'Pickup Time:', 'woocommerce-local-pickup-time' ) . '</strong> ' . $this->pickup_time_select_translatable( $order_meta[ $this->order_meta_key ][0] ) . '</p>';
 
 	}
 
@@ -353,7 +353,7 @@ class Local_Pickup_Time_Admin {
 			$new_columns[ $column_name ] = $column_info;
 
 			if ( 'order_date' === $column_name ) {
-				$new_columns['order_local_pickup_time'] = __( 'Pickup Time', 'woocommerce-local-pickup-time' );
+				$new_columns[ $this->order_meta_key ] = __( 'Pickup Time', 'woocommerce-local-pickup-time' );
 			}
 		}
 
@@ -370,11 +370,10 @@ class Local_Pickup_Time_Admin {
 	 */
 	public function add_orders_list_pickup_date_column_content( $column ) {
 
-		global $post;
-		$order_meta = get_post_custom( $post->ID );
+		global $the_order;
 
-		if ( 'order_local_pickup_time' === $column ) {
-			echo $this->pickup_time_select_translatable( ( ! empty( $order_meta['_local_pickup_time_select'][0] ) ? $order_meta['_local_pickup_time_select'][0] : '' ) );
+		if ( $this->order_meta_key === $column ) {
+			echo $this->pickup_time_select_translatable( $the_order->get_meta( $this->order_meta_key ) );
 		}
 
 	}
@@ -389,51 +388,30 @@ class Local_Pickup_Time_Admin {
 	 */
 	public function add_orders_list_pickup_date_column_sorting( $columns ) {
 
-		$new_columns = array( 'order_local_pickup_time' => '_local_pickup_time_select' );
+		$new_columns                          = array();
+		$new_columns[ $this->order_meta_key ] = 'pickup_time';
 
 		return wp_parse_args( $new_columns, $columns );
 
 	}
 
 	/**
-	 * Adds the order meta data table conditions into the orders query.
+	 * Adds Local Pickup Time sorting to the query of the Orders List.
 	 *
 	 * @since     1.3.2
 	 *
-	 * @param string $where  The orders query WHERE condition.
-	 * @return  string  The final orders query WHERE condition.
+	 * @param object $query The posts query object.
+	 * @return object $query The modified query object.
 	 */
-	public function order_by_pickup_date_column_where( $where ) {
+	public function filter_orders_list_by_pickup_date( $query ) {
 
-		global $wpdb;
-
-		if ( is_admin() && get_query_var( 'post_type', '' ) === 'shop_order' && get_query_var( 'orderby', '' ) === '_local_pickup_time_select' ) {
-
-			//return $where . " AND meta_key = '_local_pickup_time_select' ";
-
+		if ( is_admin() && 'shop_order' === $query->query_vars['post_type'] && ! empty( $_GET['orderby'] ) && 'pickup_time' === $_GET['orderby'] ) {
+			$query->set( 'meta_key', $this->order_meta_key );
+			$query->set( 'orderby', 'meta_value_num' );
+			$query->set( 'order', ( ! empty( $_GET['order'] ) ) ? strtoupper( woocommerce_clean( $_GET['order'] ) ) : 'ASC' );
 		}
 
-		return $where;
-
-	}
-
-	/**
-	 * Adds Pickup Time sorting to orders query.
-	 *
-	 * @since     1.3.2
-	 *
-	 * @param string $order_by The default orders query by column.
-	 * @return  string  The Pickup Time meta column for sorting the orders list.
-	 */
-	public function order_by_pickup_date_column_orderby( $order_by ) {
-
-		if ( is_admin() && get_query_var( 'post_type', '' ) === 'shop_order' && get_query_var( 'orderby', '' ) === '_local_pickup_time_select' ) {
-
-      //return 'meta_value_num ' . strtoupper( get_query_var( 'order', 'desc' ) );
-
-		}
-
-		return $order_by;
+		return $query;
 
 	}
 
