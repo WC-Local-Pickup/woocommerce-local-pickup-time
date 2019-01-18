@@ -41,7 +41,7 @@ addons:
   apt:
     packages:
     - nodejs
-    
+
 before_install:
   - npm install grunt-cli
 
@@ -68,12 +68,12 @@ before_script:
 script:
   - |
     if [[ ! -z "$WP_VERSION" ]] ; then
-      phpunit --coverage-clover=coverage.xml
-      WP_MULTISITE=1 phpunit --coverage-clover=coverage.xml
+      grunt test
+      WP_MULTISITE=1 grunt test
     fi
   - |
     if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
-      phpcs
+      grunt phpcs
     fi
 
 after_success:
