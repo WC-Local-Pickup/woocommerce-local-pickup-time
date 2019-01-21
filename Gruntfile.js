@@ -1,19 +1,19 @@
 module.exports = function(grunt) {
-    
+
     require('load-grunt-tasks')(grunt);
-    
+
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-      
+
         composerBin: 'vendor/bin',
-        
+
         shell: {
             phpcs: {
                 options: {
                     stdout: true
                 },
-                command: '<%= composerBin %>/phpcs --colors'
+                command: '<%= composerBin %>/phpcs -p --colors'
             },
 
             phpcbf: {
@@ -22,7 +22,7 @@ module.exports = function(grunt) {
                 },
                 command: '<%= composerBin %>/phpcbf'
             },
-            
+
             phpunit: {
                 options: {
                     stdout: true
@@ -30,19 +30,19 @@ module.exports = function(grunt) {
                 command: '<%= composerBin %>/phpunit'
             },
         },
-        
+
         gitinfo: {
             commands: {
                 'local.tag.current.name': [ 'name-rev', '--tags', '--name-only', 'HEAD' ],
                 'local.tag.current.nameLong': [ 'describe', '--tags', '--long' ]
             }
         },
-        
+
         clean: {
             main: [ 'dist' ], //Clean up build folder
             i18n: [ 'languages/*.mo', 'languages/*.pot' ]
         },
-        
+
         copy: {
             // Copy the plugin to a versioned release directory
             main: {
@@ -88,7 +88,7 @@ module.exports = function(grunt) {
 				        src: [ '*.php', '**/*.php', '!node_modules/**', '!tests/**', '!scripts/**' ]
 			      },
         },
-      
+
         wp_readme_to_markdown: {
             your_target: {
                 files: {
@@ -128,14 +128,14 @@ module.exports = function(grunt) {
                 expand: true
             }
         },
-        
+
         checkrepo: {
             deploy: {
                 tagged: true, // Check that the last commit (HEAD) is tagged
                 clean: true // Check that working directory is clean
             }
         },
-        
+
         checktextdomain: {
             options: {
                 text_domain: 'woocommerce-local-pickup-time',
@@ -169,7 +169,7 @@ module.exports = function(grunt) {
                 expand: true,
             },
         },
-        
+
         wp_deploy: {
             deploy: {
                 options: {
@@ -181,7 +181,7 @@ module.exports = function(grunt) {
                 },
             }
         },
-        
+
     });
 
     grunt.registerTask( 'phpcs', [ 'shell:phpcs' ] );
