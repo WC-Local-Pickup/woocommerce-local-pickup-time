@@ -1,41 +1,54 @@
+# Travis CI Configuration File
+
+# Tell Travis CI which distro to use
+dist: trusty
+
 sudo: false
 
+# Tell Travis CI we're using PHP
 language: php
 
+# Tell Travis CI which notifications to send
 notifications:
   email:
     on_success: never
     on_failure: change
 
+# whitelist branches for the "push" build check
 branches:
   only:
     - master
-    - feature/pickup-date-order-sort
+    - /^feature\/.*$/
 
 cache:
   directories:
     - vendor
     - $HOME/.composer/cache
 
+# Run Matrix for supported PHP versions
+php:
+  - "5.6"
+  - "7.0"
+  - "7.1"
+  - "7.2"
+  - "7.3"
+
+env:
+  global:
+    - WP_TRAVISCI=phpcs
+  matrix:
+    - WP_MODE=single WP_VERSION=latest
+    - WP_MODE=single WP_VERSION=previous
+    - WP_MODE=multi  WP_VERSION=latest
+
+# Define a matrix of additional build configurations
+# The versions listed above will automatically create our first configuration,
+# so it doesn't need to be re-defined below.
 matrix:
+  fast_finish: true
   include:
-    - php: 7.3
-      env: WP_VERSION=latest
-    - php: 7.2
-      env: WP_VERSION=latest
-    - php: 7.1
-      env: WP_VERSION=latest
-    - php: 7.0
-      env: WP_VERSION=latest
     - php: 5.6
       env: WP_VERSION=4.7
-    - php: 5.6
-      env: WP_VERSION=latest
-    - php: 5.6
-      env: WP_VERSION=trunk
-    - php: 5.6
-      env: WP_TRAVISCI=phpcs
-  fast_finish: true
 
 addons:
   apt:
@@ -69,7 +82,6 @@ script:
   - |
     if [[ ! -z "$WP_VERSION" ]] ; then
       grunt test
-      WP_MULTISITE=1 grunt test
     fi
   - |
     if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then

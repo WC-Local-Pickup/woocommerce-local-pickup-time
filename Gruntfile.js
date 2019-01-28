@@ -90,7 +90,7 @@ module.exports = function(grunt) {
         },
 
         wp_readme_to_markdown: {
-            your_target: {
+            dest: {
                 files: {
                     'README.md': 'readme.txt'
                 }
