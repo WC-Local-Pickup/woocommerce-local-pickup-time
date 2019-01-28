@@ -20,6 +20,11 @@ branches:
     - master
     - /^feature\/.*$/
 
+# Git clone depth
+# By default Travis CI clones repositories to a depth of 50 commits
+git:
+  depth: 1
+
 cache:
   directories:
     - vendor
@@ -34,11 +39,9 @@ php:
   - "7.3"
 
 env:
-  global:
-    - WP_TRAVISCI=phpcs
   matrix:
     - WP_MODE=single WP_VERSION=latest
-    - WP_MODE=single WP_VERSION=previous
+    - WP_MODE=single WP_VERSION=4.8
     - WP_MODE=multi  WP_VERSION=latest
 
 # Define a matrix of additional build configurations
@@ -79,14 +82,7 @@ before_script:
     fi
 
 script:
-  - |
-    if [[ ! -z "$WP_VERSION" ]] ; then
-      grunt test
-    fi
-  - |
-    if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
-      grunt phpcs
-    fi
+  - grunt test
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
