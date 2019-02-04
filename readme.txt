@@ -69,6 +69,9 @@ The location, by default, is hooked to `woocommerce_admin_order_data_after_billi
 
 == Changelog ==
 
+= 1.3.3 =
+* fixes PHP 5.6 issue with DateTime syntax usage.
+
 = 1.3.2 =
 * fixes issue with missing space in pickup time options, from 1.3.1.
 * adds pickup date/time to Order List in Admin Dashboard.
