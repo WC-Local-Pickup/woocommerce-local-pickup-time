@@ -1,47 +1,64 @@
+# Travis CI Configuration File
+
+# Tell Travis CI which distro to use
+dist: trusty
+
 sudo: false
 
+# Tell Travis CI we're using PHP
 language: php
 
+# Tell Travis CI which notifications to send
 notifications:
   email:
     on_success: never
     on_failure: change
 
+# whitelist branches for the "push" build check
 branches:
   only:
     - master
-    - feature/pickup-date-order-sort
+    - /^feature\/.*$/
+
+# Git clone depth
+# By default Travis CI clones repositories to a depth of 50 commits
+git:
+  depth: 1
 
 cache:
   directories:
     - vendor
     - $HOME/.composer/cache
 
+# Run Matrix for supported PHP versions
+php:
+  - "5.6"
+  - "7.0"
+  - "7.1"
+  - "7.2"
+  - "7.3"
+
+env:
+  matrix:
+    - WP_MODE=single WP_VERSION=latest
+    - WP_MODE=single WP_VERSION=4.8
+    - WP_MODE=multi  WP_VERSION=latest
+    - WP_MODE=multi  WP_VERSION=4.8
+
+# Define a matrix of additional build configurations
+# The versions listed above will automatically create our first configuration,
+# so it doesn't need to be re-defined below.
 matrix:
-  include:
-    - php: 7.2
-      env: WP_VERSION=latest
-    - php: 7.1
-      env: WP_VERSION=latest
-    - php: 7.0
-      env: WP_VERSION=latest
-    - php: 5.6
-      env: WP_VERSION=4.4
-    - php: 5.6
-      env: WP_VERSION=latest
-    - php: 5.6
-      env: WP_VERSION=trunk
-    - php: 5.6
-      env: WP_TRAVISCI=phpcs
-    - php: 5.5.9
-      env: WP_VERSION=latest
   fast_finish: true
+  include:
+    - php: 5.6
+      env: WP_VERSION=4.7
 
 addons:
   apt:
     packages:
     - nodejs
-    
+
 before_install:
   - npm install grunt-cli
 
@@ -50,30 +67,25 @@ install:
   - npm install
 
 before_script:
+  # Setup unit tests
+  - bash scripts/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
+  # Setup WordPress coding standards
+  - composer global require wp-coding-standards/wpcs
+  # Properly handle PHPUnit versions
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
   - |
-    if [[ ! -z "$WP_VERSION" ]] ; then
-      bash scripts/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
-      if [[ ${TRAVIS_PHP_VERSION:0:2} == "5." ]]; then
-        composer global require "phpunit/phpunit=4.8.*"
-      else
-        composer global require "phpunit/phpunit=5.7.*"
-      fi
-    fi
-  - |
-    if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
-      composer global require wp-coding-standards/wpcs
+    if [[ ${TRAVIS_PHP_VERSION:0:2} == "5." ]]; then
+      composer global require "phpunit/phpunit=4.8.*"
+    else
+      composer global require "phpunit/phpunit=5.7.*"
     fi
 
 script:
   - |
-    if [[ ! -z "$WP_VERSION" ]] ; then
-      phpunit --coverage-clover=coverage.xml
-      WP_MULTISITE=1 phpunit --coverage-clover=coverage.xml
-    fi
-  - |
-    if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
-      phpcs
+    if [[ "$WP_MODE" == "multi" ]]; then
+      WP_MULTISITE=1 grunt test
+    else
+      WP_MULTISITE=0 grunt test
     fi
 
 after_success:

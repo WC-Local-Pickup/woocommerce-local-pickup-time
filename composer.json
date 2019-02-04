@@ -1,0 +1,50 @@
+{
+    "name": "mattbanks/woocommerce-local-pickup-time",
+    "description": "Add an an option to WooCommerce checkout pages for Local Pickup that allows the user to choose a pickup time.",
+    "type": "wordpress-plugin",
+    "homepage": "https://github.com/mattbanks/woocommerce-local-pickup-time",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Matt Banks",
+            "email": "mjbanks@gmail.com",
+            "homepage": "http://mattbanks.me"
+        },
+        {
+            "name": "Tim Nolte",
+            "email": "tim.nolte@ndigitals.com",
+            "homepage": "https://www.timnolte.com/"
+        }
+    ],
+    "config": {
+        "platform": {
+            "php": "5.6"
+        }
+    },
+    "require-dev": {
+        "php": ">=5.6.0",
+        "squizlabs/php_codesniffer": "^3.3",
+        "wp-coding-standards/wpcs": "^2.0",
+				"phpcompatibility/php-compatibility": "^9.0",
+        "phpunit/phpunit": "^5",
+        "woocommerce/woocommerce": "dev-master",
+        "woocommerce/woocommerce-git-hooks": "^1.0",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0"
+    },
+    "autoload-dev": {
+        "classmap": [
+          "vendor/woocommerce/woocommerce/tests/framework"
+        ]
+    },
+    "scripts": {
+        "post-install-cmd": "\"vendor/bin/phpcs\" --config-set installed_paths vendor/wp-coding-standards/wpcs",
+        "post-update-cmd" : "\"vendor/bin/phpcs\" --config-set installed_paths vendor/wp-coding-standards/wpcs"
+    },
+    "extra": {
+        "installer-paths": {
+            "vendor/{$vendor}/{$name}": [
+                "woocommerce/woocommerce"
+            ]
+        }
+    }
+}

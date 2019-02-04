@@ -14,6 +14,7 @@
 .DS_Store
 Thumbs.db
 .cache
+tags.*
 .project
 .settings
 .tmproj
@@ -22,6 +23,7 @@ nbproject
 *.sublime-project
 *.sublime-workspace
 .idea
+clover.xml
 
 # Dreamweaver added files
 _notes
@@ -38,3 +40,6 @@ dwsync.xml
 intermediate
 .idea
 cache
+node_modules
+vendor
+dist

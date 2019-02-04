@@ -15,7 +15,8 @@ GITPATH="$CURRENTDIR/" # this file should be in the base of your git repository
 # svn config
 SVNPATH="/tmp/$PLUGINSLUG" # path to a temp SVN repo. No trailing slash required and don't add trunk.
 SVNURL="http://plugins.svn.wordpress.org/$PLUGINSLUG" # Remote SVN repo on wordpress.org, with no trailing slash
-SVNUSER="mjbanks" # your svn username
+echo "Enter your WordPress.org/SVN username: \c"
+read SVNUSER # your svn username
 
 # Let's begin...
 echo ".........................................."
@@ -54,7 +55,7 @@ echo "Exporting the HEAD of master from git to the trunk of SVN"
 git checkout-index -a -f --prefix=$SVNPATH/trunk/
 
 echo "Ignoring github specific files and deployment script"
-svn propset svn:ignore "deploy.sh
+svn propset svn:ignore "scripts
 README.md
 .git
 .gitignore" "$SVNPATH/trunk/"
