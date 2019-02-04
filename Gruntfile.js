@@ -173,7 +173,8 @@ module.exports = function(grunt) {
         wp_deploy: {
             deploy: {
                 options: {
-                    plugin_slug: 'woocommerce-local-pickup-time-select',
+									  plugin_slug: 'woocommerce-local-pickup-time-select',
+										plugin_main_file: 'woocommerce-local-pickup-time.php',
                     build_dir: 'dist/',
                     assets_dir: 'assets/',
                     max_buffer: 1024 * 1024,
