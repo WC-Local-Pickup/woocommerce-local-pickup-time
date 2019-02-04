@@ -1,348 +1,165 @@
-# Loco Gettext template
+# Translation of WooCommerce Local Pickup Time in Czech
+# This file is distributed under the same license as the WooCommerce Local Pickup Time package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WooCommerce Local Pickup Time Select\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-11 11:01+0200\n"
-"PO-Revision-Date: 2017-05-11 11:01+0200\n"
-"Last-Translator: Karolína Vyskočilová <karolina@kybernaut.cz>\n"
-"Language-Team: Matt Banks <mjbanks@gmail.com>\n"
-"Language: cs_CZ\n"
+"PO-Revision-Date: 2019-02-01 14:28:47+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Revision-Date: Fri Jul 10 2015 12:46:48 GMT+0200 (CEST)\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 1.8.12\n"
-"X-Poedit-Basepath: ..\n"
-"X-Poedit-KeywordsList: _:1;gettext:1;dgettext:2;ngettext:1,2;dngettext:2,3;"
-"__:1;_e:1;_c:1;_n:1,2;_n_noop:1,2;_nc:1,2;__ngettext:1,2;__ngettext_noop:1,2;"
-"_x:1,2c;_ex:1,2c;_nx:1,2,4c;_nx_noop:1,2,3c;_n_js:1,2;_nx_js:1,2,3c;"
-"esc_attr__:1;esc_html__:1;esc_attr_e:1;esc_html_e:1;esc_attr_x:1,2c;"
-"esc_html_x:1,2c;comments_number_link:2,3;t:1;st:1;trans:1;transChoice:1,2\n"
-"X-Poedit-SearchPath-0: .\n"
-
-#: admin/class-local-pickup-time-admin.php:92
+"X-Generator: GlotPress/2.3.1\n"
+"Language: cs_CZ\n"
+"Project-Id-Version: WooCommerce Local Pickup Time\n"  #: admin/class-local-pickup-time-admin.php:108
 msgid "Store Hours and Closings for Local Pickup"
-msgstr "Otvírací doba pro místí vyzvednutí"
-
-#: admin/class-local-pickup-time-admin.php:94
-msgid ""
-"The following options affect when order pickups begin and end each day, and "
-"which days to not allow order pickups."
-msgstr ""
-"Pomocí následujících možnosí můžete vybrat, kdy bude možné vyzvednout "
-"objednávku na místě."
-
-#: admin/class-local-pickup-time-admin.php:98
+msgstr "Otvírací doba pro místí vyzvednutí"  #: admin/class-local-pickup-time-admin.php:110
+msgid "The following options affect when order pickups begin and end each day, and which days to not allow order pickups."
+msgstr "Pomocí následujících možnosí můžete vybrat, kdy bude možné vyzvednout objednávku na místě."  #: admin/class-local-pickup-time-admin.php:114
 msgid "Monday Pickup Start Time (use 24-hour time)"
-msgstr "Pondělí - první vyzvednutí v (24 hodin. formát)"
-
-#: admin/class-local-pickup-time-admin.php:99
+msgstr "Pondělí - první vyzvednutí v (24 hodin. formát)"  #: admin/class-local-pickup-time-admin.php:115
 msgid "This sets the pickup start time for Monday. Use 24-hour time format."
-msgstr ""
-"Zde nastavíte pondělní první možný čas vyzvednutí. Použijte 24 hodinový "
-"formát."
-
-#: admin/class-local-pickup-time-admin.php:107
+msgstr "Zde nastavíte pondělní první možný čas vyzvednutí. Použijte 24 hodinový formát."  #: admin/class-local-pickup-time-admin.php:123
 msgid "Monday Pickup End Time (use 24-hour time)"
-msgstr "Pondělí - poslední vyzvednutí v (24 hodin. formát)"
-
-#: admin/class-local-pickup-time-admin.php:108
+msgstr "Pondělí - poslední vyzvednutí v (24 hodin. formát)"  #: admin/class-local-pickup-time-admin.php:124
 msgid "This sets the pickup end time for Monday. Use 24-hour time format."
-msgstr ""
-"Zde nastavíte pondělní poslední možný čas vyzvednutí. Použijte 24 hodinový "
-"formát."
-
-#: admin/class-local-pickup-time-admin.php:116
+msgstr "Zde nastavíte pondělní poslední možný čas vyzvednutí. Použijte 24 hodinový formát."  #: admin/class-local-pickup-time-admin.php:132
 msgid "Tuesday Pickup Start Time (use 24-hour time)"
-msgstr "Úterý - první vyzvednutí v (24 hodin. formát)"
-
-#: admin/class-local-pickup-time-admin.php:117
+msgstr "Úterý - první vyzvednutí v (24 hodin. formát)"  #: admin/class-local-pickup-time-admin.php:133
 msgid "This sets the pickup start time for Tuesday. Use 24-hour time format."
-msgstr ""
-"Zde nastavíte úterní první možný čas vyzvednutí. Použijte 24 hodinový formát."
-
-#: admin/class-local-pickup-time-admin.php:125
+msgstr "Zde nastavíte úterní první možný čas vyzvednutí. Použijte 24 hodinový formát."  #: admin/class-local-pickup-time-admin.php:141
 msgid "Tuesday Pickup End Time (use 24-hour time)"
-msgstr "Úterý - poslední vyzvednutí v (24 hodin. formát)"
-
-#: admin/class-local-pickup-time-admin.php:126
+msgstr "Úterý - poslední vyzvednutí v (24 hodin. formát)"  #: admin/class-local-pickup-time-admin.php:142
 msgid "This sets the pickup end time for Tuesday. Use 24-hour time format."
-msgstr ""
-"Zde nastavíte úterní poslední možný čas vyzvednutí. Použijte 24 hodinový "
-"formát."
-
-#: admin/class-local-pickup-time-admin.php:134
+msgstr "Zde nastavíte úterní poslední možný čas vyzvednutí. Použijte 24 hodinový formát."  #: admin/class-local-pickup-time-admin.php:150
 msgid "Wednesday Pickup Start Time (use 24-hour time)"
-msgstr "Středa - první vyzvednutí v (24 hodin. formát)"
-
-#: admin/class-local-pickup-time-admin.php:135
+msgstr "Středa - první vyzvednutí v (24 hodin. formát)"  #: admin/class-local-pickup-time-admin.php:151
 msgid "This sets the pickup start time for Wednesday. Use 24-hour time format."
-msgstr ""
-"Zde nastavíte středeční první možný čas vyzvednutí. Použijte 24 hodinový "
-"formát."
-
-#: admin/class-local-pickup-time-admin.php:143
+msgstr "Zde nastavíte středeční první možný čas vyzvednutí. Použijte 24 hodinový formát."  #: admin/class-local-pickup-time-admin.php:159
 msgid "Wednesday Pickup End Time (use 24-hour time)"
-msgstr "Středa - poslední vyzvednutí v (24 hodin. formát)"
-
-#: admin/class-local-pickup-time-admin.php:144
+msgstr "Středa - poslední vyzvednutí v (24 hodin. formát)"  #: admin/class-local-pickup-time-admin.php:160
 msgid "This sets the pickup end time for Wednesday. Use 24-hour time format."
-msgstr ""
-"Zde nastavíte středeční poslední možný čas vyzvednutí. Použijte 24 hodinový "
-"formát."
-
-#: admin/class-local-pickup-time-admin.php:152
+msgstr "Zde nastavíte středeční poslední možný čas vyzvednutí. Použijte 24 hodinový formát."  #: admin/class-local-pickup-time-admin.php:168
 msgid "Thursday Pickup Start Time (use 24-hour time)"
-msgstr "Čtvrtek - první vyzvednutí v (24 hodin. formát)"
-
-#: admin/class-local-pickup-time-admin.php:153
+msgstr "Čtvrtek - první vyzvednutí v (24 hodin. formát)"  #: admin/class-local-pickup-time-admin.php:169
 msgid "This sets the pickup start time for Thursday. Use 24-hour time format."
-msgstr ""
-"Zde nastavíte čtvrteční první možný čas vyzvednutí. Použijte 24 hodinový "
-"formát."
-
-#: admin/class-local-pickup-time-admin.php:161
+msgstr "Zde nastavíte čtvrteční první možný čas vyzvednutí. Použijte 24 hodinový formát."  #: admin/class-local-pickup-time-admin.php:177
 msgid "Thursday Pickup End Time (use 24-hour time)"
-msgstr "Čtvrtek - poslední vyzvednutí v (24 hodin. formát)"
-
-#: admin/class-local-pickup-time-admin.php:162
+msgstr "Čtvrtek - poslední vyzvednutí v (24 hodin. formát)"  #: admin/class-local-pickup-time-admin.php:178
 msgid "This sets the pickup end time for Thursday. Use 24-hour time format."
-msgstr ""
-"Zde nastavíte čtvrteční poslední možný čas vyzvednutí. Použijte 24 hodinový "
-"formát."
-
-#: admin/class-local-pickup-time-admin.php:170
+msgstr "Zde nastavíte čtvrteční poslední možný čas vyzvednutí. Použijte 24 hodinový formát."  #: admin/class-local-pickup-time-admin.php:186
 msgid "Friday Pickup Start Time (use 24-hour time)"
-msgstr "Pátek - první vyzvednutí v (24 hodin. formát)"
-
-#: admin/class-local-pickup-time-admin.php:171
+msgstr "Pátek - první vyzvednutí v (24 hodin. formát)"  #: admin/class-local-pickup-time-admin.php:187
 msgid "This sets the pickup start time for Friday. Use 24-hour time format."
-msgstr ""
-"Zde nastavíte páteční první možný čas vyzvednutí. Použijte 24 hodinový "
-"formát."
-
-#: admin/class-local-pickup-time-admin.php:179
+msgstr "Zde nastavíte páteční první možný čas vyzvednutí. Použijte 24 hodinový formát."  #: admin/class-local-pickup-time-admin.php:195
 msgid "Friday Pickup End Time (use 24-hour time)"
-msgstr "Pátek - poslední vyzvednutí v (24 hodin. formát)"
-
-#: admin/class-local-pickup-time-admin.php:180
+msgstr "Pátek - poslední vyzvednutí v (24 hodin. formát)"  #: admin/class-local-pickup-time-admin.php:196
 msgid "This sets the pickup end time for Friday. Use 24-hour time format."
-msgstr ""
-"Zde nastavíte páteční poslední možný čas vyzvednutí. Použijte 24 hodinový "
-"formát."
-
-#: admin/class-local-pickup-time-admin.php:188
+msgstr "Zde nastavíte páteční poslední možný čas vyzvednutí. Použijte 24 hodinový formát."  #: admin/class-local-pickup-time-admin.php:204
 msgid "Saturday Pickup Start Time (use 24-hour time)"
-msgstr "Sobota - poslední vyzvednutí v (24 hodin. formát)"
-
-#: admin/class-local-pickup-time-admin.php:189
+msgstr "Sobota - poslední vyzvednutí v (24 hodin. formát)"  #: admin/class-local-pickup-time-admin.php:205
 msgid "This sets the pickup start time for Saturday. Use 24-hour time format."
-msgstr ""
-"Zde nastavíte sobotní první možný čas vyzvednutí. Použijte 24 hodinový "
-"formát."
-
-#: admin/class-local-pickup-time-admin.php:197
+msgstr "Zde nastavíte sobotní první možný čas vyzvednutí. Použijte 24 hodinový formát."  #: admin/class-local-pickup-time-admin.php:213
 msgid "Saturday Pickup End Time (use 24-hour time)"
-msgstr "Sobota - první vyzvednutí v (24 hodin. formát)"
-
-#: admin/class-local-pickup-time-admin.php:198
+msgstr "Sobota - první vyzvednutí v (24 hodin. formát)"  #: admin/class-local-pickup-time-admin.php:214
 msgid "This sets the pickup end time for Saturday. Use 24-hour time format."
-msgstr ""
-"Zde nastavíte sobotní poslední možný čas vyzvednutí. Použijte 24 hodinový "
-"formát."
-
-#: admin/class-local-pickup-time-admin.php:206
+msgstr "Zde nastavíte sobotní poslední možný čas vyzvednutí. Použijte 24 hodinový formát."  #: admin/class-local-pickup-time-admin.php:222
 msgid "Sunday Pickup Start Time (use 24-hour time)"
-msgstr "Neděle - poslední vyzvednutí v (24 hodin. formát)"
-
-#: admin/class-local-pickup-time-admin.php:207
+msgstr "Neděle - poslední vyzvednutí v (24 hodin. formát)"  #: admin/class-local-pickup-time-admin.php:223
 msgid "This sets the pickup start time for Sunday. Use 24-hour time format."
-msgstr ""
-"Zde nastavíte nedělní první možný čas vyzvednutí. Použijte 24 hodinový "
-"formát."
-
-#: admin/class-local-pickup-time-admin.php:215
+msgstr "Zde nastavíte nedělní první možný čas vyzvednutí. Použijte 24 hodinový formát."  #: admin/class-local-pickup-time-admin.php:231
 msgid "Sunday Pickup End Time (use 24-hour time)"
-msgstr "Neděle - první vyzvednutí v (24 hodin. formát)"
-
-#: admin/class-local-pickup-time-admin.php:216
+msgstr "Neděle - první vyzvednutí v (24 hodin. formát)"  #: admin/class-local-pickup-time-admin.php:232
 msgid "This sets the pickup end time for Sunday. Use 24-hour time format."
-msgstr ""
-"Zde nastavíte nedělní poslední možný čas vyzvednutí. Použijte 24 hodinový "
-"formát."
-
-#: admin/class-local-pickup-time-admin.php:224
+msgstr "Zde nastavíte nedělní poslední možný čas vyzvednutí. Použijte 24 hodinový formát."  #: admin/class-local-pickup-time-admin.php:240
 msgid "Store Closing Days (use MM/DD/YYYY format)"
-msgstr "Dny, kdy je zavřeno (použijte formát MM/DD/YYY formát)"
-
-#: admin/class-local-pickup-time-admin.php:225
-msgid ""
-"This sets the days the store is closed. Enter one date per line, in format "
-"MM/DD/YYYY."
-msgstr ""
-"Zde nastavíte dny, kdy bude zavřeno. Zadejte jedno datum na řádek ve formátu "
-"MM/DD/YYYY."
-
-#: admin/class-local-pickup-time-admin.php:233
+msgstr "Dny, kdy je zavřeno (použijte formát MM/DD/YYY formát)"  #: admin/class-local-pickup-time-admin.php:241
+msgid "This sets the days the store is closed. Enter one date per line, in format MM/DD/YYYY."
+msgstr "Zde nastavíte dny, kdy bude zavřeno. Zadejte jedno datum na řádek ve formátu MM/DD/YYYY."  #: admin/class-local-pickup-time-admin.php:249
 msgid "Pickup Time Interval"
-msgstr "Interval času vyzvednutá"
-
-#: admin/class-local-pickup-time-admin.php:234
+msgstr "Interval času vyzvednutá"  #: admin/class-local-pickup-time-admin.php:250
 msgid "Choose the time interval for allowing local pickup orders."
-msgstr "Vyberte interval, podle kterého se vytvoří nabídka časů."
-
-#: admin/class-local-pickup-time-admin.php:242
-#: admin/class-local-pickup-time-admin.php:262
+msgstr "Vyberte interval, podle kterého se vytvoří nabídka časů."  #: admin/class-local-pickup-time-admin.php:258
+#: admin/class-local-pickup-time-admin.php:278
 msgid "5 minutes"
-msgstr "5 minut"
-
-#: admin/class-local-pickup-time-admin.php:243
-#: admin/class-local-pickup-time-admin.php:263
+msgstr "5 minut"  #: admin/class-local-pickup-time-admin.php:259
+#: admin/class-local-pickup-time-admin.php:279
 msgid "10 minutes"
-msgstr "10 minut"
-
-#: admin/class-local-pickup-time-admin.php:244
-#: admin/class-local-pickup-time-admin.php:264
+msgstr "10 minut"  #: admin/class-local-pickup-time-admin.php:260
+#: admin/class-local-pickup-time-admin.php:280
 msgid "15 minutes"
-msgstr "15 minut"
-
-#: admin/class-local-pickup-time-admin.php:245
-#: admin/class-local-pickup-time-admin.php:265
+msgstr "15 minut"  #: admin/class-local-pickup-time-admin.php:261
+#: admin/class-local-pickup-time-admin.php:281
 msgid "20 minutes"
-msgstr "20 minut"
-
-#: admin/class-local-pickup-time-admin.php:246
-#: admin/class-local-pickup-time-admin.php:266
-msgid "30 minutes"
-msgstr "30 minut"
-
-#: admin/class-local-pickup-time-admin.php:247
-#: admin/class-local-pickup-time-admin.php:267
-msgid "45 minutes"
-msgstr "45 minut"
-
-#: admin/class-local-pickup-time-admin.php:248
-#: admin/class-local-pickup-time-admin.php:268
-msgid "1 hour"
-msgstr "1 hodina"
-
-#: admin/class-local-pickup-time-admin.php:249
-#: admin/class-local-pickup-time-admin.php:269
-msgid "2 hours"
-msgstr "2 hodiny"
-
-#: admin/class-local-pickup-time-admin.php:253
-msgid "Pickup Time Delay"
-msgstr "Odběr možný po"
-
-#: admin/class-local-pickup-time-admin.php:254
-msgid ""
-"Choose the time delay from the time of ordering for allowing local pickup "
-"orders."
-msgstr "Po kolika minutách je možné objednávku vyzvednou po jejím uskutečnění."
-
-#: admin/class-local-pickup-time-admin.php:273
-msgid "Pickup Time Days Ahead"
-msgstr "Objednávka dopředu max."
-
-#: admin/class-local-pickup-time-admin.php:274
-msgid "Choose the number of days ahead for allowing local pickup orders."
-msgstr "Vyberte pro kolik dní dopředu je možné vybrat dobu doručení"
-
+msgstr "20 minut"  #: admin/class-local-pickup-time-admin.php:262
 #: admin/class-local-pickup-time-admin.php:282
-msgid "1 day"
-msgstr "1 den"
-
+msgid "30 minutes"
+msgstr "30 minut"  #: admin/class-local-pickup-time-admin.php:263
 #: admin/class-local-pickup-time-admin.php:283
-msgid "2 days"
-msgstr "2 dny"
-
+msgid "45 minutes"
+msgstr "45 minut"  #: admin/class-local-pickup-time-admin.php:264
 #: admin/class-local-pickup-time-admin.php:284
-msgid "3 days"
-msgstr "3 dny"
-
+msgid "1 hour"
+msgstr "1 hodina"  #: admin/class-local-pickup-time-admin.php:265
 #: admin/class-local-pickup-time-admin.php:285
-msgid "4 days"
-msgstr "4 dny"
-
-#: admin/class-local-pickup-time-admin.php:286
+msgid "2 hours"
+msgstr "2 hodiny"  #: admin/class-local-pickup-time-admin.php:269
+msgid "Pickup Time Delay"
+msgstr "Odběr možný po"  #: admin/class-local-pickup-time-admin.php:270
+msgid "Choose the time delay from the time of ordering for allowing local pickup orders."
+msgstr "Po kolika minutách je možné objednávku vyzvednou po jejím uskutečnění."  #: admin/class-local-pickup-time-admin.php:286
+msgid "4 hours"
+msgstr "4 hodiny"  #: admin/class-local-pickup-time-admin.php:287
+msgid "8 hours"
+msgstr "8 hodin"  #: admin/class-local-pickup-time-admin.php:288
+msgid "16 hours"
+msgstr "16 hodin"  #: admin/class-local-pickup-time-admin.php:289
+msgid "24 hours"
+msgstr "24 hodin"  #: admin/class-local-pickup-time-admin.php:290
+msgid "36 hours"
+msgstr "36 hodin"  #: admin/class-local-pickup-time-admin.php:291
+msgid "48 hours"
+msgstr "48 hodin"  #: admin/class-local-pickup-time-admin.php:292
+msgid "3 days"
+msgstr "3 dny"  #: admin/class-local-pickup-time-admin.php:293
 msgid "5 days"
-msgstr "5 dnů"
-
-#: admin/class-local-pickup-time-admin.php:287
-msgid "6 days"
-msgstr "6 dnů"
-
-#: admin/class-local-pickup-time-admin.php:288
-msgid "7 days"
-msgstr "7 dnů"
-
-#: admin/class-local-pickup-time-admin.php:289
-msgid "8 days"
-msgstr "8 dnů"
-
-#: admin/class-local-pickup-time-admin.php:290
-msgid "9 days"
-msgstr "9 dnů"
-
-#: admin/class-local-pickup-time-admin.php:291
-msgid "10 days"
-msgstr "10 dní"
-
-#: admin/class-local-pickup-time-admin.php:313
+msgstr "5 dnů"  #: admin/class-local-pickup-time-admin.php:294
+msgid "1 week"
+msgstr "1 týden"  #: admin/class-local-pickup-time-admin.php:298
+msgid "Pickup Time Days Ahead"
+msgstr "Objednávka dopředu max."  #: admin/class-local-pickup-time-admin.php:299
+msgid "Choose the number of days ahead for allowing local pickup orders."
+msgstr "Vyberte pro kolik dní dopředu je možné vybrat dobu doručení"  #: admin/class-local-pickup-time-admin.php:335
 msgid "Pickup Time:"
-msgstr "Čas vyzvednutí:"
-
-#: public/class-local-pickup-time.php:293
-msgid "Monday"
-msgstr "Pondělí"
-
-#: public/class-local-pickup-time.php:294
-msgid "Tuesday"
-msgstr "Úterý"
-
-#: public/class-local-pickup-time.php:295
-msgid "Wednesday"
-msgstr "Středa"
-
-#: public/class-local-pickup-time.php:296
-msgid "Thursday"
-msgstr "Čtvrtek"
-
-#: public/class-local-pickup-time.php:297
-msgid "Friday"
-msgstr "Pátek"
-
-#: public/class-local-pickup-time.php:298
-msgid "Saturday"
-msgstr "Sobota"
-
-#: public/class-local-pickup-time.php:299
-msgid "Sunday"
-msgstr "Neděle"
-
-#: public/class-local-pickup-time.php:302
-msgid "Select time"
-msgstr "Vyberte čas"
-
-#: public/class-local-pickup-time.php:329
-#: public/class-local-pickup-time.php:391
-msgid "Closed today, please check back tomorrow!"
-msgstr "Dnes už to nestihneme, objednejte si čerstvé zítra!"
-
-#: public/class-local-pickup-time.php:357
-msgid "Today"
-msgstr "Dnes"
-
-#: public/class-local-pickup-time.php:412
-#: public/class-local-pickup-time.php:417
-#: public/class-local-pickup-time.php:458
+msgstr "Čas vyzvednutí:"  #: admin/class-local-pickup-time-admin.php:356
+#: public/class-local-pickup-time.php:502
+#: public/class-local-pickup-time.php:509
+#: public/class-local-pickup-time.php:560
 msgid "Pickup Time"
-msgstr "Čas vyzvednutí"
-
-#: public/class-local-pickup-time.php:436
+msgstr "Čas vyzvednutí"  #: public/class-local-pickup-time.php:394
+msgid "Monday"
+msgstr "Pondělí"  #: public/class-local-pickup-time.php:395
+msgid "Tuesday"
+msgstr "Úterý"  #: public/class-local-pickup-time.php:396
+msgid "Wednesday"
+msgstr "Středa"  #: public/class-local-pickup-time.php:397
+msgid "Thursday"
+msgstr "Čtvrtek"  #: public/class-local-pickup-time.php:398
+msgid "Friday"
+msgstr "Pátek"  #: public/class-local-pickup-time.php:399
+msgid "Saturday"
+msgstr "Sobota"  #: public/class-local-pickup-time.php:400
+msgid "Sunday"
+msgstr "Neděle"  #: public/class-local-pickup-time.php:414
+msgid "Select time"
+msgstr "Vyberte čas"  #: public/class-local-pickup-time.php:529
 msgid "Please select a pickup time."
-msgstr "vyberte si čas vyzvednutí."
+msgstr "vyberte si čas vyzvednutí."  #: public/class-local-pickup-time.php:579
+msgid "None"
+msgstr "Žádná"  #. Plugin Name of the plugin/theme
+msgid "WooCommerce Local Pickup Time Select"
+msgstr "WooCommerce Local Pickup Time Select"  #. Author URI of the plugin/theme
+msgid "http://mattbanks.me"
+msgstr "http://mattbanks.me"  #. Description of the plugin/theme
+msgid "Add an an option to WooCommerce checkout pages for Local Pickup that allows the user to choose a pickup time."
+msgstr "Přidejte do WooCommerce možnost výběru času pro místní vyzvednutí na přehledu v pokladně."  #. Author of the plugin/theme
+msgid "Matt Banks"
+msgstr "Matt Banks"
