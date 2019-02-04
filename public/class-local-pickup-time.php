@@ -582,7 +582,7 @@ class Local_Pickup_Time {
 		// This match is specifically to address the bug introduced in 1.3.1.
 		if ( preg_match( '/^\d{2}\/\d{2}\/\d{4}\d{1,2}_\d{2}\_[amp]{2}$/', $value ) ) {
 
-			$value = ( DateTime::createFromFormat( 'm/d/Y' . preg_replace( '/[^\w]+/', '_', $this->time_format ), $value ) )->getTimestamp();
+			$value = DateTime::createFromFormat( 'm/d/Y' . preg_replace( '/[^\w]+/', '_', $this->time_format ), $value )->getTimestamp();
 
 		}
 
