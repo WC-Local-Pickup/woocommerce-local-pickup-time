@@ -82,11 +82,11 @@ module.exports = function(grunt) {
                 textdomain: 'woocommerce-local-pickup-time',    // Project text domain.
             },
             update_all_domains: {
-				        options: {
-					        updateDomains: true
-				        },
-				        src: [ '*.php', '**/*.php', '!node_modules/**', '!tests/**', '!scripts/**' ]
-			      },
+                  options: {
+                  updateDomains: true
+                },
+                src: [ '*.php', '**/*.php', '!node_modules/**', '!tests/**', '!scripts/**' ]
+            },
         },
 
         wp_readme_to_markdown: {
@@ -117,7 +117,7 @@ module.exports = function(grunt) {
                     },                                // Headers to add to the generated POT file.
                     type: 'wp-plugin',                // Type of project (wp-plugin or wp-theme).
                     updateTimestamp: true,            // Whether the POT-Creation-Date should be updated without other changes.
-                    updatePoFiles: true               // Whether to update PO files in the same directory as the POT file.
+                    updatePoFiles: false              // Whether to update PO files in the same directory as the POT file.
                 }
             }
         },
@@ -140,7 +140,7 @@ module.exports = function(grunt) {
             options: {
                 text_domain: 'woocommerce-local-pickup-time',
                 keywords: [
-										'__:1,2d',
+                    '__:1,2d',
                     '_e:1,2d',
                     '_x:1,2c,3d',
                     'esc_html__:1,2d',
@@ -173,8 +173,8 @@ module.exports = function(grunt) {
         wp_deploy: {
             deploy: {
                 options: {
-										plugin_slug: 'woocommerce-local-pickup-time-select',
-										plugin_main_file: 'woocommerce-local-pickup-time.php',
+                    plugin_slug: 'woocommerce-local-pickup-time-select',
+                    plugin_main_file: 'woocommerce-local-pickup-time.php',
                     build_dir: 'dist/',
                     assets_dir: 'assets/',
                     max_buffer: 1024 * 1024,
@@ -188,7 +188,7 @@ module.exports = function(grunt) {
     grunt.registerTask( 'phpcs', [ 'shell:phpcs' ] );
     grunt.registerTask( 'phpcbf', [ 'shell:phpcbf' ] );
     grunt.registerTask( 'phpunit', [ 'shell:phpunit' ] );
-		grunt.registerTask( 'i18n', [ 'addtextdomain', 'makepot', 'po2mo' ] );
+    grunt.registerTask( 'i18n', [ 'addtextdomain', 'makepot', 'po2mo' ] );
     grunt.registerTask( 'readme', [ 'wp_readme_to_markdown' ] );
     grunt.registerTask( 'test', [ 'checktextdomain', 'phpcs', 'phpunit' ] );
     grunt.registerTask( 'build', [ 'gitinfo', 'test', 'clean', 'i18n', 'readme', 'copy' ] );
