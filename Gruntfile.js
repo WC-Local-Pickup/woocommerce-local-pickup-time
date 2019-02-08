@@ -48,17 +48,17 @@ module.exports = function(grunt) {
             main: {
                 src: [
                     '**',
-                    '!*.xml', '!*.log', //any config/log files
-                    '!node_modules/**', '!Gruntfile.js', '!package.json', //npm/Grunt
-                    '!assets/**', //wp-org assets
-                    '!dist/**', //build directory
-                    '!.git/**', //version control
-                    '!tests/**', '!scripts/**', '!phpunit.xml', '!phpunit.xml.dist', //unit testing
-                    '!vendor/**', '!composer.lock', '!composer.phar', '!composer.json', //composer
-                    '!.*', '!**/*~', //hidden files
-                    '!CONTRIBUTING.md',
-                    '!README.md',
-                    '!phpcs.xml', '!phpcs.xml.dist', // CodeSniffer Configuration
+                    '!*.xml', '!*.log',                                         // any config/log files
+                    '!node_modules/**', '!Gruntfile.js*', '!package*.json',     // npm/Grunt
+                    '!assets/**',                                               // wp-org assets
+                    '!dist/**',                                                 // build directory
+                    '!.git/**',                                                 // version control
+                    '!tests/**', '!scripts/**', '!phpunit.xml*', '!clover.xml', // unit testing
+                    '!vendor/**', '!composer.*',                                // composer
+                    '!.*', '!**/*~',                                            // hidden files
+                    '!CONTRIBUTING.md', '!README.md',                           // GitHub docs
+                    '!phpcs.xml*',                                              // CodeSniffer Configuration
+                    '!tags*',                                                   // IDE files
                 ],
                 dest: 'dist/',
                 options: {
@@ -100,17 +100,17 @@ module.exports = function(grunt) {
         makepot: {
             target: {
                 options: {
-                    domainPath: '/languages',         // Where to save the POT file.
+                    domainPath: '/languages', // Where to save the POT file.
                     exclude: [
-                        'node_modules/.*',				//npm
-                        'assets/.*', 							//wp-org assets
-                        'dist/.*', 								//build directory
-                        '.git/.*', 								//version control
-                        'tests/.*', 'scripts/.*',	//unit testing
-                        'vendor/.*', 							//composer
-                    ],                                // List of files or directories to ignore.
-                    mainFile: 'woocommerce-local-pickup-time.php',                     // Main project file.
-                    potFilename: 'woocommerce-local-pickup-time.pot',                  // Name of the POT file.
+                        'node_modules/.*',        //npm
+                        'assets/.*',              //wp-org assets
+                        'dist/.*',                //build directory
+                        '.git/.*',                //version control
+                        'tests/.*', 'scripts/.*', //unit testing
+                        'vendor/.*',              //composer
+                    ], // List of files or directories to ignore.
+                    mainFile: 'woocommerce-local-pickup-time.php',    // Main project file.
+                    potFilename: 'woocommerce-local-pickup-time.pot', // Name of the POT file.
                     potHeaders: {
                         poedit: true,                 // Includes common Poedit headers.
                         'x-poedit-keywordslist': true // Include a list of all possible gettext functions.
@@ -132,7 +132,7 @@ module.exports = function(grunt) {
         checkrepo: {
             deploy: {
                 tagged: true, // Check that the last commit (HEAD) is tagged
-                clean: true // Check that working directory is clean
+                clean: true   // Check that working directory is clean
             }
         },
 
