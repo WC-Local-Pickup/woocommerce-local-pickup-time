@@ -97,7 +97,7 @@ class WC_Local_Pickup_Time_Unit_Tests_Bootstrap {
 		}
 		// phpcs:enable WordPress.VIP.SuperGlobalInputUsage.AccessDetected .
 		$this->tests_dir    = dirname( __FILE__ );
-		$this->plugin_dir   = dirname( $this->tests_dir );
+		$this->plugin_dir   = dirname( dirname( $this->tests_dir ) );
 		$this->wc_dir       = $this->plugin_dir . '/vendor/woocommerce/woocommerce';
 		$this->wc_tests_dir = $this->wc_dir . '/tests';
 		$this->wp_tests_dir = getenv( 'WP_TESTS_DIR' ) ? getenv( 'WP_TESTS_DIR' ) : ( getenv( 'TMPDIR' ) ? getenv( 'TMPDIR' ) : '/tmp' ) . '/wordpress-tests-lib';
@@ -127,9 +127,15 @@ class WC_Local_Pickup_Time_Unit_Tests_Bootstrap {
 	 * @since 1.3.2
 	 */
 	public function load_wc() {
+
+		echo esc_html( 'Loading WooCommerce Plugin...' );
+
 		define( 'WC_TAX_ROUNDING_MODE', 'auto' );
 		define( 'WC_USE_TRANSACTIONS', false );
 		require_once $this->wc_dir . '/woocommerce.php';
+
+		echo esc_html( ( class_exists( 'WooCommerce' ) ? 'Loaded.' : 'Failed.' ) . PHP_EOL );
+
 	}
 
 	/**
@@ -138,7 +144,13 @@ class WC_Local_Pickup_Time_Unit_Tests_Bootstrap {
 	 * @since 1.3.2
 	 */
 	public function load_local_pickup_time() {
+
+		echo esc_html( 'Loading WooCommerce Local Pickup Time Plugin...' );
+
 		require_once $this->plugin_dir . '/' . $this->plugin_file;
+
+		echo esc_html( ( class_exists( 'Local_Pickup_Time' ) ? 'Loaded.' : 'Failed.' ) . PHP_EOL );
+
 	}
 
 	/**
@@ -153,6 +165,8 @@ class WC_Local_Pickup_Time_Unit_Tests_Bootstrap {
 		define( 'WC_REMOVE_ALL_DATA', true );
 		include $this->wc_dir . '/uninstall.php';
 
+		echo esc_html( 'Installing WooCommerce...' );
+
 		WC_Install::install();
 
 		// Reload capabilities after install, see https://core.trac.wordpress.org/ticket/28374 .
@@ -163,7 +177,7 @@ class WC_Local_Pickup_Time_Unit_Tests_Bootstrap {
 			wp_roles();
 		}
 
-		echo esc_html( 'Installing WooCommerce...' . PHP_EOL );
+		echo esc_html( 'Complete.' . PHP_EOL );
 	}
 
 	/**

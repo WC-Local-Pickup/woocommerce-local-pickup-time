@@ -35,13 +35,7 @@ class Local_Pickup_Time_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_plugin_returns_valid_instance() {
 
-		/**
-		$plugin = new Local_Pickup_Time();
-
-		$this->assertInstanceOf( Local_Pickup_Time::class, $plugin->get_instance() );
-		 */
-
-		$this->assertTrue( true, 'Needs Unit Tests.' );
+		$this->assertInstanceOf( Local_Pickup_Time::class, Local_Pickup_Time::get_instance() );
 
 	}
 

@@ -1,5 +1,5 @@
 <phpunit
-	bootstrap="tests/bootstrap.php"
+	bootstrap="tests/phpunit/bootstrap.php"
 	backupGlobals="false"
 	colors="true"
 	convertErrorsToExceptions="true"
@@ -10,7 +10,7 @@
 		<testsuite name="Admin">
 			<directory suffix="_test.php">./tests/phpunit/admin/</directory>
 		</testsuite>
-		
+
 		<testsuite name="Public">
 			<directory suffix="_test.php">./tests/phpunit/public/</directory>
 		</testsuite>
@@ -26,6 +26,6 @@
 		</whitelist>
 	</filter>
 	<logging>
-		<log type="coverage-clover" target="clover.xml"/>
+		<log type="coverage-clover" target="tests/clover.xml"/>
 	</logging>
 </phpunit>
