@@ -33,6 +33,17 @@ class Local_Pickup_Time_Admin_Test extends WC_Unit_Test_Case {
 	}
 
 	/**
+	 * Test that WordPress dashboard/admin panel is loaded.
+	 *
+	 * @group AdminTests
+	 */
+	public function test_is_admin() {
+
+		$this->assertTrue( is_admin(), "WordPress Dashboard/Administration Panel shoud be loaded." );
+
+	}
+
+	/**
 	 * Test plugin admin get_instance method.
 	 *
 	 * @group AdminTests
