@@ -19,6 +19,7 @@ branches:
   only:
     - master
     - /^feature\/.*$/
+    - /^fix\/.*$/
 
 # Git clone depth
 # By default Travis CI clones repositories to a depth of 50 commits
