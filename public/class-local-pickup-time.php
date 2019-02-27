@@ -420,12 +420,14 @@ class Local_Pickup_Time {
 			$pickup_day_name_lower = strtolower( $pickup_day_name );
 
 			// Get the day's opening and closing times.
-			$pickup_day_open_time  = get_option( 'local_pickup_hours_' . $pickup_day_name_lower . '_start', '10:00' );
-			$pickup_day_open_time  = empty( $pickup_day_open_time ) ? '10:00' : $pickup_day_open_time;
-			$pickup_day_close_time = get_option( 'local_pickup_hours_' . $pickup_day_name_lower . '_end', '19:00' );
-			$pickup_day_close_time = empty( $pickup_day_close_time ) ? '19:00' : $pickup_day_close_time;
+			$pickup_day_open_time  = get_option( 'local_pickup_hours_' . $pickup_day_name_lower . '_start', '' );
+			$pickup_day_close_time = get_option( 'local_pickup_hours_' . $pickup_day_name_lower . '_end', '' );
 
-			if ( ! in_array( $pickup_datetime->format( 'm/d/Y' ), $dates_closed ) ) {
+			if (
+				! in_array( $pickup_datetime->format( 'm/d/Y' ), $dates_closed ) &&
+				! empty( $pickup_day_open_time ) &&
+				! empty( $pickup_day_close_time )
+			) {
 
 				// Get the intervals for the day and merge the results with the previous array of intervals.
 				$pickup_options = array_replace(
