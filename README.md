@@ -4,7 +4,7 @@
 **Tags:** woocommcerce, shipping, local pickup, checkout fields, ecommerce, e-commerce, wordpress ecommerce  
 **Requires at least:** 4.7  
 **Tested up to:** 5.1.0  
-**Stable tag:** 1.3.5  
+**Stable tag:** 1.3.6  
 **Requires PHP:** 5.6  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
@@ -68,6 +68,10 @@ The location, by default, is hooked to `woocommerce_admin_order_data_after_billi
 1. Front-end display on Checkout page
 
 ## Changelog ##
+
+### 1.3.6 ###
+* Fixes WordPress date/time format handling for pickup time selection.
+* Fixes issues with some interval combinations.
 
 ### 1.3.5 ###
 * fixes issue with allowing customers to pick a pickup date/time on a non-open day.
