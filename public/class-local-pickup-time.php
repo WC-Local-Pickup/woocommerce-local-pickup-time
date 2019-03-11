@@ -422,7 +422,7 @@ class Local_Pickup_Time {
 		$pickup_options[''] = __( 'Select time', 'woocommerce-local-pickup-time' );
 
 		// Build options.
-		for ( $days = 0; $days <= $num_days_ahead; $days++ ) {
+		for ( $days = 1; $days <= $num_days_ahead; $days++ ) {
 
 			$pickup_day_name       = $pickup_datetime->format( 'l' );
 			$pickup_day_name_lower = strtolower( $pickup_day_name );
