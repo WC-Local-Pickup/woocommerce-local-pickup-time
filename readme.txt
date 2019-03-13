@@ -4,7 +4,7 @@ Donate link: http://mattbanks.me
 Tags: woocommcerce, shipping, local pickup, checkout fields, ecommerce, e-commerce, wordpress ecommerce
 Requires at least: 4.7
 Tested up to: 5.1.0
-Stable tag: 1.3.6
+Stable tag: 1.3.7
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -68,6 +68,9 @@ The location, by default, is hooked to `woocommerce_admin_order_data_after_billi
 1. Front-end display on Checkout page
 
 == Changelog ==
+
+= 1.3.7 =
+* Fixes an issue with not using the WordPress locale and built-in language pack to translate the pickup date output on checkout.
 
 = 1.3.6 =
 * Fixes WordPress date/time format handling for pickup time selection.

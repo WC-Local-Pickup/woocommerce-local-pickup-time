@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: WooCommerce Local Pickup Time\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-local-"
 "pickup-time\n"
-"POT-Creation-Date: 2019-03-11 03:26:48+00:00\n"
+"POT-Creation-Date: 2019-03-13 03:39:41+00:00\n"
 "PO-Revision-Date: 2019-02-01 14:28:47+0000\n"
 "Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
@@ -286,7 +286,7 @@ msgstr "Čas vyzvednutí:"
 #: admin/class-local-pickup-time-admin.php:356
 #: public/class-local-pickup-time.php:517
 #: public/class-local-pickup-time.php:524
-#: public/class-local-pickup-time.php:575
+#: public/class-local-pickup-time.php:576
 msgid "Pickup Time"
 msgstr "Čas vyzvednutí"
 
@@ -326,7 +326,7 @@ msgstr "Vyberte čas"
 msgid "Please select a pickup time."
 msgstr "vyberte si čas vyzvednutí."
 
-#: public/class-local-pickup-time.php:594
+#: public/class-local-pickup-time.php:596
 msgid "None"
 msgstr "Žádná"
 
