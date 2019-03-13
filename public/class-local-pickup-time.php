@@ -498,7 +498,7 @@ class Local_Pickup_Time {
 
 		foreach ( $pickup_dateperiod as $pickup_datetime ) {
 
-				$pickup_day_options[ "{$pickup_datetime->getTimestamp()}" ] = $pickup_datetime->format( $this->date_format . ' @ ' . $this->time_format );
+				$pickup_day_options[ "{$pickup_datetime->getTimestamp()}" ] = $this->pickup_time_select_translatable( $pickup_datetime->getTimestamp(), ' @ ' );
 
 		}
 
@@ -567,6 +567,7 @@ class Local_Pickup_Time {
 	 * @param array   $fields The array of pickup time fields.
 	 * @param boolean $sent_to_admin Flag that indicates whether the email is being sent to an admin user or not.
 	 * @param object  $order The order object that holds all the order attributes.
+	 * @return array	The array of order email fields including the pickup time field.
 	 */
 	public function update_order_email_fields( $fields, $sent_to_admin, $order ) {
 
@@ -584,10 +585,11 @@ class Local_Pickup_Time {
 	 *
 	 * @since    1.3.0
 	 *
-	 * @param string $value   The pikcup time meta value for an order.
+	 * @param string $value				The pickup time meta value for an order.
+	 * @param string $separator		The separator to use between the date & the time. (Default = ' ').
 	 * @eturn string  The translated value of the order pickup time.
 	 */
-	public function pickup_time_select_translatable( $value ) {
+	public function pickup_time_select_translatable( $value, $separator = ' ' ) {
 
 		// Only attempt date/time adjustments when a value is set.
 		if ( empty( $value ) ) {
@@ -604,7 +606,7 @@ class Local_Pickup_Time {
 		// When using the latest pickup time meta of a timestamp return using the WordPress i18n method.
 		if ( preg_match( '/^\d*$/', $value ) ) {
 
-			return date_i18n( $this->date_format, $value ) . ' ' . date( $this->time_format, $value );
+			return date_i18n( $this->date_format, $value ) . $separator . date( $this->time_format, $value );
 
 		}
 
