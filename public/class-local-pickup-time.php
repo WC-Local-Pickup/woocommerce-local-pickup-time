@@ -25,7 +25,7 @@ class Local_Pickup_Time {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '1.3.6';
+	const VERSION = '1.3.7';
 
 	/**
 	 * Unique identifier for plugin.
@@ -567,7 +567,7 @@ class Local_Pickup_Time {
 	 * @param array   $fields The array of pickup time fields.
 	 * @param boolean $sent_to_admin Flag that indicates whether the email is being sent to an admin user or not.
 	 * @param object  $order The order object that holds all the order attributes.
-	 * @return array	The array of order email fields including the pickup time field.
+	 * @return array    The array of order email fields including the pickup time field.
 	 */
 	public function update_order_email_fields( $fields, $sent_to_admin, $order ) {
 
@@ -585,8 +585,8 @@ class Local_Pickup_Time {
 	 *
 	 * @since    1.3.0
 	 *
-	 * @param string $value				The pickup time meta value for an order.
-	 * @param string $separator		The separator to use between the date & the time. (Default = ' ').
+	 * @param string $value             The pickup time meta value for an order.
+	 * @param string $separator     The separator to use between the date & the time. (Default = ' ').
 	 * @eturn string  The translated value of the order pickup time.
 	 */
 	public function pickup_time_select_translatable( $value, $separator = ' ' ) {
