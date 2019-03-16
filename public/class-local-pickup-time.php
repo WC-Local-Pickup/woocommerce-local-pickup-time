@@ -445,7 +445,7 @@ class Local_Pickup_Time {
 						$minutes_interval,
 						$pickup_day_open_time,
 						$pickup_day_close_time,
-						( 0 === $days )
+						( 1 === $days )
 					)
 				);
 
@@ -475,8 +475,7 @@ class Local_Pickup_Time {
 	public function build_pickup_time_intervals( $pickup_timestamp, $minutes_interval, $pickup_day_open_time, $pickup_day_close_time, $first_interval = false ) {
 
 		// Initialize starting DateTime.
-		$pickup_start_datetime = new DateTime();
-		$pickup_start_datetime->setTimestamp( $pickup_timestamp );
+		$pickup_start_datetime = new DateTime( "@$pickup_timestamp" );
 
 		// Check pickup day interval start against day open time.
 		if ( $pickup_start_datetime->format( 'G:i' ) < $pickup_day_open_time || ( ( ! $first_interval ) && $pickup_start_datetime->format( 'G:i' ) > $pickup_day_open_time ) ) {
@@ -487,8 +486,7 @@ class Local_Pickup_Time {
 		}
 
 		// Initialize ending DateTime based on day closed time.
-		$pickup_end_datetime = new DateTime();
-		$pickup_end_datetime->setTimestamp( $pickup_timestamp );
+		$pickup_end_datetime = new DateTime( "@$pickup_timestamp" );
 		// Set ending hour based on close time.
 		$pickup_day_hours_time_array = explode( ':', $pickup_day_close_time );
 		$pickup_end_datetime->setTime( $pickup_day_hours_time_array[0], $pickup_day_hours_time_array[1] );
