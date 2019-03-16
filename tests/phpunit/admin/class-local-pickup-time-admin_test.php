@@ -18,7 +18,7 @@ class Local_Pickup_Time_Admin_Test extends WC_Unit_Test_Case {
 		parent::setUp();
 
 		$user_id = $this->factory->user->create( array( 'role' => 'administrator' ) );
-		$user = wp_set_current_user( $user_id );
+		$user    = wp_set_current_user( $user_id );
 		set_current_screen( 'dashboard' );
 
 	}
@@ -39,7 +39,7 @@ class Local_Pickup_Time_Admin_Test extends WC_Unit_Test_Case {
 	 */
 	public function test_is_admin() {
 
-		$this->assertTrue( is_admin(), "WordPress Dashboard/Administration Panel shoud be loaded." );
+		$this->assertTrue( is_admin(), 'WordPress Dashboard/Administration Panel shoud be loaded.' );
 
 	}
 
