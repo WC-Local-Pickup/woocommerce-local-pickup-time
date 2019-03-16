@@ -25,7 +25,7 @@ class Local_Pickup_Time {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '1.3.3';
+	const VERSION = '1.3.8';
 
 	/**
 	 * Unique identifier for plugin.
@@ -154,7 +154,7 @@ class Local_Pickup_Time {
 
 		// If the single instance hasn't been set, set it now.
 		if ( null == self::$instance ) {
-			self::$instance = new self;
+			self::$instance = new self();
 		}
 
 		return self::$instance;
@@ -399,22 +399,30 @@ class Local_Pickup_Time {
 		__( 'Saturday', 'woocommerce-local-pickup-time' );
 		__( 'Sunday', 'woocommerce-local-pickup-time' );
 
-		// Initialize DateTime object for further calculations.
-		$pickup_datetime = new DateTime();
 		// Get the current WordPress-based date/time.
-		$pickup_datetime->setTimestamp( strtotime( current_time( $this->date_format . ' ' . $this->time_format, 0 ) ) );
-		// Adjust for time delay.
-		$pickup_datetime->modify( "+$delay_minutes minute" );
+		$current_wp_timestamp = current_time( 'timestamp', 0 );
+		// Initialize DateTime objects for further calculations.
+		$current_datetime = new DateTime( "@$current_wp_timestamp" );
+		$pickup_datetime  = new DateTime( "@$current_wp_timestamp" );
 		// Get to the start of the hour.
 		$pickup_datetime->setTimestamp( floor( $pickup_datetime->getTimestamp() / 3600 ) * 3600 );
 		// Adjust to next next interval.
 		$pickup_datetime->modify( "+$minutes_interval minute" );
+		// Make sure we start at the next interval past the current time.
+		if ( $pickup_datetime->getTimestamp() <= $current_datetime->getTimestamp() ) {
+			// Adjust to next interval past the current time.
+			$pickup_datetime->modify( "+$minutes_interval minute" );
+		}
+		// Adjust for time delay.
+		if ( $current_datetime->diff( $pickup_datetime )->i < $delay_minutes ) {
+			$pickup_datetime->modify( "+$minutes_interval minute" );
+		}
 
 		// Setup options array with empty first item.
 		$pickup_options[''] = __( 'Select time', 'woocommerce-local-pickup-time' );
 
 		// Build options.
-		for ( $days = 0; $days < $num_days_ahead; $days++ ) {
+		for ( $days = 1; $days <= $num_days_ahead; $days++ ) {
 
 			$pickup_day_name       = $pickup_datetime->format( 'l' );
 			$pickup_day_name_lower = strtolower( $pickup_day_name );
@@ -437,7 +445,7 @@ class Local_Pickup_Time {
 						$minutes_interval,
 						$pickup_day_open_time,
 						$pickup_day_close_time,
-						( 0 === $days )
+						( 1 === $days )
 					)
 				);
 
@@ -467,25 +475,28 @@ class Local_Pickup_Time {
 	public function build_pickup_time_intervals( $pickup_timestamp, $minutes_interval, $pickup_day_open_time, $pickup_day_close_time, $first_interval = false ) {
 
 		// Initialize starting DateTime.
-		$pickup_start_datetime = new DateTime( date( $this->date_format . ' ' . $this->time_format, $pickup_timestamp ) );
+		$pickup_start_datetime = new DateTime( "@$pickup_timestamp" );
 
 		// Check pickup day interval start against day open time.
 		if ( $pickup_start_datetime->format( 'G:i' ) < $pickup_day_open_time || ( ( ! $first_interval ) && $pickup_start_datetime->format( 'G:i' ) > $pickup_day_open_time ) ) {
 
-			$pickup_day_open_time_array = explode( ':', $pickup_day_open_time );
-			$pickup_start_datetime->setTime( $pickup_day_open_time_array[0], $pickup_day_open_time_array[1] );
+			$pickup_day_hours_time_array = explode( ':', $pickup_day_open_time );
+			$pickup_start_datetime->setTime( $pickup_day_hours_time_array[0], $pickup_day_hours_time_array[1] );
 
 		}
 
 		// Initialize ending DateTime based on day closed time.
-		$pickup_end_datetime = new DateTime( $pickup_start_datetime->format( $this->date_format ) . ' ' . $pickup_day_close_time );
+		$pickup_end_datetime = new DateTime( "@$pickup_timestamp" );
+		// Set ending hour based on close time.
+		$pickup_day_hours_time_array = explode( ':', $pickup_day_close_time );
+		$pickup_end_datetime->setTime( $pickup_day_hours_time_array[0], $pickup_day_hours_time_array[1] );
 
 		// Initialize a pickup time period object for traversing through the day intervals.
 		$pickup_dateperiod = new DatePeriod( $pickup_start_datetime, ( new DateInterval( 'PT' . $minutes_interval . 'M' ) ), $pickup_end_datetime );
 
 		foreach ( $pickup_dateperiod as $pickup_datetime ) {
 
-				$pickup_day_options[ "{$pickup_datetime->getTimestamp()}" ] = $pickup_datetime->format( $this->date_format . ' @ ' . $this->time_format );
+				$pickup_day_options[ "{$pickup_datetime->getTimestamp()}" ] = $this->pickup_time_select_translatable( $pickup_datetime->getTimestamp(), ' @ ' );
 
 		}
 
@@ -510,7 +521,7 @@ class Local_Pickup_Time {
 				'class'    => array( 'local-pickup-time-select-field form-row-wide' ),
 				'label'    => __( 'Pickup Time', 'woocommerce-local-pickup-time' ),
 				'required' => true,
-				'options'  => self::build_pickup_time_options(),
+				'options'  => $this->build_pickup_time_options(),
 			),
 			$checkout->get_value( 'local_pickup_time_select' )
 		);
@@ -554,6 +565,7 @@ class Local_Pickup_Time {
 	 * @param array   $fields The array of pickup time fields.
 	 * @param boolean $sent_to_admin Flag that indicates whether the email is being sent to an admin user or not.
 	 * @param object  $order The order object that holds all the order attributes.
+	 * @return array    The array of order email fields including the pickup time field.
 	 */
 	public function update_order_email_fields( $fields, $sent_to_admin, $order ) {
 
@@ -571,10 +583,11 @@ class Local_Pickup_Time {
 	 *
 	 * @since    1.3.0
 	 *
-	 * @param string $value   The pikcup time meta value for an order.
+	 * @param string $value             The pickup time meta value for an order.
+	 * @param string $separator     The separator to use between the date & the time. (Default = ' ').
 	 * @eturn string  The translated value of the order pickup time.
 	 */
-	public function pickup_time_select_translatable( $value ) {
+	public function pickup_time_select_translatable( $value, $separator = ' ' ) {
 
 		// Only attempt date/time adjustments when a value is set.
 		if ( empty( $value ) ) {
@@ -591,7 +604,7 @@ class Local_Pickup_Time {
 		// When using the latest pickup time meta of a timestamp return using the WordPress i18n method.
 		if ( preg_match( '/^\d*$/', $value ) ) {
 
-			return date_i18n( $this->date_format, $value ) . ' ' . date( $this->time_format, $value );
+			return date_i18n( $this->date_format, $value ) . $separator . date( $this->time_format, $value );
 
 		}
 
