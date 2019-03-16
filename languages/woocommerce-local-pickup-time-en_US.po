@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WooCommerce Local Pickup Time Select\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-local-"
 "pickup-time\n"
-"POT-Creation-Date: 2019-03-13 03:39:41+00:00\n"
+"POT-Creation-Date: 2019-03-16 02:32:03+00:00\n"
 "PO-Revision-Date: 2017-05-11 11:03+0200\n"
 "Last-Translator: Karolína Vyskočilová <karolina@kybernaut.cz>\n"
 "Language-Team: Matt Banks <mjbanks@gmail.com>\n"
@@ -259,9 +259,9 @@ msgid "Pickup Time:"
 msgstr ""
 
 #: admin/class-local-pickup-time-admin.php:356
-#: public/class-local-pickup-time.php:517
-#: public/class-local-pickup-time.php:524
-#: public/class-local-pickup-time.php:576
+#: public/class-local-pickup-time.php:515
+#: public/class-local-pickup-time.php:522
+#: public/class-local-pickup-time.php:574
 msgid "Pickup Time"
 msgstr ""
 
@@ -297,11 +297,11 @@ msgstr ""
 msgid "Select time"
 msgstr ""
 
-#: public/class-local-pickup-time.php:544
+#: public/class-local-pickup-time.php:542
 msgid "Please select a pickup time."
 msgstr ""
 
-#: public/class-local-pickup-time.php:596
+#: public/class-local-pickup-time.php:594
 msgid "None"
 msgstr ""
 
