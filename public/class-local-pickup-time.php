@@ -25,7 +25,7 @@ class Local_Pickup_Time {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '1.3.7';
+	const VERSION = '1.3.8';
 
 	/**
 	 * Unique identifier for plugin.
