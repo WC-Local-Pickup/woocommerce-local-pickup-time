@@ -409,10 +409,11 @@ class Local_Pickup_Time {
 		// Adjust to next next interval.
 		$pickup_datetime->modify( "+$minutes_interval minute" );
 		// Make sure we start at the next interval past the current time.
-		if ( $pickup_datetime->getTimestamp() <= $current_datetime->getTimestamp() ) {
+		while ( $pickup_datetime->getTimestamp() <= $current_datetime->getTimestamp() ) {
 			// Adjust to next interval past the current time.
 			$pickup_datetime->modify( "+$minutes_interval minute" );
 		}
+
 		// Adjust for time delay.
 		if ( $current_datetime->diff( $pickup_datetime )->i < $delay_minutes ) {
 			$pickup_datetime->modify( "+$minutes_interval minute" );
@@ -434,7 +435,8 @@ class Local_Pickup_Time {
 			if (
 				! in_array( $pickup_datetime->format( 'm/d/Y' ), $dates_closed ) &&
 				! empty( $pickup_day_open_time ) &&
-				! empty( $pickup_day_close_time )
+				! empty( $pickup_day_close_time ) &&
+				$pickup_datetime->format( 'G:i' ) < $pickup_day_close_time
 			) {
 
 				// Get the intervals for the day and merge the results with the previous array of intervals.
@@ -449,9 +451,17 @@ class Local_Pickup_Time {
 					)
 				);
 
+			} else {
+
+				// Rollback the days counter to ensure the number of days ahead reflect number of open days.
+				$days = ( $days < 1 ) ? 0 : $days - 1;
+
 			}
 
+			// Advance to the next day.
 			$pickup_datetime->modify( '+1 day' );
+			// Set the hours to zero for the next day interval.
+			$pickup_datetime->setTime( 0, 0, 0, 0 );
 
 		}
 
@@ -490,6 +500,8 @@ class Local_Pickup_Time {
 		// Set ending hour based on close time.
 		$pickup_day_hours_time_array = explode( ':', $pickup_day_close_time );
 		$pickup_end_datetime->setTime( $pickup_day_hours_time_array[0], $pickup_day_hours_time_array[1] );
+		// Advance to 1 interval past the close time so that close time is inclusive.
+		$pickup_end_datetime->modify( "+$minutes_interval minute" );
 
 		// Initialize a pickup time period object for traversing through the day intervals.
 		$pickup_dateperiod = new DatePeriod( $pickup_start_datetime, ( new DateInterval( 'PT' . $minutes_interval . 'M' ) ), $pickup_end_datetime );

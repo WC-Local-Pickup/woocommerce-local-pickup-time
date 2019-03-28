@@ -295,8 +295,8 @@ class Local_Pickup_Time_Admin {
 				),
 			),
 			array(
-				'title'       => __( 'Pickup Time Days Ahead', 'woocommerce-local-pickup-time' ),
-				'desc'        => __( 'Choose the number of days ahead for allowing local pickup orders.', 'woocommerce-local-pickup-time' ),
+				'title'       => __( 'Pickup Time Open Days Ahead', 'woocommerce-local-pickup-time' ),
+				'desc'        => __( 'Choose the number of open days ahead for allowing local pickup orders. This is inclusive of the current day, if timeslots are still available.', 'woocommerce-local-pickup-time' ),
 				'id'          => 'local_pickup_days_ahead',
 				'css'         => 'width:100px;',
 				'default'     => '1',
