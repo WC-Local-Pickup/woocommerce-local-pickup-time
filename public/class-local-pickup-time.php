@@ -416,7 +416,7 @@ class Local_Pickup_Time {
 
 		// Adjust for time delay.
 		if ( $current_datetime->diff( $pickup_datetime )->i < $delay_minutes ) {
-			$pickup_datetime->modify( "+$minutes_interval minute" );
+			$pickup_datetime->modify( "+$delay_minutes minute" );
 		}
 
 		// Setup options array with empty first item.
