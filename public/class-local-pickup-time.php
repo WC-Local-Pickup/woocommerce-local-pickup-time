@@ -581,7 +581,7 @@ class Local_Pickup_Time {
 	 */
 	public function update_order_email_fields( $fields, $sent_to_admin, $order ) {
 
-		$value              = $this->pickup_time_select_translatable( get_post_meta( $order->id, $this->order_meta_key, true ) );
+		$value              = $this->pickup_time_select_translatable( get_post_meta( $order->get_id(), $this->order_meta_key, true ) );
 		$fields['meta_key'] = array(
 			'label' => __( 'Pickup Time', 'woocommerce-local-pickup-time' ),
 			'value' => $value,

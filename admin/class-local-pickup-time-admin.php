@@ -330,7 +330,7 @@ class Local_Pickup_Time_Admin {
 	 * @param object $order  The order object.
 	 */
 	public function show_metabox( $order ) {
-		$order_meta = get_post_custom( $order->id );
+		$order_meta = get_post_custom( $order->get_id() );
 
 		echo '<p><strong>' . __( 'Pickup Time:', 'woocommerce-local-pickup-time' ) . '</strong> ' . $this->pickup_time_select_translatable( $order_meta[ $this->order_meta_key ][0] ) . '</p>';
 
