@@ -25,7 +25,7 @@ class Local_Pickup_Time {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '1.3.8';
+	const VERSION = '1.3.9';
 
 	/**
 	 * Unique identifier for plugin.
@@ -406,30 +406,28 @@ class Local_Pickup_Time {
 		$pickup_datetime  = new DateTime( "@$current_wp_timestamp" );
 		// Get to the start of the hour.
 		$pickup_datetime->setTimestamp( floor( $pickup_datetime->getTimestamp() / 3600 ) * 3600 );
-		// Adjust to next next interval.
-		$pickup_datetime->modify( "+$minutes_interval minute" );
 		// Make sure we start at the next interval past the current time.
-		if ( $pickup_datetime->getTimestamp() <= $current_datetime->getTimestamp() ) {
+		while ( $pickup_datetime->getTimestamp() <= $current_datetime->getTimestamp() ) {
 			// Adjust to next interval past the current time.
 			$pickup_datetime->modify( "+$minutes_interval minute" );
 		}
+
 		// Adjust for time delay.
-		if ( $current_datetime->diff( $pickup_datetime )->i < $delay_minutes ) {
-			$pickup_datetime->modify( "+$minutes_interval minute" );
-		}
+		$pickup_datetime->modify( "+$delay_minutes minute" );
 
 		// Setup options array with empty first item.
 		$pickup_options[''] = __( 'Select time', 'woocommerce-local-pickup-time' );
 
+		// Initialize firt interval state.
+		$first_interval = true;
+
 		// Build options.
 		for ( $days = 1; $days <= $num_days_ahead; $days++ ) {
 
-			$pickup_day_name       = $pickup_datetime->format( 'l' );
-			$pickup_day_name_lower = strtolower( $pickup_day_name );
-
 			// Get the day's opening and closing times.
-			$pickup_day_open_time  = get_option( 'local_pickup_hours_' . $pickup_day_name_lower . '_start', '' );
-			$pickup_day_close_time = get_option( 'local_pickup_hours_' . $pickup_day_name_lower . '_end', '' );
+			$pickup_day_name       = strtolower( $pickup_datetime->format( 'l' ) );
+			$pickup_day_open_time  = get_option( 'local_pickup_hours_' . $pickup_day_name . '_start', '' );
+			$pickup_day_close_time = get_option( 'local_pickup_hours_' . $pickup_day_name . '_end', '' );
 
 			if (
 				! in_array( $pickup_datetime->format( 'm/d/Y' ), $dates_closed ) &&
@@ -445,13 +443,25 @@ class Local_Pickup_Time {
 						$minutes_interval,
 						$pickup_day_open_time,
 						$pickup_day_close_time,
-						( 1 === $days )
+						$first_interval
 					)
 				);
 
+			} else {
+
+				// Rollback the days counter to ensure the number of days ahead reflect number of open days.
+				$days = ( $days < 1 ) ? 0 : $days - 1;
+
 			}
 
+			// Clear first interval state.
+			$first_interval = false;
+
+			// Advance to the next day.
 			$pickup_datetime->modify( '+1 day' );
+
+			// Reset the interval starting time.
+			$pickup_datetime->setTime( 0, 0, 0, 0 );
 
 		}
 
@@ -477,22 +487,25 @@ class Local_Pickup_Time {
 		// Initialize starting DateTime.
 		$pickup_start_datetime = new DateTime( "@$pickup_timestamp" );
 
-		// Check pickup day interval start against day open time.
-		if ( $pickup_start_datetime->format( 'G:i' ) < $pickup_day_open_time || ( ( ! $first_interval ) && $pickup_start_datetime->format( 'G:i' ) > $pickup_day_open_time ) ) {
+		// Initialize opening DateTime.
+		$pickup_open_datetime = new DateTime( "@$pickup_timestamp" );
 
-			$pickup_day_hours_time_array = explode( ':', $pickup_day_open_time );
-			$pickup_start_datetime->setTime( $pickup_day_hours_time_array[0], $pickup_day_hours_time_array[1] );
-
-		}
+		// Set the open DateTime to the configured open time.
+		$pickup_day_hours_time_array = explode( ':', $pickup_day_open_time );
+		$pickup_open_datetime->setTime( $pickup_day_hours_time_array[0], $pickup_day_hours_time_array[1] );
 
 		// Initialize ending DateTime based on day closed time.
 		$pickup_end_datetime = new DateTime( "@$pickup_timestamp" );
 		// Set ending hour based on close time.
 		$pickup_day_hours_time_array = explode( ':', $pickup_day_close_time );
 		$pickup_end_datetime->setTime( $pickup_day_hours_time_array[0], $pickup_day_hours_time_array[1] );
+		// Advance to 1 interval past the close time so that close time is inclusive.
+		$pickup_end_datetime->modify( "+$minutes_interval minute" );
 
 		// Initialize a pickup time period object for traversing through the day intervals.
-		$pickup_dateperiod = new DatePeriod( $pickup_start_datetime, ( new DateInterval( 'PT' . $minutes_interval . 'M' ) ), $pickup_end_datetime );
+		$pickup_dateperiod = ( $pickup_start_datetime->getTimestamp() >= $pickup_open_datetime->getTimestamp() )
+			? new DatePeriod( $pickup_start_datetime, ( new DateInterval( 'PT' . $minutes_interval . 'M' ) ), $pickup_end_datetime )
+			: new DatePeriod( $pickup_open_datetime, ( new DateInterval( 'PT' . $minutes_interval . 'M' ) ), $pickup_end_datetime );
 
 		foreach ( $pickup_dateperiod as $pickup_datetime ) {
 
@@ -569,7 +582,7 @@ class Local_Pickup_Time {
 	 */
 	public function update_order_email_fields( $fields, $sent_to_admin, $order ) {
 
-		$value              = $this->pickup_time_select_translatable( get_post_meta( $order->id, $this->order_meta_key, true ) );
+		$value              = $this->pickup_time_select_translatable( get_post_meta( $order->get_id(), $this->order_meta_key, true ) );
 		$fields['meta_key'] = array(
 			'label' => __( 'Pickup Time', 'woocommerce-local-pickup-time' ),
 			'value' => $value,

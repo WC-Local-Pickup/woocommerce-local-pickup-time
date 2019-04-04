@@ -4,7 +4,7 @@
 **Tags:** woocommcerce, shipping, local pickup, checkout fields, ecommerce, e-commerce, wordpress ecommerce  
 **Requires at least:** 4.7  
 **Tested up to:** 5.1.1  
-**Stable tag:** 1.3.8  
+**Stable tag:** 1.3.9  
 **Requires PHP:** 5.6  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
@@ -68,6 +68,15 @@ The location, by default, is hooked to `woocommerce_admin_order_data_after_billi
 1. Front-end display on Checkout page
 
 ## Changelog ##
+
+### 1.3.9 ###
+* Fixes how the starting interval is set, especially during the middle of the current open/close pickup time.
+* Sets end time 1 interval past it in order to have the end close pickup time be inclusive for pickup.
+* Changes field title and help text for Pickup Days Ahead to be clear that the number does now represent the number of open days inclusive of the current day.
+* Updates language files to handle some new dashboard labels and help text.
+* Fixes an incorrect use of the pickup time interval instead of the delay, causing incorrect starting pickup time.
+* Changes direct WC_Order id attribute access to use get_id() method.
+* Fixes additonal issue with how time delay is handled on the first available pickup time.
 
 ### 1.3.8 ###
 * Fixes issue with recognizing the current date/time as the start of the pickup time selection.

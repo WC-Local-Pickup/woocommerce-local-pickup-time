@@ -295,8 +295,8 @@ class Local_Pickup_Time_Admin {
 				),
 			),
 			array(
-				'title'       => __( 'Pickup Time Days Ahead', 'woocommerce-local-pickup-time' ),
-				'desc'        => __( 'Choose the number of days ahead for allowing local pickup orders.', 'woocommerce-local-pickup-time' ),
+				'title'       => __( 'Pickup Time Open Days Ahead', 'woocommerce-local-pickup-time' ),
+				'desc'        => __( 'Choose the number of open days ahead for allowing local pickup orders. This is inclusive of the current day, if timeslots are still available.', 'woocommerce-local-pickup-time' ),
 				'id'          => 'local_pickup_days_ahead',
 				'css'         => 'width:100px;',
 				'default'     => '1',
@@ -330,7 +330,7 @@ class Local_Pickup_Time_Admin {
 	 * @param object $order  The order object.
 	 */
 	public function show_metabox( $order ) {
-		$order_meta = get_post_custom( $order->id );
+		$order_meta = get_post_custom( $order->get_id() );
 
 		echo '<p><strong>' . __( 'Pickup Time:', 'woocommerce-local-pickup-time' ) . '</strong> ' . $this->pickup_time_select_translatable( $order_meta[ $this->order_meta_key ][0] ) . '</p>';
 
