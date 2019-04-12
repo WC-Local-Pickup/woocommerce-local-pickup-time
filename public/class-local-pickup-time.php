@@ -461,8 +461,12 @@ class Local_Pickup_Time {
 			$pickup_datetime->modify( '+1 day' );
 
 			// Reset the interval starting time.
-			$pickup_datetime->setTime( 0, 0, 0, 0 );
-
+			// Note: PHP pre-7.1 doesn't support milliseconds with the setTime() call.
+			if ( isset( ( new DateInterval( 'PT0S' ) )->f ) ) {
+				$pickup_datetime->setTime( 0, 0, 0, 0 );
+			} else {
+				$pickup_datetime->setTime( 0, 0, 0 );
+			}
 		}
 
 		return $pickup_options;
@@ -492,13 +496,23 @@ class Local_Pickup_Time {
 
 		// Set the open DateTime to the configured open time.
 		$pickup_day_hours_time_array = explode( ':', $pickup_day_open_time );
-		$pickup_open_datetime->setTime( $pickup_day_hours_time_array[0], $pickup_day_hours_time_array[1] );
+		// Note: PHP pre-7.1 doesn't support milliseconds with the setTime() call.
+		if ( isset( ( new DateInterval( 'PT0S' ) )->f ) ) {
+			$pickup_open_datetime->setTime( $pickup_day_hours_time_array[0], $pickup_day_hours_time_array[1], 0, 0 );
+		} else {
+			$pickup_open_datetime->setTime( $pickup_day_hours_time_array[0], $pickup_day_hours_time_array[1], 0 );
+		}
 
 		// Initialize ending DateTime based on day closed time.
 		$pickup_end_datetime = new DateTime( "@$pickup_timestamp" );
 		// Set ending hour based on close time.
 		$pickup_day_hours_time_array = explode( ':', $pickup_day_close_time );
-		$pickup_end_datetime->setTime( $pickup_day_hours_time_array[0], $pickup_day_hours_time_array[1] );
+		// Note: PHP pre-7.1 doesn't support milliseconds with the setTime() call.
+		if ( isset( ( new DateInterval( 'PT0S' ) )->f ) ) {
+			$pickup_end_datetime->setTime( $pickup_day_hours_time_array[0], $pickup_day_hours_time_array[1], 0, 0 );
+		} else {
+			$pickup_end_datetime->setTime( $pickup_day_hours_time_array[1], $pickup_day_hours_time_array[1], 0 );
+		}
 		// Advance to 1 interval past the close time so that close time is inclusive.
 		$pickup_end_datetime->modify( "+$minutes_interval minute" );
 
