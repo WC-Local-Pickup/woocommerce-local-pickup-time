@@ -467,7 +467,6 @@ class Local_Pickup_Time {
 			} else {
 				$pickup_datetime->setTime( 0, 0, 0 );
 			}
-
 		}
 
 		return $pickup_options;
