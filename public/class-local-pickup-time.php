@@ -462,10 +462,10 @@ class Local_Pickup_Time {
 
 			// Reset the interval starting time.
 			// Note: PHP pre-7.1 doesn't support milliseconds with the setTime() call.
-			if ( property_exists( new DateInterval, 'f' ) ) {
-				$pickup_datetime->setTime( 0, 0, 0, 0 );
-			} else {
+			if ( ! defined( 'PHP_VERSION' ) || ! function_exists( 'version_compare' ) || version_compare( PHP_VERSION, '7.1.0', '<' ) ) {
 				$pickup_datetime->setTime( 0, 0, 0 );
+			} else {
+				$pickup_datetime->setTime( 0, 0, 0, 0 );
 			}
 		}
 
@@ -497,10 +497,10 @@ class Local_Pickup_Time {
 		// Set the open DateTime to the configured open time.
 		$pickup_day_hours_time_array = explode( ':', $pickup_day_open_time );
 		// Note: PHP pre-7.1 doesn't support milliseconds with the setTime() call.
-		if ( property_exists( new DateInterval, 'f' ) ) {
-			$pickup_open_datetime->setTime( $pickup_day_hours_time_array[0], $pickup_day_hours_time_array[1], 0, 0 );
-		} else {
+		if ( ! defined( 'PHP_VERSION' ) || ! function_exists( 'version_compare' ) || version_compare( PHP_VERSION, '7.1.0', '<' ) ) {
 			$pickup_open_datetime->setTime( $pickup_day_hours_time_array[0], $pickup_day_hours_time_array[1], 0 );
+		} else {
+			$pickup_open_datetime->setTime( $pickup_day_hours_time_array[0], $pickup_day_hours_time_array[1], 0, 0 );
 		}
 
 		// Initialize ending DateTime based on day closed time.
@@ -508,10 +508,10 @@ class Local_Pickup_Time {
 		// Set ending hour based on close time.
 		$pickup_day_hours_time_array = explode( ':', $pickup_day_close_time );
 		// Note: PHP pre-7.1 doesn't support milliseconds with the setTime() call.
-		if ( property_exists( new DateInterval, 'f' ) ) {
-			$pickup_end_datetime->setTime( $pickup_day_hours_time_array[0], $pickup_day_hours_time_array[1], 0, 0 );
+		if ( ! defined( 'PHP_VERSION' ) || ! function_exists( 'version_compare' ) || version_compare( PHP_VERSION, '7.1.0', '<' ) ) {
+			$pickup_end_datetime->setTime( $pickup_day_hours_time_array[0], $pickup_day_hours_time_array[1], 0 );
 		} else {
-			$pickup_end_datetime->setTime( $pickup_day_hours_time_array[1], $pickup_day_hours_time_array[1], 0 );
+			$pickup_end_datetime->setTime( $pickup_day_hours_time_array[1], $pickup_day_hours_time_array[1], 0, 0 );
 		}
 		// Advance to 1 interval past the close time so that close time is inclusive.
 		$pickup_end_datetime->modify( "+$minutes_interval minute" );
