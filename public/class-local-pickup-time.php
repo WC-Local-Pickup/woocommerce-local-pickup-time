@@ -511,7 +511,7 @@ class Local_Pickup_Time {
 		if ( ! defined( 'PHP_VERSION' ) || ! function_exists( 'version_compare' ) || version_compare( PHP_VERSION, '7.1.0', '<' ) ) {
 			$pickup_end_datetime->setTime( $pickup_day_hours_time_array[0], $pickup_day_hours_time_array[1], 0 );
 		} else {
-			$pickup_end_datetime->setTime( $pickup_day_hours_time_array[1], $pickup_day_hours_time_array[1], 0, 0 );
+			$pickup_end_datetime->setTime( $pickup_day_hours_time_array[0], $pickup_day_hours_time_array[1], 0, 0 );
 		}
 		// Advance to 1 interval past the close time so that close time is inclusive.
 		$pickup_end_datetime->modify( "+$minutes_interval minute" );
