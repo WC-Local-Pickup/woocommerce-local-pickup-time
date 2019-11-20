@@ -43,7 +43,9 @@
     "extra": {
         "installer-paths": {
             "vendor/{$vendor}/{$name}": [
-                "woocommerce/woocommerce"
+                "woocommerce/woocommerce",
+								"woocommerce/woocommerce-rest-api",
+								"woocommerce/woocommerce-blocks"
             ]
         }
     }
