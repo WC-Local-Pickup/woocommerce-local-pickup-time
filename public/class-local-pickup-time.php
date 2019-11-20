@@ -25,7 +25,7 @@ class Local_Pickup_Time {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '1.3.10';
+	const VERSION = '1.3.11';
 
 	/**
 	 * Unique identifier for plugin.
@@ -107,7 +107,7 @@ class Local_Pickup_Time {
 		// Make sure we have a time zone set.
 		if ( empty( $this->timezone ) ) {
 
-			$this->timezone = timezone_name_from_abbr( null, $this->gmt_offset * 3600, true ) ?: timezone_name_from_abbr( null, $this->gmt_offset * 3600, false );
+			$this->timezone = timezone_name_from_abbr( null, $this->gmt_offset * 3600, true ) ? timezone_name_from_abbr( null, $this->gmt_offset * 3600, true ) : timezone_name_from_abbr( null, $this->gmt_offset * 3600, false );
 
 		}
 
@@ -153,7 +153,7 @@ class Local_Pickup_Time {
 	public static function get_instance() {
 
 		// If the single instance hasn't been set, set it now.
-		if ( null == self::$instance ) {
+		if ( null === self::$instance ) {
 			self::$instance = new self();
 		}
 
@@ -400,7 +400,8 @@ class Local_Pickup_Time {
 		__( 'Sunday', 'woocommerce-local-pickup-time' );
 
 		// Get the current WordPress-based date/time.
-		$current_wp_timestamp = current_time( 'timestamp', 0 );
+		$current_wp_datetime  = new DateTime( 'now', wp_timezone() );
+		$current_wp_timestamp = $current_wp_datetime->getTimestamp();
 		// Initialize DateTime objects for further calculations.
 		$current_datetime = new DateTime( "@$current_wp_timestamp" );
 		$pickup_datetime  = new DateTime( "@$current_wp_timestamp" );
@@ -430,7 +431,7 @@ class Local_Pickup_Time {
 			$pickup_day_close_time = get_option( 'local_pickup_hours_' . $pickup_day_name . '_end', '' );
 
 			if (
-				! in_array( $pickup_datetime->format( 'm/d/Y' ), $dates_closed ) &&
+				! in_array( $pickup_datetime->format( 'm/d/Y' ), $dates_closed, true ) &&
 				! empty( $pickup_day_open_time ) &&
 				! empty( $pickup_day_close_time )
 			) {
@@ -527,7 +528,7 @@ class Local_Pickup_Time {
 
 		}
 
-		return ! empty( $pickup_day_options ) ? $pickup_day_options : []; // Return an empty array if there were now DatePeriod iterations.
+		return ! empty( $pickup_day_options ) ? $pickup_day_options : array(); // Return an empty array if there were now DatePeriod iterations.
 
 	}
 
@@ -631,7 +632,7 @@ class Local_Pickup_Time {
 		// When using the latest pickup time meta of a timestamp return using the WordPress i18n method.
 		if ( preg_match( '/^\d*$/', $value ) ) {
 
-			return date_i18n( $this->date_format, $value ) . $separator . date( $this->time_format, $value );
+			return date_i18n( $this->date_format, $value ) . $separator . gmdate( $this->time_format, $value );
 
 		}
 
