@@ -16,7 +16,7 @@
  * Plugin Name:       WooCommerce Local Pickup Time Select
  * Plugin URI:        http://mattbanks.me
  * Description:       Add an an option to WooCommerce checkout pages for Local Pickup that allows the user to choose a pickup time.
- * Version:           1.3.10
+ * Version:           1.3.11
  * Author:            Matt Banks
  * Author URI:        http://mattbanks.me
  * Text Domain:       woocommerce-local-pickup-time
@@ -37,7 +37,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Check if WooCommerce is active
  */
-if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
 
 	/**
 	 * ----------------------------------------------------------------------------
