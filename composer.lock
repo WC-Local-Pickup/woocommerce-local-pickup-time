@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ec6ed974b3d4213da8a1c2bbce0a1286",
+    "content-hash": "7520f740359712670b7172c365644493",
     "packages": [],
     "packages-dev": [
         {
@@ -45,16 +45,16 @@
         },
         {
             "name": "composer/installers",
-            "version": "v1.6.0",
+            "version": "v1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "cfcca6b1b60bc4974324efb5783c13dca6932b5b"
+                "reference": "141b272484481432cda342727a427dc1e206bfa0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/cfcca6b1b60bc4974324efb5783c13dca6932b5b",
-                "reference": "cfcca6b1b60bc4974324efb5783c13dca6932b5b",
+                "url": "https://api.github.com/repos/composer/installers/zipball/141b272484481432cda342727a427dc1e206bfa0",
+                "reference": "141b272484481432cda342727a427dc1e206bfa0",
                 "shasum": ""
             },
             "require": {
@@ -110,6 +110,7 @@
                 "RadPHP",
                 "SMF",
                 "Thelia",
+                "Whmcs",
                 "WolfCMS",
                 "agl",
                 "aimeos",
@@ -132,6 +133,7 @@
                 "installer",
                 "itop",
                 "joomla",
+                "known",
                 "kohana",
                 "laravel",
                 "lavalite",
@@ -161,7 +163,7 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2018-08-27T06:10:37+00:00"
+            "time": "2019-08-12T15:00:31+00:00"
         },
         {
             "name": "dealerdirect/phpcodesniffer-composer-installer",
@@ -1669,31 +1671,29 @@
         },
         {
             "name": "webmozart/assert",
-            "version": "1.5.0",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozart/assert.git",
-                "reference": "88e6d84706d09a236046d686bbea96f07b3a34f4"
+                "reference": "573381c0a64f155a0d9a23f4b0c797194805b925"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/88e6d84706d09a236046d686bbea96f07b3a34f4",
-                "reference": "88e6d84706d09a236046d686bbea96f07b3a34f4",
+                "url": "https://api.github.com/repos/webmozart/assert/zipball/573381c0a64f155a0d9a23f4b0c797194805b925",
+                "reference": "573381c0a64f155a0d9a23f4b0c797194805b925",
                 "shasum": ""
             },
             "require": {
                 "php": "^5.3.3 || ^7.0",
                 "symfony/polyfill-ctype": "^1.8"
             },
+            "conflict": {
+                "vimeo/psalm": "<3.6.0"
+            },
             "require-dev": {
                 "phpunit/phpunit": "^4.8.36 || ^7.5.13"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.3-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Webmozart\\Assert\\": "src/"
@@ -1715,33 +1715,32 @@
                 "check",
                 "validate"
             ],
-            "time": "2019-08-24T08:43:50+00:00"
+            "time": "2019-11-24T13:36:37+00:00"
         },
         {
             "name": "woocommerce/woocommerce",
-            "version": "3.7.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/woocommerce/woocommerce.git",
-                "reference": "2365525dcbe66cdc5137c6447631a538895bfe67"
+                "reference": "135e1bebc9093ac23b9d8a77ec7c09083a92ad4c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/woocommerce/woocommerce/zipball/2365525dcbe66cdc5137c6447631a538895bfe67",
-                "reference": "2365525dcbe66cdc5137c6447631a538895bfe67",
+                "url": "https://api.github.com/repos/woocommerce/woocommerce/zipball/135e1bebc9093ac23b9d8a77ec7c09083a92ad4c",
+                "reference": "135e1bebc9093ac23b9d8a77ec7c09083a92ad4c",
                 "shasum": ""
             },
             "require": {
-                "automattic/jetpack-autoloader": "1.2.0",
-                "composer/installers": "1.6.0",
+                "automattic/jetpack-autoloader": "^1.2.0",
+                "composer/installers": "1.7.0",
                 "php": ">=5.6|>=7.0",
-                "woocommerce/woocommerce-blocks": "2.3.0",
+                "woocommerce/woocommerce-blocks": "2.4.5",
                 "woocommerce/woocommerce-rest-api": "1.0.3"
             },
             "require-dev": {
-                "myclabs/deep-copy": "1.7.0",
-                "phpunit/phpunit": "7.5.14",
-                "woocommerce/woocommerce-sniffs": "0.0.6"
+                "phpunit/phpunit": "7.5.17",
+                "woocommerce/woocommerce-sniffs": "0.0.9"
             },
             "type": "wordpress-plugin",
             "extra": {
@@ -1774,25 +1773,25 @@
             ],
             "description": "An eCommerce toolkit that helps you sell anything. Beautifully.",
             "homepage": "https://woocommerce.com/",
-            "time": "2019-10-09T11:55:36+00:00"
+            "time": "2019-11-25T20:28:33+00:00"
         },
         {
             "name": "woocommerce/woocommerce-blocks",
-            "version": "v2.3.0",
+            "version": "v2.4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/woocommerce/woocommerce-gutenberg-products-block.git",
-                "reference": "79911c596a29ad675c7998bfc7939e92b7530bdc"
+                "reference": "130bc40824f844c0870c94c0ad0aa7a6abb74f6f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/woocommerce/woocommerce-gutenberg-products-block/zipball/79911c596a29ad675c7998bfc7939e92b7530bdc",
-                "reference": "79911c596a29ad675c7998bfc7939e92b7530bdc",
+                "url": "https://api.github.com/repos/woocommerce/woocommerce-gutenberg-products-block/zipball/130bc40824f844c0870c94c0ad0aa7a6abb74f6f",
+                "reference": "130bc40824f844c0870c94c0ad0aa7a6abb74f6f",
                 "shasum": ""
             },
             "require": {
                 "automattic/jetpack-autoloader": "1.2.0",
-                "composer/installers": "1.6.0"
+                "composer/installers": "1.7.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "6.5.14",
@@ -1821,7 +1820,7 @@
                 "gutenberg",
                 "woocommerce"
             ],
-            "time": "2019-08-12T11:08:10+00:00"
+            "time": "2019-11-02T13:48:18+00:00"
         },
         {
             "name": "woocommerce/woocommerce-git-hooks",
@@ -1944,7 +1943,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "woocommerce/woocommerce": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
