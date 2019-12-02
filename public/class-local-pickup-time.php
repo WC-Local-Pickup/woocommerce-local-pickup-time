@@ -573,7 +573,12 @@ class Local_Pickup_Time {
 	 * @param object $checkout The checkout object.
 	 */
 	public function time_select( $checkout ) {
-		echo '<div id="local-pickup-time-select"><h2>' . __( 'Pickup Time', 'woocommerce-local-pickup-time' ) . '</h2>';
+            
+            $show_field = apply_filters('woocommerce_local_pickup_time_checkout_selected', true );
+            
+            if($show_field == true) {
+                
+            	echo '<div id="local-pickup-time-select"><h2>' . __( 'Pickup Time', 'woocommerce-local-pickup-time' ) . '</h2>';
 
 		woocommerce_form_field(
 			'local_pickup_time_select',
@@ -588,6 +593,7 @@ class Local_Pickup_Time {
 		);
 
 		echo '</div>';
+            }
 	}
 
 	/**
@@ -596,13 +602,17 @@ class Local_Pickup_Time {
 	 * @since    1.3.0
 	 */
 	public function field_process() {
+             $show_field = apply_filters('woocommerce_local_pickup_time_field_process', true );
+            
+            if($show_field == true){
+                           
 		global $woocommerce;
 
 		// Check if set, if its not set add an error.
 		if ( ! $_POST['local_pickup_time_select'] ) {
 			wc_add_notice( __( 'Please select a pickup time.', 'woocommerce-local-pickup-time' ), 'error' );
 		}
-
+            }
 	}
 
 	/**
@@ -629,12 +639,17 @@ class Local_Pickup_Time {
 	 * @return array    The array of order email fields including the pickup time field.
 	 */
 	public function update_order_email_fields( $fields, $sent_to_admin, $order ) {
+            
+            $show_field = apply_filters('woocommerce_local_pickup_time_update_order_email_fields', true, $order );
+            
+            if($show_field == true){
 
 		$value              = $this->pickup_time_select_translatable( get_post_meta( $order->get_id(), $this->get_order_meta_key(), true ) );
 		$fields['meta_key'] = array(
 			'label' => __( 'Pickup Time', 'woocommerce-local-pickup-time' ),
 			'value' => $value,
 		);
+            }
 
 		return $fields;
 	}
