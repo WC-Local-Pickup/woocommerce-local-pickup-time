@@ -590,8 +590,11 @@ class Local_Pickup_Time {
 	 * @param integer $order_id The ID of the order you want meta data for.
 	 */
 	public function update_order_meta( $order_id ) {
-		if ( $_POST['local_pickup_time_select'] ) {
-			update_post_meta( $order_id, $this->order_meta_key, esc_attr( $_POST['local_pickup_time_select'] ) );
+		$show_field = apply_filters('woocommerce_local_pickup_time_update_order_meta', true );
+            	if($show_field == true){
+			if ( $_POST['local_pickup_time_select'] ) {
+				update_post_meta( $order_id, $this->order_meta_key, esc_attr( $_POST['local_pickup_time_select'] ) );
+			}
 		}
 	}
 
