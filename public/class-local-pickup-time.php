@@ -640,7 +640,7 @@ class Local_Pickup_Time {
 	 */
 	public function update_order_email_fields( $fields, $sent_to_admin, $order ) {
             
-            $show_field = apply_filters('woocommerce_local_pickup_time_update_order_email_fields', true, $order );
+            $show_field = apply_filters('woocommerce_local_pickup_time_update_order_email_fields', true, $order, $fields );
             
             if($show_field == true){
 
