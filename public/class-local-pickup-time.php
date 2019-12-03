@@ -573,11 +573,11 @@ class Local_Pickup_Time {
 	 * @param object $checkout The checkout object.
 	 */
 	public function time_select( $checkout ) {
-            
+
             $show_field = apply_filters('woocommerce_local_pickup_time_checkout_selected', true );
-            
+
             if($show_field == true) {
-                
+
             	echo '<div id="local-pickup-time-select"><h2>' . __( 'Pickup Time', 'woocommerce-local-pickup-time' ) . '</h2>';
 
 		woocommerce_form_field(
@@ -603,9 +603,9 @@ class Local_Pickup_Time {
 	 */
 	public function field_process() {
              $show_field = apply_filters('woocommerce_local_pickup_time_field_process', true );
-            
+
             if($show_field == true){
-                           
+
 		global $woocommerce;
 
 		// Check if set, if its not set add an error.
@@ -623,8 +623,11 @@ class Local_Pickup_Time {
 	 * @param integer $order_id The ID of the order you want meta data for.
 	 */
 	public function update_order_meta( $order_id ) {
-		if ( $_POST['local_pickup_time_select'] ) {
-			update_post_meta( $order_id, $this->get_order_meta_key(), esc_attr( $_POST['local_pickup_time_select'] ) );
+		$show_field = apply_filters('woocommerce_local_pickup_time_update_order_meta', true );
+            	if($show_field == true){
+			if ( $_POST['local_pickup_time_select'] ) {
+				update_post_meta( $order_id, $this->order_meta_key, esc_attr( $_POST['local_pickup_time_select'] ) );
+			}
 		}
 	}
 
@@ -639,9 +642,9 @@ class Local_Pickup_Time {
 	 * @return array    The array of order email fields including the pickup time field.
 	 */
 	public function update_order_email_fields( $fields, $sent_to_admin, $order ) {
-            
+
             $show_field = apply_filters('woocommerce_local_pickup_time_update_order_email_fields', true, $order, $fields );
-            
+
             if($show_field == true){
 
 		$value              = $this->pickup_time_select_translatable( get_post_meta( $order->get_id(), $this->get_order_meta_key(), true ) );
