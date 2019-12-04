@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <phpunit
 	bootstrap="tests/bootstrap.php"
 	backupGlobals="false"
@@ -10,7 +11,7 @@
 		<testsuite name="Admin">
 			<directory suffix="_test.php">./tests/phpunit/admin/</directory>
 		</testsuite>
-		
+
 		<testsuite name="Public">
 			<directory suffix="_test.php">./tests/phpunit/public/</directory>
 		</testsuite>
