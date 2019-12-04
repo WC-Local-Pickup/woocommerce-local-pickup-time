@@ -553,7 +553,7 @@ class Local_Pickup_Time {
 				'type'     => 'select',
 				'class'    => array( 'local-pickup-time-select-field form-row-wide' ),
 				'label'    => __( 'Pickup Time', 'woocommerce-local-pickup-time' ),
-				'required' => true,
+				'required' => apply_filters('woocommerce_local_pickup_time_checkout_select_required', true ),
 				'options'  => $this->build_pickup_time_options(),
 			),
 			$checkout->get_value( 'local_pickup_time_select' )
