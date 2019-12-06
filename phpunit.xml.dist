@@ -23,7 +23,7 @@
 			<exclude>
 				<directory suffix=".php">src/views</directory>
 				<!-- <file>/path/to/file</file> -->
-			</exclude> -->
+			</exclude>
 		</whitelist>
 	</filter>
 	<logging>

@@ -27,7 +27,7 @@ module.exports = function(grunt) {
                 options: {
                     stdout: true
                 },
-                command: '<%= composerBin %>/phpunit'
+                command: 'npm run env test-php'
             },
         },
 

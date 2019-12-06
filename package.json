@@ -42,6 +42,7 @@
   },
   "scripts": {
     "test": "grunt test",
-    "env": "wp-scripts env"
+    "env": "wp-scripts env",
+		"lint-php": "wp-scripts env lint-php"
   }
 }
