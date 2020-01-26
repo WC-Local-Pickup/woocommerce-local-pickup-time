@@ -13,7 +13,7 @@
  * @copyright 2014-2018 Matt Banks
  *
  * @wordpress-plugin
- * Plugin Name:       WooCommerce Local Pickup Time Select_TEST
+ * Plugin Name:       WooCommerce Local Pickup Time Select
  * Plugin URI:        http://mattbanks.me
  * Description:       Add an an option to WooCommerce checkout pages for Local Pickup that allows the user to choose a pickup time.
  * Version:           1.3.12
