@@ -74,6 +74,11 @@ class Local_Pickup_Time_Admin {
 		add_action( 'manage_edit-shop_order_sortable_columns', array( $this, 'add_orders_list_pickup_date_column_sorting' ) );
 		add_action( 'pre_get_posts', array( $this, 'filter_orders_list_by_pickup_date' ) );
 
+		/*
+		* Show Pickup Time in Order Preview of Order List in the Admin Dashboard.
+		*/
+		add_filter( 'woocommerce_admin_order_preview_start', array( $this, 'add_order_preview_pickup_date' ) );
+
 	}
 
 	/**
@@ -381,6 +386,40 @@ class Local_Pickup_Time_Admin {
 		return $order_details;
 
 	}
+
+	/**
+	 * Show Pickup Time content on the Order Preview in the Admin Dashboard.
+	 * The Method directly outputs HTML and the needed JS to fill it from the standard JSON Call
+	 *
+	 * Recommendations for improvements:
+	 * - Format Date correctly in JavaScript
+	 * - find solution for "timezone problem" seen in below code
+	 */
+	public function add_order_preview_pickup_date() {
+		?>
+		<#
+			data.data.meta_data.forEach( function(element){
+		  	if(element["key"] === "_local_pickup_time_select"){
+						var date = new Date(element["value"] * 1000);
+						// Date is currently stored without timezone (= UTC)
+						var dateStringUTC = date.toUTCString();
+						// above variable contains "GMT" at end of string. This removes it
+						var dateString = dateStringUTC.substring(0, dateStringUTC.length -3);
+						var para = "Pickup Time: ".concat(dateString);
+						#>
+						<div style="padding: 1.5em 1.5em 0">
+							<strong>{{{ para }}}</strong>
+						</div>
+						<#
+			};
+		});
+		 #>
+		<?php
+	}
+
+
+
+
 
 	/**
 	 * Return translatable pickup time
