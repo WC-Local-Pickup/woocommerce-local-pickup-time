@@ -375,20 +375,6 @@ class Local_Pickup_Time_Admin {
 
 	/**
 	 * Show Pickup Time content on the Order Preview in the Admin Dashboard.
-	 *
-	 * @since     1.3.2
-	 *
-	 * @param array $order_details  The array of order data.
-	 * @return array  The order details array.
-	 */
-	public function woocommerce_admin_order_preview_get_order_details( $order_details ) {
-
-		return $order_details;
-
-	}
-
-	/**
-	 * Show Pickup Time content on the Order Preview in the Admin Dashboard.
 	 * The Method directly outputs HTML and the needed JS to fill it from the standard JSON Call
 	 *
 	 * Recommendations for improvements:
