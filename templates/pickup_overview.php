@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			$label_text = ucwords(str_replace ( "_", " ", $label));
          ?>
 		<div id="<?php echo $label ?>_pickup_time_overview">
-                    <h1><?php echo esc_html_e( $label_text, 'woocommerce-pickup-time' )  ?></h1>
+                    <h1><?php echo esc_html_e( $label_text, 'woocommerce-local-pickup-time' )  ?></h1>
                     <?php if (!empty($bucket)) { ?>
 					<h2>Order Overview</h2>
 			<div id="pickup_time_order_overview_<?php echo $label ?>">
