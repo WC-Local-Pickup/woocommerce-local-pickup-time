@@ -444,7 +444,7 @@ class Local_Pickup_Time_Admin {
 	 * @since     ?
 	 *
 	 */
-	public static function pickup_time_overview_page() {
+	public function pickup_time_overview_page() {
 
 		require( plugin_dir_path( __DIR__  ) . DIRECTORY_SEPARATOR . 'templates'.DIRECTORY_SEPARATOR.'pickup_overview.php');
 	}
@@ -457,9 +457,7 @@ class Local_Pickup_Time_Admin {
 	 *
 	 * @return  array buckets categorized by pickup time
 	 */
-public static function pickup_overview_fill_buckets() {
-
-	$plugin = Local_Pickup_Time::get_instance();
+public function pickup_overview_fill_buckets() {
 
 		//relevant statuses
     $statuses = apply_filters( 'woocommerce-local-pickup-overview-statuses', array('pending', 'processing', 'on-hold') );
@@ -487,7 +485,7 @@ public static function pickup_overview_fill_buckets() {
 
 			//categorize orders
         foreach ($orders as $order) {
-            $pickup_time_meta = get_post_meta($order->get_id(), Local_Pickup_Time::get_order_meta_key_static(), true);
+            $pickup_time_meta = get_post_meta($order->get_id(), $this->order_meta_key, true);
             $order_pickup_time = mktime(0, 0, 0, date("m", (int) $pickup_time_meta), date("d", (int) $pickup_time_meta), date("Y", (int) $pickup_time_meta));
 
             if ($order_pickup_time != 0) {
@@ -537,7 +535,7 @@ public static function pickup_overview_fill_buckets() {
 		 * @param array $orders  The array of Orders.
 		 * @return  array Array that maps products to ordered quantities.
 		 */
-    public static function get_item_count($orders) {
+    public function get_item_count($orders) {
         $count_array = Array();
 
         Foreach ($orders as $order) {

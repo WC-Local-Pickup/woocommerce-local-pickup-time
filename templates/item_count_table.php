@@ -8,8 +8,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$plugin = Local_Pickup_Time::get_instance();
-$pickup_time_meta_key = $plugin->get_order_meta_key();
+//$plugin = Local_Pickup_Time::get_instance();
+//$pickup_time_meta_key = $plugin->get_order_meta_key();
 
 ?>
     <table class="wp-list-table widefat fixed striped posts">
@@ -20,7 +20,7 @@ $pickup_time_meta_key = $plugin->get_order_meta_key();
       <tbody>
 <?php
 
-			$itemscount = Local_Pickup_Time_Admin::get_item_count($bucket);
+			$itemscount = $this->get_item_count($bucket);
 
             foreach ($itemscount as $product_id => $quantity) {
 				          $product = new WC_Product ($product_id);

@@ -20,8 +20,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<?php
 
+
+	$plugin = Local_Pickup_Time::get_instance();
 	//fill buckets
-	 $buckets = Local_Pickup_Time_Admin::pickup_overview_fill_buckets();
+	 $buckets = $this->pickup_overview_fill_buckets();
 	?>
 
 		<?php foreach ($buckets as $label => $bucket) {
