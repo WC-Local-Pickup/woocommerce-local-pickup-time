@@ -79,6 +79,14 @@ class Local_Pickup_Time_Admin {
 		*/
 		add_filter( 'woocommerce_admin_order_preview_start', array( $this, 'add_order_preview_pickup_date' ) );
 
+		/*
+		* Add Pickup Time Overview to Admin Menu
+		*/
+		if( get_option('local_pickup_time_overview', 'no') !== 'no' ) {
+			add_action('admin_menu', array($this, 'pickup_overview_menu'), 15);
+    	add_filter('woocommerce_order_data_store_cpt_get_orders_query', array($this, 'handle_custom_query_var'), 10, 2);
+		}
+
 	}
 
 	/**
@@ -267,7 +275,20 @@ class Local_Pickup_Time_Admin {
 	 				) ,
 	 				'desc_tip' => true,
 	 			) ,
-	 			array(
+				array(
+	 				'title' => __('Pickup Time Overview in Menu', 'woocommerce-local-pickup-time') ,
+	 				'desc' => __('Activates a new Menu Point "Pickup Time Overview", that provides an overview of orders and respective product quantities for different time ranges, like "today" or "tomorrow".', 'woocommerce-local-pickup-time') ,
+	 				'id' => 'local_pickup_time_overview',
+	 				'css' => 'width:100px;',
+					'default' => 'no',
+					'type' => 'checkbox',
+	 				'input_attrs' => array(
+	 					'min' => 0,
+	 					'step' => 1,
+	 				) ,
+	 				'desc_tip' => true,
+	 			) ,
+				array(
 	 				'type' => 'sectionend',
 	 				'id' => 'pricing_options',
 	 			) ,
@@ -406,6 +427,155 @@ class Local_Pickup_Time_Admin {
 		 #>
 		<?php
 	}
+
+	/**
+	 * Adds Local Pickup Time Overview Menu Item as submenu of Woocommerce
+	 *
+	 * @since     ?
+	 *
+	 */
+	public function pickup_overview_menu() {
+        add_submenu_page('woocommerce', _x('Pickup Time Overview', 'pickup-overview', 'woocommerce-pickup-overview'), _x('Pickup Time Overview', 'pickup-overview', 'woocommerce-pickup-overview'), 'manage_woocommerce', 'wc-pickup-time-overview', array($this, 'pickup_time_overview_page'));
+  }
+
+	/**
+	 * Displays Local Pickup Time Overview from Template
+	 *
+	 * @since     ?
+	 *
+	 */
+	public static function pickup_time_overview_page() {
+
+		require( plugin_dir_path( __DIR__  ) . DIRECTORY_SEPARATOR . 'templates'.DIRECTORY_SEPARATOR.'pickup_overview.php');
+	}
+
+	/**
+	 * Gets Order Data and returns it categorized by pickup time
+	 *
+	 * @since     ?
+	 *
+	 *
+	 * @return  array buckets categorized by pickup time
+	 */
+public static function pickup_overview_fill_buckets() {
+
+	$plugin = Local_Pickup_Time::get_instance();
+
+		//relevant statuses
+    $statuses = apply_filters( 'woocommerce-local-pickup-overview-statuses', array('pending', 'processing', 'on-hold') );
+
+		//definition of buckets
+    $past = array();
+		$today = array();
+		$tomorrow = array();
+		$nextSevenDays = array();
+		$restOfOrders = array();
+
+		//definition of time frames for buckets
+    $today_date = mktime(0, 0, 0, date("m"), date("d"), date("Y"));
+    $tomorrow_date = mktime(0, 0, 0, date("m"), date("d") + 1, date("Y"));
+    $inSevenDays = mktime(0, 0, 0, date("m"), date("d") + 7, date("Y"));
+
+        //do for each defined status
+    foreach ($statuses as $status) {
+
+			//get orders
+        $orders = wc_get_orders(array(
+            'status' => $status
+                )
+				);
+
+			//categorize orders
+        foreach ($orders as $order) {
+            $pickup_time_meta = get_post_meta($order->get_id(), Local_Pickup_Time::get_order_meta_key_static(), true);
+            $order_pickup_time = mktime(0, 0, 0, date("m", (int) $pickup_time_meta), date("d", (int) $pickup_time_meta), date("Y", (int) $pickup_time_meta));
+
+            if ($order_pickup_time != 0) {
+                switch ($order_pickup_time) {
+                        case $today_date:
+                            $today[] = $order;
+                            break;
+
+                        case $tomorrow_date:
+                            $tomorrow[] = $order;
+                            break;
+
+                        default:
+
+                            if ($order_pickup_time < $inSevenDays) {
+															if ($order_pickup_time < $today_date){
+																$past[] = $order;
+															}
+															else{
+                  							$nextSevenDays[] = $order;
+															}
+                            } else {
+                                $restOfOrders[] = $order;
+                            	}
+                    	}
+                	}
+  						}
+        }
+
+        return Array(
+			"past" => $past,
+            "today" => $today,
+            "tomorrow" => $tomorrow,
+            "next_seven_days" => $nextSevenDays,
+            "rest_of_orders" => $restOfOrders
+        );
+    }
+
+
+
+
+		/**
+		 * Returns Exact count of ordered articles for an array of orders
+		 *
+		 * @since     ?
+		 *
+		 * @param array $orders  The array of Orders.
+		 * @return  array Array that maps products to ordered quantities.
+		 */
+    public static function get_item_count($orders) {
+        $count_array = Array();
+
+        Foreach ($orders as $order) {
+            $items = $order->get_items();
+
+            foreach ($items as $item) {
+                $product_id = $item->get_product_id();
+                $quantity = $item->get_quantity();
+
+                if (array_key_exists($product_id, $count_array) === true) {
+
+                    $count_array[$product_id] = $count_array[$product_id] + $quantity;
+                } else {
+
+                    $count_array[$product_id] = $quantity;
+                }
+            }
+
+        }
+		 return $count_array;
+    }
+
+    /**
+     * Handle a custom 'pickup_time' query var to get orders with the 'pickup_time' meta.
+     * @param array $query - Args for WP_Query.
+     * @param array $query_vars - Query vars from WC_Order_Query.
+     * @return array modified $query
+     */
+    function handle_custom_query_var($query, $query_vars) {
+        if (!empty($query_vars['pickup_time'])) {
+            $query['meta_query'][] = array(
+                'key' => 'pickup_time',
+                'value' => esc_attr($query_vars['pickup_time']),
+            );
+        }
+
+        return $query;
+    }
 
 
 

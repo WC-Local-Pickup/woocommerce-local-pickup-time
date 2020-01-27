@@ -100,6 +100,18 @@ class Local_Pickup_Time {
 	protected $order_meta_key = '_local_pickup_time_select';
 
 	/**
+	 * Order meta key for storing Local Pickup Time.
+	 * for static methods. Long term, above variable could be replaced
+	 *
+	 * @since     ?
+	 *
+	 * @var       string
+	 */
+	const order_meta_key_static = '_local_pickup_time_select';
+
+
+
+	/**
 	 * Initialize the plugin by setting localization and loading public scripts
 	 * and styles.
 	 *
@@ -247,6 +259,20 @@ class Local_Pickup_Time {
 	public function get_order_meta_key() {
 
 		return $this->order_meta_key;
+
+	}
+
+	/**
+	 * Return the plugin order meta key used for storing the Local Pickup Time via static method.
+	 * Long Term, maybe above method could be removed
+	 *
+	 * @since     ?
+	 *
+	 * @return string   The order meta_key that stores the Local Pickup Time.
+	 */
+	public static function get_order_meta_key_static() {
+
+		return self::order_meta_key_static;
 
 	}
 
