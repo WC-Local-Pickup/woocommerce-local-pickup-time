@@ -146,13 +146,13 @@ class Local_Pickup_Time_Admin {
 
 	 		//looping through weekdays to ease future modifications
 	 		$weekdays = array(
-	 			'monday',
-	 			'tuesday',
-	 			'wednesday',
-	 			'thursday',
-	 			'friday',
-	 			'saturday',
-	 			'sunday'
+				__( 'Monday', 'woocommerce-local-pickup-time' ),
+				__( 'Tuesday', 'woocommerce-local-pickup-time' ),
+				__( 'Wednesday', 'woocommerce-local-pickup-time' ),
+				__( 'Thursday', 'woocommerce-local-pickup-time' ),
+				__( 'Friday', 'woocommerce-local-pickup-time' ),
+				__( 'Saturday', 'woocommerce-local-pickup-time' ),
+				__( 'Sunday', 'woocommerce-local-pickup-time' ),
 	 		);
 	 		foreach ($weekdays as $weekday) {
 
