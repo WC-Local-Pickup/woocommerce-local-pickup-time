@@ -1,0 +1,326 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Local Pickup Time Select\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-local-"
+"pickup-time\n"
+"POT-Creation-Date: 2019-11-20 04:42:44+00:00\n"
+"PO-Revision-Date: 2017-05-11 11:03+0200\n"
+"Last-Translator: Karolína Vyskočilová <karolina@kybernaut.cz>\n"
+"Language-Team: Matt Banks <mjbanks@gmail.com>\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.12\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: admin/class-local-pickup-time-admin.php:108
+msgid "Store Hours and Closings for Local Pickup"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:110
+msgid ""
+"The following options affect when order pickups begin and end each day, and "
+"which days to not allow order pickups."
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:114
+msgid "Monday Pickup Start Time (use 24-hour time)"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:115
+msgid "This sets the pickup start time for Monday. Use 24-hour time format."
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:123
+msgid "Monday Pickup End Time (use 24-hour time)"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:124
+msgid "This sets the pickup end time for Monday. Use 24-hour time format."
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:132
+msgid "Tuesday Pickup Start Time (use 24-hour time)"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:133
+msgid "This sets the pickup start time for Tuesday. Use 24-hour time format."
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:141
+msgid "Tuesday Pickup End Time (use 24-hour time)"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:142
+msgid "This sets the pickup end time for Tuesday. Use 24-hour time format."
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:150
+msgid "Wednesday Pickup Start Time (use 24-hour time)"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:151
+msgid "This sets the pickup start time for Wednesday. Use 24-hour time format."
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:159
+msgid "Wednesday Pickup End Time (use 24-hour time)"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:160
+msgid "This sets the pickup end time for Wednesday. Use 24-hour time format."
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:168
+msgid "Thursday Pickup Start Time (use 24-hour time)"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:169
+msgid "This sets the pickup start time for Thursday. Use 24-hour time format."
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:177
+msgid "Thursday Pickup End Time (use 24-hour time)"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:178
+msgid "This sets the pickup end time for Thursday. Use 24-hour time format."
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:186
+msgid "Friday Pickup Start Time (use 24-hour time)"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:187
+msgid "This sets the pickup start time for Friday. Use 24-hour time format."
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:195
+msgid "Friday Pickup End Time (use 24-hour time)"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:196
+msgid "This sets the pickup end time for Friday. Use 24-hour time format."
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:204
+msgid "Saturday Pickup Start Time (use 24-hour time)"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:205
+msgid "This sets the pickup start time for Saturday. Use 24-hour time format."
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:213
+msgid "Saturday Pickup End Time (use 24-hour time)"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:214
+msgid "This sets the pickup end time for Saturday. Use 24-hour time format."
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:222
+msgid "Sunday Pickup Start Time (use 24-hour time)"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:223
+msgid "This sets the pickup start time for Sunday. Use 24-hour time format."
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:231
+msgid "Sunday Pickup End Time (use 24-hour time)"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:232
+msgid "This sets the pickup end time for Sunday. Use 24-hour time format."
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:240
+msgid "Store Closing Days (use MM/DD/YYYY format)"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:241
+msgid ""
+"This sets the days the store is closed. Enter one date per line, in format "
+"MM/DD/YYYY."
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:249
+msgid "Pickup Time Interval"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:250
+msgid "Choose the time interval for allowing local pickup orders."
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:258
+#: admin/class-local-pickup-time-admin.php:278
+msgid "5 minutes"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:259
+#: admin/class-local-pickup-time-admin.php:279
+msgid "10 minutes"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:260
+#: admin/class-local-pickup-time-admin.php:280
+msgid "15 minutes"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:261
+#: admin/class-local-pickup-time-admin.php:281
+msgid "20 minutes"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:262
+#: admin/class-local-pickup-time-admin.php:282
+msgid "30 minutes"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:263
+#: admin/class-local-pickup-time-admin.php:283
+msgid "45 minutes"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:264
+#: admin/class-local-pickup-time-admin.php:284
+msgid "1 hour"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:265
+#: admin/class-local-pickup-time-admin.php:285
+msgid "2 hours"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:269
+msgid "Pickup Time Delay"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:270
+msgid ""
+"Choose the time delay from the time of ordering for allowing local pickup "
+"orders."
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:286
+msgid "4 hours"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:287
+msgid "8 hours"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:288
+msgid "16 hours"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:289
+msgid "24 hours"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:290
+msgid "36 hours"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:291
+msgid "48 hours"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:292
+msgid "3 days"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:293
+msgid "5 days"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:294
+msgid "1 week"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:298
+msgid "Pickup Time Open Days Ahead"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:299
+msgid ""
+"Choose the number of open days ahead for allowing local pickup orders. This "
+"is inclusive of the current day, if timeslots are still available."
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:335
+msgid "Pickup Time:"
+msgstr ""
+
+#: admin/class-local-pickup-time-admin.php:356
+#: public/class-local-pickup-time.php:543
+#: public/class-local-pickup-time.php:550
+#: public/class-local-pickup-time.php:602
+msgid "Pickup Time"
+msgstr ""
+
+#: public/class-local-pickup-time.php:394
+msgid "Monday"
+msgstr ""
+
+#: public/class-local-pickup-time.php:395
+msgid "Tuesday"
+msgstr ""
+
+#: public/class-local-pickup-time.php:396
+msgid "Wednesday"
+msgstr ""
+
+#: public/class-local-pickup-time.php:397
+msgid "Thursday"
+msgstr ""
+
+#: public/class-local-pickup-time.php:398
+msgid "Friday"
+msgstr ""
+
+#: public/class-local-pickup-time.php:399
+msgid "Saturday"
+msgstr ""
+
+#: public/class-local-pickup-time.php:400
+msgid "Sunday"
+msgstr ""
+
+#: public/class-local-pickup-time.php:420
+msgid "Select time"
+msgstr ""
+
+#: public/class-local-pickup-time.php:570
+msgid "Please select a pickup time."
+msgstr ""
+
+#: public/class-local-pickup-time.php:622
+msgid "None"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Local Pickup Time Select"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://mattbanks.me"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Add an an option to WooCommerce checkout pages for Local Pickup that allows "
+"the user to choose a pickup time."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Matt Banks"
+msgstr ""
