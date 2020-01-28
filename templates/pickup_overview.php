@@ -40,11 +40,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div id="<?php echo $label ?>_pickup_time_overview">
                     <h1><?php echo esc_html_e( $label_text, 'woocommerce-local-pickup-time' )  ?></h1>
                     <?php if (!empty($bucket)) { ?>
-					<h2>Order Overview</h2>
+					<h2><?php echo esc_html_e('Order Overview' , 'woocommerce-local-pickup-time' )  ?></h2>
 			<div id="pickup_time_order_overview_<?php echo $label ?>">
 				<?php  include( 'order_overview_table.php' );//, array( 'bucket' => $bucket ) )//do_action( 'woocommerce_checkout_billing' ) ?>
 			</div>
-<h2>Product Quantity</h2>
+<h2><?php echo esc_html_e('Product Quantity' , 'woocommerce-local-pickup-time' )  ?></h2>
 			<div id="pickup_time_item_count_overview_<?php echo $label ?>">
 				<?php  include( 'item_count_table.php' );//, array( 'bucket' => $bucket ) )//do_action( 'woocommerce_checkout_shipping' ) ?>
 			</div>
