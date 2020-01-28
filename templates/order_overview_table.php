@@ -17,11 +17,11 @@ if (!defined('ABSPATH')) {
 ?>
     <table class="wp-list-table widefat fixed striped posts">
         <thead>
-          <th>Order</th>
-  		    <th>Status</th>
-          <th>Pickup Time</th>
-          <th>Total</th>
-  		    <th>Payment Method</th>
+          <th><?php echo esc_html_e( 'Order', 'woocommerce' )  ?></th>
+  		    <th><?php echo esc_html_e( 'Status', 'woocommerce' )  ?></th>
+          <th><?php echo esc_html_e( 'Pickup Time', 'woocommerce-local-pickup-time' )  ?></th>
+          <th><?php echo esc_html_e( 'Total', 'woocommerce' )  ?></th>
+  		    <th><?php echo esc_html_e( 'Payment Method', 'woocommerce' )  ?></th>
         </thead>
         <tbody>
 <?php
@@ -29,10 +29,10 @@ if (!defined('ABSPATH')) {
 ?>
           <tr id="post-<?php echo $order->get_id() ?>">
           <td><a href="<?php echo get_site_url() ?>/wp-admin/post.php?post=<?php echo $order->get_id() ?>&action=edit" class="order-view"><strong>#<?php echo $order->get_id() ?> <?php echo $order->get_billing_first_name()  ?> <?php echo $order->get_billing_last_name() ?></strong></td>
-				  <td class="order_status column-order_total"><?php echo $order->get_status() ?></td>
+				  <td class="order_status column-order_total"><?php echo esc_html_e( $order->get_status(), 'woocommerce' )  ?></td>
           <td class="order_date column-order_date"><?php echo $plugin->pickup_time_select_translatable(get_post_meta($order->get_id(), $this->order_meta_key, true))  ?></td>
           <td class="order_total column-order_total"><?php echo $order->get_total() ?></td>
-				  <td class="payment_method column-order_total"><?php echo get_post_meta( $order->get_id(), '_payment_method_title', true ) ?></td>
+				  <td class="payment_method column-order_total"><?php echo esc_html_e( get_post_meta( $order->get_id(), '_payment_method_title', true ), 'woocommerce' )  ?></td>
           </tr>
 <?php } ?>
         </tbody>

@@ -20,6 +20,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<?php
 
+	//strings for translation
+	__( 'Past', 'woocommerce-local-pickup-time' );
+	__( 'Today', 'woocommerce-local-pickup-time' );
+	__( 'Tomorrow', 'woocommerce-local-pickup-time' );
+	__( 'Next Seven Days', 'woocommerce-local-pickup-time' );
+	__( 'Rest Of Orders', 'woocommerce-local-pickup-time' );
 
 	$plugin = Local_Pickup_Time::get_instance();
 	//fill buckets
@@ -44,11 +50,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
                     <?php }
 else{					?>
-<p>No Orders for this timeframe</p>
+<p><?php echo esc_html_e( 'No Orders for this timeframe', 'woocommerce-local-pickup-time' ) 	?></p>
 <?php } ?>
 		</div>
-
-		<?php //do_action( 'woocommerce_checkout_after_customer_details' ); ?>
 
 		<?php }  ?>
 

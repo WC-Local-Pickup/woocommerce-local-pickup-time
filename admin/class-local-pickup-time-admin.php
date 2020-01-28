@@ -116,7 +116,7 @@ class Local_Pickup_Time_Admin {
 	 public function add_hours_and_closings_options($settings) {
 
 	 		// Get amount of intervals per day
-	 		$intervals_per_day = get_option('local_pickup_interval_per_day', 1);
+	 		$time_ranges_per_day = get_option('local_pickup_time_ranges_per_day', 1);
 
 	 		$updated_settings = array();
 	 		$updated_settings = array(
@@ -127,19 +127,19 @@ class Local_Pickup_Time_Admin {
 	 				'id' => 'local_pickup_hours',
 	 			) ,
 	 			array(
-	 				'title' => __('Amount of possible Pickup Time Intervals', 'woocommerce-local-pickup-time') ,
-	 				'desc' => __('Choose the number of possible intervals per day for allowing local pickup orders. Valid after saving.', 'woocommerce-local-pickup-time') ,
-	 				'id' => 'local_pickup_interval_per_day',
+	 				'title' => __('Amount of configurable Pickup Time Ranges', 'woocommerce-local-pickup-time') ,
+	 				'desc' => __('Choose the number of configurable time ranges per day for allowing local pickup orders. Valid after saving.', 'woocommerce-local-pickup-time') ,
+	 				'id' => 'local_pickup_time_ranges_per_day',
 	 				'css' => 'width:100px;',
 	 				'default' => '1',
 	 				'type' => 'select',
 	 				'class' => 'chosen_select',
 	 				'desc_tip' => true,
 	 				'options' => array(
-	 					'1' => __('1 interval', 'woocommerce-local-pickup-time') ,
-	 					'2' => __('2 intervals', 'woocommerce-local-pickup-time') ,
-	 					'3' => __('3 intervals', 'woocommerce-local-pickup-time') ,
-	 					'4' => __('4 intervals', 'woocommerce-local-pickup-time') ,
+	 					'1' => __('1 time range', 'woocommerce-local-pickup-time') ,
+	 					'2' => __('2 time ranges', 'woocommerce-local-pickup-time') ,
+	 					'3' => __('3 time ranges', 'woocommerce-local-pickup-time') ,
+	 					'4' => __('4 time ranges', 'woocommerce-local-pickup-time') ,
 	 				) ,
 	 			)
 	 		);
@@ -156,10 +156,10 @@ class Local_Pickup_Time_Admin {
 	 		);
 	 		foreach ($weekdays as $weekday) {
 
-	 			for ($interval = 1;$interval <= $intervals_per_day;$interval++) {
+	 			for ($time_range = 1;$time_range <= $time_ranges_per_day; $time_range++) {
 
 	 				//the first interval should by default be activated.
-	 				if ($interval == 1) {
+	 				if ($time_range == 1) {
 	 					$active = 'yes';
 	 				}
 	 				else {
@@ -167,29 +167,34 @@ class Local_Pickup_Time_Admin {
 	 				}
 
 	 				//	$day_settings = array();
-	 				$interval_settings = array(
+	 				$time_range_settings = array(
 	 					array(
-	 						'title' => __(ucfirst($weekday) . ' Pickup Interval #' . $interval . ' active?', 'woocommerce-local-pickup-time') ,
-	 						'desc' => __('This activates below interval.', 'woocommerce-local-pickup-time') ,
-	 						'id' => 'local_pickup_hours_' . $weekday . '_' . $interval . '_active',
+							/* translators: %1$s is replaced with the weekday; %2$s is replaced with the current time range */
+	 						'title' => sprintf( __('%1$s Pickup Time Range %2$s active?', 'woocommerce-local-pickup-time') ,  ucfirst($weekday),  $time_range ) ,
+	 						'desc' => __('This activates below Time Range.', 'woocommerce-local-pickup-time') ,
+	 						'id' => 'local_pickup_hours_' . $weekday . '_' . $time_range . '_active',
 	 						'css' => 'width:120px;',
 	 						'default' => $active,
 	 						'type' => 'checkbox',
 	 						'desc_tip' => true,
 	 					) ,
 	 					array(
-	 						'title' => __(ucfirst($weekday) . ' Pickup Start Time Interval #' . $interval . ' (use 24-hour time)', 'woocommerce-local-pickup-time') ,
-	 						'desc' => __('This sets the pickup start time for ' . ucfirst($weekday) . ' Interval #' . $interval . '. Use 24-hour time format.', 'woocommerce-local-pickup-time') ,
-	 						'id' => 'local_pickup_hours_' . $weekday . '_' . $interval . '_start',
+							/* translators: %1$s is replaced with the weekday; %2$s is replaced with the current time range */
+	 						'title' => sprintf( __( '%1$s Pickup Start Time Range %2$s (use 24-hour time).', 'woocommerce-local-pickup-time' ) ,  ucfirst($weekday),  $time_range ) ,
+							/* translators: %1$s is replaced with the weekday; %2$s is replaced with the current time range */
+	 						'desc' => sprintf( __('This sets the pickup start time for %1$weekdays Time Range #%2$s. Use 24-hour time format.', 'woocommerce-local-pickup-time'), ucfirst($weekday),  $time_range ) ,
+	 						'id' => 'local_pickup_hours_' . $weekday . '_' . $time_range . '_start',
 	 						'css' => 'width:120px;',
 	 						'default' => '10:00',
 	 						'type' => 'time',
 	 						'desc_tip' => true,
 	 					) ,
 	 					array(
-	 						'title' => __(ucfirst($weekday) . 'Pickup End Time Interval #' . $interval . ' (use 24-hour time)', 'woocommerce-local-pickup-time') ,
-	 						'desc' => __('This sets the pickup end time for ' . ucfirst($weekday) . '. Use 24-hour time format.', 'woocommerce-local-pickup-time') ,
-	 						'id' => 'local_pickup_hours_' . $weekday . '_' . $interval . '_end',
+							/* translators: %1$s is replaced with the weekday; %2$s is replaced with the current time range */
+	 						'title' => sprintf( __('%1$s Pickup End Time Range %2$s (use 24-hour time).', 'woocommerce-local-pickup-time') ,  ucfirst($weekday),  $time_range ) ,
+							/* translators: %1$s is replaced with the weekday; %2$s is replaced with the current time range */
+	 					'desc' => sprintf( __('This sets the pickup end time for %1$s Time Range #%2$s. Use 24-hour time format.', 'woocommerce-local-pickup-time'), ucfirst($weekday),  $time_range ) ,
+							'id' => 'local_pickup_hours_' . $weekday . '_' . $time_range . '_end',
 	 						'css' => 'width:120px;',
 	 						'default' => '19:00',
 	 						'type' => 'time',
@@ -197,7 +202,7 @@ class Local_Pickup_Time_Admin {
 	 					) ,
 	 				);
 
-	 				$updated_settings = array_merge($updated_settings, $interval_settings);
+	 				$updated_settings = array_merge($updated_settings, $time_range_settings);
 
 	 			}
 
@@ -435,7 +440,8 @@ class Local_Pickup_Time_Admin {
 	 *
 	 */
 	public function pickup_overview_menu() {
-        add_submenu_page('woocommerce', _x('Pickup Time Overview', 'pickup-overview', 'woocommerce-pickup-overview'), _x('Pickup Time Overview', 'pickup-overview', 'woocommerce-pickup-overview'), 'manage_woocommerce', 'wc-pickup-time-overview', array($this, 'pickup_time_overview_page'));
+        add_submenu_page('woocommerce', __( 'Pickup Time Overview', 'woocommerce-local-pickup-time' ), __( 'Pickup Time Overview', 'woocommerce-local-pickup-time' ),
+				  'manage_woocommerce', 'wc-pickup-time-overview', array($this, 'pickup_time_overview_page'));
   }
 
 	/**
@@ -485,6 +491,7 @@ public function pickup_overview_fill_buckets() {
 
 			//categorize orders
         foreach ($orders as $order) {
+
             $pickup_time_meta = get_post_meta($order->get_id(), $this->order_meta_key, true);
             $order_pickup_time = mktime(0, 0, 0, date("m", (int) $pickup_time_meta), date("d", (int) $pickup_time_meta), date("Y", (int) $pickup_time_meta));
 
@@ -516,7 +523,7 @@ public function pickup_overview_fill_buckets() {
         }
 
         return Array(
-			"past" => $past,
+						"past" => $past,
             "today" => $today,
             "tomorrow" => $tomorrow,
             "next_seven_days" => $nextSevenDays,

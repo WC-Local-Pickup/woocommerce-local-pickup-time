@@ -411,7 +411,7 @@ class Local_Pickup_Time {
 	public function build_pickup_time_options() {
 
 		// Get amount of intervals per day
-		$intervals_per_day    = get_option( 'local_pickup_interval_per_day', 1 );
+		$time_ranges_per_day    = get_option( 'local_pickup_time_ranges_per_day', 1 );
 
 		// Get dates closed from settings and explode into an array.
 		$dates_closed = explode( "\n", preg_replace( '/\v(?:[\v\h]+)/', "\n", trim( get_option( 'local_pickup_hours_closings' ) ) ) );
@@ -459,12 +459,12 @@ class Local_Pickup_Time {
 
 		// Build options.
 		for ( $days = 1; $days <= $num_days_ahead; $days++ ) {
-			//perform calculation for multiple intervals
-			for ($n = 1; $n <= $intervals_per_day; $n++) {
+			//perform calculation for multiple time ranges
+			for ($n = 1; $n <= $time_ranges_per_day; $n++) {
 
 			// Get the day's opening and closing times.
 			$pickup_day_name       = strtolower( $pickup_datetime->format( 'l' ) );
-			$pickup_interval_active = get_option( 'local_pickup_hours_' . $pickup_day_name . '_' . $n . '_active', 'yes' );
+			$pickup_time_range_active = get_option( 'local_pickup_hours_' . $pickup_day_name . '_' . $n . '_active', 'yes' );
 			$pickup_day_open_time  = get_option( 'local_pickup_hours_' . $pickup_day_name . '_' . $n . '_start', '' );
 			$pickup_day_close_time = get_option( 'local_pickup_hours_' . $pickup_day_name . '_' . $n . '_end', '' );
 
@@ -472,7 +472,7 @@ class Local_Pickup_Time {
 				! in_array( $pickup_datetime->format( 'm/d/Y' ), $dates_closed, true ) &&
 				! empty( $pickup_day_open_time ) &&
 				! empty( $pickup_day_close_time ) &&
-				$pickup_interval_active == 'yes'
+				$pickup_time_range_active == 'yes'
 			) {
 
 				// Get the intervals for the day and merge the results with the previous array of intervals.

@@ -14,8 +14,8 @@ if (!defined('ABSPATH')) {
 ?>
     <table class="wp-list-table widefat fixed striped posts">
       <thead>
-        <th>Product</th>
-        <th>Quantity</th>
+        <th><?php echo esc_html_e( 'Product', 'woocommerce' )?></th>
+        <th><?php echo esc_html_e( 'Quantity', 'woocommerce' )?></th>
       </thead>
       <tbody>
 <?php
