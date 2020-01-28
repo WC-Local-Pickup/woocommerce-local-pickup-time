@@ -474,6 +474,7 @@ public function pickup_overview_fill_buckets() {
 		$tomorrow = array();
 		$nextSevenDays = array();
 		$restOfOrders = array();
+		$noPickupTime = array();
 
 		//definition of time frames for buckets
     $today_date = mktime(0, 0, 0, date("m"), date("d"), date("Y"));
@@ -519,6 +520,9 @@ public function pickup_overview_fill_buckets() {
                             	}
                     	}
                 	}
+									else{
+										$noPickupTime[] = $order;
+									}
   						}
         }
 
@@ -527,7 +531,8 @@ public function pickup_overview_fill_buckets() {
             "today" => $today,
             "tomorrow" => $tomorrow,
             "next_seven_days" => $nextSevenDays,
-            "rest_of_orders" => $restOfOrders
+            "rest_of_orders" => $restOfOrders,
+						"no_pickup_time" => $noPickupTime
         );
     }
 
