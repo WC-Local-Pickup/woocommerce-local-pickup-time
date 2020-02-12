@@ -3,7 +3,7 @@ Contributors: mjbanks, vyskoczilova, tnolte
 Donate link: http://mattbanks.me
 Tags: woocommcerce, shipping, local pickup, checkout fields, ecommerce, e-commerce, wordpress ecommerce
 Requires at least: 4.7
-Tested up to: 5.3
+Tested up to: 5.3.2
 Stable tag: 1.3.11
 Requires PHP: 5.6
 License: GPLv2 or later
