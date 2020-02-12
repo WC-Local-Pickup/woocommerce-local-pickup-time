@@ -10,6 +10,9 @@
 *~
 *.sass-cache
 
+# Local Development files/folders.
+.env
+
 # OS or Editor folders
 .DS_Store
 Thumbs.db
@@ -43,3 +46,4 @@ cache
 node_modules
 vendor
 dist
+wordpress

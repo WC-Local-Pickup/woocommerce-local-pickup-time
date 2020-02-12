@@ -3,9 +3,6 @@
   "version": "1.3.11",
   "description": "Add an an option to WooCommerce checkout pages for Local Pickup that allows the user to choose a pickup time.",
   "main": "Gruntfile.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/mattbanks/woocommerce-local-pickup-time"
@@ -20,9 +17,13 @@
     "url": "https://github.com/mattbanks/woocommerce-local-pickup-time/issues"
   },
   "homepage": "https://github.com/mattbanks/woocommerce-local-pickup-time#readme",
+  "dependencies": {
+    "dev-require": "^0.1.0"
+  },
   "devDependencies": {
     "@floatwork/grunt-po2mo": "^0.3.0",
     "@ndigitals/grunt-checkrepo": "^0.2.0",
+    "@wordpress/scripts": "^6.2.0",
     "grunt": "^1.0.4",
     "grunt-checkbranch": "^1.0.4",
     "grunt-checktextdomain": "^1.0.1",
@@ -33,9 +34,19 @@
     "grunt-wp-deploy": "^2.0.0",
     "grunt-wp-i18n": "^1.0.3",
     "grunt-wp-readme-to-markdown": "~2.0.0",
-    "load-grunt-tasks": "^3.5"
+    "load-grunt-tasks": "^3.5",
+    "puppeteer": "^1.20.0"
   },
-  "dependencies": {
-    "dev-require": "^0.1.0"
+  "wp-env": {
+    "plugin-dir": "woocommerce-local-pickup-time-select",
+    "plugin-name": "WooCommerce Local Pickup Time Select",
+    "docker-template": "./docker-compose.override.yml"
+  },
+  "scripts": {
+    "test": "grunt test",
+    "env": "wp-scripts env",
+    "lint": "npm run lint:php",
+    "lint:php": "composer run-script phpcs .",
+    "lint-fix:php": "composer run-script phpcbf ."
   }
 }

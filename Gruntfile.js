@@ -13,7 +13,7 @@ module.exports = function(grunt) {
                 options: {
                     stdout: true
                 },
-                command: '<%= composerBin %>/phpcs -p --colors'
+                command: '<%= composerBin %>/phpcs'
             },
 
             phpcbf: {
@@ -47,18 +47,19 @@ module.exports = function(grunt) {
             // Copy the plugin to a versioned release directory
             main: {
                 src: [
-                    '**',
-                    '!*.xml', '!*.log', //any config/log files
-                    '!node_modules/**', '!Gruntfile.js', '!package.json', //npm/Grunt
-                    '!assets/**', //wp-org assets
-                    '!dist/**', //build directory
-                    '!.git/**', //version control
-                    '!tests/**', '!scripts/**', '!phpunit.xml', '!phpunit.xml.dist', //unit testing
-                    '!vendor/**', '!composer.lock', '!composer.phar', '!composer.json', //composer
-                    '!.*', '!**/*~', //hidden files
-                    '!CONTRIBUTING.md',
-                    '!README.md',
-                    '!phpcs.xml', '!phpcs.xml.dist', // CodeSniffer Configuration
+									'**',
+                  '!*.xml', '!*.log', //any config/log files
+                  '!node_modules/**', '!Gruntfile.js', '!package.json', //npm/Grunt
+                  '!assets/**', //wp-org assets
+                  '!dist/**', //build directory
+                  '!.git/**', //version control
+                  '!tests/**', '!scripts/**', '!phpunit.xml', '!phpunit.xml.dist', //unit testing
+									'!vendor/**', '!composer.lock', '!composer.phar', '!composer.json', //composer
+									'!wordpress/**',
+                  '!.*', '!**/*~', //hidden files
+                  '!CONTRIBUTING.md',
+                  '!README.md',
+                  '!phpcs.xml', '!phpcs.xml.dist', // CodeSniffer Configuration
                 ],
                 dest: 'dist/',
                 options: {
@@ -85,7 +86,7 @@ module.exports = function(grunt) {
 				        options: {
 					        updateDomains: true
 				        },
-				        src: [ '*.php', '**/*.php', '!node_modules/**', '!tests/**', '!scripts/**' ]
+							src: [ '*.php', '**/*.php', '!node_modules/**', '!tests/**', '!scripts/**', '!wordpress/**' ]
 			      },
         },
 
@@ -102,18 +103,19 @@ module.exports = function(grunt) {
                 options: {
                     domainPath: '/languages',         // Where to save the POT file.
                     exclude: [
-                        'node_modules/.*',				//npm
-                        'assets/.*', 							//wp-org assets
-                        'dist/.*', 								//build directory
-                        '.git/.*', 								//version control
-                        'tests/.*', 'scripts/.*',	//unit testing
-                        'vendor/.*', 							//composer
+                      'node_modules/.*',				//npm
+                      'assets/.*', 							//wp-org assets
+                      'dist/.*', 								//build directory
+                      '.git/.*', 								//version control
+                      'tests/.*', 'scripts/.*',	//unit testing
+											'vendor/.*', 							//composer
+											'wordpress/.*',
                     ],                                // List of files or directories to ignore.
                     mainFile: 'woocommerce-local-pickup-time.php',                     // Main project file.
                     potFilename: 'woocommerce-local-pickup-time.pot',                  // Name of the POT file.
                     potHeaders: {
-                        poedit: true,                 // Includes common Poedit headers.
-                        'x-poedit-keywordslist': true // Include a list of all possible gettext functions.
+                      poedit: true,                 // Includes common Poedit headers.
+                      'x-poedit-keywordslist': true // Include a list of all possible gettext functions.
                     },                                // Headers to add to the generated POT file.
                     type: 'wp-plugin',                // Type of project (wp-plugin or wp-theme).
                     updateTimestamp: true,            // Whether the POT-Creation-Date should be updated without other changes.
@@ -159,12 +161,13 @@ module.exports = function(grunt) {
             },
             files: {
                 src: [
-                    '**/*.php',
-                    '!node_modules/**',
-                    '!dist/**',
-                    '!tests/**',
-                    '!vendor/**',
-                    '!*~',
+                  '**/*.php',
+                  '!node_modules/**',
+                  '!dist/**',
+                  '!tests/**',
+									'!vendor/**',
+									'!wordpress/**',
+                  '!*~',
                 ],
                 expand: true,
             },

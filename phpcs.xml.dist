@@ -9,8 +9,14 @@
 	<rule ref="WordPress-Docs" />
 
 	<!-- Check all PHP files in directory tree by default. -->
-  <arg name="extensions" value="php" />
-  <arg name="colors" />
+	<arg name="basepath" value="." />
+	<arg name="extensions" value="php" />
+	<arg name="report" value="summary" />
+	<!-- Show colors. -->
+	<arg name="colors" />
+	<!-- Show progress. -->
+	<arg value="p" />
+
 	<file>.</file>
 
 	<!-- Show sniff codes in all reports -->
@@ -20,4 +26,5 @@
 	<exclude-pattern>*/node_modules/*</exclude-pattern>
 	<exclude-pattern>*/vendor/*</exclude-pattern>
 	<exclude-pattern>*/wpcs/*</exclude-pattern>
+	<exclude-pattern>*/wordpress/*</exclude-pattern>
 </ruleset>
