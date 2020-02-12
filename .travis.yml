@@ -43,9 +43,7 @@ php:
 env:
   matrix:
     - WP_MODE=single WP_VERSION=latest
-    - WP_MODE=single WP_VERSION=4.8
     - WP_MODE=multi  WP_VERSION=latest
-    - WP_MODE=multi  WP_VERSION=4.8
 
 # Define a matrix of additional build configurations
 # The versions listed above will automatically create our first configuration,
