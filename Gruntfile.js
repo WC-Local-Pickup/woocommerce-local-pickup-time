@@ -13,7 +13,7 @@ module.exports = function(grunt) {
                 options: {
                     stdout: true
                 },
-                command: '<%= composerBin %>/phpcs -p --colors'
+                command: '<%= composerBin %>/phpcs'
             },
 
             phpcbf: {
@@ -27,7 +27,7 @@ module.exports = function(grunt) {
                 options: {
                     stdout: true
                 },
-                command: 'npm run env test-php'
+                command: '<%= composerBin %>/phpunit'
             },
         },
 
