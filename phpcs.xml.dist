@@ -16,6 +16,7 @@
 	<arg name="colors" />
 	<!-- Show progress. -->
 	<arg value="p" />
+	<arg value="n" />
 
 	<file>.</file>
 
