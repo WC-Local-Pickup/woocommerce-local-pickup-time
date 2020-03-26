@@ -25,7 +25,7 @@ class Local_Pickup_Time {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '1.3.11';
+	const VERSION = '1.3.12';
 
 	/**
 	 * Unique identifier for plugin.
@@ -82,6 +82,15 @@ class Local_Pickup_Time {
 	protected $timezone = 'America/New_York';
 
 	/**
+	 * Configured WordPress timezone as a DateTimeZone object. Default: null.
+	 *
+	 * @since     1.3.12
+	 *
+	 * @var       DateTimeZone
+	 */
+	protected $wp_timezone = null;
+
+	/**
 	 * Order meta key for storing Local Pickup Time.
 	 *
 	 * @since     1.3.2
@@ -107,9 +116,12 @@ class Local_Pickup_Time {
 		// Make sure we have a time zone set.
 		if ( empty( $this->timezone ) ) {
 
-			$this->timezone = timezone_name_from_abbr( null, $this->gmt_offset * 3600, true ) ? timezone_name_from_abbr( null, $this->gmt_offset * 3600, true ) : timezone_name_from_abbr( null, $this->gmt_offset * 3600, false );
+			$this->timezone = timezone_name_from_abbr( null, $this->get_gmt_offset() * 3600, true ) ? timezone_name_from_abbr( null, $this->get_gmt_offset() * 3600, true ) : timezone_name_from_abbr( null, $this->get_gmt_offset() * 3600, false );
 
 		}
+
+		// Create our own wp_timezone for backwards compatibility.
+		$this->wp_timezone = new DateTimeZone( $this->get_timezone() );
 
 		// Load plugin text domain.
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
@@ -209,6 +221,19 @@ class Local_Pickup_Time {
 	public function get_timezone() {
 
 		return $this->timezone;
+
+	}
+
+	/**
+	 * Return the plugin timezone as a DateTimeZone object..
+	 *
+	 * @since     1.3.12
+	 *
+	 * @return DateTimeZone   The timezone object.
+	 */
+	public function get_wp_timezone() {
+
+		return $this->wp_timezone;;
 
 	}
 
@@ -400,11 +425,15 @@ class Local_Pickup_Time {
 		__( 'Sunday', 'woocommerce-local-pickup-time' );
 
 		// Get the current WordPress-based date/time.
-		$current_wp_datetime  = new DateTime( 'now', wp_timezone() );
+		$current_wp_datetime  = new DateTime( 'now', $this->get_wp_timezone() );
 		$current_wp_timestamp = $current_wp_datetime->getTimestamp();
 		// Initialize DateTime objects for further calculations.
 		$current_datetime = new DateTime( "@$current_wp_timestamp" );
+		// Ensure we set the timezone so that the final time is correct.
+		$current_datetime->setTimezone( $this->get_wp_timezone() );
 		$pickup_datetime  = new DateTime( "@$current_wp_timestamp" );
+		// Ensure the timezone is set so that the final time is correct.
+		$pickup_datetime->setTimezone( $this->get_wp_timezone() );
 		// Get to the start of the hour.
 		$pickup_datetime->setTimestamp( floor( $pickup_datetime->getTimestamp() / 3600 ) * 3600 );
 		// Make sure we start at the next interval past the current time.
@@ -491,9 +520,11 @@ class Local_Pickup_Time {
 
 		// Initialize starting DateTime.
 		$pickup_start_datetime = new DateTime( "@$pickup_timestamp" );
+		$pickup_start_datetime->setTimezone( $this->get_wp_timezone() );
 
 		// Initialize opening DateTime.
 		$pickup_open_datetime = new DateTime( "@$pickup_timestamp" );
+		$pickup_open_datetime->setTimezone( $this->get_wp_timezone() );
 
 		// Set the open DateTime to the configured open time.
 		$pickup_day_hours_time_array = explode( ':', $pickup_day_open_time );
@@ -506,8 +537,10 @@ class Local_Pickup_Time {
 
 		// Initialize ending DateTime based on day closed time.
 		$pickup_end_datetime = new DateTime( "@$pickup_timestamp" );
+		$pickup_end_datetime->setTimezone( $this->get_wp_timezone() );
 		// Set ending hour based on close time.
 		$pickup_day_hours_time_array = explode( ':', $pickup_day_close_time );
+
 		// Note: PHP pre-7.1 doesn't support milliseconds with the setTime() call.
 		if ( ! defined( 'PHP_VERSION' ) || ! function_exists( 'version_compare' ) || version_compare( PHP_VERSION, '7.1.0', '<' ) ) {
 			$pickup_end_datetime->setTime( $pickup_day_hours_time_array[0], $pickup_day_hours_time_array[1], 0 );
@@ -524,7 +557,7 @@ class Local_Pickup_Time {
 
 		foreach ( $pickup_dateperiod as $pickup_datetime ) {
 
-				$pickup_day_options[ "{$pickup_datetime->getTimestamp()}" ] = $this->pickup_time_select_translatable( $pickup_datetime->getTimestamp(), ' @ ' );
+			$pickup_day_options[ "{$pickup_datetime->getTimestamp()}" ] = $this->pickup_time_select_translatable( $pickup_datetime->getTimestamp(), ' @ ' );
 
 		}
 
@@ -581,7 +614,7 @@ class Local_Pickup_Time {
 	 */
 	public function update_order_meta( $order_id ) {
 		if ( $_POST['local_pickup_time_select'] ) {
-			update_post_meta( $order_id, $this->order_meta_key, esc_attr( $_POST['local_pickup_time_select'] ) );
+			update_post_meta( $order_id, $this->get_order_meta_key(), esc_attr( $_POST['local_pickup_time_select'] ) );
 		}
 	}
 
@@ -597,7 +630,7 @@ class Local_Pickup_Time {
 	 */
 	public function update_order_email_fields( $fields, $sent_to_admin, $order ) {
 
-		$value              = $this->pickup_time_select_translatable( get_post_meta( $order->get_id(), $this->order_meta_key, true ) );
+		$value              = $this->pickup_time_select_translatable( get_post_meta( $order->get_id(), $this->get_order_meta_key(), true ) );
 		$fields['meta_key'] = array(
 			'label' => __( 'Pickup Time', 'woocommerce-local-pickup-time' ),
 			'value' => $value,
@@ -625,14 +658,18 @@ class Local_Pickup_Time {
 		// This match is specifically to address the bug introduced in 1.3.1.
 		if ( preg_match( '/^\d{2}\/\d{2}\/\d{4}\d{1,2}_\d{2}\_[amp]{2}$/', $value ) ) {
 
-			$value = DateTime::createFromFormat( 'm/d/Y' . preg_replace( '/[^\w]+/', '_', $this->time_format ), $value )->getTimestamp();
+			$value = DateTime::createFromFormat( 'm/d/Y' . preg_replace( '/[^\w]+/', '_', $this->get_time_format() ), $value )->getTimestamp();
 
 		}
 
 		// When using the latest pickup time meta of a timestamp return using the WordPress i18n method.
 		if ( preg_match( '/^\d*$/', $value ) ) {
 
-			return date_i18n( $this->date_format, $value ) . $separator . gmdate( $this->time_format, $value );
+			if ( function_exists( 'wp_date' ) ) {
+				return wp_date( $this->get_date_format(), $value, $this->get_wp_timezone() ) . $separator . wp_date( $this->get_time_format(), $value, $this->get_wp_timezone() );
+			} else {
+				return date_i18n( $this->get_date_format(), $value + $this->get_gmt_offset() ) . $separator . date_i18n( $this->get_time_format(), $value + $this->get_gmt_offset() );
+			}
 
 		}
 
