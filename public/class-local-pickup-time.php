@@ -234,7 +234,6 @@ class Local_Pickup_Time {
 	public function get_wp_timezone() {
 
 		return $this->wp_timezone;
-		;
 
 	}
 
@@ -665,7 +664,6 @@ class Local_Pickup_Time {
 
 		// When using the latest pickup time meta of a timestamp return using the WordPress i18n method.
 		if ( preg_match( '/^\d*$/', $value ) ) {
-
 			if ( function_exists( 'wp_date' ) ) {
 				return wp_date( $this->get_date_format(), $value, $this->get_wp_timezone() ) . $separator . wp_date( $this->get_time_format(), $value, $this->get_wp_timezone() );
 			} else {
