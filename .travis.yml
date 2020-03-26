@@ -57,10 +57,11 @@ matrix:
 addons:
   apt:
     packages:
-    - nodejs
+      - nodejs
 
 before_install:
-  - npm install grunt-cli
+  - npm install -g npm@12
+  - npm install -g grunt-cli
 
 install:
   - composer install
