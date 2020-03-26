@@ -233,7 +233,8 @@ class Local_Pickup_Time {
 	 */
 	public function get_wp_timezone() {
 
-		return $this->wp_timezone;;
+		return $this->wp_timezone;
+		;
 
 	}
 
@@ -670,7 +671,6 @@ class Local_Pickup_Time {
 			} else {
 				return date_i18n( $this->get_date_format(), $value + $this->get_gmt_offset() ) . $separator . date_i18n( $this->get_time_format(), $value + $this->get_gmt_offset() );
 			}
-
 		}
 
 		return $value;
