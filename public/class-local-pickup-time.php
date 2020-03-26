@@ -404,7 +404,11 @@ class Local_Pickup_Time {
 		$current_wp_timestamp = $current_wp_datetime->getTimestamp();
 		// Initialize DateTime objects for further calculations.
 		$current_datetime = new DateTime( "@$current_wp_timestamp" );
+		// Ensure we set the timezone so that the final time is correct.
+		$current_datetime->setTimezone( wp_timezone() );
 		$pickup_datetime  = new DateTime( "@$current_wp_timestamp" );
+		// Ensure the timezone is set so that the final time is correct.
+		$pickup_datetime->setTimezone( wp_timezone() );
 		// Get to the start of the hour.
 		$pickup_datetime->setTimestamp( floor( $pickup_datetime->getTimestamp() / 3600 ) * 3600 );
 		// Make sure we start at the next interval past the current time.
@@ -491,9 +495,11 @@ class Local_Pickup_Time {
 
 		// Initialize starting DateTime.
 		$pickup_start_datetime = new DateTime( "@$pickup_timestamp" );
+		$pickup_start_datetime->setTimezone( wp_timezone() );
 
 		// Initialize opening DateTime.
 		$pickup_open_datetime = new DateTime( "@$pickup_timestamp" );
+		$pickup_open_datetime->setTimezone( wp_timezone() );
 
 		// Set the open DateTime to the configured open time.
 		$pickup_day_hours_time_array = explode( ':', $pickup_day_open_time );
@@ -506,8 +512,10 @@ class Local_Pickup_Time {
 
 		// Initialize ending DateTime based on day closed time.
 		$pickup_end_datetime = new DateTime( "@$pickup_timestamp" );
+		$pickup_end_datetime->setTimezone( wp_timezone() );
 		// Set ending hour based on close time.
 		$pickup_day_hours_time_array = explode( ':', $pickup_day_close_time );
+
 		// Note: PHP pre-7.1 doesn't support milliseconds with the setTime() call.
 		if ( ! defined( 'PHP_VERSION' ) || ! function_exists( 'version_compare' ) || version_compare( PHP_VERSION, '7.1.0', '<' ) ) {
 			$pickup_end_datetime->setTime( $pickup_day_hours_time_array[0], $pickup_day_hours_time_array[1], 0 );
@@ -524,7 +532,7 @@ class Local_Pickup_Time {
 
 		foreach ( $pickup_dateperiod as $pickup_datetime ) {
 
-				$pickup_day_options[ "{$pickup_datetime->getTimestamp()}" ] = $this->pickup_time_select_translatable( $pickup_datetime->getTimestamp(), ' @ ' );
+			$pickup_day_options[ "{$pickup_datetime->getTimestamp()}" ] = $this->pickup_time_select_translatable( $pickup_datetime->getTimestamp(), ' @ ' );
 
 		}
 
@@ -632,7 +640,7 @@ class Local_Pickup_Time {
 		// When using the latest pickup time meta of a timestamp return using the WordPress i18n method.
 		if ( preg_match( '/^\d*$/', $value ) ) {
 
-			return date_i18n( $this->date_format, $value ) . $separator . gmdate( $this->time_format, $value );
+			return wp_date( $this->date_format, $value, wp_timezone() ) . $separator . wp_date( $this->time_format, $value, wp_timezone() );
 
 		}
 
