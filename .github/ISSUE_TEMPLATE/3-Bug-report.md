@@ -29,6 +29,7 @@ A clear and concise description of what you expected to happen.
 - [ ] I can reproduce this bug consistently using the steps above.
 
 **WordPress Environment**
+=======
 - Website URL: 
 - PHP Version: 
 - WordPress Version: 
