@@ -29,8 +29,6 @@ A clear and concise description of what you expected to happen.
 - [ ] I can reproduce this bug consistently using the steps above.
 
 **WordPress Environment**
-<details>
-```
 - Website URL: 
 - PHP Version: 
 - WordPress Version: 
@@ -42,6 +40,5 @@ A clear and concise description of what you expected to happen.
 - All Plugin Start/End Pickup Time Settings: 
 - Plugin Pickup Time Interval Setting: 
 - Plugin Pickup Time Delay Setting: 
+- Plugin Orders Per Interval: 
 - Plugin Pickup Time Open Days Ahead Setting: 
-```
-</details>
