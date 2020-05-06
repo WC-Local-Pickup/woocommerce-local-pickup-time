@@ -411,9 +411,10 @@ class Local_Pickup_Time {
 		$dates_closed = explode( "\n", preg_replace( '/\v(?:[\v\h]+)/', "\n", trim( get_option( 'local_pickup_hours_closings' ) ) ) );
 
 		// Get delay, interval, and number of days ahead settings.
-		$delay_minutes    = get_option( 'local_pickup_delay_minutes', 60 );
-		$minutes_interval = get_option( 'local_pickup_hours_interval', 30 );
-		$num_days_ahead   = get_option( 'local_pickup_days_ahead', 1 );
+		$delay_minutes       = get_option( 'local_pickup_delay_minutes', 60 );
+		$minutes_interval    = get_option( 'local_pickup_hours_interval', 30 );
+		$max_interval_orders = get_option( 'local_pickup_interval_orders_max', 0 );
+		$num_days_ahead      = get_option( 'local_pickup_days_ahead', 1 );
 
 		// Translateble days.
 		__( 'Monday', 'woocommerce-local-pickup-time' );
