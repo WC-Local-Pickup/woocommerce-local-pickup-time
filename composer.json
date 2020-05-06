@@ -23,18 +23,18 @@
     ],
     "config": {
         "platform": {
-            "php": "5.6"
+            "php": "7.0"
         }
     },
     "require-dev": {
-        "php": ">=5.6.0",
+        "php": ">=7.0.0",
         "squizlabs/php_codesniffer": "^3.3",
         "wp-coding-standards/wpcs": "^2.0",
 				"phpcompatibility/php-compatibility": "^9.0",
 				"phpcompatibility/phpcompatibility-wp": "^2.1",
         "phpunit/phpunit": "^5",
 				"roave/security-advisories": "dev-master",
-        "woocommerce/woocommerce": "dev-master#2365525dcbe66cdc5137c6447631a538895bfe67",
+        "woocommerce/woocommerce": "dev-master#4.1.0",
         "woocommerce/woocommerce-git-hooks": "^1.0",
         "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
         "brain/monkey": "^2.4",
@@ -42,7 +42,7 @@
     },
     "autoload-dev": {
         "classmap": [
-          "vendor/woocommerce/woocommerce/tests/framework"
+          "vendor/woocommerce/woocommerce/tests/legacy/framework"
         ]
     },
     "scripts": {
