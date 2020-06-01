@@ -25,7 +25,7 @@ class Local_Pickup_Time {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '1.3.12';
+	const VERSION = '1.4.0';
 
 	/**
 	 * Unique identifier for plugin.
@@ -371,7 +371,10 @@ class Local_Pickup_Time {
 	 * @since    1.0.0
 	 */
 	private static function single_activate() {
-		// No activation functionality needed... yet.
+
+		// Set, or update, the WP option to track database versions for the plugin.
+		//update_option( 'wlpt_db_version', self::VERSION, TRUE );
+
 	}
 
 	/**
@@ -399,11 +402,77 @@ class Local_Pickup_Time {
 	}
 
 	/**
+	 * Perform a version check of the plugin against the last activated version.
+	 *
+	 * @since    1.4.0
+	 *
+	 * @return boolean   Returns TRUE if the plugin and database versions match, otherwise FALSE if the values don't match.
+	 */
+	public function plugin_version_check() {
+
+		return version_compare( self::VERSION, get_option( 'wlpt_db_version' ), '>=' );
+
+	}
+
+	/**
+	 * Load list of closed pickup times.
+	 *
+	 * @since     1.4.0
+	 *
+	 * @param integer $max_interval_orders The maximum number of orders allowed per interval.
+	 * @return array The list of pickup times that are closed for selection.
+	 */
+	public function get_closed_pickup_times( $max_interval_orders = 0 ) {
+
+		$closed_pickup_times = array();
+		// The order statuses to use to limit the orders queryied for pickup times.
+		$limit_order_statuses = array(
+			'pending',
+			'processing',
+			'on-hold'
+		);
+		// Get the current WordPress-based date/time.
+		$current_wp_datetime  = new DateTime( 'now', $this->get_wp_timezone() );
+		$current_wp_timestamp = $current_wp_datetime->getTimestamp();
+
+		if ( 0 === $max_interval_orders ) {
+
+			return $closed_pickup_times;
+
+		}
+
+		// Get all the open order IDs with a pickup time greater than right now.
+		$args = array(
+			'post_type'      => 'shop_order',
+			'post_status'    => $limit_order_statuses,
+			'limit'          => -1,
+			'meta_key'       => $this->order_meta_key,
+			'meta_value_num' => $current_wp_timestamp,
+			'meta_compare'   => '>=',
+			'fields'         => 'ids'
+		);
+		$orders = new WP_Query( $args );
+
+		if ( !empty( $orders ) ) {
+			$pickup_times = array();
+
+			foreach( $orders as $order_id ) {
+				$pickup_times[] = get_post_meta( $order_id, $this->order_meta_key, true )];
+			}
+			$pickup_times_counts = array_count_values( $pickup_times );
+			arsort( $pickup_times );
+		}
+
+		return $closed_pickup_times;
+
+	}
+
+	/**
 	 * Build pickup time options for checkout.
 	 *
 	 * @since     1.3.2
 	 *
-	 * return array The pickup time options.
+	 * @return array The pickup time options.
 	 */
 	public function build_pickup_time_options() {
 
