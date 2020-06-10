@@ -373,8 +373,7 @@ class Local_Pickup_Time {
 	private static function single_activate() {
 
 		// Set, or update, the WP option to track database versions for the plugin.
-		//update_option( 'wlpt_db_version', self::VERSION, TRUE );
-
+		// update_option( 'wlpt_db_version', self::VERSION, TRUE );.
 	}
 
 	/**
@@ -429,7 +428,7 @@ class Local_Pickup_Time {
 		$limit_order_statuses = array(
 			'pending',
 			'processing',
-			'on-hold'
+			'on-hold',
 		);
 		// Get the current WordPress-based date/time.
 		$current_wp_datetime  = new DateTime( 'now', $this->get_wp_timezone() );
@@ -449,15 +448,15 @@ class Local_Pickup_Time {
 			'meta_key'       => $this->order_meta_key,
 			'meta_value_num' => $current_wp_timestamp,
 			'meta_compare'   => '>=',
-			'fields'         => 'ids'
+			'fields'         => 'ids',
 		);
 		$orders = new WP_Query( $args );
 
-		if ( !empty( $orders ) ) {
+		if ( ! empty( $orders ) ) {
 			$pickup_times = array();
 
-			foreach( $orders as $order_id ) {
-				$pickup_times[] = get_post_meta( $order_id, $this->order_meta_key, true )];
+			foreach ( $orders as $order_id ) {
+				$pickup_times[] = get_post_meta( $order_id, $this->order_meta_key, true );
 			}
 			$pickup_times_counts = array_count_values( $pickup_times );
 			arsort( $pickup_times );

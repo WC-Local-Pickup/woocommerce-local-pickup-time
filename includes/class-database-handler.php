@@ -49,6 +49,15 @@ class Local_Pickup_Time_Database_Handler {
 	protected $database;
 
 	/**
+	 * The database collation.
+	 *
+	 * @since
+	 *
+	 * @var      string
+	 */
+	protected $collation;
+
+	/**
 	 * Initialize the plugin by loading admin scripts & styles and adding a
 	 * settings page and menu.
 	 *
@@ -64,10 +73,12 @@ class Local_Pickup_Time_Database_Handler {
 		$this->table_prefix    = $this->get_table_prefix();
 		$this->suppress_errors = (bool) $suppress_errors;
 
+		if ( $database->has_cap( 'collation' ) ) {
+			$this->collation = $database->get_charset_collate();
+		}
+
 		// Remove the table prefix if it it was included.
 		$this->table_name = str_replace( $this->table_prefix, '', $table_name );
-
-		$plugin = Local_Pickup_Time::get_instance();
 
 	}
 
@@ -112,6 +123,19 @@ class Local_Pickup_Time_Database_Handler {
 	protected function get_table_prefix() {
 
 		return $this->database->get_blog_prefix();
+
+	}
+
+	/**
+	 * Returns the character set collation.
+	 *
+	 * @since    1.4.0
+	 *
+	 * @return   string   The dataase collation.
+	 */
+	public function get_collation() {
+
+		return $this->collation;
 
 	}
 

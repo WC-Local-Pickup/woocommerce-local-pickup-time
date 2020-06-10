@@ -28,16 +28,16 @@ class Local_Pickup_Time_Install {
 	protected static $instance = null;
 
 	/**
-	 * Local Pickup Orders indexing table name suffix.
+	 * Local Pickup Orders indexing base table name.
 	 *
-	 * The suffix to use along with the WordPress configured table prefix when
-	 * referencing the plugin orders index table.
+	 * The base table name to use along with the WordPress configured table
+	 * prefix when referencing the plugin orders index table.
 	 *
 	 * @since     1.4.0
 	 *
 	 * @var       string
 	 */
-	protected $index_table_suffix = '_wlpt_orders';
+	protected $index_table_name = 'wlpt_orders';
 
 	/**
 	 * Initialize the plugin by loading admin scripts & styles and adding a
@@ -81,23 +81,18 @@ class Local_Pickup_Time_Install {
 
 		global $wpdb;
 
-		$collate = '';
+		$db_index_table = new Local_Pickup_Time_Database_Handler( $wpdb, $this->index_table_name );
 
-		if ( $wpdb->has_cap( 'collation' ) ) {
-			$collate = $wpdb->get_charset_collate();
-		}
-
-		$max_index_length = 191;
+		// $max_index_length = 191;
 
 		$tables = "
-CREATE TABLE {$wpdb->prefix}{$this->get_index_table_suffix()} (
-  order_item_id BIGINT UNSIGNED NOT NULL auto_increment,
-  order_item_name TEXT NOT NULL,
-  order_item_type varchar(200) NOT NULL DEFAULT '',
+CREATE TABLE {$db_index_table->get_table_name()} (
+  pickup_time_id BIGINT UNSIGNED NOT NULL auto_increment,
+  pickup_time INT(11) UNSIGNED NOT NULL,
   order_id BIGINT UNSIGNED NOT NULL,
-  PRIMARY KEY  (order_item_id),
-  KEY order_id (order_id)
-) $collate;
+  PRIMARY KEY  (pickup_time_id),
+  INDEX (pickup_time)
+) {$db_index_table->get_collation()};
 ";
 
 		return $tables;
