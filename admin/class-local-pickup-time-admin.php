@@ -28,13 +28,13 @@ class Local_Pickup_Time_Admin {
 	protected static $instance = null;
 
 	/**
-	 * Slug of the plugin screen.
+	 * Instance of the Plugin class.
 	 *
-	 * @since    1.0.0
+	 * @since    1.4.0
 	 *
-	 * @var      string
+	 * @var      object|Local_Pickup_Time
 	 */
-	protected $plugin_screen_hook_suffix = null;
+	protected $plugin = null;
 
 	/**
 	 * Initialize the plugin by loading admin scripts & styles and adding a
@@ -44,16 +44,7 @@ class Local_Pickup_Time_Admin {
 	 */
 	private function __construct() {
 
-		// Call $plugin_slug from public plugin class.
-		$plugin            = Local_Pickup_Time::get_instance();
-		$this->plugin_slug = $plugin->get_plugin_slug();
-		// Load WordPress date/time formats from public plugin class.
-		$this->date_format = $plugin->get_date_format();
-		$this->time_format = $plugin->get_time_format();
-		$this->gmt_offset  = $plugin->get_gmt_offset();
-		$this->timezone    = $plugin->get_timezone();
-		// Load Order meta_key defined for plugin.
-		$this->order_meta_key = $plugin->get_order_meta_key();
+		$this->plugin      = Local_Pickup_Time::get_instance();
 
 		/*
 		 * Show Pickup Time Settings in the WooCommerce -> General Admin Screen
@@ -345,7 +336,7 @@ class Local_Pickup_Time_Admin {
 	public function show_metabox( $order ) {
 		$order_meta = get_post_custom( $order->get_id() );
 
-		echo '<p><strong>' . __( 'Pickup Time:', 'woocommerce-local-pickup-time' ) . '</strong> ' . $this->pickup_time_select_translatable( $order_meta[ $this->order_meta_key ][0] ) . '</p>';
+		echo '<p><strong>' . __( 'Pickup Time:', 'woocommerce-local-pickup-time' ) . '</strong> ' . $this->pickup_time_select_translatable( $order_meta[ $this->plugin->get_order_meta_key() ][0] ) . '</p>';
 
 	}
 
@@ -366,7 +357,7 @@ class Local_Pickup_Time_Admin {
 			$new_columns[ $column_name ] = $column_info;
 
 			if ( 'order_date' === $column_name ) {
-				$new_columns[ $this->order_meta_key ] = __( 'Pickup Time', 'woocommerce-local-pickup-time' );
+				$new_columns[ $this->plugin->get_order_meta_key() ] = __( 'Pickup Time', 'woocommerce-local-pickup-time' );
 			}
 		}
 
@@ -385,8 +376,8 @@ class Local_Pickup_Time_Admin {
 
 		global $the_order;
 
-		if ( $this->order_meta_key === $column ) {
-			echo $this->pickup_time_select_translatable( $the_order->get_meta( $this->order_meta_key ) );
+		if ( $this->plugin->get_order_meta_key() === $column ) {
+			echo $this->pickup_time_select_translatable( $the_order->get_meta( $this->plugin->get_order_meta_key() ) );
 		}
 
 	}
@@ -402,7 +393,7 @@ class Local_Pickup_Time_Admin {
 	public function add_orders_list_pickup_date_column_sorting( $columns ) {
 
 		$new_columns                          = array();
-		$new_columns[ $this->order_meta_key ] = 'pickup_time';
+		$new_columns[ $this->plugin->get_order_meta_key() ] = 'pickup_time';
 
 		return wp_parse_args( $new_columns, $columns );
 
@@ -419,7 +410,7 @@ class Local_Pickup_Time_Admin {
 	public function filter_orders_list_by_pickup_date( $query ) {
 
 		if ( is_admin() && 'shop_order' === $query->query_vars['post_type'] && ! empty( $_GET['orderby'] ) && 'pickup_time' === $_GET['orderby'] ) {
-			$query->set( 'meta_key', $this->order_meta_key );
+			$query->set( 'meta_key', $this->plugin->get_order_meta_key() );
 			$query->set( 'orderby', 'meta_value_num' );
 			$query->set( 'order', ( ! empty( $_GET['order'] ) ) ? strtoupper( woocommerce_clean( $_GET['order'] ) ) : 'ASC' );
 		}

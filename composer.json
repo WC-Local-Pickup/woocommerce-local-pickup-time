@@ -23,27 +23,43 @@
     ],
     "config": {
         "platform": {
-            "php": "7.0"
-        }
+            "php": "7.1"
+        },
+				"optimize-autoloader": true
     },
     "require-dev": {
-        "php": ">=7.0.0",
+        "php": ">=7.1.0",
         "squizlabs/php_codesniffer": "^3.3",
         "wp-coding-standards/wpcs": "^2.0",
 				"phpcompatibility/php-compatibility": "^9.0",
 				"phpcompatibility/phpcompatibility-wp": "^2.1",
+        "phpmd/phpmd": "^2.6",
         "phpunit/phpunit": "^5",
+        "phpstan/phpstan": "*",
+        "phpstan/extension-installer": "^1.0",
+        "szepeviktor/phpstan-wordpress": "^0.6",
 				"roave/security-advisories": "dev-master",
         "woocommerce/woocommerce": "dev-master#4.1.0",
         "woocommerce/woocommerce-git-hooks": "^1.0",
-        "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.6",
         "brain/monkey": "^2.4",
         "mockery/mockery": "^1.3"
     },
     "autoload-dev": {
         "classmap": [
-          "vendor/woocommerce/woocommerce/tests/legacy/framework"
+          "wordpress",
+					"vendor/woocommerce/woocommerce/",
+					"vendor/woocommerce/woocommerce/tests/legacy/framework"
         ]
+    },
+    "autoload": {
+				"classmap": [
+						"woocommerce-local-pickup-time.php",
+					  "admin/class-local-pickup-time-admin.php",
+            "includes/class-database-handler.php",
+						"includes/class-local-pickup-time-install.php",
+						"public/class-local-pickup-time.php"
+				]
     },
     "scripts": {
         "post-install-cmd": "\"vendor/bin/phpcs\" --config-set installed_paths vendor/wp-coding-standards/wpcs",
