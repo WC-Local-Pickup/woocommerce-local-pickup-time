@@ -32,7 +32,7 @@ class Local_Pickup_Time_Admin {
 	 *
 	 * @since    1.4.0
 	 *
-	 * @var      object|Local_Pickup_Time
+	 * @var      Local_Pickup_Time
 	 */
 	protected $plugin = null;
 
@@ -44,7 +44,7 @@ class Local_Pickup_Time_Admin {
 	 */
 	private function __construct() {
 
-		$this->plugin      = Local_Pickup_Time::get_instance();
+		$this->plugin = Local_Pickup_Time::get_instance();
 
 		/*
 		 * Show Pickup Time Settings in the WooCommerce -> General Admin Screen
@@ -89,7 +89,9 @@ class Local_Pickup_Time_Admin {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @param array $settings The array of WooCommerce General Plugin Settings.
+	 * @param array<array> $settings The array of WooCommerce General Plugin Settings.
+	 *
+	 * @return array<array>
 	 */
 	public function add_hours_and_closings_options( $settings ) {
 		$updated_settings = array();
@@ -331,9 +333,12 @@ class Local_Pickup_Time_Admin {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @param object $order  The order object.
+	 * @param WC_Order $order  The order object.
+	 *
+	 * @return void
 	 */
 	public function show_metabox( $order ) {
+
 		$order_meta = get_post_custom( $order->get_id() );
 
 		echo '<p><strong>' . __( 'Pickup Time:', 'woocommerce-local-pickup-time' ) . '</strong> ' . $this->pickup_time_select_translatable( $order_meta[ $this->plugin->get_order_meta_key() ][0] ) . '</p>';
@@ -345,8 +350,8 @@ class Local_Pickup_Time_Admin {
 	 *
 	 * @since           1.3.2
 	 *
-	 * @param   array $columns    The Orders List columns array.
-	 * @return  array   $new_columns    The updated Orders List columns array.
+	 * @param   array<string> $columns    The Orders List columns array.
+	 * @return  array<string> $new_columns    The updated Orders List columns array.
 	 */
 	public function add_orders_list_pickup_date_column_header( $columns ) {
 
@@ -371,6 +376,8 @@ class Local_Pickup_Time_Admin {
 	 * @since     1.3.2
 	 *
 	 * @param string $column  The column name in the Orders List.
+	 *
+	 * @return void
 	 */
 	public function add_orders_list_pickup_date_column_content( $column ) {
 
@@ -387,8 +394,8 @@ class Local_Pickup_Time_Admin {
 	 *
 	 * @since     1.3.2
 	 *
-	 * @param array $columns  The array of Order columns.
-	 * @return  array The updated array Order columns.
+	 * @param array<string> $columns  The array of Order columns.
+	 * @return array<string> The updated array Order columns.
 	 */
 	public function add_orders_list_pickup_date_column_sorting( $columns ) {
 
@@ -404,8 +411,8 @@ class Local_Pickup_Time_Admin {
 	 *
 	 * @since     1.3.2
 	 *
-	 * @param object $query The posts query object.
-	 * @return object $query The modified query object.
+	 * @param WP_Query $query The posts query object.
+	 * @return WP_Query $query The modified query object.
 	 */
 	public function filter_orders_list_by_pickup_date( $query ) {
 

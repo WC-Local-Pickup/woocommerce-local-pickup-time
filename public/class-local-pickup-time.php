@@ -41,7 +41,7 @@ class Local_Pickup_Time {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @var      object
+	 * @var      Local_Pickup_Time
 	 */
 	protected static $instance = null;
 
@@ -160,7 +160,7 @@ class Local_Pickup_Time {
 	 *
 	 * @since     1.0.0
 	 *
-	 * @return    object    A single instance of this class.
+	 * @return    Local_Pickup_Time    A single instance of this class.
 	 */
 	public static function get_instance() {
 
