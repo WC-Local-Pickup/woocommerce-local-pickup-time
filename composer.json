@@ -47,10 +47,9 @@
     },
     "autoload-dev": {
         "classmap": [
-          "wordpress",
-					"vendor/woocommerce/woocommerce/",
-					"vendor/woocommerce/woocommerce/tests/legacy/framework"
-        ]
+          "wordpress/src/",
+					"vendor/woocommerce/woocommerce/includes/"
+				]
     },
     "autoload": {
 				"classmap": [
@@ -59,6 +58,10 @@
             "includes/class-database-handler.php",
 						"includes/class-local-pickup-time-install.php",
 						"public/class-local-pickup-time.php"
+        ],
+				"exclude-from-classmap": [
+					"vendor/woocommerce/woocommerce/vendor/",
+					"vendor/woocommerce/woocommerce/packages/"
 				]
     },
     "scripts": {

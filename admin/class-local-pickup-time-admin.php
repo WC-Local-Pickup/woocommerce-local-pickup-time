@@ -419,7 +419,7 @@ class Local_Pickup_Time_Admin {
 		if ( is_admin() && 'shop_order' === $query->query_vars['post_type'] && ! empty( $_GET['orderby'] ) && 'pickup_time' === $_GET['orderby'] ) {
 			$query->set( 'meta_key', $this->plugin->get_order_meta_key() );
 			$query->set( 'orderby', 'meta_value_num' );
-			$query->set( 'order', ( ! empty( $_GET['order'] ) ) ? strtoupper( woocommerce_clean( $_GET['order'] ) ) : 'ASC' );
+			$query->set( 'order', ( ! empty( $_GET['order'] ) ) ? strtoupper( sanitize_text_field( $_GET['order'] ) ) : 'ASC' );
 		}
 
 		return $query;
@@ -431,8 +431,8 @@ class Local_Pickup_Time_Admin {
 	 *
 	 * @since     1.3.2
 	 *
-	 * @param array $order_details  The array of order data.
-	 * @return array  The order details array.
+	 * @param WC_Order|array<mixed> $order_details  The array of order data.
+	 * @return WC_Order|array<mixed>  The order details array.
 	 */
 	public function woocommerce_admin_order_preview_get_order_details( $order_details ) {
 
@@ -446,7 +446,7 @@ class Local_Pickup_Time_Admin {
 	 * @since    1.3.0
 	 *
 	 * @param string $value   The pikcup time meta value for an order.
-	 * @eturn string  The translated value of the order pickup time.
+	 * @return string  The translated value of the order pickup time.
 	 */
 	public function pickup_time_select_translatable( $value ) {
 

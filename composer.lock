@@ -1370,16 +1370,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "0.12.28",
+            "version": "0.12.29",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "76c0c4ec90b1eed66fa4855b8b4b53fa9054353f"
+                "reference": "9771daaf6b95c6313b908d0bcdee0afcd51f838a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/76c0c4ec90b1eed66fa4855b8b4b53fa9054353f",
-                "reference": "76c0c4ec90b1eed66fa4855b8b4b53fa9054353f",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/9771daaf6b95c6313b908d0bcdee0afcd51f838a",
+                "reference": "9771daaf6b95c6313b908d0bcdee0afcd51f838a",
                 "shasum": ""
             },
             "require": {
@@ -1422,7 +1422,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-06-10T06:20:14+00:00"
+            "time": "2020-06-14T14:10:59+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -3419,12 +3419,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/woocommerce/woocommerce.git",
-                "reference": "68a5d88dd803e7375cd230133f2352b9b77335f4"
+                "reference": "32037e37dd81cc4d7af896f0384c40cfd915db88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/woocommerce/woocommerce/zipball/68a5d88dd803e7375cd230133f2352b9b77335f4",
-                "reference": "68a5d88dd803e7375cd230133f2352b9b77335f4",
+                "url": "https://api.github.com/repos/woocommerce/woocommerce/zipball/32037e37dd81cc4d7af896f0384c40cfd915db88",
+                "reference": "32037e37dd81cc4d7af896f0384c40cfd915db88",
                 "shasum": ""
             },
             "require": {
@@ -3436,7 +3436,7 @@
                 "php": ">=7.0",
                 "woocommerce/action-scheduler": "3.1.6",
                 "woocommerce/woocommerce-admin": "1.2.3",
-                "woocommerce/woocommerce-blocks": "2.5.16",
+                "woocommerce/woocommerce-blocks": "2.7.0",
                 "woocommerce/woocommerce-rest-api": "1.0.8"
             },
             "require-dev": {
@@ -3483,7 +3483,7 @@
             ],
             "description": "An eCommerce toolkit that helps you sell anything. Beautifully.",
             "homepage": "https://woocommerce.com/",
-            "time": "2020-06-12T15:37:46+00:00"
+            "time": "2020-06-15T19:54:06+00:00"
         },
         {
             "name": "woocommerce/woocommerce-admin",
@@ -3534,16 +3534,16 @@
         },
         {
             "name": "woocommerce/woocommerce-blocks",
-            "version": "v2.5.16",
+            "version": "v2.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/woocommerce/woocommerce-gutenberg-products-block.git",
-                "reference": "3bd91b669247000fd3f5277954701d0b148d3f1a"
+                "reference": "161be65dbff230862fe52a18ea7c9a01557169c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/woocommerce/woocommerce-gutenberg-products-block/zipball/3bd91b669247000fd3f5277954701d0b148d3f1a",
-                "reference": "3bd91b669247000fd3f5277954701d0b148d3f1a",
+                "url": "https://api.github.com/repos/woocommerce/woocommerce-gutenberg-products-block/zipball/161be65dbff230862fe52a18ea7c9a01557169c2",
+                "reference": "161be65dbff230862fe52a18ea7c9a01557169c2",
                 "shasum": ""
             },
             "require": {
@@ -3577,7 +3577,7 @@
                 "gutenberg",
                 "woocommerce"
             ],
-            "time": "2020-04-07T11:47:19+00:00"
+            "time": "2020-06-09T09:29:00+00:00"
         },
         {
             "name": "woocommerce/woocommerce-git-hooks",
