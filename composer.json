@@ -27,6 +27,12 @@
         },
 				"optimize-autoloader": true
     },
+		"repositories": [
+				{
+						"type": "vcs",
+						"url": "https://github.com/wordpress/wordpress-develop"
+				}
+		],
     "require-dev": {
         "php": ">=7.1.0",
         "squizlabs/php_codesniffer": "^3.3",
@@ -39,7 +45,9 @@
         "phpstan/extension-installer": "^1.0",
         "szepeviktor/phpstan-wordpress": "^0.6",
 				"roave/security-advisories": "dev-master",
-        "woocommerce/woocommerce": "dev-master#4.1.0",
+				"mnsami/composer-custom-directory-installer": "~1.0",
+				"wordpress/wordpress": "5.4.2",
+        "woocommerce/woocommerce": "4.1.1",
         "woocommerce/woocommerce-git-hooks": "^1.0",
         "dealerdirect/phpcodesniffer-composer-installer": "^0.6",
         "brain/monkey": "^2.4",
@@ -47,7 +55,7 @@
     },
     "autoload-dev": {
         "classmap": [
-          "wordpress/src/",
+					"wordpress/src/",
 					"vendor/woocommerce/woocommerce/includes/"
 				]
     },
@@ -78,7 +86,10 @@
 								"woocommerce/woocommerce-blocks",
 								"woocommerce/action-scheduler",
 								"woocommerce/woocommerce-admin"
-            ]
+            ],
+						"{$name}": [
+								"wordpress/wordpress"
+						]
         }
     }
 }
