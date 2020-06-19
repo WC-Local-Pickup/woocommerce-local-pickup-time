@@ -41,22 +41,22 @@ matrix:
   include:
     - name: Coding Standards
       php: 7.3
-      env: WP_MODE=single WP_VERSION=5.2 WC_VERSION=4.2 PHP_LINT=1 COVERAGE=1
+      env: WP_MODE=single WP_VERSION=5.4.2 WC_VERSION=4.2.0 PHP_LINT=1 COVERAGE=1
     - name: Static Code Analysis
       php: 7.3
-      env: WP_MODE=single WP_VERSION=5.2 WC_VERSION=4.2 PHP_ANALYZE=1
+      env: WP_MODE=single WP_VERSION=5.4.2 WC_VERSION=4.2.0 PHP_ANALYZE=1
     - name: Latest Stable
       php: 7.3
-      env: WP_MODE=single WP_VERSION=5.2 WC_VERSION=4.2 PHP_UNIT=1
+      env: WP_MODE=single WP_VERSION=5.4.2 WC_VERSION=4.2.0 PHP_UNIT=1
     - name: Minimum requirements
       php: 7.2
-      env: WP_MODE=single WP_VERSION=4.9 WC_VERSION=4.0 PHP_UNIT=1
+      env: WP_MODE=single WP_VERSION=4.9.15 WC_VERSION=4.0.1 PHP_UNIT=1
     - name: Bleeding Edge
       php: nightly
-      env: WP_MODE=single WP_VERSION=master WC_VERSION=master PHP_UNIT=1
+      env: WP_MODE=single WP_VERSION=dev-master WC_VERSION=dev-master PHP_UNIT=1
     - name: Multisite Compatibility
       php: 7.3
-      env: WP_MODE=multi WP_VERSION=5.2 WC_VERSION=4.2 PHP_UNIT=1
+      env: WP_MODE=multi WP_VERSION=5.4.2 WC_VERSION=4.2.1 PHP_UNIT=1
   allow_failures:
     - name: Bleeding Edge
 
@@ -68,8 +68,8 @@ addons:
 before_install:
   - npm install -g npm@6.14
   - npm install -g grunt-cli
-  - composer require "wordpress/wordpress:${WP_VERSION}" --no-update
-  - composer require "woocommerce/woocommerce:${WC_VERSION}" --no-update
+  - composer require "wordpress/wordpress:${WP_VERSION}" --dev --prefer-source --no-update
+  - composer require "woocommerce/woocommerce:${WC_VERSION}" --dev --prefer-source --no-update
 
 install:
   - composer update --prefer-source --no-interaction --dev
