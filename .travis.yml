@@ -72,7 +72,7 @@ before_install:
   - composer require "woocommerce/woocommerce:${WC_VERSION}" --dev --prefer-source --no-update
   - |
     if [[ "$WC_VERSION" == "dev-master" ]]; then
-      composer require "woocommerce/woocommerce-admin:dev-v1.3.0-beta.1" --dev --prefer-source --no-update
+      composer require "woocommerce/woocommerce-admin:v1.3.0-beta.1" --dev --prefer-source --no-update
     fi
 
 
