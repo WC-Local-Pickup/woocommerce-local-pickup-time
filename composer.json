@@ -90,6 +90,9 @@
 						"{$name}": [
 								"wordpress/wordpress"
 						]
+        },
+				"asset-vcs-driver-options": {
+            "github-no-api": true
         }
     }
 }
