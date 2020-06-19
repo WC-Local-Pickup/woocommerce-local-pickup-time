@@ -77,9 +77,11 @@ addons:
 before_install:
   - npm install -g npm@6.14
   - npm install -g grunt-cli
+  - composer require "wordpress/wordpress:${WP_VERSION}" --no-update
+  - composer require "woocommerce/woocommerce:${WC_VERSION}" --no-update
 
 install:
-  - composer install
+  - composer update --prefer-source --no-interaction --dev
   - npm install
 
 before_script:
