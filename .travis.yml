@@ -33,15 +33,6 @@ cache:
     - vendor
     - $HOME/.composer/cache
 
-# Run Matrix for supported PHP versions
-php:
-  - 7.4
-  - 7.3
-  - 7.2
-
-env:
-  - WP_MODE=single PHP_UNIT=1
-
 # Define a matrix of additional build configurations
 # The versions listed above will automatically create our first configuration,
 # so it doesn't need to be re-defined below.
@@ -50,22 +41,22 @@ matrix:
   include:
     - name: Coding Standards
       php: 7.3
-      env: WP_VERSION=5.2 WC_VERSION=4.2 PHP_LINT=1 COVERAGE=1
+      env: WP_MODE=single WP_VERSION=5.2 WC_VERSION=4.2 PHP_LINT=1 COVERAGE=1
     - name: Static Code Analysis
       php: 7.3
-      env: WP_VERSION=5.2 WC_VERSION=4.2 PHP_ANALYZE=1
+      env: WP_MODE=single WP_VERSION=5.2 WC_VERSION=4.2 PHP_ANALYZE=1
     - name: Latest Stable
       php: 7.3
-      env: WP_VERSION=5.2 WC_VERSION=4.2
+      env: WP_MODE=single WP_VERSION=5.2 WC_VERSION=4.2 PHP_UNIT=1
     - name: Minimum requirements
       php: 7.2
-      env: WP_VERSION=4.9 WC_VERSION=4.0
+      env: WP_MODE=single WP_VERSION=4.9 WC_VERSION=4.0 PHP_UNIT=1
     - name: Bleeding Edge
       php: nightly
-      env: WP_VERSION=master WC_VERSION=master
+      env: WP_MODE=single WP_VERSION=master WC_VERSION=master PHP_UNIT=1
     - name: Multisite Compatibility
       php: 7.3
-      env: WP_MODE=multi WP_VERSION=5.2
+      env: WP_MODE=multi WP_VERSION=5.2 WC_VERSION=4.2 PHP_UNIT=1
   allow_failures:
     - name: Bleeding Edge
 
