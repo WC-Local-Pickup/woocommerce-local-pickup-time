@@ -50,7 +50,7 @@ matrix:
       env: WP_MODE=single WP_VERSION=5.4.2 WC_VERSION=4.2.0 PHP_UNIT=1
     - name: Minimum requirements
       php: 7.2
-      env: WP_MODE=single WP_VERSION=4.9.15 WC_VERSION=4.0.1 PHP_UNIT=1
+      env: WP_MODE=single WP_VERSION=5.0.10 WC_VERSION=4.0.1 PHP_UNIT=1
     - name: Bleeding Edge
       php: nightly
       env: WP_MODE=single WP_VERSION=dev-master WC_VERSION=dev-master PHP_UNIT=1
