@@ -35,16 +35,12 @@ cache:
 
 # Run Matrix for supported PHP versions
 php:
-  - "5.6"
-  - "7.0"
-  - "7.1"
-  - "7.2"
-  - "7.3"
+  - 7.4
+  - 7.3
+  - 7.2
 
 env:
-  matrix:
-    - WP_MODE=single WP_VERSION=latest
-    - WP_MODE=multi  WP_VERSION=latest
+  - WP_MODE=single PHP_UNIT=1
 
 # Define a matrix of additional build configurations
 # The versions listed above will automatically create our first configuration,
@@ -52,8 +48,26 @@ env:
 matrix:
   fast_finish: true
   include:
-    - php: 5.6
-      env: WP_VERSION=4.7
+    - name: Coding Standards
+      php: 7.3
+      env: WP_VERSION=5.2 WC_VERSION=4.2 PHP_LINT=1 COVERAGE=1
+    - name: Static Code Analysis
+      php: 7.3
+      env: WP_VERSION=5.2 WC_VERSION=4.2 PHP_ANALYZE=1
+    - name: Latest Stable
+      php: 7.3
+      env: WP_VERSION=5.2 WC_VERSION=4.2
+    - name: Minimum requirements
+      php: 7.2
+      env: WP_VERSION=4.9 WC_VERSION=4.0
+    - name: Bleeding Edge
+      php: nightly
+      env: WP_VERSION=master WC_VERSION=master
+    - name: Multisite Compatibility
+      php: 7.3
+      env: WP_MODE=multi WP_VERSION=5.2
+  allow_failures:
+    - name: Bleeding Edge
 
 addons:
   apt:
@@ -69,26 +83,36 @@ install:
   - npm install
 
 before_script:
-  # Setup unit testing environment
-  - bash scripts/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
-  # Setup WordPress coding standards
-  - composer global require wp-coding-standards/wpcs
-  # Properly handle PHPUnit versions
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
+  # Setup WordPress coding standards
   - |
-    if [[ ${TRAVIS_PHP_VERSION:0:2} == "5." ]]; then
-      composer global require "phpunit/phpunit=4.8.*"
-    else
+    if [[ "$PHP_LINT" == "1" ]]; then
+      composer global require wp-coding-standards/wpcs
+    fi
+  # Setup unit testing environment
+  - |
+    if [[ "$PHP_UNIT" == "1" ]]; then
+      # bash scripts/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
       composer global require "phpunit/phpunit=5.7.*"
     fi
 
 script:
   - |
-    if [[ "$WP_MODE" == "multi" ]]; then
-      WP_MULTISITE=1 npm run lint
-    else
-      WP_MULTISITE=0 npm run lint
+    if [[ "$PHP_LINT" == "1" ]]; then
+      if [[ "$WP_MODE" == "single" ]]; then WP_MULTISITE=0 npm run lint; fi
+    fi
+  - |
+    if [[ "$PHP_ANALYZE" == "1" ]]; then
+      if [[ "$WP_MODE" == "single" ]]; then WP_MULTISITE=0 npm run analyze; fi
+    fi
+  - |
+    if [[ "$PHP_UNIT" == "1" ]]; then
+      if [[ "$WP_MODE" == "multi" ]]; then WP_MULTISITE=1 npm run test; fi
+      if [[ "$WP_MODE" == "single" ]]; then WP_MULTISITE=0 npm run test; fi
     fi
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  - |
+    if [[ "$COVERAGE" == "1" ]]; then
+      bash <(curl -s https://codecov.io/bash)
+    fi
