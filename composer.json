@@ -29,9 +29,14 @@
     },
 		"repositories": [
 				{
-						"type": "vcs",
+						"type": "git",
 						"url": "https://github.com/wordpress/wordpress-develop"
+				},
+				{
+						"type": "git",
+						"url": "https://github.com/woocommerce/woocommerce"
 				}
+
 		],
     "require-dev": {
         "php": ">=7.1.0",
@@ -47,7 +52,7 @@
 				"roave/security-advisories": "dev-master",
 				"mnsami/composer-custom-directory-installer": "~1.0",
 				"wordpress/wordpress": "5.4.2",
-        "woocommerce/woocommerce": "4.1.1",
+        "woocommerce/woocommerce": "4.2.0",
         "woocommerce/woocommerce-git-hooks": "^1.0",
         "dealerdirect/phpcodesniffer-composer-installer": "^0.6",
         "brain/monkey": "^2.4",
@@ -90,9 +95,6 @@
 						"{$name}": [
 								"wordpress/wordpress"
 						]
-        },
-				"asset-vcs-driver-options": {
-            "github-no-api": true
         }
     }
 }
