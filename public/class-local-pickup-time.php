@@ -116,7 +116,8 @@ class Local_Pickup_Time {
 		// Make sure we have a time zone set.
 		if ( empty( $this->timezone ) ) {
 
-			$this->timezone = timezone_name_from_abbr( null, $this->get_gmt_offset() * 3600, true ) ? timezone_name_from_abbr( null, $this->get_gmt_offset() * 3600, true ) : timezone_name_from_abbr( null, $this->get_gmt_offset() * 3600, false );
+			$tz_name = timezone_name_from_abbr( '', $this->get_gmt_offset() * 3600, 1 ) ? timezone_name_from_abbr( '', $this->get_gmt_offset() * 3600, 1 ) : timezone_name_from_abbr( '', $this->get_gmt_offset() * 3600, 0 );
+			$this->timezone = ( ! empty( $tz_name ) ) ? (string) $tz_name : $this->timezone;
 
 		}
 
@@ -149,10 +150,12 @@ class Local_Pickup_Time {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @return    Local_Pickup_Time slug variable.
+	 * @return string  The Local_Pickup_Time slug variable.
 	 */
 	public function get_plugin_slug() {
+
 		return $this->plugin_slug;
+
 	}
 
 	/**
@@ -203,7 +206,7 @@ class Local_Pickup_Time {
 	 *
 	 * @since     1.3.2
 	 *
-	 * @return string   The GMT offset number.
+	 * @return int   The GMT offset number.
 	 */
 	public function get_gmt_offset() {
 
@@ -259,6 +262,8 @@ class Local_Pickup_Time {
 	 *                                    "Network Activate" action, false if
 	 *                                    WPMU is disabled or plugin is
 	 *                                    activated on an individual blog.
+	 *
+	 * @return void
 	 */
 	public static function activate( $network_wide ) {
 
@@ -295,6 +300,8 @@ class Local_Pickup_Time {
 	 *                                    "Network Deactivate" action, false if
 	 *                                    WPMU is disabled or plugin is
 	 *                                    deactivated on an individual blog.
+	 *
+	 * @return void
 	 */
 	public static function deactivate( $network_wide ) {
 
@@ -329,6 +336,8 @@ class Local_Pickup_Time {
 	 * @since    1.0.0
 	 *
 	 * @param    int $blog_id    ID of the new blog.
+	 *
+	 * @return void
 	 */
 	public function activate_new_site( $blog_id ) {
 
@@ -350,7 +359,7 @@ class Local_Pickup_Time {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @return   array|false    The blog ids, false if no matches.
+	 * @return   array<int>    The blog ids, false if no matches.
 	 */
 	private static function get_blog_ids() {
 
@@ -369,6 +378,8 @@ class Local_Pickup_Time {
 	 * Fired for each blog when the plugin is activated.
 	 *
 	 * @since    1.0.0
+	 *
+	 * @return void
 	 */
 	private static function single_activate() {
 
@@ -380,6 +391,8 @@ class Local_Pickup_Time {
 	 * Fired for each blog when the plugin is deactivated.
 	 *
 	 * @since    1.0.0
+	 *
+	 * @return void
 	 */
 	private static function single_deactivate() {
 		// No deactivation functionality needed... yet.
@@ -389,6 +402,8 @@ class Local_Pickup_Time {
 	 * Load the plugin text domain for translation.
 	 *
 	 * @since    1.0.0
+	 *
+	 * @return void
 	 */
 	public function load_plugin_textdomain() {
 
@@ -419,7 +434,8 @@ class Local_Pickup_Time {
 	 * @since     1.4.0
 	 *
 	 * @param integer $max_interval_orders The maximum number of orders allowed per interval.
-	 * @return array The list of pickup times that are closed for selection.
+	 *
+	 * @return array<integer, string> The list of pickup times that are closed for selection.
 	 */
 	public function get_closed_pickup_times( $max_interval_orders = 0 ) {
 
@@ -452,13 +468,13 @@ class Local_Pickup_Time {
 		);
 		$orders = new WP_Query( $args );
 
-		if ( ! empty( $orders ) ) {
+		if ( $orders->have_posts() ) {
 			$pickup_times = array();
 
-			foreach ( $orders as $order_id ) {
-				$pickup_times[] = get_post_meta( $order_id, $this->order_meta_key, true );
+			foreach ( $orders->get_posts() as $order ) {
+				$pickup_times[] = get_post_meta( $order->ID, $this->order_meta_key, true );
 			}
-			$pickup_times_counts = array_count_values( $pickup_times );
+			// $pickup_times_counts = array_count_values( $pickup_times );
 			arsort( $pickup_times );
 		}
 

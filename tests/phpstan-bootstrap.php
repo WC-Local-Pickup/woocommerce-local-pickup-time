@@ -11,3 +11,6 @@
 
 // Define WooCommerce path for autoloading in phpstan.
 defined( 'WC_ABSPATH' ) || define( 'WC_ABSPATH', 'vendor/woocommerce/woocommerce/' );
+
+// Define WordPress language directory.
+defined( 'WP_LANG_DIR' ) || define( 'WP_LANG_DIR', 'wordpress/src/wp-includes/languages/' );
