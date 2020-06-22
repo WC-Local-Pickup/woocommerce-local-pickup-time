@@ -40,6 +40,8 @@ parameters:
 		- vendor/woocommerce/woocommerce/includes/wc-cart-functions.php
 		- vendor/woocommerce/woocommerce/includes/wc-order-functions.php
 		- vendor/woocommerce/woocommerce/includes/wc-order-item-functions.php
+		- vendor/woocommerce/woocommerce/includes/wc-template-functions.php
+		- vendor/woocommerce/woocommerce/includes/wc-notice-functions.php
 	scanDirectories:
 		- wordpress/src/
 		- vendor/woocommerce/woocommerce/includes/

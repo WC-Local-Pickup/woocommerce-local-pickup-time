@@ -9,6 +9,8 @@
  * @copyright 2014-2017 Matt Banks
  */
 
+use phpDocumentor\Reflection\Types\Integer;
+
 /**
  * Local_Pickup_Time class.
  * Defines public-facing functionality
@@ -429,7 +431,7 @@ class Local_Pickup_Time {
 	}
 
 	/**
-	 * Load list of closed pickup times.
+	 * Load list of full pickup times.
 	 *
 	 * @since     1.4.0
 	 *
@@ -437,22 +439,24 @@ class Local_Pickup_Time {
 	 *
 	 * @return array<integer, string> The list of pickup times that are closed for selection.
 	 */
-	public function get_closed_pickup_times( $max_interval_orders = 0 ) {
+	public function get_full_pickup_times( $max_interval_orders = 0 ) {
 
-		$closed_pickup_times = array();
+		$full_pickup_times = array();
+
 		// The order statuses to use to limit the orders queryied for pickup times.
 		$limit_order_statuses = array(
 			'pending',
 			'processing',
 			'on-hold',
 		);
+
 		// Get the current WordPress-based date/time.
 		$current_wp_datetime  = new DateTime( 'now', $this->get_wp_timezone() );
 		$current_wp_timestamp = $current_wp_datetime->getTimestamp();
 
 		if ( 0 === $max_interval_orders ) {
 
-			return $closed_pickup_times;
+			return $full_pickup_times;
 
 		}
 
@@ -466,19 +470,27 @@ class Local_Pickup_Time {
 			'meta_compare'   => '>=',
 			'fields'         => 'ids',
 		);
-		$orders = new WP_Query( $args );
+		$order_qry = new WP_Query( $args );
 
-		if ( $orders->have_posts() ) {
-			$pickup_times = array();
+		if ( $order_qry->have_posts() ) {
 
-			foreach ( $orders->get_posts() as $order ) {
-				$pickup_times[] = get_post_meta( $order->ID, $this->order_meta_key, true );
+			/**
+			 * An array of order IDs.
+			 *
+			 * @var int[] $orders
+			 */
+			$orders = $order_qry->get_posts();
+
+			foreach ( $orders as $order_id ) {
+				$full_pickup_times[] = get_post_meta( $order_id, $this->order_meta_key, true );
 			}
+
 			// $pickup_times_counts = array_count_values( $pickup_times );
-			arsort( $pickup_times );
+			arsort( $full_pickup_times );
+
 		}
 
-		return $closed_pickup_times;
+		return $full_pickup_times;
 
 	}
 
@@ -487,12 +499,14 @@ class Local_Pickup_Time {
 	 *
 	 * @since     1.3.2
 	 *
-	 * @return array The pickup time options.
+	 * @return array<string> The pickup time options.
 	 */
-	public function build_pickup_time_options() {
+	public function get_pickup_time_options() {
 
 		// Get dates closed from settings and explode into an array.
-		$dates_closed = explode( "\n", preg_replace( '/\v(?:[\v\h]+)/', "\n", trim( get_option( 'local_pickup_hours_closings' ) ) ) );
+		$dates_closed = preg_replace( '/\v(?:[\v\h]+)/', "\n", trim( get_option( 'local_pickup_hours_closings', '' ) ) );
+		$dates_closed = ( ! empty( $dates_closed ) ) ? $dates_closed : '';
+		$dates_closed = explode( "\n", $dates_closed );
 
 		// Get delay, interval, and number of days ahead settings.
 		$delay_minutes       = get_option( 'local_pickup_delay_minutes', 60 );
@@ -520,7 +534,7 @@ class Local_Pickup_Time {
 		// Ensure the timezone is set so that the final time is correct.
 		$pickup_datetime->setTimezone( $this->get_wp_timezone() );
 		// Get to the start of the hour.
-		$pickup_datetime->setTimestamp( floor( $pickup_datetime->getTimestamp() / 3600 ) * 3600 );
+		$pickup_datetime->setTimestamp( (int) floor( $pickup_datetime->getTimestamp() / 3600 ) * 3600 );
 		// Make sure we start at the next interval past the current time.
 		while ( $pickup_datetime->getTimestamp() <= $current_datetime->getTimestamp() ) {
 			// Adjust to next interval past the current time.
@@ -553,7 +567,7 @@ class Local_Pickup_Time {
 				// Get the intervals for the day and merge the results with the previous array of intervals.
 				$pickup_options = array_replace(
 					$pickup_options,
-					$this->build_pickup_time_intervals(
+					$this->get_pickup_time_intervals(
 						$pickup_datetime->getTimestamp(),
 						$minutes_interval,
 						$pickup_day_open_time,
@@ -593,15 +607,15 @@ class Local_Pickup_Time {
 	 *
 	 * @since     1.3.2
 	 *
-	 * @param timestamp $pickup_timestamp   A starting pickup timestamp.
-	 * @param integer   $minutes_interval   A number of minutes to use for an interval.
-	 * @param string    $pickup_day_open_time   The open time for the pickup timestamp day.
-	 * @param string    $pickup_day_close_time    The close time for the pickup timestamp day.
-	 * @param boolean   $first_interval   A flag to disable the time delay when called as the first interval.
+	 * @param integer $pickup_timestamp   A starting pickup timestamp.
+	 * @param integer $minutes_interval   A number of minutes to use for an interval.
+	 * @param string  $pickup_day_open_time   The open time for the pickup timestamp day.
+	 * @param string  $pickup_day_close_time    The close time for the pickup timestamp day.
+	 * @param boolean $first_interval   A flag to disable the time delay when called as the first interval.
 	 *
-	 * @return array An array of pickup times for a given day.
+	 * @return array<string> An array of pickup times for a given day.
 	 */
-	public function build_pickup_time_intervals( $pickup_timestamp, $minutes_interval, $pickup_day_open_time, $pickup_day_close_time, $first_interval = false ) {
+	public function get_pickup_time_intervals( $pickup_timestamp, $minutes_interval, $pickup_day_open_time, $pickup_day_close_time, $first_interval = false ) {
 
 		// Initialize starting DateTime.
 		$pickup_start_datetime = new DateTime( "@$pickup_timestamp" );
@@ -615,9 +629,9 @@ class Local_Pickup_Time {
 		$pickup_day_hours_time_array = explode( ':', $pickup_day_open_time );
 		// Note: PHP pre-7.1 doesn't support milliseconds with the setTime() call.
 		if ( ! defined( 'PHP_VERSION' ) || ! function_exists( 'version_compare' ) || version_compare( PHP_VERSION, '7.1.0', '<' ) ) {
-			$pickup_open_datetime->setTime( $pickup_day_hours_time_array[0], $pickup_day_hours_time_array[1], 0 );
+			$pickup_open_datetime->setTime( (int) $pickup_day_hours_time_array[0], (int) $pickup_day_hours_time_array[1], 0 );
 		} else {
-			$pickup_open_datetime->setTime( $pickup_day_hours_time_array[0], $pickup_day_hours_time_array[1], 0, 0 );
+			$pickup_open_datetime->setTime( (int) $pickup_day_hours_time_array[0], (int) $pickup_day_hours_time_array[1], 0, 0 );
 		}
 
 		// Initialize ending DateTime based on day closed time.
@@ -628,9 +642,9 @@ class Local_Pickup_Time {
 
 		// Note: PHP pre-7.1 doesn't support milliseconds with the setTime() call.
 		if ( ! defined( 'PHP_VERSION' ) || ! function_exists( 'version_compare' ) || version_compare( PHP_VERSION, '7.1.0', '<' ) ) {
-			$pickup_end_datetime->setTime( $pickup_day_hours_time_array[0], $pickup_day_hours_time_array[1], 0 );
+			$pickup_end_datetime->setTime( (int) $pickup_day_hours_time_array[0], (int) $pickup_day_hours_time_array[1], 0 );
 		} else {
-			$pickup_end_datetime->setTime( $pickup_day_hours_time_array[0], $pickup_day_hours_time_array[1], 0, 0 );
+			$pickup_end_datetime->setTime( (int) $pickup_day_hours_time_array[0], (int) $pickup_day_hours_time_array[1], 0, 0 );
 		}
 		// Advance to 1 interval past the close time so that close time is inclusive.
 		$pickup_end_datetime->modify( "+$minutes_interval minute" );
@@ -655,7 +669,9 @@ class Local_Pickup_Time {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @param object $checkout The checkout object.
+	 * @param WC_Checkout $checkout The checkout object.
+	 *
+	 * @return void
 	 */
 	public function time_select( $checkout ) {
 		echo '<div id="local-pickup-time-select"><h2>' . __( 'Pickup Time', 'woocommerce-local-pickup-time' ) . '</h2>';
@@ -667,7 +683,7 @@ class Local_Pickup_Time {
 				'class'    => array( 'local-pickup-time-select-field form-row-wide' ),
 				'label'    => __( 'Pickup Time', 'woocommerce-local-pickup-time' ),
 				'required' => true,
-				'options'  => $this->build_pickup_time_options(),
+				'options'  => $this->get_pickup_time_options(),
 			),
 			$checkout->get_value( 'local_pickup_time_select' )
 		);
@@ -679,6 +695,8 @@ class Local_Pickup_Time {
 	 * Process the checkout
 	 *
 	 * @since    1.3.0
+	 *
+	 * @return void
 	 */
 	public function field_process() {
 		global $woocommerce;
@@ -696,6 +714,8 @@ class Local_Pickup_Time {
 	 * @since    1.0.0
 	 *
 	 * @param integer $order_id The ID of the order you want meta data for.
+	 *
+	 * @return void
 	 */
 	public function update_order_meta( $order_id ) {
 		if ( $_POST['local_pickup_time_select'] ) {
@@ -708,10 +728,10 @@ class Local_Pickup_Time {
 	 *
 	 * @since    1.3.0
 	 *
-	 * @param array   $fields The array of pickup time fields.
-	 * @param boolean $sent_to_admin Flag that indicates whether the email is being sent to an admin user or not.
-	 * @param object  $order The order object that holds all the order attributes.
-	 * @return array    The array of order email fields including the pickup time field.
+	 * @param array<array> $fields The array of pickup time fields.
+	 * @param boolean      $sent_to_admin Flag that indicates whether the email is being sent to an admin user or not.
+	 * @param WC_Order     $order The order object that holds all the order attributes.
+	 * @return array<array>    The array of order email fields including the pickup time field.
 	 */
 	public function update_order_email_fields( $fields, $sent_to_admin, $order ) {
 
@@ -729,9 +749,9 @@ class Local_Pickup_Time {
 	 *
 	 * @since    1.3.0
 	 *
-	 * @param string $value             The pickup time meta value for an order.
+	 * @param string $value         The pickup time meta value for an order.
 	 * @param string $separator     The separator to use between the date & the time. (Default = ' ').
-	 * @eturn string  The translated value of the order pickup time.
+	 * @return string  The translated value of the order pickup time.
 	 */
 	public function pickup_time_select_translatable( $value, $separator = ' ' ) {
 
@@ -743,16 +763,17 @@ class Local_Pickup_Time {
 		// This match is specifically to address the bug introduced in 1.3.1.
 		if ( preg_match( '/^\d{2}\/\d{2}\/\d{4}\d{1,2}_\d{2}\_[amp]{2}$/', $value ) ) {
 
-			$value = DateTime::createFromFormat( 'm/d/Y' . preg_replace( '/[^\w]+/', '_', $this->get_time_format() ), $value )->getTimestamp();
+			$datetime = DateTime::createFromFormat( 'm/d/Y' . preg_replace( '/[^\w]+/', '_', $this->get_time_format() ), $value );
+			$value = ( ! empty( $datetime ) ) ? (string) $datetime->getTimestamp() : $value;
 
 		}
 
 		// When using the latest pickup time meta of a timestamp return using the WordPress i18n method.
 		if ( preg_match( '/^\d*$/', $value ) ) {
 			if ( function_exists( 'wp_date' ) ) {
-				return wp_date( $this->get_date_format(), $value, $this->get_wp_timezone() ) . $separator . wp_date( $this->get_time_format(), $value, $this->get_wp_timezone() );
+				return wp_date( $this->get_date_format(), (int) $value, $this->get_wp_timezone() ) . $separator . wp_date( $this->get_time_format(), (int) $value, $this->get_wp_timezone() );
 			} else {
-				return date_i18n( $this->get_date_format(), $value + $this->get_gmt_offset() ) . $separator . date_i18n( $this->get_time_format(), $value + $this->get_gmt_offset() );
+				return date_i18n( $this->get_date_format(), (int) $value + $this->get_gmt_offset() ) . $separator . date_i18n( $this->get_time_format(), (int) $value + $this->get_gmt_offset() );
 			}
 		}
 
