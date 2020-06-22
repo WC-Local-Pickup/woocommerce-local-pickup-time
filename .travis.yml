@@ -48,9 +48,12 @@ matrix:
     - name: Latest Stable
       php: 7.3
       env: WP_MODE=single WP_VERSION=5.4.2 WC_VERSION=4.2.0 PHP_UNIT=1
-    - name: Minimum requirements
+    - name: Preferred Minimum requirements
       php: 7.2
-      env: WP_MODE=single WP_VERSION=5.0.10 WC_VERSION=4.0.1 PHP_UNIT=1
+      env: WP_MODE=single WP_VERSION=5.3.10 WC_VERSION=4.1.0 PHP_UNIT=1
+    - name: Minimum requirements
+      php: 7.1
+      env: WP_MODE=single WP_VERSION=5.2.10 WC_VERSION=4.0.1 PHP_UNIT=1
     - name: Bleeding Edge
       php: nightly
       env: WP_MODE=single WP_VERSION=dev-master WC_VERSION=dev-master PHP_UNIT=1
@@ -91,7 +94,11 @@ before_script:
   - |
     if [[ "$PHP_UNIT" == "1" ]]; then
       # bash scripts/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
-      composer global require "phpunit/phpunit=5.7.*"
+      if [[ $TRAVIS_PHP_VERSION == "nightly" ]]; then
+        composer global require "phpunit/phpunit=9.*"
+      else
+        composer global require "phpunit/phpunit=7.*"
+      fi
     fi
 
 script:

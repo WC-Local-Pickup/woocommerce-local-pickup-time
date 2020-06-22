@@ -45,7 +45,7 @@
 				"phpcompatibility/php-compatibility": "^9.0",
 				"phpcompatibility/phpcompatibility-wp": "^2.1",
         "phpmd/phpmd": "^2.6",
-        "phpunit/phpunit": "^5",
+        "phpunit/phpunit": "^7",
         "phpstan/phpstan": "*",
         "phpstan/extension-installer": "^1.0",
         "szepeviktor/phpstan-wordpress": "^0.6",
