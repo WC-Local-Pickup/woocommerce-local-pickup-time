@@ -1,15 +1,13 @@
 # grumphp.yml
 parameters:
+    git_dir: .
+    bin_dir: vendor/bin
     stop_on_failure: true
+    process_timeout: 120
     parallel:
         enabled: true
         max_workers: 32
     fixer:
         enabled: false
         fix_by_default: false
-    testsuites:
-        # Specify the test-suite for the git:pre-commit command:
-        git_pre_commit:
-            tasks:
-                - phpcs
-                - phpstan
+    tasks: { phpcs: null, phpstan: null }
