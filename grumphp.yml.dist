@@ -1,0 +1,15 @@
+# grumphp.yml
+parameters:
+    stop_on_failure: true
+    parallel:
+        enabled: true
+        max_workers: 32
+    fixer:
+        enabled: false
+        fix_by_default: false
+    testsuites:
+        # Specify the test-suite for the git:pre-commit command:
+        git_pre_commit:
+            tasks:
+                - phpcs
+                - phpstan
