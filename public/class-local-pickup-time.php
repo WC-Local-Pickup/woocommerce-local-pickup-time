@@ -41,7 +41,7 @@ class Local_Pickup_Time {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @var      object
+	 * @var      self|null
 	 */
 	protected static $instance = null;
 
@@ -116,7 +116,7 @@ class Local_Pickup_Time {
 		// Make sure we have a time zone set.
 		if ( empty( $this->timezone ) ) {
 
-			$this->timezone = timezone_name_from_abbr( null, $this->get_gmt_offset() * 3600, true ) ? timezone_name_from_abbr( null, $this->get_gmt_offset() * 3600, true ) : timezone_name_from_abbr( null, $this->get_gmt_offset() * 3600, false );
+			$this->timezone = timezone_name_from_abbr( '', $this->get_gmt_offset() * 3600, 1 ) ? timezone_name_from_abbr( '', $this->get_gmt_offset() * 3600, 1 ) : timezone_name_from_abbr( '', $this->get_gmt_offset() * 3600, 0 );
 
 		}
 
@@ -149,7 +149,7 @@ class Local_Pickup_Time {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @return    Local_Pickup_Time slug variable.
+	 * @return   string   Local_Pickup_Time slug variable.
 	 */
 	public function get_plugin_slug() {
 		return $this->plugin_slug;
@@ -160,7 +160,7 @@ class Local_Pickup_Time {
 	 *
 	 * @since     1.0.0
 	 *
-	 * @return    object    A single instance of this class.
+	 * @return    self    A single instance of this class.
 	 */
 	public static function get_instance() {
 
@@ -203,7 +203,7 @@ class Local_Pickup_Time {
 	 *
 	 * @since     1.3.2
 	 *
-	 * @return string   The GMT offset number.
+	 * @return integer   The GMT offset number.
 	 */
 	public function get_gmt_offset() {
 
@@ -508,7 +508,7 @@ class Local_Pickup_Time {
 	 *
 	 * @since     1.3.2
 	 *
-	 * @param timestamp $pickup_timestamp   A starting pickup timestamp.
+	 * @param string    $pickup_timestamp   A starting pickup timestamp.
 	 * @param integer   $minutes_interval   A number of minutes to use for an interval.
 	 * @param string    $pickup_day_open_time   The open time for the pickup timestamp day.
 	 * @param string    $pickup_day_close_time    The close time for the pickup timestamp day.
