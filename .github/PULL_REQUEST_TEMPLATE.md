@@ -2,7 +2,7 @@
 
 * [ ] Have you followed the [plugin Contributing guideline](https://github.com/mattbanks/woocommerce-local-pickup-time/blob/master/.github/CONTRIBUTING.md)?
 * [ ] Does your code follow the [WordPress' coding standards](https://make.wordpress.org/core/handbook/best-practices/coding-standards/)?
-* [ ] Have you checked to ensure there aren't other open [Pull Requests](../../pulls) for the same update/change?
+* [ ] Have you checked to ensure there aren't other open [Pull Requests](../pulls) for the same update/change?
 
 <!-- Mark completed items with an [x] -->
 
