@@ -410,7 +410,7 @@ class Local_Pickup_Time {
 	 */
 	public function build_pickup_time_options() {
 
-		// Get amount of intervals per day
+		// Get amount of intervals per day.
 		$time_ranges_per_day    = get_option( 'local_pickup_time_ranges_per_day', 1 );
 
 		// Get dates closed from settings and explode into an array.
@@ -459,55 +459,53 @@ class Local_Pickup_Time {
 
 		// Build options.
 		for ( $days = 1; $days <= $num_days_ahead; $days++ ) {
-			//perform calculation for multiple time ranges
-			for ($n = 1; $n <= $time_ranges_per_day; $n++) {
+			// perform calculation for multiple time ranges.
+			for ( $n = 1; $n <= $time_ranges_per_day; $n++ ) {
 
-			// Get the day's opening and closing times.
-			$pickup_day_name       = strtolower( $pickup_datetime->format( 'l' ) );
-			$pickup_time_range_active = get_option( 'local_pickup_hours_' . $pickup_day_name . '_' . $n . '_active', 'yes' );
-			$pickup_day_open_time  = get_option( 'local_pickup_hours_' . $pickup_day_name . '_' . $n . '_start', '' );
-			$pickup_day_close_time = get_option( 'local_pickup_hours_' . $pickup_day_name . '_' . $n . '_end', '' );
+				// Get the day's opening and closing times.
+				$pickup_day_name       = strtolower( $pickup_datetime->format( 'l' ) );
+				$pickup_time_range_active = get_option( 'local_pickup_hours_' . $pickup_day_name . '_' . $n . '_active', 'yes' );
+				$pickup_day_open_time  = get_option( 'local_pickup_hours_' . $pickup_day_name . '_' . $n . '_start', '' );
+				$pickup_day_close_time = get_option( 'local_pickup_hours_' . $pickup_day_name . '_' . $n . '_end', '' );
 
-			if (
+				if (
 				! in_array( $pickup_datetime->format( 'm/d/Y' ), $dates_closed, true ) &&
 				! empty( $pickup_day_open_time ) &&
 				! empty( $pickup_day_close_time ) &&
-				$pickup_time_range_active == 'yes'
-			) {
+				 'yes' == $pickup_time_range_active
+				) {
 
-				// Get the intervals for the day and merge the results with the previous array of intervals.
-				$pickup_options = array_replace(
-					$pickup_options,
-					$this->build_pickup_time_intervals(
-						$pickup_datetime->getTimestamp(),
-						$minutes_interval,
-						$pickup_day_open_time,
-						$pickup_day_close_time,
-						$first_interval
-					)
-				);
+					// Get the intervals for the day and merge the results with the previous array of intervals.
+					$pickup_options = array_replace(
+						$pickup_options,
+						$this->build_pickup_time_intervals(
+							$pickup_datetime->getTimestamp(),
+							$minutes_interval,
+							$pickup_day_open_time,
+							$pickup_day_close_time,
+							$first_interval
+						)
+					);
 
-			} else {
+				} else {
 
-				 //20200124: deactivated by FB. Question: is this still necessary as now there is an option to deactivate intervals
-				 // I would keep it deactivated.
-				// Rollback the days counter to ensure the number of days ahead reflect number of open days.
-			 //$days = ( $days < 1 ) ? 0 : $days - 1;
+					// 20200124: deactivated by FB. Question: is this still necessary as now there is an option to deactivate intervals?
+					// I would keep it deactivated.
+					// Rollback the days counter to ensure the number of days ahead reflect number of open days.
+					// $days = ( $days < 1 ) ? 0 : $days - 1;
 
+				}
 
-			}
+				// Clear first interval state.
+				$first_interval = false;
 
-			// Clear first interval state.
-			$first_interval = false;
-
-			// Reset the interval starting time.
-			// Note: PHP pre-7.1 doesn't support milliseconds with the setTime() call.
-			if ( ! defined( 'PHP_VERSION' ) || ! function_exists( 'version_compare' ) || version_compare( PHP_VERSION, '7.1.0', '<' ) ) {
-				$pickup_datetime->setTime( 0, 0, 0 );
-			} else {
-				$pickup_datetime->setTime( 0, 0, 0, 0 );
-			}
-
+				// Reset the interval starting time.
+				// Note: PHP pre-7.1 doesn't support milliseconds with the setTime() call.
+				if ( ! defined( 'PHP_VERSION' ) || ! function_exists( 'version_compare' ) || version_compare( PHP_VERSION, '7.1.0', '<' ) ) {
+					$pickup_datetime->setTime( 0, 0, 0 );
+				} else {
+					$pickup_datetime->setTime( 0, 0, 0, 0 );
+				}
 			}
 
 			// Advance to the next day.
@@ -515,9 +513,7 @@ class Local_Pickup_Time {
 
 		}
 
-
 		return $pickup_options;
-
 	}
 
 	/**
@@ -591,26 +587,26 @@ class Local_Pickup_Time {
 	 */
 	public function time_select( $checkout ) {
 
-            $show_field = apply_filters('woocommerce_local_pickup_time_checkout_selected', true );
+			$show_field = apply_filters( 'woocommerce_local_pickup_time_checkout_selected', true );
 
-            if($show_field == true) {
+		if ( true == $show_field ) {
 
-            	echo '<div id="local-pickup-time-select"><h2>' . __( 'Pickup Time', 'woocommerce-local-pickup-time' ) . '</h2>';
+			echo '<div id="local-pickup-time-select"><h2>' . __( 'Pickup Time', 'woocommerce-local-pickup-time' ) . '</h2>';
 
-		woocommerce_form_field(
-			'local_pickup_time_select',
-			array(
-				'type'     => 'select',
-				'class'    => array( 'local-pickup-time-select-field form-row-wide' ),
-				'label'    => __( 'Pickup Time', 'woocommerce-local-pickup-time' ),
-				'required' => apply_filters('woocommerce_local_pickup_time_checkout_select_required', true ),
-				'options'  => $this->build_pickup_time_options(),
-			),
-			$checkout->get_value( 'local_pickup_time_select' )
-		);
+			woocommerce_form_field(
+				'local_pickup_time_select',
+				array(
+					'type'      => 'select',
+					'class'     => array( 'local-pickup-time-select-field form-row-wide' ),
+					'label'     => __( 'Pickup Time', 'woocommerce-local-pickup-time' ),
+					'required'  => apply_filters( 'woocommerce_local_pickup_time_checkout_select_required', true ),
+					'options'   => $this->build_pickup_time_options(),
+				),
+				$checkout->get_value( 'local_pickup_time_select' )
+			);
 
-		echo '</div>';
-            }
+			echo '</div>';
+		}
 	}
 
 	/**
@@ -619,17 +615,17 @@ class Local_Pickup_Time {
 	 * @since    1.3.0
 	 */
 	public function field_process() {
-             $show_field = apply_filters('woocommerce_local_pickup_time_field_process', true );
+		$show_field = apply_filters( 'woocommerce_local_pickup_time_field_process', true );
 
-            if($show_field == true){
+		if ( true == $show_field ) {
 
-		global $woocommerce;
+			global $woocommerce;
 
-		// Check if set, if its not set add an error.
-		if ( ! $_POST['local_pickup_time_select'] ) {
-			wc_add_notice( __( 'Please select a pickup time.', 'woocommerce-local-pickup-time' ), 'error' );
+			// Check if set, if its not set add an error.
+			if ( ! $_POST['local_pickup_time_select'] ) {
+				wc_add_notice( __( 'Please select a pickup time.', 'woocommerce-local-pickup-time' ), 'error' );
+			}
 		}
-            }
 	}
 
 	/**
@@ -640,8 +636,8 @@ class Local_Pickup_Time {
 	 * @param integer $order_id The ID of the order you want meta data for.
 	 */
 	public function update_order_meta( $order_id ) {
-		$show_field = apply_filters('woocommerce_local_pickup_time_update_order_meta', true );
-            	if($show_field == true){
+		$show_field = apply_filters( 'woocommerce_local_pickup_time_update_order_meta', true );
+		if ( true == $show_field ) {
 			if ( $_POST['local_pickup_time_select'] ) {
 				update_post_meta( $order_id, $this->order_meta_key, esc_attr( $_POST['local_pickup_time_select'] ) );
 			}
@@ -660,16 +656,16 @@ class Local_Pickup_Time {
 	 */
 	public function update_order_email_fields( $fields, $sent_to_admin, $order ) {
 
-            $show_field = apply_filters('woocommerce_local_pickup_time_update_order_email_fields', true, $order, $fields );
+		$show_field = apply_filters( 'woocommerce_local_pickup_time_update_order_email_fields', true, $order, $fields );
 
-            if($show_field == true){
+		if ( true == $show_field ) {
 
-		$value              = $this->pickup_time_select_translatable( get_post_meta( $order->get_id(), $this->get_order_meta_key(), true ) );
-		$fields['meta_key'] = array(
-			'label' => __( 'Pickup Time', 'woocommerce-local-pickup-time' ),
-			'value' => $value,
-		);
-            }
+			$value              = $this->pickup_time_select_translatable( get_post_meta( $order->get_id(), $this->get_order_meta_key(), true ) );
+			$fields['meta_key'] = array(
+				'label' => __( 'Pickup Time', 'woocommerce-local-pickup-time' ),
+				'value' => $value,
+			);
+		}
 
 		return $fields;
 	}
