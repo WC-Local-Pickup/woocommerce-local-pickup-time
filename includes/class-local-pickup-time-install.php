@@ -3,10 +3,6 @@
  * Local Pickup Time
  *
  * @package   Local_Pickup_Time_Install
- * @author    Tim Nolte <tim.nolte@ndigitals.com>
- * @license   GPL-2.0+
- * @link      https://www.ndigitals.com
- * @copyright 2014-2020 Local Pickup Time
  */
 
 /**
@@ -14,7 +10,6 @@
  * Defines installation functionality
  *
  * @package Local_Pickup_Time_Install
- * @author  Tim Nolte <tim.nolte@ndigitals.com>
  */
 class Local_Pickup_Time_Install {
 

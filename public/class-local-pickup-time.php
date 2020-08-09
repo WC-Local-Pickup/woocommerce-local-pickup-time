@@ -3,20 +3,13 @@
  * Local Pickup Time
  *
  * @package   Local_Pickup_Time
- * @author    Matt Banks <mjbanks@gmail.com>
- * @license   GPL-2.0+
- * @link      http://mattbanks.me
- * @copyright 2014-2017 Matt Banks
  */
-
-use phpDocumentor\Reflection\Types\Integer;
 
 /**
  * Local_Pickup_Time class.
  * Defines public-facing functionality
  *
  * @package Local_Pickup_Time
- * @author  Matt Banks <mjbanks@gmail.com>
  */
 class Local_Pickup_Time {
 
@@ -100,6 +93,33 @@ class Local_Pickup_Time {
 	 * @var       string
 	 */
 	protected $order_meta_key = '_local_pickup_time_select';
+
+	/**
+	 * Order $_POST key for storing Local Pickup Time.
+	 *
+	 * @since     1.4.0
+	 *
+	 * @var       string
+	 */
+	protected $order_post_key = 'local_pickup_time_select';
+
+	/**
+	 * Order pickup time nonce key.
+	 *
+	 * @since     1.4.0
+	 *
+	 * @var       string
+	 */
+	protected $order_pickup_time_nonce_key = '_wcpickuptimenonce';
+
+	/**
+	 * Order pickup time action key.
+	 *
+	 * @since     1.4.0
+	 *
+	 * @var       string
+	 */
+	protected $order_pickup_time_action_key = 'woocommerce_local_pickup_time';
 
 	/**
 	 * Initialize the plugin by setting localization and loading public scripts
@@ -247,11 +267,51 @@ class Local_Pickup_Time {
 	 *
 	 * @since     1.3.2
 	 *
-	 * @return string   The order meta_key that stores the Local Pickup Time.
+	 * @return    string   The order meta_key that stores the Local Pickup Time.
 	 */
 	public function get_order_meta_key() {
 
 		return $this->order_meta_key;
+
+	}
+
+	/**
+	 * Return the plugin order $_POST key used for submitting the Local Pickup Time.
+	 *
+	 * @since     1.4.0
+	 *
+	 * @return    string   The order $_POST key that stores the submitted Local Pickup Time.
+	 */
+	public function get_order_post_key() {
+
+		return $this->order_post_key;
+
+	}
+
+	/**
+	 * Return the plugin order pickup time nonce key, used to validate submissions.
+	 *
+	 * @since     1.4.0
+	 *
+	 * @return    string
+	 */
+	public function get_order_pickup_time_nonce_key() {
+
+		return $this->order_pickup_time_nonce_key;
+
+	}
+
+	/**
+	 * Return the plugin order pickup time action key, used to create and
+	 * validate the field nonce.
+	 *
+	 * @since     1.4.0
+	 *
+	 * @return    string
+	 */
+	public function get_order_pickup_time_action_key() {
+
+		return $this->order_pickup_time_action_key;
 
 	}
 
@@ -386,7 +446,14 @@ class Local_Pickup_Time {
 	private static function single_activate() {
 
 		// Set, or update, the WP option to track database versions for the plugin.
-		// update_option( 'wlpt_db_version', self::VERSION, TRUE );.
+		if ( ! self::plugin_version_check() ) {
+
+			// Run migration check routine.
+			if ( self::VERSION < 1 ) {
+				update_option( 'wlpt_db_version', self::VERSION, true );
+			}
+		}
+
 	}
 
 	/**
@@ -424,7 +491,7 @@ class Local_Pickup_Time {
 	 *
 	 * @return boolean   Returns TRUE if the plugin and database versions match, otherwise FALSE if the values don't match.
 	 */
-	public function plugin_version_check() {
+	public static function plugin_version_check() {
 
 		return version_compare( self::VERSION, get_option( 'wlpt_db_version' ), '>=' );
 
@@ -435,9 +502,9 @@ class Local_Pickup_Time {
 	 *
 	 * @since     1.4.0
 	 *
-	 * @param integer $max_interval_orders The maximum number of orders allowed per interval.
+	 * @param     integer $max_interval_orders The maximum number of orders allowed per interval.
 	 *
-	 * @return array<integer, string> The list of pickup times that are closed for selection.
+	 * @return    array<integer, string> The list of pickup times that are closed for selection.
 	 */
 	public function get_full_pickup_times( $max_interval_orders = 0 ) {
 
@@ -465,7 +532,7 @@ class Local_Pickup_Time {
 			'post_type'      => 'shop_order',
 			'post_status'    => $limit_order_statuses,
 			'limit'          => -1,
-			'meta_key'       => $this->order_meta_key,
+			'meta_key'       => $this->get_order_meta_key(),
 			'meta_value_num' => $current_wp_timestamp,
 			'meta_compare'   => '>=',
 			'fields'         => 'ids',
@@ -482,7 +549,7 @@ class Local_Pickup_Time {
 			$orders = $order_qry->get_posts();
 
 			foreach ( $orders as $order_id ) {
-				$full_pickup_times[] = get_post_meta( $order_id, $this->order_meta_key, true );
+				$full_pickup_times[] = get_post_meta( $order_id, $this->get_order_meta_key(), true );
 			}
 
 			// $pickup_times_counts = array_count_values( $pickup_times );
@@ -665,7 +732,7 @@ class Local_Pickup_Time {
 	}
 
 	/**
-	 * Add the local pickup time field to the checkout page
+	 * Add the local pickup time field to the checkout page.
 	 *
 	 * @since    1.0.0
 	 *
@@ -674,10 +741,18 @@ class Local_Pickup_Time {
 	 * @return void
 	 */
 	public function time_select( $checkout ) {
-		echo '<div id="local-pickup-time-select"><h2>' . __( 'Pickup Time', 'woocommerce-local-pickup-time' ) . '</h2>';
+
+		$allowed_html = array(
+			'div' => array(
+				'id' => array(),
+			),
+			'h2' => array(),
+		);
+
+		echo wp_kses( '<div id="local-pickup-time-select"><h2>' . __( 'Pickup Time', 'woocommerce-local-pickup-time' ) . '</h2>', $allowed_html );
 
 		woocommerce_form_field(
-			'local_pickup_time_select',
+			$this->get_order_post_key(),
 			array(
 				'type'     => 'select',
 				'class'    => array( 'local-pickup-time-select-field form-row-wide' ),
@@ -685,53 +760,85 @@ class Local_Pickup_Time {
 				'required' => true,
 				'options'  => $this->get_pickup_time_options(),
 			),
-			$checkout->get_value( 'local_pickup_time_select' )
+			$checkout->get_value( $this->get_order_post_key() )
+		);
+
+		$allowed_html = array(
+			'input' => array(
+				'type' => array(),
+				'class' => array(),
+				'name' => array(),
+				'id' => array(),
+				'value' => array(),
+			),
+		);
+
+		echo wp_kses(
+			'<input type="hidden" class="input-hidden" name="' .
+			$this->get_order_pickup_time_nonce_key() . '" id="' .
+			$this->get_order_pickup_time_nonce_key() . '" value="' .
+			wp_create_nonce( $this->get_order_pickup_time_action_key() ) .
+			'" />',
+			$allowed_html
 		);
 
 		echo '</div>';
+
 	}
 
 	/**
-	 * Process the checkout
+	 * Process the checkout.
 	 *
 	 * @since    1.3.0
 	 *
-	 * @return void
+	 * @return   void
 	 */
 	public function field_process() {
-		global $woocommerce;
 
-		// Check if set, if its not set add an error.
-		if ( ! $_POST['local_pickup_time_select'] ) {
-			wc_add_notice( __( 'Please select a pickup time.', 'woocommerce-local-pickup-time' ), 'error' );
+		if ( ! empty( $_REQUEST[ $this->get_order_pickup_time_nonce_key() ] ) &&
+			wp_verify_nonce( sanitize_text_field( stripslashes_from_strings_only( $_REQUEST[ $this->get_order_pickup_time_nonce_key() ] ) ), $this->get_order_pickup_time_action_key() ) == 1 ) {
+			// Check if set, if its not set add an error.
+			if ( empty( wc_get_post_data_by_key( $this->get_order_post_key() ) ) ) {
+				wc_add_notice( __( 'Please select a pickup time.', 'woocommerce-local-pickup-time' ), 'error' );
+			}
+		} else {
+			wc_add_notice( __( 'Expired or invalid submission!.', 'woocommerce-local-pickup-time' ), 'error' );
 		}
 
 	}
 
 	/**
-	 * Update the order meta with local pickup time field value
+	 * Update the order meta with local pickup time field value.
 	 *
 	 * @since    1.0.0
 	 *
-	 * @param integer $order_id The ID of the order you want meta data for.
+	 * @param    integer $order_id The ID of the order you want meta data for.
 	 *
-	 * @return void
+	 * @return   void
 	 */
 	public function update_order_meta( $order_id ) {
-		if ( $_POST['local_pickup_time_select'] ) {
-			update_post_meta( $order_id, $this->get_order_meta_key(), esc_attr( $_POST['local_pickup_time_select'] ) );
+
+		if ( ! empty( $_REQUEST[ $this->get_order_pickup_time_nonce_key() ] ) &&
+			wp_verify_nonce( sanitize_text_field( stripslashes_from_strings_only( $_REQUEST[ $this->get_order_pickup_time_nonce_key() ] ) ), $this->get_order_pickup_time_action_key() ) == 1 ) {
+			// Update the order pickup time if set.
+			if ( ! empty( wc_get_post_data_by_key( $this->get_order_post_key() ) ) ) {
+				update_post_meta( $order_id, $this->get_order_meta_key(), wc_get_post_data_by_key( $this->get_order_post_key() ) );
+			}
+		} else {
+			wc_add_notice( __( 'Expired or invalid submission!.', 'woocommerce-local-pickup-time' ), 'error' );
 		}
+
 	}
 
 	/**
-	 * Add local pickup time fields to order emails, since the previous function has been deprecated
+	 * Add local pickup time fields to order emails, since the previous function has been deprecated.
 	 *
 	 * @since    1.3.0
 	 *
-	 * @param array<array> $fields The array of pickup time fields.
-	 * @param boolean      $sent_to_admin Flag that indicates whether the email is being sent to an admin user or not.
-	 * @param WC_Order     $order The order object that holds all the order attributes.
-	 * @return array<array>    The array of order email fields including the pickup time field.
+	 * @param    array<array> $fields        The array of pickup time fields.
+	 * @param    boolean      $sent_to_admin Flag that indicates whether the email is being sent to an admin user or not.
+	 * @param    WC_Order     $order         The order object that holds all the order attributes.
+	 * @return   array<array>    The array of order email fields including the pickup time field.
 	 */
 	public function update_order_email_fields( $fields, $sent_to_admin, $order ) {
 
@@ -745,7 +852,7 @@ class Local_Pickup_Time {
 	}
 
 	/**
-	 * Return translatable pickup time
+	 * Return translatable pickup time.
 	 *
 	 * @since    1.3.0
 	 *

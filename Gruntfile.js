@@ -56,7 +56,7 @@ module.exports = function (grunt) {
 				src: [
 					'**',
 					'!*.xml', '!*.log', //any config/log files
-					'!node_modules/**', '!Gruntfile.js', '!package.json', //npm/Grunt
+					'!node_modules/**', '!Gruntfile.js', '!package.json', '!package-lock.json', //npm/Grunt
 					'!assets/**', //wp-org assets
 					'!dist/**', //build directory
 					'!.git/**', //version control
@@ -66,7 +66,10 @@ module.exports = function (grunt) {
 					'!.*', '!**/*~', //hidden files
 					'!CONTRIBUTING.md',
 					'!README.md',
-					'!phpcs.xml', '!phpcs.xml.dist', // CodeSniffer Configuration
+					'!phpcs.xml', '!phpcs.xml.dist', '!phpstan.neon.dist', '!grumphp.yml.dist', // CodeSniffer Configuration.
+					'!docker-compose.override.yml', // Local Docker Development configuration.
+					'!codecov.yml', // Code coverage configuration.
+					'!tools/**', // Local Development/Build tools configuration.
 				],
 				dest: 'dist/',
 				options: {

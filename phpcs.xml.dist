@@ -7,6 +7,7 @@
 		<exclude name="WordPress.Files.FileName.InvalidClassFileName" />
 	</rule>
 	<rule ref="WordPress-Docs" />
+	<rule ref="WooCommerce-Core" />
 
 	<!-- Check all PHP files in directory tree by default. -->
 	<arg name="basepath" value="." />

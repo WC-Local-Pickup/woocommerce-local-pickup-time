@@ -3,10 +3,6 @@
  * Local Pickup Time
  *
  * @package   Local_Pickup_Time_Admin
- * @author    Matt Banks <mjbanks@gmail.com>
- * @license   GPL-2.0+
- * @link      http://mattbanks.me
- * @copyright 2014-2018 Matt Banks
  */
 
 /**
@@ -14,7 +10,6 @@
  * Defines administrative functionality
  *
  * @package Local_Pickup_Time_Admin
- * @author  Matt Banks <mjbanks@gmail.com>
  */
 class Local_Pickup_Time_Admin {
 
@@ -339,9 +334,15 @@ class Local_Pickup_Time_Admin {
 	 */
 	public function show_metabox( $order ) {
 
-		$order_meta = get_post_custom( $order->get_id() );
+		$order_meta  = get_post_custom( $order->get_id() );
+		$pickup_time = $order_meta[ $this->plugin->get_order_meta_key() ][0];
 
-		echo '<p><strong>' . __( 'Pickup Time:', 'woocommerce-local-pickup-time' ) . '</strong> ' . $this->pickup_time_select_translatable( $order_meta[ $this->plugin->get_order_meta_key() ][0] ) . '</p>';
+		$allowed_html = array(
+			'p' => array(),
+			'strong' => array(),
+		);
+
+		echo wp_kses( '<p><strong>' . __( 'Pickup Time:', 'woocommerce-local-pickup-time' ) . '</strong> ' . esc_html( $this->pickup_time_select_translatable( $pickup_time ) ) . '</p>', $allowed_html );
 
 	}
 
@@ -384,7 +385,7 @@ class Local_Pickup_Time_Admin {
 		global $the_order;
 
 		if ( $this->plugin->get_order_meta_key() === $column ) {
-			echo $this->pickup_time_select_translatable( $the_order->get_meta( $this->plugin->get_order_meta_key() ) );
+			echo esc_html( $this->pickup_time_select_translatable( $the_order->get_meta( $this->plugin->get_order_meta_key() ) ) );
 		}
 
 	}
@@ -417,9 +418,10 @@ class Local_Pickup_Time_Admin {
 	public function filter_orders_list_by_pickup_date( $query ) {
 
 		if ( is_admin() && 'shop_order' === $query->query_vars['post_type'] && ! empty( $_GET['orderby'] ) && 'pickup_time' === $_GET['orderby'] ) {
+			$order = ( ! empty( $_GET['order'] ) ) ? strtoupper( sanitize_key( $_GET['order'] ) ) : 'ASC';
 			$query->set( 'meta_key', $this->plugin->get_order_meta_key() );
 			$query->set( 'orderby', 'meta_value_num' );
-			$query->set( 'order', ( ! empty( $_GET['order'] ) ) ? strtoupper( sanitize_text_field( $_GET['order'] ) ) : 'ASC' );
+			$query->set( 'order', $order );
 		}
 
 		return $query;
