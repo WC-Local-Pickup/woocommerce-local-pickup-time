@@ -74,6 +74,12 @@ class Local_Pickup_Time_Admin {
 		add_action( 'manage_edit-shop_order_sortable_columns', array( $this, 'add_orders_list_pickup_date_column_sorting' ) );
 		add_action( 'pre_get_posts', array( $this, 'filter_orders_list_by_pickup_date' ) );
 
+		/*
+		 * Add custom order status
+		 */
+		add_action( 'init', array( $this, 'register_ready_for_pickup_order_status' ) );
+		add_filter( 'wc_order_statuses', array( $this, 'add_ready_for_pickup_order_status' ), 10, 1 );
+
 	}
 
 	/**
@@ -445,6 +451,37 @@ class Local_Pickup_Time_Admin {
 		// Call the Public plugin instance of this method to reduce code redundancy.
 		return $plugin->pickup_time_select_translatable( $value );
 
+	}
+
+	/**
+	 * Adds a custom order status for when items are ready for pickup
+	 * 
+	 * @since 1.3.12
+	 *
+	 * @return void
+	 */
+	public function register_ready_for_pickup_order_status() {
+		register_post_status( 'wc-ready-for-pickup', array(
+			'label'                     => 'Ready for Pickup',
+			'public'                    => true,
+			'exclude_from_search'       => false,
+			'show_in_admin_all_list'    => true,
+			'show_in_admin_status_list' => true,
+			'label_count'               => _n_noop( 'Ready for Pickup (%s)', 'Ready for Pickup (%s)' )
+		) );
+	}
+
+	public function add_ready_for_pickup_order_status( $order_statuses ) { 
+		$new_order_statuses = array();
+	
+		// Add new order status after the "Processing" status
+		foreach ( $order_statuses as $key => $status ) {
+			$new_order_statuses[ $key ] = $status;
+			if ( 'wc-processing' === $key ) {
+				$new_order_statuses['wc-ready-for-pickup'] = 'Ready for Pickup';
+			}
+		}
+		return $new_order_statuses;
 	}
 
 }
