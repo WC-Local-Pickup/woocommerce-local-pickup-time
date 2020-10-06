@@ -1,19 +1,24 @@
 {
-    "name": "mattbanks/woocommerce-local-pickup-time",
+    "name": "wc-local-pickup/woocommerce-local-pickup-time",
     "description": "Add an an option to WooCommerce checkout pages for Local Pickup that allows the user to choose a pickup time.",
     "type": "wordpress-plugin",
-    "homepage": "https://github.com/mattbanks/woocommerce-local-pickup-time",
+    "homepage": "https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time",
     "license": "GPL-2.0-or-later",
     "authors": [
         {
-            "name": "Matt Banks",
-            "email": "mjbanks@gmail.com",
-            "homepage": "http://mattbanks.me"
+					  "name": "WC Local Pickup",
+						"email": "support@wclocalpickup.com",
+						"homepage": "https://www.wclocalpickup.com/"
         },
         {
             "name": "Tim Nolte",
             "email": "tim.nolte@ndigitals.com",
             "homepage": "https://www.timnolte.com/"
+				},
+			  {
+            "name": "Matt Banks",
+            "email": "mjbanks@gmail.com",
+            "homepage": "http://mattbanks.me"
         }
     ],
     "config": {
