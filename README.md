@@ -1,6 +1,6 @@
 # WooCommerce Local Pickup Time Select #
-**Contributors:** [mjbanks](https://profiles.wordpress.org/mjbanks), [vyskoczilova](https://profiles.wordpress.org/vyskoczilova), [tnolte](https://profiles.wordpress.org/tnolte)  
-**Donate link:** http://mattbanks.me  
+**Contributors:** [tnolte](https://profiles.wordpress.org/tnolte), [mjbanks](https://profiles.wordpress.org/mjbanks), [vyskoczilova](https://profiles.wordpress.org/vyskoczilova)  
+**Donate link:** https://www.ndigitals.com/donate/  
 **Tags:** woocommcerce, shipping, local pickup, checkout fields, ecommerce, e-commerce, wordpress ecommerce  
 **Requires at least:** 4.7  
 **Tested up to:** 5.3.2  

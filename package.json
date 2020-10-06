@@ -5,18 +5,18 @@
   "main": "Gruntfile.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mattbanks/woocommerce-local-pickup-time"
+    "url": "https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time"
   },
   "keywords": [
     "wordpress",
     "woocommerce"
   ],
-  "author": "Matt Banks",
+  "author": "Tim Nolte",
   "license": "GPL-2.0+",
   "bugs": {
-    "url": "https://github.com/mattbanks/woocommerce-local-pickup-time/issues"
+    "url": "https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time/issues"
   },
-  "homepage": "https://github.com/mattbanks/woocommerce-local-pickup-time#readme",
+  "homepage": "https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time#readme",
   "dependencies": {
     "dev-require": "^0.1.0"
   },

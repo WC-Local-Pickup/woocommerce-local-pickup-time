@@ -7,23 +7,23 @@
  * rounded to closest hour or half hour and go in 30 minute intervals until store closing time.
  *
  * @package   WooCommerce Local Pickup Time Select
- * @author    Matt Banks <mjbanks@gmail.com>
+ * @author    Tim Nolte <tim.nolte@ndigitals.com>
  * @license   GPL-2.0+
- * @link      http://mattbanks.me
- * @copyright 2014-2018 Matt Banks
+ * @link      https://www.ndigitals.com/
+ * @copyright 2014-2020 WC Local Pickup
  *
  * @wordpress-plugin
  * Plugin Name:       WooCommerce Local Pickup Time Select
- * Plugin URI:        http://mattbanks.me
+ * Plugin URI:        https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time
  * Description:       Add an an option to WooCommerce checkout pages for Local Pickup that allows the user to choose a pickup time.
  * Version:           1.3.12
- * Author:            Matt Banks
- * Author URI:        http://mattbanks.me
+ * Author:            Tim Nolte
+ * Author URI:        https://www.ndigitals.com/
  * Text Domain:       woocommerce-local-pickup-time
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Domain Path:       /languages
- * GitHub Plugin URI: https://github.com/mattbanks/woocommerce-local-pickup-time
+ * GitHub Plugin URI: https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time
  */
 
 /**

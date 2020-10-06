@@ -196,7 +196,7 @@ module.exports = function(grunt) {
     grunt.registerTask( 'test', [ 'checktextdomain', 'phpcs' ] );
     grunt.registerTask( 'build', [ 'gitinfo', 'test', 'clean', 'i18n', 'readme', 'copy' ] );
     //grunt.registerTask( 'deploy', [ 'checkbranch:master', 'checkrepo', 'build', 'wp_deploy' ] );
-    grunt.registerTask( 'deploy', [ 'checkrepo', 'build' ] );
+    grunt.registerTask( 'deploy', [ 'checkbranch:master', 'checkrepo', 'build' ] );
 
 };
 
