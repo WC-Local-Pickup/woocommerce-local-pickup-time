@@ -17,7 +17,8 @@ parameters:
         - 'die('
     git_branch_name:
       blacklist:
-        - 'master'
+        - 'main'
+        - 'develop'
         - 'dev-release*'
       allow_detached_head: false
     git_commit_message:

@@ -22,7 +22,6 @@ parameters:
   # - inc/
   paths:
     - admin/
-    - includes/
     - public/
     - ./
   excludes_analyse:
