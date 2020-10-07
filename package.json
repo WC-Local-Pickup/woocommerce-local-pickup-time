@@ -60,16 +60,16 @@
     ],
     "welcome-build-command": "npm run env start"
   },
-	"scripts": {
-		"grunt": "node_modules/.bin/grunt",
-		"test": "npm run grunt test",
-		"build": "npm run grunt build",
-		"deploy": "npm run grunt deploy",
-		"env": "wp-scripts env",
-		"lint": "npm run lint:php",
-		"lint:php": "composer run-script phpcs .",
-		"lint-fix:php": "composer run-script phpcbf .",
-		"analyze": "npm run analyze:php",
-		"analyze:php": "composer run-script phpstan analyze ."
-	}
+  "scripts": {
+    "grunt": "node_modules/.bin/grunt",
+    "test": "npm run grunt test",
+    "build": "npm run grunt build",
+    "deploy": "npm run grunt deploy",
+    "env": "wp-scripts env",
+    "lint": "npm run lint:php",
+    "lint:php": "composer run-script phpcs .",
+    "lint-fix:php": "composer run-script phpcbf .",
+    "analyze": "npm run analyze:php",
+    "analyze:php": "composer run-script phpstan analyze ."
+  }
 }
