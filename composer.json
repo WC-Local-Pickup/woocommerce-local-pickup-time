@@ -71,8 +71,6 @@
 		"classmap": [
 			"woocommerce-local-pickup-time.php",
 			"admin/class-local-pickup-time-admin.php",
-			"includes/class-database-handler.php",
-			"includes/class-local-pickup-time-install.php",
 			"public/class-local-pickup-time.php"
 		],
 		"exclude-from-classmap": [
