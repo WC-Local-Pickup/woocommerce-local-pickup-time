@@ -254,19 +254,6 @@ class Local_Pickup_Time_Admin {
 				),
 			),
 			array(
-				'title'       => __( 'Orders Per Interval', 'woocommerce-local-pickup-time' ),
-				'desc'        => __( 'Set the maximum number of orders allowed per pickup time. (Default: 0, no limit)', 'woocommerce-local-pickup-time' ),
-				'id'          => 'local_pickup_interval_orders_max',
-				'css'         => 'width:100px;',
-				'default'     => '0',
-				'type'        => 'number',
-				'input_attrs' => array(
-					'min'  => 0,
-					'step' => 1,
-				),
-				'desc_tip'    => true,
-			),
-			array(
 				'title'    => __( 'Pickup Time Delay', 'woocommerce-local-pickup-time' ),
 				'desc'     => __( 'Choose the time delay from the time of ordering for allowing local pickup orders.', 'woocommerce-local-pickup-time' ),
 				'id'       => 'local_pickup_delay_minutes',

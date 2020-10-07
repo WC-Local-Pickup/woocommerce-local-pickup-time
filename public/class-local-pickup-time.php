@@ -498,70 +498,6 @@ class Local_Pickup_Time {
 	}
 
 	/**
-	 * Load list of full pickup times.
-	 *
-	 * @since     1.4.0
-	 *
-	 * @param     integer $max_interval_orders The maximum number of orders allowed per interval.
-	 *
-	 * @return    array<integer, string> The list of pickup times that are closed for selection.
-	 */
-	public function get_full_pickup_times( $max_interval_orders = 0 ) {
-
-		$full_pickup_times = array();
-
-		// The order statuses to use to limit the orders queryied for pickup times.
-		$limit_order_statuses = array(
-			'pending',
-			'processing',
-			'on-hold',
-		);
-
-		// Get the current WordPress-based date/time.
-		$current_wp_datetime  = new DateTime( 'now', $this->get_wp_timezone() );
-		$current_wp_timestamp = $current_wp_datetime->getTimestamp();
-
-		if ( 0 === $max_interval_orders ) {
-
-			return $full_pickup_times;
-
-		}
-
-		// Get all the open order IDs with a pickup time greater than right now.
-		$args = array(
-			'post_type'      => 'shop_order',
-			'post_status'    => $limit_order_statuses,
-			'limit'          => -1,
-			'meta_key'       => $this->get_order_meta_key(),
-			'meta_value_num' => $current_wp_timestamp,
-			'meta_compare'   => '>=',
-			'fields'         => 'ids',
-		);
-		$order_qry = new WP_Query( $args );
-
-		if ( $order_qry->have_posts() ) {
-
-			/**
-			 * An array of order IDs.
-			 *
-			 * @var int[] $orders
-			 */
-			$orders = $order_qry->get_posts();
-
-			foreach ( $orders as $order_id ) {
-				$full_pickup_times[] = get_post_meta( $order_id, $this->get_order_meta_key(), true );
-			}
-
-			// $pickup_times_counts = array_count_values( $pickup_times );
-			arsort( $full_pickup_times );
-
-		}
-
-		return $full_pickup_times;
-
-	}
-
-	/**
 	 * Build pickup time options for checkout.
 	 *
 	 * @since     1.3.2
@@ -578,7 +514,6 @@ class Local_Pickup_Time {
 		// Get delay, interval, and number of days ahead settings.
 		$delay_minutes       = get_option( 'local_pickup_delay_minutes', 60 );
 		$minutes_interval    = get_option( 'local_pickup_hours_interval', 30 );
-		$max_interval_orders = get_option( 'local_pickup_interval_orders_max', 0 );
 		$num_days_ahead      = get_option( 'local_pickup_days_ahead', 1 );
 
 		// Translateble days.

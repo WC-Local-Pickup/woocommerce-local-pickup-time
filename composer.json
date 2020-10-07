@@ -1,41 +1,41 @@
 {
-    "name": "wc-local-pickup/woocommerce-local-pickup-time",
-    "description": "Add an an option to WooCommerce checkout pages for Local Pickup that allows the user to choose a pickup time.",
-    "type": "wordpress-plugin",
-    "homepage": "https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time",
-    "license": "GPL-2.0-or-later",
-    "authors": [
-        {
-					  "name": "WC Local Pickup",
-						"email": "support@wclocalpickup.com",
-						"homepage": "https://www.wclocalpickup.com/"
-        },
-        {
-            "name": "Tim Nolte",
-            "email": "tim.nolte@ndigitals.com",
-            "homepage": "https://www.timnolte.com/"
-				},
-			  {
-            "name": "Matt Banks",
-            "email": "mjbanks@gmail.com",
-            "homepage": "http://mattbanks.me"
-        }
-    ],
-    "config": {
-        "platform": {
-            "php": "7.1"
-        },
-				"optimize-autoloader": true
-    },
-		"repositories": [
-				{
-						"type": "git",
-						"url": "https://github.com/wordpress/wordpress-develop"
-				},
-				{
-						"type": "git",
-						"url": "https://github.com/woocommerce/woocommerce"
-				}
+	"name": "wc-local-pickup/woocommerce-local-pickup-time",
+	"description": "Add an an option to WooCommerce checkout pages for Local Pickup that allows the user to choose a pickup time.",
+	"type": "wordpress-plugin",
+	"homepage": "https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time",
+	"license": "GPL-2.0-or-later",
+	"authors": [
+		{
+			"name": "WC Local Pickup",
+			"email": "support@wclocalpickup.com",
+			"homepage": "https://www.wclocalpickup.com/"
+		},
+		{
+			"name": "Tim Nolte",
+			"email": "tim.nolte@ndigitals.com",
+			"homepage": "https://www.timnolte.com/"
+		},
+		{
+			"name": "Matt Banks",
+			"email": "mjbanks@gmail.com",
+			"homepage": "http://mattbanks.me"
+		}
+	],
+	"config": {
+		"platform": {
+			"php": "7.1"
+		},
+		"optimize-autoloader": true
+	},
+	"repositories": [
+		{
+			"type": "git",
+			"url": "https://github.com/wordpress/wordpress-develop"
+		},
+		{
+			"type": "git",
+			"url": "https://github.com/woocommerce/woocommerce"
+		}
 	],
 	"require-dev": {
 		"php": ">=7.1.0",
