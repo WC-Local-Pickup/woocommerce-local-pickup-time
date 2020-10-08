@@ -12,6 +12,9 @@
 
 # Local Development files/folders.
 .env
+phpcs.xml
+phpstan.neon
+phpunit.xml
 
 # OS or Editor folders
 .DS_Store
