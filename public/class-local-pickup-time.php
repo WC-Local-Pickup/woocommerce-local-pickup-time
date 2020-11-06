@@ -684,14 +684,14 @@ class Local_Pickup_Time {
 			'h2' => array(),
 		);
 
-		echo wp_kses( '<div id="local-pickup-time-select"><h2>' . __( 'Pickup Time', 'woocommerce-local-pickup-time' ) . '</h2>', $allowed_html );
+		echo wp_kses( '<div id="local-pickup-time-select"><h3>' . __( 'Pickup Time', 'woocommerce-local-pickup-time' ) . '</h3>', $allowed_html );
 
 		woocommerce_form_field(
 			$this->get_order_post_key(),
 			array(
 				'type'     => 'select',
 				'class'    => array( 'local-pickup-time-select-field form-row-wide' ),
-				'label'    => __( 'Pickup Time', 'woocommerce-local-pickup-time' ),
+				'label'    => __( 'Select time', 'woocommerce-local-pickup-time' ),
 				'required' => true,
 				'options'  => $this->get_pickup_time_options(),
 			),
