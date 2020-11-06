@@ -563,7 +563,8 @@ class Local_Pickup_Time {
 			if (
 				! in_array( $pickup_datetime->format( 'm/d/Y' ), $dates_closed, true ) &&
 				! empty( $pickup_day_open_time ) &&
-				! empty( $pickup_day_close_time )
+				! empty( $pickup_day_close_time ) &&
+				$pickup_day_open_time !== $pickup_day_close_time
 			) {
 
 				// Get the intervals for the day and merge the results with the previous array of intervals.
