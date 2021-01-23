@@ -61,6 +61,14 @@
 		"welcome-build-command": "npm run env start"
 	},
 	"scripts": {
+		"setup": "npm run setup:npm && npm run setup:composer -- --no-autoloader && npm run setup:woocommerce && npm run setup:wordpress && npm run setup:composer -- --optimize-autoloader",
+		"setup:npm": "npm install",
+		"setup:composer": "composer install",
+		"setup:woocommerce": "cd vendor/woocommerce/woocommerce && npm install && npm run build && cd ../../../",
+		"setup:wordpress": "cd wordpress && npm install && npm run build && cd ..",
+		"start": "npm run env start",
+		"stop": "npm run env stop",
+		"restart": "npm run wp-env stop && npm run wp-env start",
 		"grunt": "node_modules/.bin/grunt",
 		"test": "npm run grunt test",
 		"build": "npm run grunt build",

@@ -23,7 +23,7 @@
 	],
 	"config": {
 		"platform": {
-			"php": "7.1"
+			"php": "7.3"
 		},
 		"optimize-autoloader": true
 	},
@@ -38,9 +38,10 @@
 		}
 	],
 	"require-dev": {
-		"php": ">=7.1.0",
+		"php": ">=7.3.0",
+		"composer/installers": "*",
 		"squizlabs/php_codesniffer": "^3.3",
-		"wp-coding-standards/wpcs": "~2.2.0",
+		"wp-coding-standards/wpcs": "~2.3.0",
 		"phpcompatibility/php-compatibility": "^9.0",
 		"phpcompatibility/phpcompatibility-wp": "^2.1",
 		"phpmd/phpmd": "^2.6",
@@ -51,20 +52,28 @@
 		"roave/security-advisories": "dev-master",
 		"mnsami/composer-custom-directory-installer": "~1.0",
 		"wordpress/wordpress": "~5.4.2",
-		"woocommerce/woocommerce": "~4.3.0",
+		"woocommerce/woocommerce": "~4.7.0",
 		"woocommerce/woocommerce-git-hooks": "^1.0",
-		"dealerdirect/phpcodesniffer-composer-installer": "^0.6",
+		"dealerdirect/phpcodesniffer-composer-installer": "^0.7",
 		"brain/monkey": "^2.4",
 		"mockery/mockery": "^1.3",
-		"phpro/grumphp": "^0.16.2",
+		"phpro/grumphp": "~0.20",
 		"sensiolabs/security-checker": "^5.0",
-		"phpstan/phpstan-deprecation-rules": "^0.12.4",
-		"woocommerce/woocommerce-sniffs": "^0.0.10"
+		"phpstan/phpstan-deprecation-rules": "^0.12",
+		"woocommerce/woocommerce-sniffs": "^0.1.0"
 	},
 	"autoload-dev": {
 		"classmap": [
 			"wordpress/src/",
 			"vendor/woocommerce/woocommerce/includes/"
+		],
+		"exclude-from-classmap": [
+			"/vendor/woocommerce/woocommerce/vendor/",
+			"/vendor/woocommerce/woocommerce/packages/",
+			"/vendor/woocommerce/woocommerce-rest-api/",
+			"/vendor/woocommerce/woocommerce-blocks/",
+			"/vendor/woocommerce/action-scheduler/",
+			"/vendor/woocommerce/woocommerce-admin/"
 		]
 	},
 	"autoload": {
@@ -74,8 +83,12 @@
 			"public/class-local-pickup-time.php"
 		],
 		"exclude-from-classmap": [
-			"vendor/woocommerce/woocommerce/vendor/",
-			"vendor/woocommerce/woocommerce/packages/"
+			"/vendor/woocommerce/woocommerce/vendor/",
+			"/vendor/woocommerce/woocommerce/packges/",
+			"/vendor/woocommerce/woocommerce-rest-api/",
+			"/vendor/woocommerce/woocommerce-blocks/",
+			"/vendor/woocommerce/action-scheduler/",
+			"/vendor/woocommerce/woocommerce-admin/"
 		]
 	},
 	"scripts": {
