@@ -101,11 +101,11 @@ before_install:
 
 
 install:
-  - composer update "wordpress/wordpress" --prefer-source --no-interaction
-  - composer update "woocommerce/woocommerce" --prefer-source --no-interaction
+  - composer update "wordpress/wordpress" --no-autoloader --prefer-source --no-interaction
+  - composer update "woocommerce/woocommerce" --no-autoloader --prefer-source --no-interaction
   - |
     if [[ "$WC_VERSION" == "dev-master" ]]; then
-      composer update "woocommerce/woocommerce-admin" --prefer-source --no-interaction
+      composer update "woocommerce/woocommerce-admin" --no-autoloader --prefer-source --no-interaction
     fi
   - npm run setup
 
