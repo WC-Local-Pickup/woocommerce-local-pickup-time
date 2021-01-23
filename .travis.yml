@@ -52,6 +52,9 @@ env:
 matrix:
   fast_finish: true
   include:
+    - name: Internationalization
+      php: "${PHP_PREF_MIN_VERSION}"
+      env: WP_MODE=single WP_VERSION="${WP_STABLE_VERSION}" WC_VERSION="${WC_PREF_MIN_VERSION}" I18N=1
     - name: Coding Standards
       php: "${PHP_PREF_MIN_VERSION}"
       env: WP_MODE=single WP_VERSION="${WP_STABLE_VERSION}" WC_VERSION="${WC_PREF_MIN_VERSION}" PHP_LINT=1 COVERAGE=1
@@ -100,8 +103,7 @@ before_install:
 install:
   - composer update "wordpress/wordpress" --dev --prefer-source --no-interaction
   - composer update "woocommerce/woocommerce" --dev --prefer-source --no-interaction
-  - composer install
-  - npm install
+  - npm run setup
 
 before_script:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
@@ -124,6 +126,10 @@ before_script:
     fi
 
 script:
+  - |
+    if [[ "$I18N" == "1" ]]; then
+      if [[ "$WP_MODE" == "single" ]]; then WP_MULTISITE=0 npm run i18n:check; fi
+    fi
   - |
     if [[ "$PHP_LINT" == "1" ]]; then
       if [[ "$WP_MODE" == "single" ]]; then WP_MULTISITE=0 npm run lint; fi

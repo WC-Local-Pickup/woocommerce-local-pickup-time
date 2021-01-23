@@ -74,6 +74,7 @@
 		"build": "npm run grunt build",
 		"deploy": "npm run grunt deploy",
 		"env": "wp-scripts env",
+		"i18n:check": "npm run grunt checktextdomain",
 		"lint": "npm run lint:php",
 		"lint:php": "composer run-script phpcs .",
 		"lint-fix:php": "composer run-script phpcbf .",
