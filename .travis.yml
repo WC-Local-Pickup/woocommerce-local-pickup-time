@@ -35,15 +35,16 @@ cache:
 
 # Define build versions for maitrix
 env:
-  - PHP_MIN_VERSION="7.2"
-  - PHP_PREF_MIN_VERSION="7.3"
-  - PHP_STABLE_VERSION="7.4"
-  - WP_MIN_VERSION="5.3.*"
-  - WP_PREF_MIN_VERSION="5.4.*"
-  - WP_STABLE_VERSION="5.5.*"
-  - WC_MIN_VERSION="4.6.*"
-  - WC_PREF_MIN_VERSION="4.7.*"
-  - WC_STABLE_VERSION="4.8.*"
+  global:
+    - PHP_MIN_VERSION="7.2"
+    - PHP_PREF_MIN_VERSION="7.3"
+    - PHP_STABLE_VERSION="7.4"
+    - WP_MIN_VERSION="5.3.*"
+    - WP_PREF_MIN_VERSION="5.4.*"
+    - WP_STABLE_VERSION="5.5.*"
+    - WC_MIN_VERSION="4.6.*"
+    - WC_PREF_MIN_VERSION="4.7.*"
+    - WC_STABLE_VERSION="4.8.*"
 
 # Define a matrix of additional build configurations
 # The versions listed above will automatically create our first configuration,
@@ -52,30 +53,30 @@ matrix:
   fast_finish: true
   include:
     - name: Coding Standards
-      php: ${PHP_PREF_MIN_VERSION}
-      env: WP_MODE=single WP_VERSION=${WP_STABLE_VERSION} WC_VERSION=${WC_PREF_MIN_VERSION} PHP_LINT=1 COVERAGE=1
+      php: "${PHP_PREF_MIN_VERSION}"
+      env: WP_MODE=single WP_VERSION="${WP_STABLE_VERSION}" WC_VERSION="${WC_PREF_MIN_VERSION}" PHP_LINT=1 COVERAGE=1
     - name: Static Code Analysis
-      php: ${PHP_PREF_MIN_VERSION}
-      env: WP_MODE=single WP_VERSION=${WP_STABLE_VERSION} WC_VERSION=${WC_PREF_MIN_VERSION} PHP_ANALYZE=1
+      php: "${PHP_PREF_MIN_VERSION}"
+      env: WP_MODE=single WP_VERSION="${WP_STABLE_VERSION}" WC_VERSION="${WC_PREF_MIN_VERSION}" PHP_ANALYZE=1
     - name: Latest Stable
-      php: ${PHP_PREF_MIN_VERSION}
-      env: WP_MODE=single WP_VERSION=${WP_STABLE_VERSION} WC_VERSION=${WC_STABLE_VERSION} PHP_UNIT=1
+      php: "${PHP_PREF_MIN_VERSION}"
+      env: WP_MODE=single WP_VERSION="${WP_STABLE_VERSION}" WC_VERSION="${WC_STABLE_VERSION}" PHP_UNIT=1
     - name: Preferred Minimum requirements
       if: (branch IN (develop, main) OR branch =~ /^dev\-release\/.*$/) AND NOT type = pull_request
-      php: ${PHP_PREF_MIN_VERSION}
-      env: WP_MODE=single WP_VERSION=${WP_PREF_MIN_VERSION} WC_VERSION=${WC_PREF_MIN_VERSION} PHP_UNIT=1
+      php: "${PHP_PREF_MIN_VERSION}"
+      env: WP_MODE=single WP_VERSION="${WP_PREF_MIN_VERSION}" WC_VERSION="${WC_PREF_MIN_VERSION}" PHP_UNIT=1
     - name: Minimum requirements
       if: (branch IN (develop, main) OR branch =~ /^dev\-release\/.*$/) AND NOT type = pull_request
-      php: ${PHP_MIN_VERSION}
-      env: WP_MODE=single WP_VERSION=${WP_MIN_VERSION} WC_VERSION=${WC_MIN_VERSION} PHP_UNIT=1
+      php: "${PHP_MIN_VERSION}"
+      env: WP_MODE=single WP_VERSION="${WP_MIN_VERSION}" WC_VERSION="${WC_MIN_VERSION}" PHP_UNIT=1
     - name: Bleeding Edge
       if: (branch IN (develop, main) OR branch =~ /^dev\-release\/.*$/) AND NOT type = pull_request
-      php: ${PHP_STABLE_VERSION}
+      php: "${PHP_STABLE_VERSION}"
       env: WP_MODE=single WP_VERSION=dev-master WC_VERSION=dev-master PHP_UNIT=1
     - name: Multisite Compatibility
       if: (branch IN (develop, main) OR branch =~ /^dev\-release\/.*$/) AND NOT type = pull_request
-      php: ${PHP_PREF_MIN_VERSION}
-      env: WP_MODE=multi WP_VERSION=${WP_PREF_MIN_VERSION} WC_VERSION=${WC_PREF_MIN_VERSION} PHP_UNIT=1
+      php: "${PHP_PREF_MIN_VERSION}"
+      env: WP_MODE=multi WP_VERSION="${WP_PREF_MIN_VERSION}" WC_VERSION="${WC_PREF_MIN_VERSION}" PHP_UNIT=1
   allow_failures:
     - name: Bleeding Edge
 
