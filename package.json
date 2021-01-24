@@ -62,10 +62,13 @@
 	},
 	"scripts": {
 		"setup": "npm run setup:npm && npm run setup:composer -- --no-autoloader && npm run setup:woocommerce && npm run setup:wordpress && npm run setup:composer -- --optimize-autoloader",
+		"ci:setup": "npm run setup:npm && npm run setup:composer -- --no-autoloader && npm run ci:woocommerce && npm run ci:wordpress && npm run setup:composer -- --optimize-autoloader",
 		"setup:npm": "npm install",
 		"setup:composer": "composer install",
 		"setup:woocommerce": "cd vendor/woocommerce/woocommerce && npm install && npm run build && cd ../../../",
+		"ci:woocommerce": "cd vendor/woocommerce/woocommerce && npm install && composer install && cd ../../../",
 		"setup:wordpress": "cd wordpress && npm install && npm run build && cd ..",
+		"ci:wordpress": "cd wordpress && npm install && composer install && cd ..",
 		"start": "npm run env start",
 		"stop": "npm run env stop",
 		"restart": "npm run wp-env stop && npm run wp-env start",

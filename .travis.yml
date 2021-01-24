@@ -90,7 +90,6 @@ addons:
 
 before_install:
   - npm install -g npm@6.14
-  - npm install -g grunt-cli
   - composer self-update --1
   - composer require "wordpress/wordpress:${WP_VERSION}" --dev --prefer-source --no-update
   - composer require "woocommerce/woocommerce:${WC_VERSION}" --dev --prefer-source --no-update
@@ -99,15 +98,14 @@ before_install:
       composer require "woocommerce/woocommerce-admin:v1.3.0-beta.1" --dev --prefer-source --no-update
     fi
 
-
 install:
-  - composer update "wordpress/wordpress" --no-autoloader --prefer-source --no-interaction
-  - composer update "woocommerce/woocommerce" --no-autoloader --prefer-source --no-interaction
+  - composer update "wordpress/wordpress" --no-autoloader --prefer-source --no-interaction --lock
+  - composer update "woocommerce/woocommerce" --no-autoloader --prefer-source --no-interaction --lock
   - |
     if [[ "$WC_VERSION" == "dev-master" ]]; then
       composer update "woocommerce/woocommerce-admin" --no-autoloader --prefer-source --no-interaction
     fi
-  - npm run setup
+  - npm run ci:setup
 
 before_script:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
