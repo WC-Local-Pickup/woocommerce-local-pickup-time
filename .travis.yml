@@ -54,16 +54,16 @@ matrix:
   include:
     - name: Internationalization
       php: "${PHP_PREF_MIN_VERSION}"
-      env: WP_MODE=single WP_VERSION="${WP_STABLE_VERSION}" WC_VERSION="${WC_PREF_MIN_VERSION}" I18N=1
+      env: WP_MODE=single I18N=1
     - name: Coding Standards
       php: "${PHP_PREF_MIN_VERSION}"
-      env: WP_MODE=single WP_VERSION="${WP_STABLE_VERSION}" WC_VERSION="${WC_PREF_MIN_VERSION}" PHP_LINT=1 COVERAGE=1
+      env: WP_MODE=single PHP_LINT=1
     - name: Static Code Analysis
       php: "${PHP_PREF_MIN_VERSION}"
       env: WP_MODE=single WP_VERSION="${WP_STABLE_VERSION}" WC_VERSION="${WC_PREF_MIN_VERSION}" PHP_ANALYZE=1
     - name: Latest Stable
       php: "${PHP_PREF_MIN_VERSION}"
-      env: WP_MODE=single WP_VERSION="${WP_STABLE_VERSION}" WC_VERSION="${WC_STABLE_VERSION}" PHP_UNIT=1
+      env: WP_MODE=single WP_VERSION="${WP_STABLE_VERSION}" WC_VERSION="${WC_STABLE_VERSION}" PHP_UNIT=1 COVERAGE=1
     - name: Preferred Minimum requirements
       if: (branch IN (develop, main) OR branch =~ /^dev\-release\/.*$/) AND NOT type = pull_request
       php: "${PHP_PREF_MIN_VERSION}"
@@ -91,20 +91,17 @@ addons:
 before_install:
   - npm install -g npm@6.14
   - composer self-update --1
-  - composer require "wordpress/wordpress:${WP_VERSION}" --dev --prefer-source --no-update
-  - composer require "woocommerce/woocommerce:${WC_VERSION}" --dev --prefer-source --no-update
+  - composer install --no-autoloader --prefer-source --no-interaction
   - |
-    if [[ "$WC_VERSION" == "dev-master" ]]; then
-      composer require "woocommerce/woocommerce-admin:v1.3.0-beta.1" --dev --prefer-source --no-update
+    if [[ "$PHP_UNIT" == "1" OR "$PHP_ANALYZE" == "1" ]]; then
+      composer require "wordpress/wordpress:${WP_VERSION}" --dev --no-autoloader --prefer-source --with-dependencies
+      composer require "woocommerce/woocommerce:${WC_VERSION}" --dev --no-autoloader --prefer-source --with-dependencies
+      if [[ "$WC_VERSION" == "dev-master" ]]; then
+        composer require "woocommerce/woocommerce-admin:v1.3.0-beta.1" --dev --no-autoloader --prefer-source --with-dependencies
+      fi
     fi
 
 install:
-  - composer update "wordpress/wordpress" --no-autoloader --prefer-source --no-interaction --with-dependencies
-  - composer update "woocommerce/woocommerce" --no-autoloader --prefer-source --no-interaction --with-dependencies
-  - |
-    if [[ "$WC_VERSION" == "dev-master" ]]; then
-      composer update "woocommerce/woocommerce-admin" --no-autoloader --prefer-source --no-interaction --with-dependencies
-    fi
   - npm run ci:setup
 
 before_script:

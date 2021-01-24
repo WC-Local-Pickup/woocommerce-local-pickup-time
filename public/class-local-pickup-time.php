@@ -447,11 +447,7 @@ class Local_Pickup_Time {
 
 		// Set, or update, the WP option to track database versions for the plugin.
 		if ( ! self::plugin_version_check() ) {
-
-			// Run migration check routine.
-			if ( self::VERSION < 1 ) {
-				update_option( 'wlpt_db_version', self::VERSION, true );
-			}
+			update_option( 'wlpt_db_version', self::VERSION, true );
 		}
 
 	}
