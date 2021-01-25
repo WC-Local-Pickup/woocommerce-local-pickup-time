@@ -93,7 +93,7 @@ before_install:
   - composer self-update --1
   - composer install --no-autoloader --prefer-source --no-interaction
   - |
-    if [[ "$PHP_UNIT" == "1" OR "$PHP_ANALYZE" == "1" ]]; then
+    if [[ "$PHP_UNIT" == "1" || "$PHP_ANALYZE" == "1" ]]; then
       composer require "wordpress/wordpress:${WP_VERSION}" --dev --no-autoloader --prefer-source --with-dependencies
       composer require "woocommerce/woocommerce:${WC_VERSION}" --dev --no-autoloader --prefer-source --with-dependencies
       if [[ "$WC_VERSION" == "dev-master" ]]; then

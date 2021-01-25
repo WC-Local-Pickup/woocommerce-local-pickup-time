@@ -20,7 +20,16 @@ class Local_Pickup_Time {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '1.4.0';
+	const VERSION = '1.3.12';
+
+	/**
+	 * Plugin version wp_options meta key.
+	 *
+	 * @since    0.0.0
+	 *
+	 * @var      string
+	 */
+	const DB_VERSION_META_KEY = 'wlpt_db_version';
 
 	/**
 	 * Unique identifier for plugin.
@@ -97,7 +106,7 @@ class Local_Pickup_Time {
 	/**
 	 * Order $_POST key for storing Local Pickup Time.
 	 *
-	 * @since     1.4.0
+	 * @since     0.0.0
 	 *
 	 * @var       string
 	 */
@@ -106,16 +115,16 @@ class Local_Pickup_Time {
 	/**
 	 * Order pickup time nonce key.
 	 *
-	 * @since     1.4.0
+	 * @since     0.0.0
 	 *
 	 * @var       string
 	 */
-	protected $order_pickup_time_nonce_key = '_wcpickuptimenonce';
+	protected $order_pickup_time_nonce_key = '_wlptnonce';
 
 	/**
 	 * Order pickup time action key.
 	 *
-	 * @since     1.4.0
+	 * @since     0.0.0
 	 *
 	 * @var       string
 	 */
@@ -278,7 +287,7 @@ class Local_Pickup_Time {
 	/**
 	 * Return the plugin order $_POST key used for submitting the Local Pickup Time.
 	 *
-	 * @since     1.4.0
+	 * @since     0.0.0
 	 *
 	 * @return    string   The order $_POST key that stores the submitted Local Pickup Time.
 	 */
@@ -291,7 +300,7 @@ class Local_Pickup_Time {
 	/**
 	 * Return the plugin order pickup time nonce key, used to validate submissions.
 	 *
-	 * @since     1.4.0
+	 * @since     0.0.0
 	 *
 	 * @return    string
 	 */
@@ -305,7 +314,7 @@ class Local_Pickup_Time {
 	 * Return the plugin order pickup time action key, used to create and
 	 * validate the field nonce.
 	 *
-	 * @since     1.4.0
+	 * @since     0.0.0
 	 *
 	 * @return    string
 	 */
@@ -447,7 +456,7 @@ class Local_Pickup_Time {
 
 		// Set, or update, the WP option to track database versions for the plugin.
 		if ( ! self::plugin_version_check() ) {
-			update_option( 'wlpt_db_version', self::VERSION, true );
+			update_option( self::DB_VERSION_META_KEY, self::VERSION, true );
 		}
 
 	}
@@ -483,13 +492,13 @@ class Local_Pickup_Time {
 	/**
 	 * Perform a version check of the plugin against the last activated version.
 	 *
-	 * @since    1.4.0
+	 * @since    0.0.0
 	 *
 	 * @return boolean   Returns TRUE if the plugin and database versions match, otherwise FALSE if the values don't match.
 	 */
 	public static function plugin_version_check() {
 
-		return version_compare( self::VERSION, get_option( 'wlpt_db_version' ), '>=' );
+		return version_compare( self::VERSION, get_option( self::DB_VERSION_META_KEY ), '>=' );
 
 	}
 

@@ -183,6 +183,28 @@ module.exports = function (grunt) {
 			},
 		},
 
+		// Bump version numbers
+		version: {
+			class: {
+				options: {
+					prefix: "const VERSION = '"
+				},
+				src: ['<%= pkg.name %>.php']
+			},
+			header: {
+				options: {
+					prefix: '\\* Version:\\s+'
+				},
+				src: ['<%= pkg.name %>.php']
+			},
+			readme: {
+				options: {
+					prefix: 'Stable tag:\\s+'
+				},
+				src: ['readme.txt']
+			}
+		},
+
 		wp_deploy: {
 			deploy: {
 				options: {
@@ -206,8 +228,8 @@ module.exports = function (grunt) {
 	grunt.registerTask('readme', ['wp_readme_to_markdown']);
 	grunt.registerTask('test', ['checktextdomain', 'phpcs']);
 	grunt.registerTask('build', ['gitinfo', 'test', 'clean', 'i18n', 'readme', 'copy']);
-	//grunt.registerTask( 'deploy', [ 'checkbranch:master', 'checkrepo', 'build', 'wp_deploy' ] );
-	grunt.registerTask('deploy', [ 'checkbranch:master', 'checkrepo', 'build' ]);
+	//grunt.registerTask( 'deploy', [ 'checkbranch:main', 'checkrepo', 'build', 'wp_deploy' ] );
+	grunt.registerTask('deploy', ['checkbranch:main', 'checkrepo', 'build']);
 
 };
 
