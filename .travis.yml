@@ -93,10 +93,10 @@ before_install:
   - composer self-update --1
   - |
     if [[ "$PHP_UNIT" == "1" || "$PHP_ANALYZE" == "1" ]]; then
-      composer require "wordpress/wordpress:${WP_VERSION}" --dev --no-autoloader --prefer-source --with-dependencies
-      composer require "woocommerce/woocommerce:${WC_VERSION}" --dev --no-autoloader --prefer-source --with-dependencies
+      composer require "wordpress/wordpress:${WP_VERSION}" --dev --prefer-source --with-dependencies
+      composer require "woocommerce/woocommerce:${WC_VERSION}" --dev --prefer-source --with-dependencies
       if [[ "$WC_VERSION" == "dev-master" ]]; then
-        composer require "woocommerce/woocommerce-admin:v1.3.0-beta.1" --dev --no-autoloader --prefer-source --with-dependencies
+        composer require "woocommerce/woocommerce-admin:v1.3.0-beta.1" --dev --prefer-source --with-dependencies
       fi
     fi
 
