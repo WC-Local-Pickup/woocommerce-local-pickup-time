@@ -91,6 +91,7 @@ addons:
 before_install:
   - npm install -g npm@6.14
   - composer self-update --1
+  # Setup correct WordPress & WooCommerce versions.
   - |
     if [[ "$PHP_UNIT" == "1" || "$PHP_ANALYZE" == "1" ]]; then
       composer require "wordpress/wordpress:${WP_VERSION}" --dev --prefer-source --with-dependencies
@@ -99,25 +100,7 @@ before_install:
         composer require "woocommerce/woocommerce-admin:v1.3.0-beta.1" --dev --prefer-source --with-dependencies
       fi
     fi
-
-install:
-  - |
-    if [[ "$PHP_UNIT" == "1" || "$PHP_ANALYZE" == "1" ]]; then
-      npm run ci:setup
-    fi
-  - |
-    if [[ "$I18N" == "1" || "$PHP_LINT" == "1" ]]; then
-      npm run ci:setup:minimal
-    fi
-
-before_script:
-  - export PATH="$HOME/.composer/vendor/bin:$PATH"
-  # Setup WordPress coding standards
-  - |
-    if [[ "$PHP_LINT" == "1" ]]; then
-      composer global require wp-coding-standards/wpcs
-    fi
-  # Setup unit testing environment
+  # Setup unit testing environment.
   - |
     if [[ "$PHP_UNIT" == "1" ]]; then
       # bash scripts/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
@@ -129,6 +112,12 @@ before_script:
         composer global require "phpunit/phpunit=7.*"
       fi
     fi
+
+install:
+  - npm run ci:setup
+
+before_script:
+  - export PATH="$HOME/.composer/vendor/bin:$PATH"
 
 script:
   - |

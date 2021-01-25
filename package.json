@@ -64,7 +64,6 @@
 	},
 	"scripts": {
 		"setup": "npm run setup:npm && npm run setup:composer -- --no-autoloader && npm run setup:woocommerce && npm run setup:wordpress && npm run setup:composer -- --optimize-autoloader",
-		"ci:setup:minimal": "npm run setup:npm && npm run setup:composer",
 		"ci:setup": "npm run setup:npm && npm run setup:composer -- --no-autoloader && npm run ci:woocommerce && npm run ci:wordpress && npm run setup:composer -- --optimize-autoloader",
 		"setup:npm": "npm install",
 		"setup:composer": "composer install",
