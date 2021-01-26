@@ -42,5 +42,5 @@ jobs:
     - name: NPM Install
       run: npm install
 
-    - name: Lint JavaScript and Styles
+    - name: Check i18n Compliance
       run: npm run i18n:check

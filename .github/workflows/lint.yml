@@ -39,7 +39,7 @@ jobs:
       uses: php-actions/composer@v5
       with:
         args: --prefer-source --with-dependencies
-        php_version: '$PHP_VERSION'
+        php_version: ${{ env.PHP_VERSION }}
         version: 1
 
     - name: Check WordPress Coding Standards
