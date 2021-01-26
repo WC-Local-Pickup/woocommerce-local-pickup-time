@@ -38,7 +38,7 @@ jobs:
       # https://github.com/marketplace/actions/composer-php-actions
       uses: php-actions/composer@v5
       with:
-        args: --prefer-source --with-dependencies
+        args: --prefer-source
         php_version: ${{ env.PHP_VERSION }}
         version: 1
 
