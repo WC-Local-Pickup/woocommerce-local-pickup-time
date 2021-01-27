@@ -43,7 +43,7 @@ jobs:
       with:
         php_version: ${{ env.PHP_VERSION }}
         version: 1
-        command: require wordpress/wordpress:${{ env.WP_VERSION }} --dev --prefer-source
+        command: require wordpress/wordpress:${{ env.WP_VERSION }} --dev --prefer-source --update-with-all-dependencies
 
     - name: Require Specified WooCommerce Version
       # https://github.com/marketplace/actions/composer-php-actions
@@ -51,7 +51,7 @@ jobs:
       with:
         php_version: ${{ env.PHP_VERSION }}
         version: 1
-        command: require woocommerce/woocommerce:${{ env.WC_VERSION }} --dev --prefer-source
+        command: require woocommerce/woocommerce:${{ env.WC_VERSION }} --dev --prefer-source --update-with-all-dependencies
 
     - name: Require Specified WooCommerce Admin Version
       if: ${{ env.WC_VERSION }} == 'dev-master'
@@ -75,4 +75,5 @@ jobs:
       with:
         php_version: ${{ env.PHP_VERSION }}
         version: 1
+        interaction: yes
         command: run-script phpstan analyze .
