@@ -101,13 +101,13 @@
 		"post-update-cmd": [
 			"@install-codestandards"
 		],
+		"pre-autoload-dump": [
+			"cd vendor/woocommerce/woocommerce && composer install && cd ../../../",
+			"cd wordpress && composer install && cd .."
+		],
 		"phpcs": "vendor/bin/phpcs",
 		"phpcbf": "vendor/bin/phpcbf",
-		"phpstan": "vendor/bin/phpstan",
-		"pre-autoload-dump": [
-			"cd vendor/woocommerce/woocommerce && npm install && composer install && cd ../../../",
-			"cd wordpress && npm install && composer install && cd .."
-		]
+		"phpstan": "vendor/bin/phpstan"
 	},
 	"extra": {
 		"installer-paths": {
