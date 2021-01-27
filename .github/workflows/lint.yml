@@ -48,7 +48,7 @@ jobs:
       with:
         php_version: ${{ env.PHP_VERSION }}
         version: 1
-        command: cd vendor/woocommerce/woocommerce && composer install && cd ../../../
+        command: run-script setup-woocommerce
 
     - name: Setup Composer Dependencies w/ Autoloader
       # https://github.com/marketplace/actions/composer-php-actions

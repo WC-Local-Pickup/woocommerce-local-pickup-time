@@ -103,7 +103,8 @@
 		],
 		"phpcs": "vendor/bin/phpcs",
 		"phpcbf": "vendor/bin/phpcbf",
-		"phpstan": "\"vendor/bin/phpstan\""
+		"phpstan": "vendor/bin/phpstan",
+		"setup-woocommerce": "cd vendor/woocommerce/woocommerce && composer install && cd ../../../"
 	},
 	"extra": {
 		"installer-paths": {
