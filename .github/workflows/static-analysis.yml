@@ -43,7 +43,7 @@ jobs:
       with:
         php_version: ${{ env.PHP_VERSION }}
         version: 1
-        command: require wordpress/wordpress:${{ env.WP_VERSION }} --dev --prefer-source --with-dependencies
+        command: require wordpress/wordpress:${{ env.WP_VERSION }} --dev --prefer-source
 
     - name: Require Specified WooCommerce Version
       # https://github.com/marketplace/actions/composer-php-actions
@@ -51,7 +51,7 @@ jobs:
       with:
         php_version: ${{ env.PHP_VERSION }}
         version: 1
-        command: require woocommerce/woocommerce:${{ env.WC_VERSION }} --dev --prefer-source --with-dependencies
+        command: require woocommerce/woocommerce:${{ env.WC_VERSION }} --dev --prefer-source
 
     - name: Require Specified WooCommerce Admin Version
       if: ${{ env.WC_VERSION }} == 'dev-master'
@@ -60,7 +60,7 @@ jobs:
       with:
         php_version: ${{ env.PHP_VERSION }}
         version: 1
-        command: require woocommerce/woocommerce-admin:v1.3.0-beta.1 --dev --prefer-source --with-dependencies
+        command: require woocommerce/woocommerce-admin:v1.3.0-beta.1 --dev --prefer-source
 
     - name: Install Composer Dependencies
       # https://github.com/marketplace/actions/composer-php-actions
