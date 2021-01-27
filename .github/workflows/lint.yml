@@ -41,8 +41,8 @@ jobs:
         php_version: ${{ env.PHP_VERSION }}
         version: 1
 
-    - name: Check WordPress Coding Standards
-      run: cd vendor/woocommerce/woocommerce && composer install && cd ../../../
+    - name: Setup WooCommerce for Autoloader
+      run: composer self-update --1 && cd vendor/woocommerce/woocommerce && composer install && cd ../../../
 
     - name: Setup Composer Dependencies w/ Autoloader
       # https://github.com/marketplace/actions/composer-php-actions
