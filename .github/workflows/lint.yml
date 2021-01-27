@@ -35,6 +35,7 @@ jobs:
           ${{ runner.os }}-
 
     - name: Install Composer Dependencies w/o Autoloader
+      # https://github.com/marketplace/actions/composer-php-actions
       uses: php-actions/composer@v5
       with:
         args: --no-autoloader
@@ -42,7 +43,12 @@ jobs:
         version: 1
 
     - name: Setup WooCommerce for Autoloader
-      run: composer self-update --1 && cd vendor/woocommerce/woocommerce && composer install && cd ../../../
+      # https://github.com/marketplace/actions/composer-php-actions
+      uses: php-actions/composer@v5
+      with:
+        php_version: ${{ env.PHP_VERSION }}
+        version: 1
+        command: cd vendor/woocommerce/woocommerce && composer install && cd ../../../
 
     - name: Setup Composer Dependencies w/ Autoloader
       # https://github.com/marketplace/actions/composer-php-actions
