@@ -39,7 +39,7 @@ jobs:
 
     - name: Require Specified WordPress Version
       # https://github.com/marketplace/actions/composer-php-actions
-      uses: php-actions/composer@5
+      uses: php-actions/composer@v5
       with:
         php_version: ${{ env.PHP_VERSION }}
         version: 1
@@ -47,7 +47,7 @@ jobs:
 
     - name: Require Specified WooCommerce Version
       # https://github.com/marketplace/actions/composer-php-actions
-      uses: php-actions/composer@5
+      uses: php-actions/composer@v5
       with:
         php_version: ${{ env.PHP_VERSION }}
         version: 1
@@ -56,7 +56,7 @@ jobs:
     - name: Require Specified WooCommerce Admin Version
       if: ${{ env.WC_VERSION }} == 'dev-master'
       # https://github.com/marketplace/actions/composer-php-actions
-      uses: php-actions/composer@5
+      uses: php-actions/composer@v5
       with:
         php_version: ${{ env.PHP_VERSION }}
         version: 1
