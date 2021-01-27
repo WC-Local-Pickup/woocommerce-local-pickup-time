@@ -47,4 +47,4 @@ jobs:
       with:
         php_version: ${{ env.PHP_VERSION }}
         version: 1
-        command: run-script phpcs --report=full .
+        command: run-script phpcs -- --report=full .
