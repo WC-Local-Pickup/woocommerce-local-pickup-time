@@ -34,18 +34,21 @@ jobs:
           ${{ runner.os }}-build-
           ${{ runner.os }}-
 
-    - name: Remove WooCommerce Dependency
+    - name: Install Composer Dependencies w/o Autoloader
       uses: php-actions/composer@v5
       with:
-        command: remove --dev woocommerce/woocommerce
+        args: --no-autoloader
         php_version: ${{ env.PHP_VERSION }}
         version: 1
 
-    - name: Install Composer Dependencies
+    - name: Check WordPress Coding Standards
+      run: cd vendor/woocommerce/woocommerce && composer install && cd ../../../
+
+    - name: Setup Composer Dependencies w/ Autoloader
       # https://github.com/marketplace/actions/composer-php-actions
       uses: php-actions/composer@v5
       with:
-        args: --prefer-source
+        args: --optimize-autoloader
         php_version: ${{ env.PHP_VERSION }}
         version: 1
 
