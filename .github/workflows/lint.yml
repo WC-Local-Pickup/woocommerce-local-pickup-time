@@ -37,7 +37,7 @@ jobs:
     - name: Remove WooCommerce Dependency
       uses: php-actions/composer@v5
       with:
-        command: remove -dev woocommerce/woocommerce
+        command: remove --dev woocommerce/woocommerce
         php_version: ${{ env.PHP_VERSION }}
         version: 1
 
