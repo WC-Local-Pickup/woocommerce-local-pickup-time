@@ -63,14 +63,11 @@
 		"welcome-build-command": "npm run env start"
 	},
 	"scripts": {
-		"setup": "npm run setup:npm && npm run setup:composer -- --no-autoloader && npm run setup:woocommerce && npm run setup:wordpress && npm run setup:composer -- --optimize-autoloader",
-		"ci:setup": "npm run setup:npm && npm run setup:composer -- --no-autoloader && npm run ci:woocommerce && npm run ci:wordpress && npm run setup:composer -- --optimize-autoloader",
+		"setup": "npm run setup:npm && npm run setup:composer",
 		"setup:npm": "npm install",
 		"setup:composer": "composer install",
-		"setup:woocommerce": "cd vendor/woocommerce/woocommerce && npm install && npm run build && cd ../../../",
-		"ci:woocommerce": "cd vendor/woocommerce/woocommerce && npm install && composer install && cd ../../../",
-		"setup:wordpress": "cd wordpress && npm install && npm run build && cd ..",
-		"ci:wordpress": "cd wordpress && npm install && composer install && cd ..",
+		"build:woocommerce": "cd vendor/woocommerce/woocommerce && npm run build && cd ../../../",
+		"build:wordpress": "cd wordpress && npm run build && cd ..",
 		"start": "npm run env start",
 		"stop": "npm run env stop",
 		"restart": "npm run wp-env stop && npm run wp-env start",
@@ -87,9 +84,9 @@
 		"i18n:make": "npm run grunt i18n",
 		"i18n:make:cli": "wp-env run cli wp i18n make-pot . languages/ --slug=daggerhart-openid-connect-generic --include=openid-connect-generic.php,includes",
 		"lint": "npm run lint:php",
-		"lint:php": "vendor/bin/phpcs --report=full .",
-		"lint:php:fix": "vendor/bin/phpcbf .",
+		"lint:php": "composer run-script phpcs --report=full .",
+		"lint:php:fix": "composer run-script phpcbf .",
 		"analyze": "npm run analyze:php",
-		"analyze:php": "vendor/bin/phpstan analyze ."
+		"analyze:php": "composer run-script phpstan analyze ."
 	}
 }

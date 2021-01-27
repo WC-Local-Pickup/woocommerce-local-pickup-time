@@ -104,7 +104,10 @@
 		"phpcs": "vendor/bin/phpcs",
 		"phpcbf": "vendor/bin/phpcbf",
 		"phpstan": "vendor/bin/phpstan",
-		"setup-woocommerce": "cd vendor/woocommerce/woocommerce && composer install && cd ../../../"
+		"pre-autoload-dump": [
+			"cd vendor/woocommerce/woocommerce && npm install && composer install && cd ../../../",
+			"cd wordpress && npm install && composer install && cd .."
+		]
 	},
 	"extra": {
 		"installer-paths": {

@@ -34,29 +34,17 @@ jobs:
           ${{ runner.os }}-build-
           ${{ runner.os }}-
 
-    - name: Install Composer Dependencies w/o Autoloader
+    - name: Install Composer Dependencies
       # https://github.com/marketplace/actions/composer-php-actions
       uses: php-actions/composer@v5
       with:
-        args: --no-autoloader
-        php_version: ${{ env.PHP_VERSION }}
-        version: 1
-
-    - name: Setup WooCommerce for Autoloader
-      # https://github.com/marketplace/actions/composer-php-actions
-      uses: php-actions/composer@v5
-      with:
-        php_version: ${{ env.PHP_VERSION }}
-        version: 1
-        command: run-script setup-woocommerce
-
-    - name: Setup Composer Dependencies w/ Autoloader
-      # https://github.com/marketplace/actions/composer-php-actions
-      uses: php-actions/composer@v5
-      with:
-        args: --optimize-autoloader
         php_version: ${{ env.PHP_VERSION }}
         version: 1
 
     - name: Check WordPress Coding Standards
-      run: vendor/bin/phpcs --report=full .
+      # https://github.com/marketplace/actions/composer-php-actions
+      uses: php-actions/composer@v5
+      with:
+        php_version: ${{ env.PHP_VERSION }}
+        version: 1
+        command: run-script phpcs --report=full .

@@ -1,0 +1,78 @@
+name: Static Code Analysis
+
+on:
+  pull_request:
+  push:
+    branches:
+      - develop
+      - main
+      - 'dev-release/**'
+      - 'feature/**'
+      - 'fix/**'
+env:
+  PHP_VERSION: 7.3
+  WP_MODE: 'single'
+  WP_MULTISITE: 0
+  WP_VERSION: '5.5.*'
+  WC_VERSION: '4.7.*'
+
+jobs:
+  check:
+    name: All
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Cache Composer dependencies
+      uses: actions/cache@v2
+      env:
+        composer-cache-name: cache-vendor
+      with:
+        path: ~/vendor
+        key: ${{ runner.os }}-build-${{ env.composer-cache-name }}-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.composer-cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+
+    - name: Require Specified WordPress Version
+      # https://github.com/marketplace/actions/composer-php-actions
+      uses: php-actions/composer@5
+      with:
+        php_version: ${{ env.PHP_VERSION }}
+        version: 1
+        command: require wordpress/wordpress:${{ env.WP_VERSION }} --dev --prefer-source --with-dependencies
+
+    - name: Require Specified WooCommerce Version
+      # https://github.com/marketplace/actions/composer-php-actions
+      uses: php-actions/composer@5
+      with:
+        php_version: ${{ env.PHP_VERSION }}
+        version: 1
+        command: require woocommerce/woocommerce:${{ env.WC_VERSION }} --dev --prefer-source --with-dependencies
+
+    - name: Require Specified WooCommerce Admin Version
+      if: ${{ env.WC_VERSION }} == 'dev-master'
+      # https://github.com/marketplace/actions/composer-php-actions
+      uses: php-actions/composer@5
+      with:
+        php_version: ${{ env.PHP_VERSION }}
+        version: 1
+        command: require woocommerce/woocommerce-admin:v1.3.0-beta.1 --dev --prefer-source --with-dependencies
+
+    - name: Install Composer Dependencies
+      # https://github.com/marketplace/actions/composer-php-actions
+      uses: php-actions/composer@v5
+      with:
+        php_version: ${{ env.PHP_VERSION }}
+        version: 1
+
+    - name: Check WordPress Coding Standards
+      # https://github.com/marketplace/actions/composer-php-actions
+      uses: php-actions/composer@v5
+      with:
+        php_version: ${{ env.PHP_VERSION }}
+        version: 1
+        command: run-script phpstan analyze .
