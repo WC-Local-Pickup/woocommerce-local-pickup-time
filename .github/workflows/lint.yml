@@ -34,7 +34,14 @@ jobs:
           ${{ runner.os }}-build-
           ${{ runner.os }}-
 
-    - name: Install Composer dependencies
+    - name: Remove WooCommerce Dependency
+      uses: php-actions/composer@v5
+      with:
+        command: remove woocommerce/woocommerce
+        php_version: ${{ env.PHP_VERSION }}
+        version: 1
+
+    - name: Install Composer Dependencies
       # https://github.com/marketplace/actions/composer-php-actions
       uses: php-actions/composer@v5
       with:
