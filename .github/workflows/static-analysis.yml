@@ -25,8 +25,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: shivammathur/setup-php@v2
+      # https://github.com/marketplace/actions/setup-php-action
       with:
         php-version: ${{ env.PHP_VERSION }}
+        tools: composer:v1
 
     - name: Cache Composer dependencies
       uses: actions/cache@v2
@@ -41,33 +43,13 @@ jobs:
           ${{ runner.os }}-
 
     - name: Require Specified WordPress Version
-      # https://github.com/marketplace/actions/composer-php-actions
-      uses: php-actions/composer@v5
-      with:
-        php_version: ${{ env.PHP_VERSION }}
-        version: 1
-        command: require wordpress/wordpress:${{ env.WP_VERSION }} --dev --prefer-source --update-with-all-dependencies
+      run: composer require wordpress/wordpress:${{ env.WP_VERSION }} --dev --prefer-source --update-with-all-dependencies
 
     - name: Require Specified WooCommerce Version
-      # https://github.com/marketplace/actions/composer-php-actions
-      uses: php-actions/composer@v5
-      with:
-        php_version: ${{ env.PHP_VERSION }}
-        version: 1
-        command: require woocommerce/woocommerce:${{ env.WC_VERSION }} --dev --prefer-source --update-with-all-dependencies
+      run: composer require woocommerce/woocommerce:${{ env.WC_VERSION }} --dev --prefer-source --update-with-all-dependencies
 
     - name: Install Composer Dependencies
-      # https://github.com/marketplace/actions/composer-php-actions
-      uses: php-actions/composer@v5
-      with:
-        php_version: ${{ env.PHP_VERSION }}
-        version: 1
+      run: composer install
 
     - name: Perform Static Analysis
-      # run: vendor/bin/phpstan analyze .
-      # https://github.com/marketplace/actions/composer-php-actions
-      uses: php-actions/composer@v5
-      with:
-        php_version: ${{ env.PHP_VERSION }}
-        version: 1
-        command: run-script analyze
+      run: composer run-script analyze

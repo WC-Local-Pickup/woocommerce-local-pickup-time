@@ -22,8 +22,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: shivammathur/setup-php@v2
+      # https://github.com/marketplace/actions/setup-php-action
       with:
         php-version: ${{ env.PHP_VERSION }}
+        tools: composer:v1
 
     - name: Cache Composer dependencies
       uses: actions/cache@v2
@@ -38,17 +40,7 @@ jobs:
           ${{ runner.os }}-
 
     - name: Install Composer Dependencies
-      # https://github.com/marketplace/actions/composer-php-actions
-      uses: php-actions/composer@v5
-      with:
-        php_version: ${{ env.PHP_VERSION }}
-        version: 1
+      run: composer install
 
     - name: Check WordPress Coding Standards
-      # run: vendor/bin/phpcs --report=full .
-      # https://github.com/marketplace/actions/composer-php-actions
-      uses: php-actions/composer@v5
-      with:
-        php_version: ${{ env.PHP_VERSION }}
-        version: 1
-        command: run-script lint
+      run: composer run-script lint
