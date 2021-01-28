@@ -9,7 +9,6 @@ on:
       - 'dev-release/**'
       - 'feature/**'
       - 'fix/**'
-
 env:
   WP_MULTISITE: 0
 
