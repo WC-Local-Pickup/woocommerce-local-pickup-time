@@ -42,4 +42,10 @@ jobs:
         version: 1
 
     - name: Check WordPress Coding Standards
-      run: vendor/bin/phpcs --report=full .
+      # run: vendor/bin/phpcs --report=full .
+      # https://github.com/marketplace/actions/composer-php-actions
+      uses: php-actions/composer@v5
+      with:
+        php_version: ${{ env.PHP_VERSION }}
+        version: 1
+        command: run-script lint

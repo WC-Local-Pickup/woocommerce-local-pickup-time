@@ -60,5 +60,11 @@ jobs:
         php_version: ${{ env.PHP_VERSION }}
         version: 1
 
-    - name: Check WordPress Coding Standards
-      run: vendor/bin/phpstan analyze .
+    - name: Perform Static Analysis
+      # run: vendor/bin/phpstan analyze .
+      # https://github.com/marketplace/actions/composer-php-actions
+      uses: php-actions/composer@v5
+      with:
+        php_version: ${{ env.PHP_VERSION }}
+        version: 1
+        command: run-script analyze

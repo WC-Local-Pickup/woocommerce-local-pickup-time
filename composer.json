@@ -64,16 +64,20 @@
 	},
 	"autoload-dev": {
 		"classmap": [
+			"woocommerce-local-pickup-time.php",
+			"admin/class-local-pickup-time-admin.php",
+			"public/class-local-pickup-time.php",
 			"wordpress/src/",
 			"vendor/woocommerce/woocommerce/includes/"
 		],
 		"exclude-from-classmap": [
-			"/vendor/woocommerce/woocommerce/vendor/",
-			"/vendor/woocommerce/woocommerce/packages/",
-			"/vendor/woocommerce/woocommerce-rest-api/",
-			"/vendor/woocommerce/woocommerce-blocks/",
-			"/vendor/woocommerce/action-scheduler/",
-			"/vendor/woocommerce/woocommerce-admin/"
+			"/vendor/woocommerce/woocommerce/vendor/**",
+			"/vendor/woocommerce/woocommerce/packges/**",
+			"/vendor/woocommerce/woocommerce-rest-api/**",
+			"/vendor/woocommerce/woocommerce-blocks/**",
+			"/vendor/woocommerce/action-scheduler/**",
+			"/vendor/woocommerce/woocommerce-admin/**",
+			"/wordpress/vendor/**"
 		]
 	},
 	"autoload": {
@@ -83,12 +87,13 @@
 			"public/class-local-pickup-time.php"
 		],
 		"exclude-from-classmap": [
-			"/vendor/woocommerce/woocommerce/vendor/",
-			"/vendor/woocommerce/woocommerce/packges/",
-			"/vendor/woocommerce/woocommerce-rest-api/",
-			"/vendor/woocommerce/woocommerce-blocks/",
-			"/vendor/woocommerce/action-scheduler/",
-			"/vendor/woocommerce/woocommerce-admin/"
+			"vendor/woocommerce/woocommerce/vendor/**",
+			"vendor/woocommerce/woocommerce/packges/**",
+			"vendor/woocommerce/woocommerce-rest-api/**",
+			"vendor/woocommerce/woocommerce-blocks/**",
+			"vendor/woocommerce/action-scheduler/**",
+			"vendor/woocommerce/woocommerce-admin/**",
+			"wordpress/vendor/**"
 		]
 	},
 	"scripts": {
@@ -106,7 +111,9 @@
 		],
 		"phpcs": "vendor/bin/phpcs",
 		"phpcbf": "vendor/bin/phpcbf",
-		"phpstan": "vendor/bin/phpstan"
+		"phpstan": "vendor/bin/phpstan",
+		"lint": "vendor/bin/phpcs --report=full .",
+		"analyze": "vendor/bin/phpstan analyze ."
 	},
 	"extra": {
 		"installer-paths": {
