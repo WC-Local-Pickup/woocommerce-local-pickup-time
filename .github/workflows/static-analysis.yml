@@ -53,15 +53,6 @@ jobs:
         version: 1
         command: require woocommerce/woocommerce:${{ env.WC_VERSION }} --dev --prefer-source --update-with-all-dependencies
 
-    - name: Require Specified WooCommerce Admin Version
-      if: ${{ env.WC_VERSION }} == 'dev-master'
-      # https://github.com/marketplace/actions/composer-php-actions
-      uses: php-actions/composer@v5
-      with:
-        php_version: ${{ env.PHP_VERSION }}
-        version: 1
-        command: require woocommerce/woocommerce-admin:v1.3.0-beta.1 --dev --prefer-source
-
     - name: Install Composer Dependencies
       # https://github.com/marketplace/actions/composer-php-actions
       uses: php-actions/composer@v5
@@ -70,10 +61,4 @@ jobs:
         version: 1
 
     - name: Check WordPress Coding Standards
-      # https://github.com/marketplace/actions/composer-php-actions
-      uses: php-actions/composer@v5
-      with:
-        php_version: ${{ env.PHP_VERSION }}
-        version: 1
-        interaction: yes
-        command: run-script phpstan analyze .
+      run: vendor/bin/phpstan analyze .
