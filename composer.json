@@ -102,8 +102,7 @@
 			"@install-codestandards"
 		],
 		"pre-autoload-dump": [
-			"cd vendor/woocommerce/woocommerce && composer install && cd ../../../",
-			"cd wordpress && composer install && cd .."
+			"cd vendor/woocommerce/woocommerce && composer install && cd ../../../"
 		],
 		"phpcs": "vendor/bin/phpcs",
 		"phpcbf": "vendor/bin/phpcbf",
