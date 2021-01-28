@@ -1,0 +1,107 @@
+name: Unit Testing
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+      - 'dev-release/**'
+      - 'feature/**'
+      - 'fix/**'
+
+env:
+  PHP_MIN_VERSION: '7.2'
+  PHP_PREF_MIN_VERSION: '7.3'
+  PHP_STABLE_VERSION: '7.4'
+  WP_MIN_VERSION: '5.3.*'
+  WP_PREF_MIN_VERSION: '5.4.*'
+  WP_STABLE_VERSION: '5.5.*'
+  WC_MIN_VERSION: '4.6.*'
+  WC_PREF_MIN_VERSION: '4.7.*'
+  WC_STABLE_VERSION: '4.8.*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.bleeding-edge }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        bleeding-edge: [false]
+        include:
+          - name: 'Latest Stable'
+            php-version: ${{ env.PHP_PREF_MIN_VERSION }}
+            wordpress-version: ${{ env.WP_STABLE_VERSION }}
+            wp-multisite-mode: 0
+            woocommerce-version: ${{ env.WC_STABLE_VERSION }}
+          - name: 'Preferred Minimum requirements'
+            php-version: ${{ env.PHP_PREF_MIN_VERSION }}
+            wordpress-version: ${{ env.WP_PREF_MIN_VERSION }}
+            wp-multisite-mode: 0
+            woocommerce-version: ${{ env.WC_PREF_MIN_VERSION }}
+          - name: 'Minimum requirements'
+            php-version: ${{ env.PHP_MIN_VERSION }}
+            wordpress-version: ${{ env.WP_MIN_VERSION }}
+            wp-multisite-mode: 0
+            woocommerce-version: ${{ env.WC_MIN_VERSION }}
+          - name: 'Bleeding Edge'
+            bleeding-edge: true
+            php-version: ${{ env.PHP_STABLE_VERSION }}
+            wordpress-version: 'dev-master'
+            wp-multisite-mode: 0
+            woocommerce-version: 'dev-master'
+          - name: 'Multisite Compatibility'
+            php-version: ${{ env.PHP_PREF_MIN_VERSION }}
+            wordpress-version: ${{ env.WP_PREF_MIN_VERSION }}
+            wp-multisite-mode: 1
+            woocommerce-version: ${{ env.WC_PREF_MIN_VERSION }}
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: shivammathur/setup-php@v2
+      # https://github.com/marketplace/actions/setup-php-action
+      with:
+        php-version: ${{ matrix.php-version }}
+        tools: composer:v1
+    - uses: actions/setup-node@v1
+      # https://github.com/marketplace/actions/setup-node-js-environment
+      with:
+        node-version: 12.x
+
+    - name: Cache Composer dependencies
+      uses: actions/cache@v2
+      env:
+        composer-cache-name: cache-vendor
+      with:
+        path: ~/vendor
+        key: ${{ runner.os }}-build-${{ env.composer-cache-name }}-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.composer-cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
+
+    - name: Require Specified WordPress Version
+      run: composer require wordpress/wordpress:${{ matrix.wordpress-version }} --dev --prefer-source --update-with-all-dependencies
+
+    - name: Require Specified WooCommerce Version
+      run: composer require woocommerce/woocommerce:${{ matrix.woocommerce-version }} --dev --prefer-source --update-with-all-dependencies
+
+    - name: Require Specified WooCommerce Admin Version
+      if: ${{ matrix.woocommerce-version }} == 'dev-master'
+      run: composer require woocommerce/woocommerce-admin:v1.3.0-beta.1 --dev --prefer-source --update-with-all-dependencies
+
+    - name: PHPUnit PHP 7.4 Support
+      if: ${{ matrix.php-version }} == '7.4'
+      run: |
+        composer global require phpunit/php-code-coverage=dev-master
+        composer global require sebastian/global-state:dev-master
+        composer global require phpunit/phpunit=dev-master
+
+    - name: Environment Setup
+      run: npm run ci:setup
+
+    - name: Unit Tests
+      env:
+        WP_MULTISITE: ${{ matrix.wp-multisite-mode }}
+      run: npm run test

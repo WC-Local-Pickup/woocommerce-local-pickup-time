@@ -9,6 +9,7 @@ on:
       - 'dev-release/**'
       - 'feature/**'
       - 'fix/**'
+
 env:
   WP_MULTISITE: 0
 
@@ -20,6 +21,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      # https://github.com/marketplace/actions/setup-node-js-environment
+      with:
+        node-version: 12.x
 
     - name: Cache node modules
       uses: actions/cache@v2
@@ -33,11 +38,6 @@ jobs:
           ${{ runner.os }}-build-${{ env.npm-cache-name }}-
           ${{ runner.os }}-build-
           ${{ runner.os }}-
-
-    - name: Use Node.js 12.x
-      uses: actions/setup-node@v1
-      with:
-        node-version: 12.x
 
     - name: NPM Install
       run: npm install

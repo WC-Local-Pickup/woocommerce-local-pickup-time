@@ -9,6 +9,7 @@ on:
       - 'dev-release/**'
       - 'feature/**'
       - 'fix/**'
+
 env:
   PHP_VERSION: 7.3
   WP_MULTISITE: 0
