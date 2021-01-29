@@ -59,7 +59,7 @@ jobs:
         composer global require phpunit/phpunit=dev-master
 
     - name: NPM Setup
-      run: npm run install
+      run: npm install
 
     - name: Unit Tests
       run: npm run test
