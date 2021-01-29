@@ -66,7 +66,6 @@
 		"setup": "npm run setup:npm && npm run setup:composer",
 		"setup:npm": "npm install",
 		"setup:composer": "composer install",
-		"setup:ci": "npm run setup:npm && npm run build:wordpress && npm run build:woocommerce",
 		"build:wordpress": "cd wordpress && npm install && npm run build && cd ..",
 		"build:woocommerce": "cd vendor/woocommerce/woocommerce && npm install && npm run build && cd ../../../",
 		"start": "npm run env start",

@@ -116,8 +116,8 @@ jobs:
         composer global require sebastian/global-state:dev-master
         composer global require phpunit/phpunit=dev-master
 
-    - name: Environment Setup
-      run: npm run setup:ci
+    - name: NPM Setup
+      run: npm run install
 
     - name: Unit Tests
       env:
