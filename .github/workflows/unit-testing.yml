@@ -34,33 +34,33 @@ jobs:
         bleeding-edge: [false]
         include:
           - name: 'Latest Stable'
-            php-version: env.PHP_PREF_MIN_VERSION
-            wordpress-version: env.WP_STABLE_VERSION
+            php-version: '7.3'
+            wordpress-version: '5.5.*'
             wp-multisite-mode: 0
-            woocommerce-version: env.WC_STABLE_VERSION
+            woocommerce-version: '4.8.*'
           - name: 'Preferred Minimum requirements'
-            php-version: env.PHP_PREF_MIN_VERSION
-            wordpress-version: env.WP_PREF_MIN_VERSION
+            php-version: '7.3'
+            wordpress-version: '5.4.*'
             wp-multisite-mode: 0
-            woocommerce-version: env.WC_PREF_MIN_VERSION
+            woocommerce-version: '4.7.*'
           - name: 'Minimum requirements'
-            php-version: env.PHP_MIN_VERSION
-            wordpress-version: env.WP_MIN_VERSION
+            php-version: '7.2'
+            wordpress-version: '5.3.*'
             wp-multisite-mode: 0
-            woocommerce-version: env.WC_MIN_VERSION
+            woocommerce-version: '4.6.*'
           - name: 'Bleeding Edge'
             bleeding-edge: true
-            php-version: env.PHP_STABLE_VERSION
+            php-version: '7.4'
             wordpress-version: 'dev-master'
             wp-multisite-mode: 0
             woocommerce-version: 'dev-master'
           - name: 'Multisite Compatibility'
-            php-version: env.PHP_PREF_MIN_VERSION
-            wordpress-version: env.WP_PREF_MIN_VERSION
+            php-version: '7.3'
+            wordpress-version: '5.4.*'
             wp-multisite-mode: 1
-            woocommerce-version: env.WC_PREF_MIN_VERSION
+            woocommerce-version: '4.7.*'
 
-    name: '${{ matrix.name }}'
+    name: '${{ matrix.name }} (PHP:${{ matrix.php-version }}/WP:${{ matrix.wordpress-version }}/WC:${{ matrix.woocommerce-version }})'
 
     steps:
     - uses: actions/checkout@v2
