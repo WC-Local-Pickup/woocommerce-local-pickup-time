@@ -13,7 +13,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    name: 'Stack: PHP:${{ env.PHP_PREF_MIN_VERSION }}/WP:${{ env.WP_STABLE_VERSION }}/WC:${{ env.WC_STABLE_VERSION }}'
+    name: 'Preferred Minimum Requirements (PHP:${{ env.PHP_PREF_MIN_VERSION }}/WP:${{ env.WP_STABLE_VERSION }}/WC:${{ env.WC_STABLE_VERSION }})'
 
     steps:
     - uses: actions/checkout@v2
