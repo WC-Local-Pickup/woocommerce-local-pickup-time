@@ -42,8 +42,14 @@ jobs:
     - name: Require Specified WordPress Version
       run: composer require wordpress/wordpress:${{ env.WP_STABLE_VERSION }} --dev --prefer-source --update-with-all-dependencies
 
+    - name: Update Composer Lockfile for Specified WordPress Version
+      run: composer update wordpress/wordpress:${{ env.WP_STABLE_VERSION }} --lock --prefer-source
+
     - name: Require Specified WooCommerce Version
       run: composer require woocommerce/woocommerce:${{ env.WC_STABLE_VERSION }} --dev --prefer-source --update-with-all-dependencies
+
+    - name: Update Composer Lockfile for Specified WooCommerce Version
+      run: composer update woocommerce/woocommerce:${{ env.WC_STABLE_VERSION }} --lock --prefer-source
 
     - name: PHPUnit PHP 7.4 Support
       if: ${{ env.PHP_PREF_MIN_VERSION }} == '7.4'

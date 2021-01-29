@@ -31,36 +31,39 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        bleeding-edge: [false]
         include:
-          - name: 'Latest Stable'
+          - job-name: 'Latest Stable'
+            bleeding-edge: false
             php-version: '7.3'
             wordpress-version: '5.5.*'
             wp-multisite-mode: 0
             woocommerce-version: '4.8.*'
-          - name: 'Preferred Minimum requirements'
+          - job-name: 'Preferred Minimum requirements'
+            bleeding-edge: false
             php-version: '7.3'
             wordpress-version: '5.4.*'
             wp-multisite-mode: 0
             woocommerce-version: '4.7.*'
-          - name: 'Minimum requirements'
+          - job-name: 'Minimum requirements'
+            bleeding-edge: false
             php-version: '7.2'
             wordpress-version: '5.3.*'
             wp-multisite-mode: 0
             woocommerce-version: '4.6.*'
-          - name: 'Bleeding Edge'
+          - job-name: 'Bleeding Edge'
             bleeding-edge: true
             php-version: '7.4'
             wordpress-version: 'dev-master'
             wp-multisite-mode: 0
             woocommerce-version: 'dev-master'
-          - name: 'Multisite Compatibility'
+          - job-name: 'Multisite Compatibility'
+            bleeding-edge: false
             php-version: '7.3'
             wordpress-version: '5.4.*'
             wp-multisite-mode: 1
             woocommerce-version: '4.7.*'
 
-    name: '${{ matrix.name }} (PHP:${{ matrix.php-version }}/WP:${{ matrix.wordpress-version }}/WC:${{ matrix.woocommerce-version }})'
+    name: '${{ matrix.job-name }} (PHP:${{ matrix.php-version }}/WP:${{ matrix.wordpress-version }}/WC:${{ matrix.woocommerce-version }})'
 
     steps:
     - uses: actions/checkout@v2
@@ -89,15 +92,25 @@ jobs:
     - name: Require Specified WordPress Version
       run: composer require wordpress/wordpress:${{ matrix.wordpress-version }} --dev --prefer-source --update-with-all-dependencies
 
+    - name: Update Composer Lockfile for Specified WordPress Version
+      run: composer update wordpress/wordpress:${{ matrix.wordpress-version }} --lock --prefer-source
+
     - name: Require Specified WooCommerce Version
       run: composer require woocommerce/woocommerce:${{ matrix.woocommerce-version }} --dev --prefer-source --update-with-all-dependencies
+
+    - name: Update Composer Lockfile for Specified WooCommerce Version
+      run: composer update woocommerce/woocommerce:${{ matrix.woocommerce-version }} --lock --prefer-source
 
     - name: Require Specified WooCommerce Admin Version
       if: matrix.woocommerce-version == 'dev-master'
       run: composer require woocommerce/woocommerce-admin:v1.3.0-beta.1 --dev --prefer-source --update-with-all-dependencies
 
+    - name: Update Composer Lockfile for Specified WooCommerce Admin Version
+      if: matrix.woocommerce-version == 'dev-master'
+      run: composer update woocommerce/woocommerce-admin:v1.3.0-beta.1 --lock --prefer-source
+
     - name: PHPUnit PHP 7.4 Support
-      if: ${{ matrix.php-version }} == '7.4'
+      if: matrix.php-version == '7.4'
       run: |
         composer global require phpunit/php-code-coverage=dev-master
         composer global require sebastian/global-state:dev-master
