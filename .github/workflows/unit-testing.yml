@@ -34,31 +34,33 @@ jobs:
         bleeding-edge: [false]
         include:
           - name: 'Latest Stable'
-            php-version: ${{ env.PHP_PREF_MIN_VERSION }}
-            wordpress-version: ${{ env.WP_STABLE_VERSION }}
+            php-version: env.PHP_PREF_MIN_VERSION
+            wordpress-version: env.WP_STABLE_VERSION
             wp-multisite-mode: 0
-            woocommerce-version: ${{ env.WC_STABLE_VERSION }}
+            woocommerce-version: env.WC_STABLE_VERSION
           - name: 'Preferred Minimum requirements'
-            php-version: ${{ env.PHP_PREF_MIN_VERSION }}
-            wordpress-version: ${{ env.WP_PREF_MIN_VERSION }}
+            php-version: env.PHP_PREF_MIN_VERSION
+            wordpress-version: env.WP_PREF_MIN_VERSION
             wp-multisite-mode: 0
-            woocommerce-version: ${{ env.WC_PREF_MIN_VERSION }}
+            woocommerce-version: env.WC_PREF_MIN_VERSION
           - name: 'Minimum requirements'
-            php-version: ${{ env.PHP_MIN_VERSION }}
-            wordpress-version: ${{ env.WP_MIN_VERSION }}
+            php-version: env.PHP_MIN_VERSION
+            wordpress-version: env.WP_MIN_VERSION
             wp-multisite-mode: 0
-            woocommerce-version: ${{ env.WC_MIN_VERSION }}
+            woocommerce-version: env.WC_MIN_VERSION
           - name: 'Bleeding Edge'
             bleeding-edge: true
-            php-version: ${{ env.PHP_STABLE_VERSION }}
+            php-version: env.PHP_STABLE_VERSION
             wordpress-version: 'dev-master'
             wp-multisite-mode: 0
             woocommerce-version: 'dev-master'
           - name: 'Multisite Compatibility'
-            php-version: ${{ env.PHP_PREF_MIN_VERSION }}
-            wordpress-version: ${{ env.WP_PREF_MIN_VERSION }}
+            php-version: env.PHP_PREF_MIN_VERSION
+            wordpress-version: env.WP_PREF_MIN_VERSION
             wp-multisite-mode: 1
-            woocommerce-version: ${{ env.WC_PREF_MIN_VERSION }}
+            woocommerce-version: env.WC_PREF_MIN_VERSION
+
+    name: '${{ matrix.name }}'
 
     steps:
     - uses: actions/checkout@v2
@@ -91,7 +93,7 @@ jobs:
       run: composer require woocommerce/woocommerce:${{ matrix.woocommerce-version }} --dev --prefer-source --update-with-all-dependencies
 
     - name: Require Specified WooCommerce Admin Version
-      if: ${{ matrix.woocommerce-version }} == 'dev-master'
+      if: matrix.woocommerce-version == 'dev-master'
       run: composer require woocommerce/woocommerce-admin:v1.3.0-beta.1 --dev --prefer-source --update-with-all-dependencies
 
     - name: PHPUnit PHP 7.4 Support
