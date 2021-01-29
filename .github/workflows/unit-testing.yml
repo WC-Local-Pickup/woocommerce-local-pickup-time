@@ -117,7 +117,7 @@ jobs:
         composer global require phpunit/phpunit=dev-master
 
     - name: Environment Setup
-      run: npm run ci:setup
+      run: npm run setup:ci
 
     - name: Unit Tests
       env:
