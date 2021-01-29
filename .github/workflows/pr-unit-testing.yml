@@ -2,6 +2,7 @@ name: PR Unit Testing
 
 on:
   pull_request:
+
 env:
   PHP_PREF_MIN_VERSION: '7.3'
   WP_STABLE_VERSION: '5.5.*'
