@@ -21,7 +21,7 @@
  * Domain Path:                /languages
  * GitHub Plugin URI:          https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time
  * WC requires at least:       4.0.0
- * WC tested up to:            4.2.2
+ * WC tested up to:            4.7.2
  */
 
 /**

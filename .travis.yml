@@ -33,33 +33,53 @@ cache:
     - vendor
     - $HOME/.composer/cache
 
+# Define build versions for maitrix
+env:
+  global:
+    - PHP_MIN_VERSION="7.2"
+    - PHP_PREF_MIN_VERSION="7.3"
+    - PHP_STABLE_VERSION="7.4"
+    - WP_MIN_VERSION="5.3.*"
+    - WP_PREF_MIN_VERSION="5.4.*"
+    - WP_STABLE_VERSION="5.5.*"
+    - WC_MIN_VERSION="4.6.*"
+    - WC_PREF_MIN_VERSION="4.7.*"
+    - WC_STABLE_VERSION="4.8.*"
+
 # Define a matrix of additional build configurations
 # The versions listed above will automatically create our first configuration,
 # so it doesn't need to be re-defined below.
 matrix:
   fast_finish: true
   include:
+    - name: Internationalization
+      php: "${PHP_PREF_MIN_VERSION}"
+      env: WP_MODE=single I18N=1
     - name: Coding Standards
-      php: 7.3
-      env: WP_MODE=single WP_VERSION=5.4.* WC_VERSION=4.2.* PHP_LINT=1 COVERAGE=1
+      php: "${PHP_PREF_MIN_VERSION}"
+      env: WP_MODE=single PHP_LINT=1
     - name: Static Code Analysis
-      php: 7.3
-      env: WP_MODE=single WP_VERSION=5.4.* WC_VERSION=4.2.* PHP_ANALYZE=1
+      php: "${PHP_PREF_MIN_VERSION}"
+      env: WP_MODE=single WP_VERSION="${WP_STABLE_VERSION}" WC_VERSION="${WC_PREF_MIN_VERSION}" PHP_ANALYZE=1
     - name: Latest Stable
-      php: 7.3
-      env: WP_MODE=single WP_VERSION=5.4.* WC_VERSION=4.2.* PHP_UNIT=1
+      php: "${PHP_PREF_MIN_VERSION}"
+      env: WP_MODE=single WP_VERSION="${WP_STABLE_VERSION}" WC_VERSION="${WC_STABLE_VERSION}" PHP_UNIT=1 COVERAGE=1
     - name: Preferred Minimum requirements
-      php: 7.2
-      env: WP_MODE=single WP_VERSION=5.3.* WC_VERSION=4.1.* PHP_UNIT=1
+      if: (branch IN (develop, main) OR branch =~ /^dev\-release\/.*$/) AND NOT type = pull_request
+      php: "${PHP_PREF_MIN_VERSION}"
+      env: WP_MODE=single WP_VERSION="${WP_PREF_MIN_VERSION}" WC_VERSION="${WC_PREF_MIN_VERSION}" PHP_UNIT=1
     - name: Minimum requirements
-      php: 7.1
-      env: WP_MODE=single WP_VERSION=5.2.* WC_VERSION=4.0.* PHP_UNIT=1
+      if: (branch IN (develop, main) OR branch =~ /^dev\-release\/.*$/) AND NOT type = pull_request
+      php: "${PHP_MIN_VERSION}"
+      env: WP_MODE=single WP_VERSION="${WP_MIN_VERSION}" WC_VERSION="${WC_MIN_VERSION}" PHP_UNIT=1
     - name: Bleeding Edge
-      php: 7.4
+      if: (branch IN (develop, main) OR branch =~ /^dev\-release\/.*$/) AND NOT type = pull_request
+      php: "${PHP_STABLE_VERSION}"
       env: WP_MODE=single WP_VERSION=dev-master WC_VERSION=dev-master PHP_UNIT=1
     - name: Multisite Compatibility
-      php: 7.3
-      env: WP_MODE=multi WP_VERSION=5.4.* WC_VERSION=4.2.* PHP_UNIT=1
+      if: (branch IN (develop, main) OR branch =~ /^dev\-release\/.*$/) AND NOT type = pull_request
+      php: "${PHP_PREF_MIN_VERSION}"
+      env: WP_MODE=multi WP_VERSION="${WP_PREF_MIN_VERSION}" WC_VERSION="${WC_PREF_MIN_VERSION}" PHP_UNIT=1
   allow_failures:
     - name: Bleeding Edge
 
@@ -70,27 +90,17 @@ addons:
 
 before_install:
   - npm install -g npm@6.14
-  - npm install -g grunt-cli
-  - composer require "wordpress/wordpress:${WP_VERSION}" --dev --prefer-source --no-update
-  - composer require "woocommerce/woocommerce:${WC_VERSION}" --dev --prefer-source --no-update
+  - composer self-update --1
+  # Setup correct WordPress & WooCommerce versions.
   - |
-    if [[ "$WC_VERSION" == "dev-master" ]]; then
-      composer require "woocommerce/woocommerce-admin:v1.3.0-beta.1" --dev --prefer-source --no-update
+    if [[ "$PHP_UNIT" == "1" || "$PHP_ANALYZE" == "1" ]]; then
+      composer require "wordpress/wordpress:${WP_VERSION}" --dev --prefer-source --with-dependencies
+      composer require "woocommerce/woocommerce:${WC_VERSION}" --dev --prefer-source --with-dependencies
+      if [[ "$WC_VERSION" == "dev-master" ]]; then
+        composer require "woocommerce/woocommerce-admin:v1.3.0-beta.1" --dev --prefer-source --with-dependencies
+      fi
     fi
-
-
-install:
-  - composer update --prefer-source --no-interaction --dev
-  - npm install
-
-before_script:
-  - export PATH="$HOME/.composer/vendor/bin:$PATH"
-  # Setup WordPress coding standards
-  - |
-    if [[ "$PHP_LINT" == "1" ]]; then
-      composer global require wp-coding-standards/wpcs
-    fi
-  # Setup unit testing environment
+  # Setup unit testing environment.
   - |
     if [[ "$PHP_UNIT" == "1" ]]; then
       # bash scripts/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
@@ -103,7 +113,17 @@ before_script:
       fi
     fi
 
+install:
+  - npm run ci:setup
+
+before_script:
+  - export PATH="$HOME/.composer/vendor/bin:$PATH"
+
 script:
+  - |
+    if [[ "$I18N" == "1" ]]; then
+      if [[ "$WP_MODE" == "single" ]]; then WP_MULTISITE=0 npm run i18n:check; fi
+    fi
   - |
     if [[ "$PHP_LINT" == "1" ]]; then
       if [[ "$WP_MODE" == "single" ]]; then WP_MULTISITE=0 npm run lint; fi
