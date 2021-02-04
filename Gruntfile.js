@@ -181,7 +181,10 @@ module.exports = function (grunt) {
 				options: {
 					prefix: "const VERSION = '"
 				},
-				src: ['<%= pkg.name %>.php']
+				src: [
+					'<%= pkg.name %>.php',
+					'public/class-local-pickup-time.php',
+				]
 			},
 			header: {
 				options: {
