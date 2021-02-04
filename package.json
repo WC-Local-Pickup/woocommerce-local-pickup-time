@@ -71,7 +71,7 @@
 		"build:wordpress": "cd wordpress && npm install && npm run build && cd ..",
 		"build:woocommerce": "cd vendor/woocommerce/woocommerce && npm install && npm run build && cd ../../../",
 		"version": "npm run grunt version",
-		"version:bump": "npm version --no-git-tag-version && npm run build:i18n",
+		"version:bump": "npm version --no-git-tag-version",
 		"release": "npm run grunt release",
 		"start": "npm run env start",
 		"stop": "npm run env stop",
