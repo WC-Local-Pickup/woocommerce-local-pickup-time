@@ -65,7 +65,11 @@ The location, by default, is hooked to `woocommerce_admin_order_data_after_billi
 
 == Screenshots ==
 
-1. Front-end display on Checkout page
+1. Frontend Display on Checkout Page
+2. Backend Settings Screen - Part 1
+3. Backend Settings Screen - Part 2
+4. Backend Order Listing Includes Pickup Date/Time
+5. Backend Order Details Screen Includes Pickup Date/Time
 
 == Changelog ==
 

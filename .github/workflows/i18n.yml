@@ -43,4 +43,4 @@ jobs:
       run: npm install
 
     - name: Check i18n Compliance
-      run: npm run i18n:check
+      run: npm run check:i18n
