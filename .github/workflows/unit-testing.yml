@@ -24,7 +24,7 @@ env:
   WC_STABLE_VERSION: '4.8.*'
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     continue-on-error: ${{ matrix.bleeding-edge }}
 
@@ -66,13 +66,18 @@ jobs:
     name: '${{ matrix.job-name }} (PHP:${{ matrix.php-version }}/WP:${{ matrix.wordpress-version }}/WC:${{ matrix.woocommerce-version }})'
 
     steps:
-    - uses: actions/checkout@v2
-    - uses: shivammathur/setup-php@v2
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    - name: Setup PHP Environment
+      uses: shivammathur/setup-php@v2
       # https://github.com/marketplace/actions/setup-php-action
       with:
         php-version: ${{ matrix.php-version }}
         tools: composer:v1
-    - uses: actions/setup-node@v1
+
+    - name: Setup Node Environment
+      uses: actions/setup-node@v1
       # https://github.com/marketplace/actions/setup-node-js-environment
       with:
         node-version: 12.x

@@ -46,8 +46,7 @@ module.exports = function (grunt) {
 		},
 
 		clean: {
-			main: ['dist'], //Clean up build folder
-			i18n: ['languages/*.mo', 'languages/*.pot']
+			main: ['dist'] //Clean up build folder
 		},
 
 		copy: {
@@ -57,9 +56,10 @@ module.exports = function (grunt) {
 					'**',
 					'!*.xml', '!*.log', //any config/log files
 					'!node_modules/**', '!Gruntfile.js', '!package.json', '!package-lock.json', //npm/Grunt
-					'!assets/**', //wp-org assets
+					'!.wordpress-org/**', //wp-org assets
 					'!dist/**', //build directory
 					'!.git/**', //version control
+					'!.github/**', //GitHub platform files
 					'!tests/**', '!scripts/**', '!phpunit.xml', '!phpunit.xml.dist', //unit testing
 					'!vendor/**', '!composer.lock', '!composer.phar', '!composer.json', //composer
 					'!wordpress/**',
@@ -74,16 +74,6 @@ module.exports = function (grunt) {
 				dest: 'dist/',
 				options: {
 					processContentExclude: ['**/*.{png,gif,jpg,ico,mo}'],
-					processContent: function (content, srcpath) {
-						if (srcpath == 'readme.txt' || srcpath == 'woocommerce-local-pickup-time.php') {
-							if (grunt.config.get('gitinfo').local.tag.current.name !== 'undefined') {
-								content = content.replace('{{version}}', grunt.config.get('gitinfo').local.tag.current.name);
-							} else {
-								content = content.replace('{{version}}', grunt.config.get('gitinfo').local.tag.current.nameLong);
-							}
-						}
-						return content;
-					},
 				},
 			}
 		},
@@ -114,9 +104,10 @@ module.exports = function (grunt) {
 					domainPath: '/languages',         // Where to save the POT file.
 					exclude: [
 						'node_modules/.*',				//npm
-						'assets/.*', 							//wp-org assets
+						'.wordpress-org/.*', 			//wp-org assets
 						'dist/.*', 								//build directory
 						'.git/.*', 								//version control
+						'.github/.*',							//GitHub platform
 						'tests/.*', 'scripts/.*',	//unit testing
 						'vendor/.*', 							//composer
 						'wordpress/.*',
@@ -189,7 +180,10 @@ module.exports = function (grunt) {
 				options: {
 					prefix: "const VERSION = '"
 				},
-				src: ['<%= pkg.name %>.php']
+				src: [
+					'<%= pkg.name %>.php',
+					'public/class-local-pickup-time.php',
+				]
 			},
 			header: {
 				options: {
@@ -211,7 +205,7 @@ module.exports = function (grunt) {
 					plugin_slug: 'woocommerce-local-pickup-time-select',
 					plugin_main_file: 'woocommerce-local-pickup-time.php',
 					build_dir: 'dist/',
-					assets_dir: 'assets/',
+					assets_dir: '.wordpress-org/',
 					max_buffer: 1024 * 1024,
 					skip_confirmation: false,
 				},
@@ -227,9 +221,8 @@ module.exports = function (grunt) {
 	grunt.registerTask('i18n', ['addtextdomain', 'makepot', 'po2mo']);
 	grunt.registerTask('readme', ['wp_readme_to_markdown']);
 	grunt.registerTask('test', ['checktextdomain', 'phpcs']);
-	grunt.registerTask('build', ['gitinfo', 'test', 'clean', 'i18n', 'readme', 'copy']);
-	//grunt.registerTask( 'deploy', [ 'checkbranch:main', 'checkrepo', 'build', 'wp_deploy' ] );
-	grunt.registerTask('deploy', ['checkbranch:main', 'checkrepo', 'build']);
+	grunt.registerTask('build', ['gitinfo', 'test', 'i18n', 'readme']);
+	grunt.registerTask('release', ['checkbranch:main', 'checkrepo', 'gitinfo', 'checktextdomain', 'clean', 'copy']);
 
 };
 

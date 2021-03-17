@@ -1,6 +1,9 @@
 name: PR Unit Testing
 
 on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  # Triggers the workflow on pull request events
   pull_request:
 
 env:
@@ -10,19 +13,35 @@ env:
   WC_STABLE_VERSION: '4.8.*'
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
-    name: 'Preferred Minimum Requirements (PHP:${{ env.PHP_PREF_MIN_VERSION }}/WP:${{ env.WP_STABLE_VERSION }}/WC:${{ env.WC_STABLE_VERSION }})'
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - job-name: 'Latest Stable Requirements'
+            bleeding-edge: false
+            php-version: '7.3'
+            wordpress-version: '5.5.*'
+            wp-multisite-mode: 0
+            woocommerce-version: '4.8.*'
+
+    name: '${{ matrix.job-name }} (PHP:${{ matrix.php-version }}/WP:${{ matrix.wordpress-version }}/WC:${{ matrix.woocommerce-version }})'
 
     steps:
-    - uses: actions/checkout@v2
-    - uses: shivammathur/setup-php@v2
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    - name: Setup PHP Environment
+      uses: shivammathur/setup-php@v2
       # https://github.com/marketplace/actions/setup-php-action
       with:
-        php-version: ${{ env.PHP_PREF_MIN_VERSION }}
+        php-version: ${{ matrix.php-version }}
         tools: composer:v1
-    - uses: actions/setup-node@v1
+
+    - name: Setup Node Environment
+      uses: actions/setup-node@v1
       # https://github.com/marketplace/actions/setup-node-js-environment
       with:
         node-version: 12.x
@@ -40,19 +59,27 @@ jobs:
           ${{ runner.os }}-
 
     - name: Require Specified WordPress Version
-      run: composer require wordpress/wordpress:${{ env.WP_STABLE_VERSION }} --dev --prefer-source --update-with-all-dependencies
+      run: composer require wordpress/wordpress:${{ matrix.wordpress-version }} --dev --prefer-source --update-with-all-dependencies
 
     - name: Update Composer Lockfile for Specified WordPress Version
-      run: composer update wordpress/wordpress:${{ env.WP_STABLE_VERSION }} --lock --prefer-source
+      run: composer update wordpress/wordpress:${{ matrix.wordpress-version }} --lock --prefer-source
 
     - name: Require Specified WooCommerce Version
-      run: composer require woocommerce/woocommerce:${{ env.WC_STABLE_VERSION }} --dev --prefer-source --update-with-all-dependencies
+      run: composer require woocommerce/woocommerce:${{ matrix.woocommerce-version }} --dev --prefer-source --update-with-all-dependencies
 
     - name: Update Composer Lockfile for Specified WooCommerce Version
-      run: composer update woocommerce/woocommerce:${{ env.WC_STABLE_VERSION }} --lock --prefer-source
+      run: composer update woocommerce/woocommerce:${{ matrix.woocommerce-version }} --lock --prefer-source
+
+    - name: Require Specified WooCommerce Admin Version
+      if: matrix.woocommerce-version == 'dev-master'
+      run: composer require woocommerce/woocommerce-admin:v1.3.0-beta.1 --dev --prefer-source --update-with-all-dependencies
+
+    - name: Update Composer Lockfile for Specified WooCommerce Admin Version
+      if: matrix.woocommerce-version == 'dev-master'
+      run: composer update woocommerce/woocommerce-admin:v1.3.0-beta.1 --lock --prefer-source
 
     - name: PHPUnit PHP 7.4 Support
-      if: ${{ env.PHP_PREF_MIN_VERSION }} == '7.4'
+      if: matrix.php-version == '7.4'
       run: |
         composer global require phpunit/php-code-coverage=dev-master
         composer global require sebastian/global-state:dev-master

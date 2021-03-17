@@ -16,13 +16,16 @@ env:
 
 jobs:
   check:
-    name: All
+    name: Setup & Check
 
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - uses: shivammathur/setup-php@v2
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    - name: Setup PHP Environment
+      uses: shivammathur/setup-php@v2
       # https://github.com/marketplace/actions/setup-php-action
       with:
         php-version: ${{ env.PHP_VERSION }}
