@@ -46,8 +46,7 @@ module.exports = function (grunt) {
 		},
 
 		clean: {
-			main: ['dist'], //Clean up build folder
-			i18n: ['languages/*.mo', 'languages/*.pot']
+			main: ['dist'] //Clean up build folder
 		},
 
 		copy: {
@@ -222,9 +221,8 @@ module.exports = function (grunt) {
 	grunt.registerTask('i18n', ['addtextdomain', 'makepot', 'po2mo']);
 	grunt.registerTask('readme', ['wp_readme_to_markdown']);
 	grunt.registerTask('test', ['checktextdomain', 'phpcs']);
-	grunt.registerTask('build', ['gitinfo', 'test', 'clean', 'i18n', 'readme', 'copy']);
-	//grunt.registerTask( 'deploy', [ 'checkbranch:main', 'checkrepo', 'build', 'wp_deploy' ] );
-	grunt.registerTask('release', ['checkbranch:main', 'checkrepo', 'build']);
+	grunt.registerTask('build', ['gitinfo', 'test', 'i18n', 'readme']);
+	grunt.registerTask('release', ['checkbranch:main', 'checkrepo', 'gitinfo', 'checktextdomain', 'clean', 'copy']);
 
 };
 
