@@ -3,10 +3,6 @@
  * Local Pickup Time
  *
  * @package   Local_Pickup_Time_Admin
- * @author    Matt Banks <mjbanks@gmail.com>
- * @license   GPL-2.0+
- * @link      http://mattbanks.me
- * @copyright 2014-2018 Matt Banks
  */
 
 /**
@@ -14,7 +10,6 @@
  * Defines administrative functionality
  *
  * @package Local_Pickup_Time_Admin
- * @author  Matt Banks <mjbanks@gmail.com>
  */
 class Local_Pickup_Time_Admin {
 
@@ -28,13 +23,13 @@ class Local_Pickup_Time_Admin {
 	protected static $instance = null;
 
 	/**
-	 * Slug of the plugin screen.
+	 * Instance of the Plugin class.
 	 *
-	 * @since    1.0.0
+	 * @since    1.4.0
 	 *
-	 * @var      string
+	 * @var      Local_Pickup_Time
 	 */
-	protected $plugin_screen_hook_suffix = null;
+	protected $plugin = null;
 
 	/**
 	 * Initialize the plugin by loading admin scripts & styles and adding a
@@ -44,16 +39,7 @@ class Local_Pickup_Time_Admin {
 	 */
 	private function __construct() {
 
-		// Call $plugin_slug from public plugin class.
-		$plugin            = Local_Pickup_Time::get_instance();
-		$this->plugin_slug = $plugin->get_plugin_slug();
-		// Load WordPress date/time formats from public plugin class.
-		$this->date_format = $plugin->get_date_format();
-		$this->time_format = $plugin->get_time_format();
-		$this->gmt_offset  = $plugin->get_gmt_offset();
-		$this->timezone    = $plugin->get_timezone();
-		// Load Order meta_key defined for plugin.
-		$this->order_meta_key = $plugin->get_order_meta_key();
+		$this->plugin = Local_Pickup_Time::get_instance();
 
 		/*
 		 * Show Pickup Time Settings in the WooCommerce -> General Admin Screen
@@ -98,7 +84,9 @@ class Local_Pickup_Time_Admin {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @param array $settings The array of WooCommerce General Plugin Settings.
+	 * @param array<array> $settings The array of WooCommerce General Plugin Settings.
+	 *
+	 * @return array<array>
 	 */
 	public function add_hours_and_closings_options( $settings ) {
 		$updated_settings = array();
@@ -327,12 +315,21 @@ class Local_Pickup_Time_Admin {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @param object $order  The order object.
+	 * @param WC_Order $order  The order object.
+	 *
+	 * @return void
 	 */
 	public function show_metabox( $order ) {
-		$order_meta = get_post_custom( $order->get_id() );
 
-		echo '<p><strong>' . __( 'Pickup Time:', 'woocommerce-local-pickup-time' ) . '</strong> ' . $this->pickup_time_select_translatable( $order_meta[ $this->order_meta_key ][0] ) . '</p>';
+		$order_meta  = get_post_custom( $order->get_id() );
+		$pickup_time = $order_meta[ $this->plugin->get_order_meta_key() ][0];
+
+		$allowed_html = array(
+			'p' => array(),
+			'strong' => array(),
+		);
+
+		echo wp_kses( '<p><strong>' . __( 'Pickup Time:', 'woocommerce-local-pickup-time' ) . '</strong> ' . esc_html( $this->pickup_time_select_translatable( $pickup_time ) ) . '</p>', $allowed_html );
 
 	}
 
@@ -341,8 +338,8 @@ class Local_Pickup_Time_Admin {
 	 *
 	 * @since           1.3.2
 	 *
-	 * @param   array $columns    The Orders List columns array.
-	 * @return  array   $new_columns    The updated Orders List columns array.
+	 * @param   array<string> $columns    The Orders List columns array.
+	 * @return  array<string> $new_columns    The updated Orders List columns array.
 	 */
 	public function add_orders_list_pickup_date_column_header( $columns ) {
 
@@ -353,7 +350,7 @@ class Local_Pickup_Time_Admin {
 			$new_columns[ $column_name ] = $column_info;
 
 			if ( 'order_date' === $column_name ) {
-				$new_columns[ $this->order_meta_key ] = __( 'Pickup Time', 'woocommerce-local-pickup-time' );
+				$new_columns[ $this->plugin->get_order_meta_key() ] = __( 'Pickup Time', 'woocommerce-local-pickup-time' );
 			}
 		}
 
@@ -367,13 +364,15 @@ class Local_Pickup_Time_Admin {
 	 * @since     1.3.2
 	 *
 	 * @param string $column  The column name in the Orders List.
+	 *
+	 * @return void
 	 */
 	public function add_orders_list_pickup_date_column_content( $column ) {
 
 		global $the_order;
 
-		if ( $this->order_meta_key === $column ) {
-			echo $this->pickup_time_select_translatable( $the_order->get_meta( $this->order_meta_key ) );
+		if ( $this->plugin->get_order_meta_key() === $column ) {
+			echo esc_html( $this->pickup_time_select_translatable( $the_order->get_meta( $this->plugin->get_order_meta_key() ) ) );
 		}
 
 	}
@@ -383,13 +382,13 @@ class Local_Pickup_Time_Admin {
 	 *
 	 * @since     1.3.2
 	 *
-	 * @param array $columns  The array of Order columns.
-	 * @return  array The updated array Order columns.
+	 * @param array<string> $columns  The array of Order columns.
+	 * @return array<string> The updated array Order columns.
 	 */
 	public function add_orders_list_pickup_date_column_sorting( $columns ) {
 
 		$new_columns                          = array();
-		$new_columns[ $this->order_meta_key ] = 'pickup_time';
+		$new_columns[ $this->plugin->get_order_meta_key() ] = 'pickup_time';
 
 		return wp_parse_args( $new_columns, $columns );
 
@@ -400,15 +399,16 @@ class Local_Pickup_Time_Admin {
 	 *
 	 * @since     1.3.2
 	 *
-	 * @param object $query The posts query object.
-	 * @return object $query The modified query object.
+	 * @param WP_Query $query The posts query object.
+	 * @return WP_Query $query The modified query object.
 	 */
 	public function filter_orders_list_by_pickup_date( $query ) {
 
 		if ( is_admin() && 'shop_order' === $query->query_vars['post_type'] && ! empty( $_GET['orderby'] ) && 'pickup_time' === $_GET['orderby'] ) {
-			$query->set( 'meta_key', $this->order_meta_key );
+			$order = ( ! empty( $_GET['order'] ) ) ? strtoupper( sanitize_key( $_GET['order'] ) ) : 'ASC';
+			$query->set( 'meta_key', $this->plugin->get_order_meta_key() );
 			$query->set( 'orderby', 'meta_value_num' );
-			$query->set( 'order', ( ! empty( $_GET['order'] ) ) ? strtoupper( woocommerce_clean( $_GET['order'] ) ) : 'ASC' );
+			$query->set( 'order', $order );
 		}
 
 		return $query;
@@ -420,8 +420,8 @@ class Local_Pickup_Time_Admin {
 	 *
 	 * @since     1.3.2
 	 *
-	 * @param array $order_details  The array of order data.
-	 * @return array  The order details array.
+	 * @param WC_Order|array<mixed> $order_details  The array of order data.
+	 * @return WC_Order|array<mixed>  The order details array.
 	 */
 	public function woocommerce_admin_order_preview_get_order_details( $order_details ) {
 
@@ -435,7 +435,7 @@ class Local_Pickup_Time_Admin {
 	 * @since    1.3.0
 	 *
 	 * @param string $value   The pikcup time meta value for an order.
-	 * @eturn string  The translated value of the order pickup time.
+	 * @return string  The translated value of the order pickup time.
 	 */
 	public function pickup_time_select_translatable( $value ) {
 
