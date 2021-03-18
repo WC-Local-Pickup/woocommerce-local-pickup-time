@@ -1,11 +1,11 @@
 ---
 name: "❓ Support Question"
-about: "If you have a question \U0001F4AC please use the WordPress.org [Support forum](https://wordpress.org/support/plugin/woocommerce-local-pickup-time-select/)."
+about: "Ask a general usage question \U0001F4AC."
 title: ''
-labels: ''
+labels: 'help+wanted'
 assignees: ''
 
 ---
 
-**General usage and development questions**
-- WordPress.org Forums: https://wordpress.org/support/plugin/woocommerce-local-pickup-time-select/
+**General usage questions**
+If your question hasn't been answered in the Wiki please check the [Discussions](https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time/discussions) for possible solutions or post a new question there.
