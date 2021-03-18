@@ -135,7 +135,9 @@ module.exports = function (grunt) {
 		checkrepo: {
 			deploy: {
 				tagged: true, // Check that the last commit (HEAD) is tagged
-				clean: true // Check that working directory is clean
+				tag: {
+					eq: '<%= pkg.version %>' // Check if highest repo tag is equal to pkg.version
+				}
 			}
 		},
 
