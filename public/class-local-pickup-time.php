@@ -20,7 +20,7 @@ class Local_Pickup_Time {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '1.3.12';
+	const VERSION = '1.3.13';
 
 	/**
 	 * Plugin version wp_options meta key.

@@ -38,4 +38,3 @@ grumphp:
       ignore_patterns:
         - '/^assets\/(.*)/'
       memory_limit: '-1'
-    securitychecker: ~
