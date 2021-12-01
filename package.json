@@ -1,11 +1,11 @@
 {
-	"name": "woocommerce-local-pickup-time",
+	"name": "woocommerce-local-pickup-time-select",
 	"version": "1.3.13",
 	"description": "Add an an option to WooCommerce checkout pages for Local Pickup that allows the user to choose a pickup time.",
 	"main": "Gruntfile.js",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time"
+		"url": "https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time-select"
 	},
 	"keywords": [
 		"wordpress",
@@ -14,9 +14,9 @@
 	"author": "Tim Nolte",
 	"license": "GPL-2.0+",
 	"bugs": {
-		"url": "https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time/issues"
+		"url": "https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time-select/issues"
 	},
-	"homepage": "https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time#readme",
+	"homepage": "https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time-select#readme",
 	"dependencies": {
 		"dev-require": "^0.1.0"
 	},
@@ -40,7 +40,7 @@
 		"puppeteer": "^1.20.0"
 	},
 	"wp-env": {
-		"plugin-dir": "woocommerce-local-pickup-time-select",
+		"plugin-dir": "woocommerce-local-pickup-time-select-select",
 		"plugin-name": "WooCommerce Local Pickup Time Select",
 		"docker-template": "./docker-compose.override.yml",
 		"welcome-logo": [

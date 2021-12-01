@@ -38,7 +38,7 @@ class Local_Pickup_Time {
 	 *
 	 * @var      string
 	 */
-	protected $plugin_slug = 'woocommerce-local-pickup-time';
+	protected $plugin_slug = 'woocommerce-local-pickup-time-select';
 
 	/**
 	 * Instance of this class.
@@ -522,13 +522,13 @@ class Local_Pickup_Time {
 		$num_days_ahead      = get_option( 'local_pickup_days_ahead', 1 );
 
 		// Translateble days.
-		__( 'Monday', 'woocommerce-local-pickup-time' );
-		__( 'Tuesday', 'woocommerce-local-pickup-time' );
-		__( 'Wednesday', 'woocommerce-local-pickup-time' );
-		__( 'Thursday', 'woocommerce-local-pickup-time' );
-		__( 'Friday', 'woocommerce-local-pickup-time' );
-		__( 'Saturday', 'woocommerce-local-pickup-time' );
-		__( 'Sunday', 'woocommerce-local-pickup-time' );
+		__( 'Monday', 'woocommerce-local-pickup-time-select' );
+		__( 'Tuesday', 'woocommerce-local-pickup-time-select' );
+		__( 'Wednesday', 'woocommerce-local-pickup-time-select' );
+		__( 'Thursday', 'woocommerce-local-pickup-time-select' );
+		__( 'Friday', 'woocommerce-local-pickup-time-select' );
+		__( 'Saturday', 'woocommerce-local-pickup-time-select' );
+		__( 'Sunday', 'woocommerce-local-pickup-time-select' );
 
 		// Get the current WordPress-based date/time.
 		$current_wp_datetime  = new DateTime( 'now', $this->get_wp_timezone() );
@@ -552,7 +552,7 @@ class Local_Pickup_Time {
 		$pickup_datetime->modify( "+$delay_minutes minute" );
 
 		// Setup options array with empty first item.
-		$pickup_options[''] = __( 'Select time', 'woocommerce-local-pickup-time' );
+		$pickup_options[''] = __( 'Select time', 'woocommerce-local-pickup-time-select' );
 
 		// Initialize firt interval state.
 		$first_interval = true;
@@ -689,14 +689,14 @@ class Local_Pickup_Time {
 			'h2' => array(),
 		);
 
-		echo wp_kses( '<div id="local-pickup-time-select"><h2>' . __( 'Pickup Time', 'woocommerce-local-pickup-time' ) . '</h2>', $allowed_html );
+		echo wp_kses( '<div id="local-pickup-time-select"><h2>' . __( 'Pickup Time', 'woocommerce-local-pickup-time-select' ) . '</h2>', $allowed_html );
 
 		woocommerce_form_field(
 			$this->get_order_post_key(),
 			array(
 				'type'     => 'select',
 				'class'    => array( 'local-pickup-time-select-field form-row-wide' ),
-				'label'    => __( 'Pickup Time', 'woocommerce-local-pickup-time' ),
+				'label'    => __( 'Pickup Time', 'woocommerce-local-pickup-time-select' ),
 				'required' => true,
 				'options'  => $this->get_pickup_time_options(),
 			),
@@ -739,10 +739,10 @@ class Local_Pickup_Time {
 			wp_verify_nonce( sanitize_text_field( stripslashes_from_strings_only( $_REQUEST[ $this->get_order_pickup_time_nonce_key() ] ) ), $this->get_order_pickup_time_action_key() ) == 1 ) {
 			// Check if set, if its not set add an error.
 			if ( empty( wc_get_post_data_by_key( $this->get_order_post_key() ) ) ) {
-				wc_add_notice( __( 'Please select a pickup time.', 'woocommerce-local-pickup-time' ), 'error' );
+				wc_add_notice( __( 'Please select a pickup time.', 'woocommerce-local-pickup-time-select' ), 'error' );
 			}
 		} else {
-			wc_add_notice( __( 'Expired or invalid submission!.', 'woocommerce-local-pickup-time' ), 'error' );
+			wc_add_notice( __( 'Expired or invalid submission!.', 'woocommerce-local-pickup-time-select' ), 'error' );
 		}
 
 	}
@@ -765,7 +765,7 @@ class Local_Pickup_Time {
 				update_post_meta( $order_id, $this->get_order_meta_key(), wc_get_post_data_by_key( $this->get_order_post_key() ) );
 			}
 		} else {
-			wc_add_notice( __( 'Expired or invalid submission!.', 'woocommerce-local-pickup-time' ), 'error' );
+			wc_add_notice( __( 'Expired or invalid submission!.', 'woocommerce-local-pickup-time-select' ), 'error' );
 		}
 
 	}
@@ -784,7 +784,7 @@ class Local_Pickup_Time {
 
 		$value              = $this->pickup_time_select_translatable( get_post_meta( $order->get_id(), $this->get_order_meta_key(), true ) );
 		$fields['meta_key'] = array(
-			'label' => __( 'Pickup Time', 'woocommerce-local-pickup-time' ),
+			'label' => __( 'Pickup Time', 'woocommerce-local-pickup-time-select' ),
 			'value' => $value,
 		);
 
@@ -804,7 +804,7 @@ class Local_Pickup_Time {
 
 		// Only attempt date/time adjustments when a value is set.
 		if ( empty( $value ) ) {
-			return __( 'None', 'woocommerce-local-pickup-time' );
+			return __( 'None', 'woocommerce-local-pickup-time-select' );
 		}
 
 		// This match is specifically to address the bug introduced in 1.3.1.

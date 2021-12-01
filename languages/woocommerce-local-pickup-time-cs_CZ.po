@@ -344,7 +344,7 @@ msgid "WooCommerce Local Pickup Time Select"
 msgstr "WooCommerce Local Pickup Time Select"
 
 #. Plugin URI of the plugin/theme
-msgid "https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time"
+msgid "https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time-select"
 msgstr ""
 
 #. Description of the plugin/theme

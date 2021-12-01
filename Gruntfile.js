@@ -80,7 +80,7 @@ module.exports = function (grunt) {
 
 		addtextdomain: {
 			options: {
-				textdomain: 'woocommerce-local-pickup-time',    // Project text domain.
+				textdomain: 'woocommerce-local-pickup-time-select',    // Project text domain.
 			},
 			update_all_domains: {
 				options: {
@@ -112,8 +112,8 @@ module.exports = function (grunt) {
 						'vendor/.*', 							//composer
 						'wordpress/.*',
 					],                                // List of files or directories to ignore.
-					mainFile: 'woocommerce-local-pickup-time.php',                     // Main project file.
-					potFilename: 'woocommerce-local-pickup-time.pot',                  // Name of the POT file.
+					mainFile: 'woocommerce-local-pickup-time-select.php',                     // Main project file.
+					potFilename: 'woocommerce-local-pickup-time-select.pot',                  // Name of the POT file.
 					potHeaders: {
 						poedit: true,                 // Includes common Poedit headers.
 						'x-poedit-keywordslist': true // Include a list of all possible gettext functions.
@@ -143,7 +143,7 @@ module.exports = function (grunt) {
 
 		checktextdomain: {
 			options: {
-				text_domain: 'woocommerce-local-pickup-time',
+				text_domain: 'woocommerce-local-pickup-time-select',
 				keywords: [
 					'__:1,2d',
 					'_e:1,2d',
@@ -204,8 +204,8 @@ module.exports = function (grunt) {
 		wp_deploy: {
 			deploy: {
 				options: {
-					plugin_slug: 'woocommerce-local-pickup-time-select',
-					plugin_main_file: 'woocommerce-local-pickup-time.php',
+					plugin_slug: 'woocommerce-local-pickup-time-select-select',
+					plugin_main_file: 'woocommerce-local-pickup-time-select.php',
 					build_dir: 'dist/',
 					assets_dir: '.wordpress-org/',
 					max_buffer: 1024 * 1024,

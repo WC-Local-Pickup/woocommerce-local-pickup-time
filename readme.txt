@@ -24,7 +24,7 @@ In the admin area, under WooCommerce -> Settings -> General, you can set the sta
 = Using The WordPress Dashboard =
 
 1. Navigate to the 'Add New' in the plugins dashboard
-2. Search for 'woocommerce-local-pickup-time'
+2. Search for 'woocommerce-local-pickup-time-select'
 3. Click 'Install Now'
 4. Activate the plugin on the Plugin dashboard
 
@@ -32,15 +32,15 @@ In the admin area, under WooCommerce -> Settings -> General, you can set the sta
 
 1. Navigate to the 'Add New' in the plugins dashboard
 2. Navigate to the 'Upload' area
-3. Select `woocommerce-local-pickup-time.zip` from your computer
+3. Select `woocommerce-local-pickup-time-select.zip` from your computer
 4. Click 'Install Now'
 5. Activate the plugin in the Plugin dashboard
 
 = Using FTP =
 
-1. Download `woocommerce-local-pickup-time.zip`
-2. Extract the `woocommerce-local-pickup-time` directory to your computer
-3. Upload the `woocommerce-local-pickup-time` directory to the `/wp-content/plugins/` directory
+1. Download `woocommerce-local-pickup-time-select.zip`
+2. Extract the `woocommerce-local-pickup-time-select` directory to your computer
+3. Upload the `woocommerce-local-pickup-time-select` directory to the `/wp-content/plugins/` directory
 4. Activate the plugin in the Plugin dashboard
 
 === Usage ===

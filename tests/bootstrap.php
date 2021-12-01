@@ -59,7 +59,7 @@ class WC_Local_Pickup_Time_Unit_Tests_Bootstrap {
 	 *
 	 * @var string
 	 */
-	protected $plugin_file = 'woocommerce-local-pickup-time.php';
+	protected $plugin_file = 'woocommerce-local-pickup-time-select.php';
 
 	/**
 	 * Composer installed WooCommerce source path.

@@ -4,26 +4,26 @@ This plugin enhances WooCommerce, and your help making it even more awesome will
 
 There are many ways to contribute to the project!
 
-- [Translating strings into your language](https://translate.wordpress.org/projects/wp-plugins/woocommerce-local-pickup-time-select/).
-- Answering questions on the [WP.org support forums](https://wordpress.org/support/plugin/woocommerce-local-pickup-time-select/).
-- Testing open [issues](https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time/issues) or [pull requests](https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time/pulls) and sharing your findings in a comment.
+- [Translating strings into your language](https://translate.wordpress.org/projects/wp-plugins/woocommerce-local-pickup-time-select-select/).
+- Answering questions on the [WP.org support forums](https://wordpress.org/support/plugin/woocommerce-local-pickup-time-select-select/).
+- Testing open [issues](https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time-select/issues) or [pull requests](https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time-select/pulls) and sharing your findings in a comment.
 - Submitting fixes, improvements, and enhancements.
 - To disclose a security issue to our team.
 
 If you wish to contribute code, please read the information in the sections below. Then [fork](https://help.github.com/articles/fork-a-repo/) the plugin, commit your changes, and [submit a pull request](https://help.github.com/articles/using-pull-requests/) 🎉
 
-We use the `good first issue` label to mark issues that are suitable for new contributors. You can find all the issues with this label [here](https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22).
+We use the `good first issue` label to mark issues that are suitable for new contributors. You can find all the issues with this label [here](https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time-select/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22).
 
 WooCommerce Local Pickup Time is licensed under the GPLv2.0, and all contributions to the project will be released under the same license. You maintain copyright over any contribution you make, and by submitting a pull request, you are agreeing to release that contribution under the GPLv2.0 license.
 
 ## Getting started
 
-- [How to set up the plugin development environment](https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time/wiki/How-to-setup-the-plugin-development-environment)
+- [How to set up the plugin development environment](https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time-select/wiki/How-to-setup-the-plugin-development-environment)
 
 ## Coding Guidelines and Development 🛠
 
 - Ensure you stick to the [WordPress Coding Standards](https://make.wordpress.org/core/handbook/best-practices/coding-standards/php/)
-- Run our build process described in the document on [How to setup the plugin development environment](https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time/wiki/How-to-setup-the-plugin-development-environment), it will install everything needed to do development on our plugin.
+- Run our build process described in the document on [How to setup the plugin development environment](https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time-select/wiki/How-to-setup-the-plugin-development-environment), it will install everything needed to do development on our plugin.
 - Whenever possible please fix pre-existing code standards errors in the files that you change. It is ok to skip that for larger files or complex fixes.
 - Ensure you use LF line endings in your code editor. Use [EditorConfig](http://editorconfig.org/) if your editor supports it so that indentation, line endings and other settings are auto configured.
 - When committing, reference your issue number (#1234) and include a note about the fix.
@@ -34,4 +34,4 @@ WooCommerce Local Pickup Time is licensed under the GPLv2.0, and all contributio
 
 ## Feature Requests 🚀
 
-Feature requests can be [submitted to our issue tracker](https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time/issues/new?template=5-Feature-request.md). Be sure to include a description of the expected behavior and use case, and before submitting a request, please search for similar ones in the closed issues.
+Feature requests can be [submitted to our issue tracker](https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time-select/issues/new?template=5-Feature-request.md). Be sure to include a description of the expected behavior and use case, and before submitting a request, please search for similar ones in the closed issues.

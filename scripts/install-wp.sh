@@ -19,4 +19,4 @@ wp option update permalink_structure "/%year%/%monthnum%/%postname%/" --skip-the
 wp plugin activate woocommerce
 
 # Activate plugin.
-wp plugin activate woocommerce-local-pickup-time-select
+wp plugin activate woocommerce-local-pickup-time-select-select
