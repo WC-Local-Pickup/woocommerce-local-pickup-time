@@ -35,7 +35,7 @@
 		"grunt-version": "2.0.0",
 		"grunt-wp-deploy": "^2.1.2",
 		"grunt-wp-i18n": "^1.0.3",
-		"grunt-wp-readme-to-markdown": "^2.0.0",
+		"grunt-wp-readme-to-markdown": "^2.1.0",
 		"load-grunt-tasks": "^3.5",
 		"puppeteer": "^1.20.0"
 	},
