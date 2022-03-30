@@ -24,7 +24,7 @@ parameters:
     - admin/
     - public/
     - ./
-  excludes_analyse:
+  excludePaths:
     - node_modules/
     - scripts/
     - tests/
@@ -32,18 +32,18 @@ parameters:
     - vendor/
     - wordpress/
   scanFiles:
-    - vendor/woocommerce/woocommerce/includes/wc-core-functions.php
-    - vendor/woocommerce/woocommerce/includes/wc-formatting-functions.php
-    - vendor/woocommerce/woocommerce/includes/wc-conditional-functions.php
-    - vendor/woocommerce/woocommerce/includes/wc-attribute-functions.php
-    - vendor/woocommerce/woocommerce/includes/wc-cart-functions.php
-    - vendor/woocommerce/woocommerce/includes/wc-order-functions.php
-    - vendor/woocommerce/woocommerce/includes/wc-order-item-functions.php
-    - vendor/woocommerce/woocommerce/includes/wc-template-functions.php
-    - vendor/woocommerce/woocommerce/includes/wc-notice-functions.php
+    - wordpress/wp-content/plugins/woocommerce/includes/wc-core-functions.php
+    - wordpress/wp-content/plugins/woocommerce/includes/wc-formatting-functions.php
+    - wordpress/wp-content/plugins/woocommerce/includes/wc-conditional-functions.php
+    - wordpress/wp-content/plugins/woocommerce/includes/wc-attribute-functions.php
+    - wordpress/wp-content/plugins/woocommerce/includes/wc-cart-functions.php
+    - wordpress/wp-content/plugins/woocommerce/includes/wc-order-functions.php
+    - wordpress/wp-content/plugins/woocommerce/includes/wc-order-item-functions.php
+    - wordpress/wp-content/plugins/woocommerce/includes/wc-template-functions.php
+    - wordpress/wp-content/plugins/woocommerce/includes/wc-notice-functions.php
   scanDirectories:
-    - wordpress/src/
-    - vendor/woocommerce/woocommerce/includes/
+    - wordpress/
+    - wordpress/wp-content/plugins/woocommerce/includes/
   ignoreErrors:
     # Uses func_get_args()
     - '#^Function apply_filters(_ref_array)? invoked with [34567] parameters, 2 required\.$#'

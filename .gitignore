@@ -49,4 +49,5 @@ cache
 node_modules
 vendor
 dist
+woocommerce
 wordpress

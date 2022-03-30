@@ -8,20 +8,19 @@ on:
     branches:
       - develop
       - main
-      - 'dev-release/**'
-      - 'feature/**'
-      - 'fix/**'
 
 env:
   PHP_MIN_VERSION: '7.2'
   PHP_PREF_MIN_VERSION: '7.3'
   PHP_STABLE_VERSION: '7.4'
-  WP_MIN_VERSION: '5.3.*'
-  WP_PREF_MIN_VERSION: '5.4.*'
-  WP_STABLE_VERSION: '5.5.*'
+  WP_MIN_VERSION: '5.5.*'
+  WP_PREF_MIN_VERSION: '5.6.*'
+  WP_PREF_STABLE_VERSION: '5.7.*'
+  WP_STABLE_VERSION: '5.8.*'
   WC_MIN_VERSION: '4.6.*'
-  WC_PREF_MIN_VERSION: '4.7.*'
-  WC_STABLE_VERSION: '4.8.*'
+  WC_PREF_MIN_VERSION: '4.8.*'
+  WC_PREF_STABLE_VERSION: '5.*'
+  WC_STABLE_VERSION: '6.*'
 
 jobs:
   test:
@@ -34,20 +33,26 @@ jobs:
         include:
           - job-name: 'Latest Stable Requirements'
             bleeding-edge: false
-            php-version: '7.3'
-            wordpress-version: '5.5.*'
+            php-version: '7.4'
+            wordpress-version: '5.8.*'
             wp-multisite-mode: 0
-            woocommerce-version: '4.8.*'
+            woocommerce-version: '6.*'
+          - job-name: 'Preferred Stable Requirements'
+            bleeding-edge: false
+            php-version: '7.4'
+            wordpress-version: '5.7.*'
+            wp-multisite-mode: 0
+            woocommerce-version: '5.*'
           - job-name: 'Preferred Minimum Requirements'
             bleeding-edge: false
             php-version: '7.3'
-            wordpress-version: '5.4.*'
+            wordpress-version: '5.6.*'
             wp-multisite-mode: 0
-            woocommerce-version: '4.7.*'
+            woocommerce-version: '4.8.*'
           - job-name: 'Minimum Requirements'
             bleeding-edge: false
             php-version: '7.2'
-            wordpress-version: '5.3.*'
+            wordpress-version: '5.5.*'
             wp-multisite-mode: 0
             woocommerce-version: '4.6.*'
           - job-name: 'Bleeding Edge Requirements'
@@ -58,10 +63,10 @@ jobs:
             woocommerce-version: 'dev-master'
           - job-name: 'Multisite Compatibility Requirements'
             bleeding-edge: false
-            php-version: '7.3'
-            wordpress-version: '5.4.*'
+            php-version: '7.4'
+            wordpress-version: '5.7.*'
             wp-multisite-mode: 1
-            woocommerce-version: '4.7.*'
+            woocommerce-version: '5.*'
 
     name: '${{ matrix.job-name }} (PHP:${{ matrix.php-version }}/WP:${{ matrix.wordpress-version }}/WC:${{ matrix.woocommerce-version }})'
 
@@ -74,13 +79,13 @@ jobs:
       # https://github.com/marketplace/actions/setup-php-action
       with:
         php-version: ${{ matrix.php-version }}
-        tools: composer:v1
+        tools: composer:v2
 
     - name: Setup Node Environment
       uses: actions/setup-node@v1
       # https://github.com/marketplace/actions/setup-node-js-environment
       with:
-        node-version: 12.x
+        node-version: 14.x
 
     - name: Cache Composer dependencies
       uses: actions/cache@v2
@@ -95,34 +100,32 @@ jobs:
           ${{ runner.os }}-
 
     - name: Require Specified WordPress Version
-      run: composer require wordpress/wordpress:${{ matrix.wordpress-version }} --dev --prefer-source --update-with-all-dependencies
-
-    - name: Update Composer Lockfile for Specified WordPress Version
-      run: composer update wordpress/wordpress:${{ matrix.wordpress-version }} --lock --prefer-source
+      run: composer require johnpbloch/wordpress-core:${{ matrix.wordpress-version }} --dev --prefer-source --update-with-all-dependencies
 
     - name: Require Specified WooCommerce Version
       run: composer require woocommerce/woocommerce:${{ matrix.woocommerce-version }} --dev --prefer-source --update-with-all-dependencies
-
-    - name: Update Composer Lockfile for Specified WooCommerce Version
-      run: composer update woocommerce/woocommerce:${{ matrix.woocommerce-version }} --lock --prefer-source
 
     - name: Require Specified WooCommerce Admin Version
       if: matrix.woocommerce-version == 'dev-master'
       run: composer require woocommerce/woocommerce-admin:v1.3.0-beta.1 --dev --prefer-source --update-with-all-dependencies
 
-    - name: Update Composer Lockfile for Specified WooCommerce Admin Version
-      if: matrix.woocommerce-version == 'dev-master'
-      run: composer update woocommerce/woocommerce-admin:v1.3.0-beta.1 --lock --prefer-source
-
-    - name: PHPUnit PHP 7.4 Support
-      if: matrix.php-version == '7.4'
+    - name: PHPUnit PHP 8.0 Support
+      if: matrix.php-version == '8.0'
       run: |
-        composer global require phpunit/php-code-coverage=dev-master
-        composer global require sebastian/global-state:dev-master
-        composer global require phpunit/phpunit=dev-master
+        composer require sebastian/code-unit:^2.0 --dev -W --ignore-platform-req=php
+        composer require phpunit/phpunit:dev-master --dev -W --ignore-platform-req=php
+        composer require phpro/grumphp:dev-master --dev -W --ignore-platform-req=php
+
+    - name: Install Composer Dependencies (PHP 8.0)
+      if: matrix.php-version == '8.0'
+      run: composer install --ignore-platform-req=php
+
+    - name: Install Composer Dependencies
+      if: matrix.php-version != '8.0'
+      run: composer install
 
     - name: NPM Setup
-      run: npm install
+      run: npm ci
 
     - name: Unit Tests
       env:

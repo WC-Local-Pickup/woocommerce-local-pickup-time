@@ -80,13 +80,13 @@ module.exports = function (grunt) {
 
 		addtextdomain: {
 			options: {
-				textdomain: 'woocommerce-local-pickup-time',    // Project text domain.
+				textdomain: 'woocommerce-local-pickup-time-select',    // Project text domain.
 			},
 			update_all_domains: {
 				options: {
 					updateDomains: true
 				},
-				src: ['*.php', '**/*.php', '!node_modules/**', '!tests/**', '!scripts/**', '!wordpress/**']
+				src: ['*.php', '**/*.php', '!node_modules/**', '!tests/**', '!tools/**', '!scripts/**', '!vendor/**', '!wordpress/**']
 			},
 		},
 
@@ -105,10 +105,12 @@ module.exports = function (grunt) {
 					exclude: [
 						'node_modules/.*',				//npm
 						'.wordpress-org/.*', 			//wp-org assets
+						'.devcontainer/.*',
 						'dist/.*', 								//build directory
 						'.git/.*', 								//version control
 						'.github/.*',							//GitHub platform
 						'tests/.*', 'scripts/.*',	//unit testing
+						'tools/.*',
 						'vendor/.*', 							//composer
 						'wordpress/.*',
 					],                                // List of files or directories to ignore.
@@ -143,7 +145,7 @@ module.exports = function (grunt) {
 
 		checktextdomain: {
 			options: {
-				text_domain: 'woocommerce-local-pickup-time',
+				text_domain: 'woocommerce-local-pickup-time-select',
 				keywords: [
 					'__:1,2d',
 					'_e:1,2d',
@@ -168,6 +170,7 @@ module.exports = function (grunt) {
 					'!node_modules/**',
 					'!dist/**',
 					'!tests/**',
+					'!tools/**',
 					'!vendor/**',
 					'!wordpress/**',
 					'!*~',

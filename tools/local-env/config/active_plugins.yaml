@@ -1,0 +1,13 @@
+active_plugins:
+    - query-monitor/query-monitor.php
+    - action-scheduler/action-scheduler.php
+    - debug-bar-post-meta/debug-bar-post-meta.php
+    - debug-bar/debug-bar.php
+    - transients-manager/transients-manager.php
+    - woocommerce-admin/woocommerce-admin.php
+    - woocommerce-blocks/woocommerce-gutenberg-products-block.php
+    - woocommerce-local-pickup-time/woocommerce-local-pickup-time.php
+    - woocommerce/woocommerce.php
+    - wp-cfm/wp-cfm.php
+.label: 'Active Plugins'
+.active_plugins_format: serialized
