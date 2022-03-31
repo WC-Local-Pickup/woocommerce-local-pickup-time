@@ -6,16 +6,13 @@ on:
     branches:
       - develop
       - main
-      - 'dev-release/**'
+      - 'release/**'
       - 'feature/**'
       - 'fix/**'
 
 env:
-  PHP_VERSION: 7.3
-  WP_MODE: 'single'
+  PHP_VERSION: 7.4
   WP_MULTISITE: 0
-  WP_VERSION: '5.5.*'
-  WC_VERSION: '4.7.*'
 
 jobs:
   check:
@@ -32,7 +29,7 @@ jobs:
       # https://github.com/marketplace/actions/setup-php-action
       with:
         php-version: ${{ env.PHP_VERSION }}
-        tools: composer:v1
+        tools: composer:v2
 
     - name: Cache Composer dependencies
       uses: actions/cache@v2
@@ -45,12 +42,6 @@ jobs:
           ${{ runner.os }}-build-${{ env.composer-cache-name }}-
           ${{ runner.os }}-build-
           ${{ runner.os }}-
-
-    - name: Require Specified WordPress Version
-      run: composer require wordpress/wordpress:${{ env.WP_VERSION }} --dev --prefer-source --update-with-all-dependencies
-
-    - name: Require Specified WooCommerce Version
-      run: composer require woocommerce/woocommerce:${{ env.WC_VERSION }} --dev --prefer-source --update-with-all-dependencies
 
     - name: Install Composer Dependencies
       run: composer install

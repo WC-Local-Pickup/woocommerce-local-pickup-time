@@ -15,7 +15,7 @@
  * Version:                    1.3.13
  * Author:                     Tim Nolte
  * Author URI:                 https://www.ndigitals.com/
- * Text Domain:                woocommerce-local-pickup-time
+ * Text Domain:                woocommerce-local-pickup-time-select
  * License:                    GPL-2.0+
  * License URI:                http://www.gnu.org/licenses/gpl-2.0.txt
  * Domain Path:                /languages
