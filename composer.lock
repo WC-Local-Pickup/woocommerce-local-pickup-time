@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "14c520f8b27d633049128ef85eaa912a",
+    "content-hash": "5269e8daf73229b39c64d601a1caccfd",
     "packages": [
         {
             "name": "composer/installers",
@@ -1414,16 +1414,16 @@
         },
         {
             "name": "johnpbloch/wordpress-core",
-            "version": "5.7.4",
+            "version": "5.7.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress-core.git",
-                "reference": "08bd602d5d4fdd218570b77cd3a32558c949debd"
+                "reference": "8238ab07c57090815de2500a43f05e7790e9a6a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/08bd602d5d4fdd218570b77cd3a32558c949debd",
-                "reference": "08bd602d5d4fdd218570b77cd3a32558c949debd",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/8238ab07c57090815de2500a43f05e7790e9a6a3",
+                "reference": "8238ab07c57090815de2500a43f05e7790e9a6a3",
                 "shasum": ""
             },
             "require": {
@@ -1431,7 +1431,7 @@
                 "php": ">=5.6.20"
             },
             "provide": {
-                "wordpress/core-implementation": "5.7.4"
+                "wordpress/core-implementation": "5.7.6"
             },
             "type": "wordpress-core",
             "notification-url": "https://packagist.org/downloads/",
@@ -1458,7 +1458,7 @@
                 "source": "https://core.trac.wordpress.org/browser",
                 "wiki": "https://codex.wordpress.org/"
             },
-            "time": "2021-11-10T17:28:09+00:00"
+            "time": "2022-03-11T00:51:28+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core-installer",
@@ -6390,15 +6390,15 @@
         },
         {
             "name": "wpackagist-plugin/woocommerce",
-            "version": "5.7.1",
+            "version": "5.7.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/woocommerce/",
-                "reference": "tags/5.7.1"
+                "reference": "tags/5.7.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/woocommerce.5.7.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/woocommerce.5.7.2.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -6415,13 +6415,13 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.3.0"
+        "php": ">=7.4"
     },
     "platform-dev": {
-        "php": ">=7.3.0"
+        "php": ">=7.4"
     },
     "platform-overrides": {
         "php": "7.4"
     },
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.2.0"
 }

@@ -8,6 +8,7 @@ active_plugins:
     - woocommerce-blocks/woocommerce-gutenberg-products-block.php
     - woocommerce-local-pickup-time/woocommerce-local-pickup-time.php
     - woocommerce/woocommerce.php
+    - wordpress-importer/wordpress-importer.php
     - wp-cfm/wp-cfm.php
 .label: 'Active Plugins'
 .active_plugins_format: serialized
