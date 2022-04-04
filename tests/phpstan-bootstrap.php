@@ -14,3 +14,6 @@ defined( 'WC_ABSPATH' ) || define( 'WC_ABSPATH', 'wordpress/wp-content/plugins/w
 
 // Define WordPress language directory.
 defined( 'WP_LANG_DIR' ) || define( 'WP_LANG_DIR', 'wordpress/wp-includes/languages/' );
+
+// Define Plugin base directory.
+defined( 'WCLOCALPICKUPTIME_PLUGIN_BASE' ) || define( 'WCLOCALPICKUPTIME_PLUGIN_BASE', '.' );

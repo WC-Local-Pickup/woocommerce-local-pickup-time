@@ -25,26 +25,16 @@ parameters:
     - public/
     - ./
   excludePaths:
-    - node_modules/
-    - scripts/
-    - tests/
-    - tools/
-    - vendor/
-    - wordpress/
-  scanFiles:
-    - wordpress/wp-content/plugins/woocommerce/includes/wc-core-functions.php
-    - wordpress/wp-content/plugins/woocommerce/includes/wc-formatting-functions.php
-    - wordpress/wp-content/plugins/woocommerce/includes/wc-conditional-functions.php
-    - wordpress/wp-content/plugins/woocommerce/includes/wc-attribute-functions.php
-    - wordpress/wp-content/plugins/woocommerce/includes/wc-cart-functions.php
-    - wordpress/wp-content/plugins/woocommerce/includes/wc-order-functions.php
-    - wordpress/wp-content/plugins/woocommerce/includes/wc-order-item-functions.php
-    - wordpress/wp-content/plugins/woocommerce/includes/wc-template-functions.php
-    - wordpress/wp-content/plugins/woocommerce/includes/wc-notice-functions.php
-  scanDirectories:
-    - wordpress/
-    - wordpress/wp-content/plugins/woocommerce/includes/
+    analyse:
+      - node_modules/
+      - scripts/
+      - tests/
+      - tools/
+      - vendor/
+      - wordpress/
   ignoreErrors:
+    # Not able to properly typecast in public/class-local-pickup-time.php:834
+    - '#^Cannot access offset .*wclpt_shipping.* on mixed\.$#'
     # Uses func_get_args()
     - '#^Function apply_filters(_ref_array)? invoked with [34567] parameters, 2 required\.$#'
     # Fixed in WordPress 5.3

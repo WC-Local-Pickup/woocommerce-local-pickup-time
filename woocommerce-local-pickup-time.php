@@ -13,6 +13,8 @@
  * Plugin URI:                 https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time
  * Description:                Add an an option to WooCommerce checkout pages for Local Pickup that allows the user to choose a pickup time.
  * Version:                    1.3.13
+ * Requires at least:          4.9
+ * Requires PHP:               7.2
  * Author:                     Tim Nolte
  * Author URI:                 https://www.ndigitals.com/
  * Text Domain:                woocommerce-local-pickup-time-select
@@ -21,7 +23,7 @@
  * Domain Path:                /languages
  * GitHub Plugin URI:          https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time
  * WC requires at least:       4.0.0
- * WC tested up to:            4.7.2
+ * WC tested up to:            5.7.2
  */
 
 /**
@@ -36,6 +38,8 @@ if ( ! defined( 'WPINC' ) ) {
  * Check if WooCommerce is active
  */
 if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
+
+	defined( 'WCLOCALPICKUPTIME_PLUGIN_BASE' ) || define( 'WCLOCALPICKUPTIME_PLUGIN_BASE', plugin_basename( __FILE__ ) );
 
 	/**
 	 * ----------------------------------------------------------------------------
@@ -69,7 +73,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 	/**
 	 * Require admin functionality
 	 */
-	if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
+	if ( is_admin() ) {
 
 		require_once( plugin_dir_path( __FILE__ ) . 'admin/class-local-pickup-time-admin.php' );
 		add_action( 'plugins_loaded', array( 'Local_Pickup_Time_Admin', 'get_instance' ) );

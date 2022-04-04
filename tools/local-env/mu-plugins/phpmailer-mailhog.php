@@ -34,4 +34,10 @@ function mailhog_phpmailer_setup( PHPMailer $phpmailer ) {
 
 }
 
-add_action( 'phpmailer_init', 'mailhog_phpmailer_setup', 10, 2 );
+/**
+ * Disabled due to the limitation of setting up a MailHog Docker container with @wordpress/env.
+ *
+ * @todo Figure out a way to attach a MailHog Docker container to the @wordpress/env Docker containers.
+ *
+ * add_action( 'phpmailer_init', 'mailhog_phpmailer_setup', 10, 2 );
+ */

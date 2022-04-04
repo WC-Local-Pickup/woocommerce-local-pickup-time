@@ -43,11 +43,11 @@
 		}
 	],
 	"require": {
-		"php": ">=7.3.0",
+		"php": ">=7.4",
 		"composer/installers": "~1.0"
 	},
 	"require-dev": {
-		"php": ">=7.3.0",
+		"php": ">=7.4",
 		"brain/monkey": "^2.4",
 		"dealerdirect/phpcodesniffer-composer-installer": "~0.7",
 		"johnpbloch/wordpress-core": "~5.7.0",
@@ -75,20 +75,16 @@
 	},
 	"autoload": {
 		"exclude-from-classmap": [
-			"wordpress/wp-content/plugins/woocommerce/includes/legacy",
-			"wordpress/wp-content/plugins/woocommerce/includes/libraries/wp-async-request.php",
-			"wordpress/wp-content/plugins/woocommerce/packages",
-			"wordpress/wp-content/plugins/woocommerce/vendor",
-			"wordpress/wp-content/plugins/woocommerce-admin/vendor",
-			"wordpress/wp-content/plugins/woocommerce-blocks/vendor"
+			"wordpress/wp-content/plugins/"
 		]
 	},
 	"autoload-dev": {
 		"classmap": [
 			"woocommerce-local-pickup-time.php",
-			"admin/class-local-pickup-time-admin.php",
-			"public/class-local-pickup-time.php",
-			"wordpress/"
+			"admin/",
+			"public/",
+			"wordpress/",
+			"wordpress/wp-content/plugins/woocommerce/"
 		]
 	},
 	"scripts": {

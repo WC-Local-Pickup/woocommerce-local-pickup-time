@@ -3,7 +3,7 @@ Contributors: tnolte, mjbanks, vyskoczilova
 Donate link: https://www.ndigitals.com/donate/
 Tags: woocommcerce, shipping, local pickup, checkout fields, ecommerce, e-commerce, wordpress ecommerce
 Requires at least: 4.9
-Tested up to: 5.6.0
+Tested up to: 5.7.4
 Stable tag: 1.3.13
 Requires PHP: 7.2
 License: GPLv2 or later
@@ -66,10 +66,10 @@ The location, by default, is hooked to `woocommerce_admin_order_data_after_billi
 == Screenshots ==
 
 1. Frontend Display on Checkout Page
-2. Backend Settings Screen - Part 1
-3. Backend Settings Screen - Part 2
-4. Backend Order Listing Includes Pickup Date/Time
-5. Backend Order Details Screen Includes Pickup Date/Time
+2. Shipping Settings -> Local Pickup Time Settings Screen
+3. Local Pickup Shipping Method Settings Screen
+4. Order Listing Includes Pickup Date/Time
+5. Order Details Screen Includes Pickup Date/Time
 
 == Changelog ==
 
