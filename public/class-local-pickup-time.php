@@ -95,6 +95,33 @@ class Local_Pickup_Time {
 	protected $wp_timezone = null;
 
 	/**
+	 * Configured checkout time selection required setting. Default: 'yes'.
+	 *
+	 * @since 0.0.0
+	 *
+	 * @var   string
+	 */
+	protected $checkout_time_req = 'yes';
+
+	/**
+	 * Configured Local Pickup Shipping method only setting. Default: 'no'.
+	 *
+	 * @since 0.0.0
+	 *
+	 * @var   string
+	 */
+	protected $local_pickup_only = 'no';
+
+	/**
+	 * Legacy Local Pickup Time checkout display flag. Default: false.
+	 *
+	 * @since 0.0.0
+	 *
+	 * @var boolean
+	 */
+	protected $is_legacy_local_pickup_display = false;
+
+	/**
 	 * Order meta key for storing Local Pickup Time.
 	 *
 	 * @since     1.3.2
@@ -139,10 +166,12 @@ class Local_Pickup_Time {
 	private function __construct() {
 
 		// Load WordPress date/time formats.
-		$this->date_format = strval( get_option( 'date_format', $this->date_format ) );
-		$this->time_format = strval( get_option( 'time_format', $this->time_format ) );
-		$this->gmt_offset  = intval( get_option( 'gmt_offset', $this->gmt_offset ) );
-		$this->timezone    = strval( get_option( 'timezone_string', $this->timezone ) );
+		$this->date_format       = strval( get_option( 'date_format', $this->date_format ) );
+		$this->time_format       = strval( get_option( 'time_format', $this->time_format ) );
+		$this->gmt_offset        = intval( get_option( 'gmt_offset', $this->gmt_offset ) );
+		$this->timezone          = strval( get_option( 'timezone_string', $this->timezone ) );
+		$this->checkout_time_req = strval( get_option( 'checkout_time_req', $this->checkout_time_req ) );
+		$this->local_pickup_only = strval( get_option( 'local_pickup_only', $this->local_pickup_only ) );
 
 		// Make sure we have a time zone set.
 		if ( empty( $this->timezone ) ) {
@@ -162,8 +191,14 @@ class Local_Pickup_Time {
 		add_action( 'wpmu_new_blog', array( $this, 'activate_new_site' ) );
 
 		// Add the local pickup time field to the checkout page.
-		$public_hooked_location = apply_filters( 'local_pickup_time_select_location', 'woocommerce_after_order_notes' );
-		add_action( $public_hooked_location, array( $this, 'time_select' ) );
+		// Legacy plugin fallback will be to put the Pickup Time selextion after the Order Notes, or where a filter dictates.
+		if ( 'no' === $this->local_pickup_only ) {
+			$this->is_legacy_local_pickup_display = true;
+			$public_hooked_location = apply_filters( 'local_pickup_time_select_location', 'woocommerce_after_order_notes' );
+			add_action( $public_hooked_location, array( $this, 'time_select' ) );
+		} else {
+			add_action( 'woocommerce_after_shipping_rate', array( $this, 'add_checkout_local_pickup_time' ) );
+		}
 
 		// Process the checkout.
 		add_action( 'woocommerce_checkout_process', array( $this, 'field_process' ) );
@@ -259,7 +294,7 @@ class Local_Pickup_Time {
 	}
 
 	/**
-	 * Return the plugin timezone as a DateTimeZone object..
+	 * Return the plugin timezone as a DateTimeZone object.
 	 *
 	 * @since     1.3.12
 	 *
@@ -268,6 +303,44 @@ class Local_Pickup_Time {
 	public function get_wp_timezone() {
 
 		return $this->wp_timezone;
+
+	}
+
+	/**
+	 * Return the plugin pickup time required during checkout setting.
+	 *
+	 * @since 0.0.0
+	 *
+	 * @return string
+	 */
+	public function get_checkout_time_required() {
+
+		return $this->checkout_time_req;
+
+	}
+
+	/**
+	 * Return the plugin pickup time only on Local Pickup Shipping methods setting.
+	 *
+	 * @since 0.0.0
+	 *
+	 * @return string
+	 */
+	public function get_local_pickup_only() {
+
+		return $this->local_pickup_only;
+
+	}
+
+	/** Return the plugin checkout pickup time legacy display flag.
+	 *
+	 * @since 0.0.0
+	 *
+	 * @return boolean
+	 */
+	public function get_is_legacy_local_pickup_display() {
+
+		return $this->is_legacy_local_pickup_display;
 
 	}
 
@@ -552,7 +625,7 @@ class Local_Pickup_Time {
 		$pickup_datetime->modify( '+' . strval( $delay_minutes ) . ' minute' );
 
 		// Setup options array with empty first item.
-		$pickup_options[''] = __( 'Select time', 'woocommerce-local-pickup-time-select' );
+		$pickup_options[''] = '';
 
 		// Initialize firt interval state.
 		$first_interval = true;
@@ -672,7 +745,7 @@ class Local_Pickup_Time {
 	}
 
 	/**
-	 * Add the local pickup time field to the checkout page.
+	 * Add the local pickup time field to the checkout page. (Legacy Method)
 	 *
 	 * @since    1.0.0
 	 *
@@ -682,35 +755,106 @@ class Local_Pickup_Time {
 	 */
 	public function time_select( $checkout ) {
 
+		_deprecated_function( __FUNCTION__, '1.4.0', 'add_checkout_local_pickup_time()' );
+
+		$checkout_shipping_method = null;
+		$is_local_shipping = false;
+
+		// @var string|array<mixed[]> $chosen_shipping_methods
+		$chosen_shipping_methods = WC()->session->get( 'chosen_shipping_methods' );
+		if ( ! empty( $chosen_shipping_methods ) ) {
+			if ( ! is_array( $chosen_shipping_methods ) ) {
+				$chosen_shipping_methods = array( $chosen_shipping_methods );
+			}
+			foreach ( $chosen_shipping_methods as $shipping_method ) {
+				if ( strpos( $shipping_method, 'local_pickup' ) !== false ) {
+					$checkout_shipping_method = new WC_Shipping_Rate( explode( ':', $shipping_method )[1] );
+					$is_local_shipping = true;
+				}
+			}
+		}
+
+		if ( 'yes' === $this->get_local_pickup_only() && ! $is_local_shipping ) {
+			return;
+		}
+
+		$this->add_checkout_local_pickup_time( $checkout_shipping_method );
+
+	}
+
+	/**
+	 * Add the local pickup time field to the checkout page.
+	 *
+	 * @since 0.0.0
+	 *
+	 * @param WC_Shipping_Rate|null $rate The shipping rate object.
+	 *
+	 * @return void
+	 */
+	public function add_checkout_local_pickup_time( $rate ) {
+
+		if ( ! $this->get_is_legacy_local_pickup_display() && ! empty( $rate ) ) {
+
+			// We don't want to output the pickup time in the cart.
+			if ( is_cart() ) {
+				return;
+			}
+
+			if ( did_action( 'woocommerce_review_order_after_shipping' ) > 1 ) {
+				return;
+			}
+
+			if ( strpos( $rate->get_id(), 'local_pickup' ) === false ) {
+				return;
+			}
+
+			$is_local_shipping = false;
+
+			// @var string|array<mixed[]> $chosen_shipping_methods
+			$chosen_shipping_methods = WC()->session->get( 'chosen_shipping_methods' );
+			if ( ! empty( $chosen_shipping_methods ) ) {
+				if ( ! is_array( $chosen_shipping_methods ) ) {
+					$chosen_shipping_methods = array( $chosen_shipping_methods );
+				}
+				foreach ( $chosen_shipping_methods as $shipping_method ) {
+					if ( strpos( $shipping_method, 'local_pickup' ) !== false ) {
+						$is_local_shipping = true;
+					}
+				}
+			}
+
+			if ( 'yes' === $this->get_local_pickup_only() && ! $is_local_shipping ) {
+				return;
+			}
+
+			$rate_settings = get_option( 'woocommerce_' . $rate->get_method_id() . '_' . $rate->get_instance_id() . '_settings', array() );
+			$is_local_pickup_time_enabled = ! empty( $rate_settings['wclpt_shipping_method_enabled'] ) ? $rate_settings['wclpt_shipping_method_enabled'] : 'no';
+
+			if ( 'yes' === $this->get_local_pickup_only() && 'yes' !== $is_local_pickup_time_enabled ) {
+				return;
+			}
+		}
+
+		$checkout = WC()->checkout();
+
 		$allowed_html = array(
 			'div' => array(
 				'id' => array(),
 			),
-			'h2' => array(),
 		);
 
-		echo wp_kses( '<div id="local-pickup-time-select"><h2>' . __( 'Pickup Time', 'woocommerce-local-pickup-time-select' ) . '</h2>', $allowed_html );
+		echo wp_kses( '<div id="' . $this->get_order_post_key() . '">', $allowed_html );
 
 		woocommerce_form_field(
 			$this->get_order_post_key(),
 			array(
 				'type'     => 'select',
-				'class'    => array( 'local-pickup-time-select-field form-row-wide' ),
+				'class'    => array( 'local-pickup-time-select-field', 'form-row-wide' ),
 				'label'    => __( 'Pickup Time', 'woocommerce-local-pickup-time-select' ),
-				'required' => true,
+				'required' => ( 'yes' === $this->get_checkout_time_required() ) ? true : false,
 				'options'  => $this->get_pickup_time_options(),
 			),
 			$checkout->get_value( $this->get_order_post_key() )
-		);
-
-		$allowed_html = array(
-			'input' => array(
-				'type' => array(),
-				'class' => array(),
-				'name' => array(),
-				'id' => array(),
-				'value' => array(),
-			),
 		);
 
 		wp_nonce_field( $this->get_order_pickup_time_action_key(), $this->get_order_pickup_time_nonce_key() );
