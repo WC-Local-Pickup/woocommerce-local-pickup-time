@@ -630,7 +630,11 @@ class Local_Pickup_Time {
 		// Initialize firt interval state.
 		$first_interval = true;
 
-		// Build options.
+		/*
+		 * Build options.
+		 *
+		 * @var integer $days
+		 */
 		for ( $days = 1; $days <= $num_days_ahead; $days++ ) {
 
 			// Get the day's opening and closing times.
@@ -659,6 +663,7 @@ class Local_Pickup_Time {
 			} else {
 
 				// Rollback the days counter to ensure the number of days ahead reflect number of open days.
+				/* @phpstan-ignore-next-line */
 				$days = ( $days < 1 ) ? 0 : $days - 1;
 
 			}
@@ -734,9 +739,13 @@ class Local_Pickup_Time {
 			? new DatePeriod( $pickup_start_datetime, ( new DateInterval( 'PT' . $minutes_interval . 'M' ) ), $pickup_end_datetime )
 			: new DatePeriod( $pickup_open_datetime, ( new DateInterval( 'PT' . $minutes_interval . 'M' ) ), $pickup_end_datetime );
 
+		/*
+		 * @var DatePeriod $pickup_dateperiod
+		 * @var DateTime   $pickup_datetime
+		 */
 		foreach ( $pickup_dateperiod as $pickup_datetime ) {
 
-			$pickup_day_options[ "{$pickup_datetime->getTimestamp()}" ] = $this->pickup_time_select_translatable( $pickup_datetime->getTimestamp(), ' @ ' );
+			$pickup_day_options[ "{$pickup_datetime->getTimestamp()}" ] = $this->pickup_time_select_translatable( strval( $pickup_datetime->getTimestamp() ), ' @ ' );
 
 		}
 
@@ -828,6 +837,7 @@ class Local_Pickup_Time {
 			}
 
 			$rate_settings = get_option( 'woocommerce_' . $rate->get_method_id() . '_' . $rate->get_instance_id() . '_settings', array() );
+			/* @phpstan-ignore-next-line */
 			$is_local_pickup_time_enabled = ! empty( $rate_settings['wclpt_shipping_method_enabled'] ) ? $rate_settings['wclpt_shipping_method_enabled'] : 'no';
 
 			if ( 'yes' === $this->get_local_pickup_only() && 'yes' !== $is_local_pickup_time_enabled ) {
@@ -936,6 +946,7 @@ class Local_Pickup_Time {
 	 *
 	 * @param string $value         The pickup time meta value for an order.
 	 * @param string $separator     The separator to use between the date & the time. (Default = ' ').
+	 *
 	 * @return string  The translated value of the order pickup time.
 	 */
 	public function pickup_time_select_translatable( $value, $separator = ' ' ) {
