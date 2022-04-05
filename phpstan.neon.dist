@@ -33,8 +33,6 @@ parameters:
       - vendor/
       - wordpress/
   ignoreErrors:
-    # Not able to properly typecast in public/class-local-pickup-time.php:834
-    - '#^Cannot access offset .*wclpt_shipping.* on mixed\.$#'
     # Uses func_get_args()
     - '#^Function apply_filters(_ref_array)? invoked with [34567] parameters, 2 required\.$#'
     # Fixed in WordPress 5.3
