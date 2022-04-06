@@ -5915,16 +5915,16 @@
         },
         {
             "name": "szepeviktor/phpstan-wordpress",
-            "version": "v1.0.4",
+            "version": "v1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/szepeviktor/phpstan-wordpress.git",
-                "reference": "42d1c4c9bf440919c0b1585d9ae75f5c8eebf02b"
+                "reference": "d4dbd21fc057702be14d221e9ecb6e5697e39fed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/szepeviktor/phpstan-wordpress/zipball/42d1c4c9bf440919c0b1585d9ae75f5c8eebf02b",
-                "reference": "42d1c4c9bf440919c0b1585d9ae75f5c8eebf02b",
+                "url": "https://api.github.com/repos/szepeviktor/phpstan-wordpress/zipball/d4dbd21fc057702be14d221e9ecb6e5697e39fed",
+                "reference": "d4dbd21fc057702be14d221e9ecb6e5697e39fed",
                 "shasum": ""
             },
             "require": {
@@ -5968,7 +5968,7 @@
             ],
             "support": {
                 "issues": "https://github.com/szepeviktor/phpstan-wordpress/issues",
-                "source": "https://github.com/szepeviktor/phpstan-wordpress/tree/v1.0.4"
+                "source": "https://github.com/szepeviktor/phpstan-wordpress/tree/v1.0.5"
             },
             "funding": [
                 {
@@ -5976,7 +5976,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2022-04-02T19:52:14+00:00"
+            "time": "2022-04-05T03:13:59+00:00"
         },
         {
             "name": "theseer/tokenizer",
