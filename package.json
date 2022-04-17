@@ -34,7 +34,7 @@
 		"grunt-checkbranch": "^1.0.4",
 		"grunt-checktextdomain": "^1.0.1",
 		"grunt-cli": "1.4.3",
-		"grunt-contrib-clean": "^2.0.0",
+		"grunt-contrib-clean": "^2.0.1",
 		"grunt-contrib-copy": "^1.0.0",
 		"grunt-gitinfo": "^0.1.9",
 		"grunt-shell": "^2.1.0",
