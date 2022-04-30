@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5269e8daf73229b39c64d601a1caccfd",
+    "content-hash": "4f48ff7b4d258b19ffb9d3c9518be774",
     "packages": [
         {
             "name": "composer/installers",
@@ -1414,16 +1414,16 @@
         },
         {
             "name": "johnpbloch/wordpress-core",
-            "version": "5.7.6",
+            "version": "5.9.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress-core.git",
-                "reference": "8238ab07c57090815de2500a43f05e7790e9a6a3"
+                "reference": "455d38c7b7bcdce3e0a1c6108eccca8de1860361"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/8238ab07c57090815de2500a43f05e7790e9a6a3",
-                "reference": "8238ab07c57090815de2500a43f05e7790e9a6a3",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/455d38c7b7bcdce3e0a1c6108eccca8de1860361",
+                "reference": "455d38c7b7bcdce3e0a1c6108eccca8de1860361",
                 "shasum": ""
             },
             "require": {
@@ -1431,7 +1431,7 @@
                 "php": ">=5.6.20"
             },
             "provide": {
-                "wordpress/core-implementation": "5.7.6"
+                "wordpress/core-implementation": "5.9.3"
             },
             "type": "wordpress-core",
             "notification-url": "https://packagist.org/downloads/",
@@ -1458,7 +1458,7 @@
                 "source": "https://core.trac.wordpress.org/browser",
                 "wiki": "https://codex.wordpress.org/"
             },
-            "time": "2022-03-11T00:51:28+00:00"
+            "time": "2022-04-05T19:23:48+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core-installer",
@@ -2051,17 +2051,61 @@
             "time": "2018-07-08T19:19:57+00:00"
         },
         {
-            "name": "php-stubs/wordpress-stubs",
-            "version": "v5.7.5",
+            "name": "php-stubs/woocommerce-stubs",
+            "version": "v6.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/php-stubs/wordpress-stubs.git",
-                "reference": "b7aba1025517470210e031028a83bf70f9902836"
+                "url": "https://github.com/php-stubs/woocommerce-stubs.git",
+                "reference": "65e6be8a1b74b7be5d0d5591262342ff116f93db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-stubs/wordpress-stubs/zipball/b7aba1025517470210e031028a83bf70f9902836",
-                "reference": "b7aba1025517470210e031028a83bf70f9902836",
+                "url": "https://api.github.com/repos/php-stubs/woocommerce-stubs/zipball/65e6be8a1b74b7be5d0d5591262342ff116f93db",
+                "reference": "65e6be8a1b74b7be5d0d5591262342ff116f93db",
+                "shasum": ""
+            },
+            "require": {
+                "php-stubs/wordpress-stubs": "^5.3.0"
+            },
+            "require-dev": {
+                "giacocorsiglia/stubs-generator": "^0.5.0",
+                "php": "~7.1"
+            },
+            "suggest": {
+                "symfony/polyfill-php73": "Symfony polyfill backporting some PHP 7.3+ features to lower PHP versions",
+                "szepeviktor/phpstan-wordpress": "WordPress extensions for PHPStan"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "WooCommerce function and class declaration stubs for static analysis.",
+            "homepage": "https://github.com/php-stubs/woocommerce-stubs",
+            "keywords": [
+                "PHPStan",
+                "static analysis",
+                "woocommerce",
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/php-stubs/woocommerce-stubs/issues",
+                "source": "https://github.com/php-stubs/woocommerce-stubs/tree/v6.0.0"
+            },
+            "time": "2022-01-04T22:00:24+00:00"
+        },
+        {
+            "name": "php-stubs/wordpress-stubs",
+            "version": "v5.9.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-stubs/wordpress-stubs.git",
+                "reference": "18d56875e5078a50b8ea4bc4b20b735ca61edeee"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-stubs/wordpress-stubs/zipball/18d56875e5078a50b8ea4bc4b20b735ca61edeee",
+                "reference": "18d56875e5078a50b8ea4bc4b20b735ca61edeee",
                 "shasum": ""
             },
             "replace": {
@@ -2070,7 +2114,9 @@
             "require-dev": {
                 "nikic/php-parser": "< 4.12.0",
                 "php": "~7.3 || ~8.0",
-                "php-stubs/generator": "^0.7.0"
+                "php-stubs/generator": "^0.8.1",
+                "phpdocumentor/reflection-docblock": "^5.3",
+                "phpstan/phpstan": "^1.2"
             },
             "suggest": {
                 "paragonie/sodium_compat": "Pure PHP implementation of libsodium",
@@ -2091,9 +2137,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-stubs/wordpress-stubs/issues",
-                "source": "https://github.com/php-stubs/wordpress-stubs/tree/v5.7.5"
+                "source": "https://github.com/php-stubs/wordpress-stubs/tree/v5.9.3"
             },
-            "time": "2022-01-18T13:17:29+00:00"
+            "time": "2022-04-06T15:33:59+00:00"
         },
         {
             "name": "phpcompatibility/php-compatibility",
@@ -5915,16 +5961,16 @@
         },
         {
             "name": "szepeviktor/phpstan-wordpress",
-            "version": "v1.0.4",
+            "version": "v1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/szepeviktor/phpstan-wordpress.git",
-                "reference": "42d1c4c9bf440919c0b1585d9ae75f5c8eebf02b"
+                "reference": "d4dbd21fc057702be14d221e9ecb6e5697e39fed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/szepeviktor/phpstan-wordpress/zipball/42d1c4c9bf440919c0b1585d9ae75f5c8eebf02b",
-                "reference": "42d1c4c9bf440919c0b1585d9ae75f5c8eebf02b",
+                "url": "https://api.github.com/repos/szepeviktor/phpstan-wordpress/zipball/d4dbd21fc057702be14d221e9ecb6e5697e39fed",
+                "reference": "d4dbd21fc057702be14d221e9ecb6e5697e39fed",
                 "shasum": ""
             },
             "require": {
@@ -5968,7 +6014,7 @@
             ],
             "support": {
                 "issues": "https://github.com/szepeviktor/phpstan-wordpress/issues",
-                "source": "https://github.com/szepeviktor/phpstan-wordpress/tree/v1.0.4"
+                "source": "https://github.com/szepeviktor/phpstan-wordpress/tree/v1.0.5"
             },
             "funding": [
                 {
@@ -5976,7 +6022,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2022-04-02T19:52:14+00:00"
+            "time": "2022-04-05T03:13:59+00:00"
         },
         {
             "name": "theseer/tokenizer",
@@ -6088,22 +6134,23 @@
         },
         {
             "name": "woocommerce/action-scheduler",
-            "version": "3.2.1",
+            "version": "3.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/woocommerce/action-scheduler.git",
-                "reference": "3c24064f115cd55e972d73d5d48f14133ac60b0d"
+                "reference": "3218a33ff14b968f8cb05de9656c2efa1eeb1330"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/woocommerce/action-scheduler/zipball/3c24064f115cd55e972d73d5d48f14133ac60b0d",
-                "reference": "3c24064f115cd55e972d73d5d48f14133ac60b0d",
+                "url": "https://api.github.com/repos/woocommerce/action-scheduler/zipball/3218a33ff14b968f8cb05de9656c2efa1eeb1330",
+                "reference": "3218a33ff14b968f8cb05de9656c2efa1eeb1330",
                 "shasum": ""
             },
             "require-dev": {
                 "phpunit/phpunit": "^7.5",
                 "woocommerce/woocommerce-sniffs": "0.1.0",
-                "wp-cli/wp-cli": "~2.5.0"
+                "wp-cli/wp-cli": "~2.5.0",
+                "yoast/phpunit-polyfills": "^1.0"
             },
             "type": "wordpress-plugin",
             "extra": {
@@ -6121,22 +6168,22 @@
             "homepage": "https://actionscheduler.org/",
             "support": {
                 "issues": "https://github.com/woocommerce/action-scheduler/issues",
-                "source": "https://github.com/woocommerce/action-scheduler/tree/3.2.1"
+                "source": "https://github.com/woocommerce/action-scheduler/tree/3.4.0"
             },
-            "time": "2021-06-21T20:21:35+00:00"
+            "time": "2021-10-28T17:09:12+00:00"
         },
         {
             "name": "woocommerce/woocommerce-admin",
-            "version": "2.6.5",
+            "version": "3.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/woocommerce/woocommerce-admin.git",
-                "reference": "03d45390fb555d3a649f87c2b3385257c9d7ac02"
+                "reference": "76eda720ea3ddefe84af8035fbf90bb8bd828236"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/woocommerce/woocommerce-admin/zipball/03d45390fb555d3a649f87c2b3385257c9d7ac02",
-                "reference": "03d45390fb555d3a649f87c2b3385257c9d7ac02",
+                "url": "https://api.github.com/repos/woocommerce/woocommerce-admin/zipball/76eda720ea3ddefe84af8035fbf90bb8bd828236",
+                "reference": "76eda720ea3ddefe84af8035fbf90bb8bd828236",
                 "shasum": ""
             },
             "require": {
@@ -6148,7 +6195,8 @@
                 "automattic/jetpack-changelogger": "^1.1",
                 "bamarni/composer-bin-plugin": "^1.4",
                 "suin/phpcs-psr4-sniff": "^2.2",
-                "woocommerce/woocommerce-sniffs": "0.1.0"
+                "woocommerce/woocommerce-sniffs": "0.1.0",
+                "yoast/phpunit-polyfills": "^1.0"
             },
             "type": "wordpress-plugin",
             "extra": {
@@ -6180,7 +6228,8 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Automattic\\WooCommerce\\Admin\\": "src/"
+                    "Automattic\\WooCommerce\\Admin\\": "src/",
+                    "Automattic\\WooCommerce\\Internal\\Admin\\": "src-internal/Admin/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -6191,22 +6240,22 @@
             "homepage": "https://github.com/woocommerce/woocommerce-admin",
             "support": {
                 "issues": "https://github.com/woocommerce/woocommerce-admin/issues",
-                "source": "https://github.com/woocommerce/woocommerce-admin/tree/v2.6.5"
+                "source": "https://github.com/woocommerce/woocommerce-admin/tree/v3.3.2"
             },
-            "time": "2021-09-22T22:45:59+00:00"
+            "time": "2022-04-05T19:45:30+00:00"
         },
         {
             "name": "woocommerce/woocommerce-blocks",
-            "version": "v5.5.1",
+            "version": "v7.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/woocommerce/woocommerce-gutenberg-products-block.git",
-                "reference": "f3d8dbadb745cbb2544e86dfb3864e870146d197"
+                "reference": "2cc1a6db4352177775e60025ec2ba73e8e7607d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/woocommerce/woocommerce-gutenberg-products-block/zipball/f3d8dbadb745cbb2544e86dfb3864e870146d197",
-                "reference": "f3d8dbadb745cbb2544e86dfb3864e870146d197",
+                "url": "https://api.github.com/repos/woocommerce/woocommerce-gutenberg-products-block/zipball/2cc1a6db4352177775e60025ec2ba73e8e7607d7",
+                "reference": "2cc1a6db4352177775e60025ec2ba73e8e7607d7",
                 "shasum": ""
             },
             "require": {
@@ -6214,8 +6263,11 @@
                 "composer/installers": "^1.7.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "7.5.20",
-                "woocommerce/woocommerce-sniffs": "0.1.0"
+                "johnbillion/wp-hooks-generator": "^0.7.0",
+                "mockery/mockery": "^1.4",
+                "woocommerce/woocommerce-sniffs": "0.1.0",
+                "wp-phpunit/wp-phpunit": "^5.4",
+                "yoast/phpunit-polyfills": "^1.0"
             },
             "type": "wordpress-plugin",
             "extra": {
@@ -6225,8 +6277,13 @@
                 }
             },
             "autoload": {
+                "files": [
+                    "src/StoreApi/deprecated.php",
+                    "src/StoreApi/functions.php"
+                ],
                 "psr-4": {
-                    "Automattic\\WooCommerce\\Blocks\\": "src/"
+                    "Automattic\\WooCommerce\\Blocks\\": "src/",
+                    "Automattic\\WooCommerce\\StoreApi\\": "src/StoreApi/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -6242,22 +6299,22 @@
             ],
             "support": {
                 "issues": "https://github.com/woocommerce/woocommerce-gutenberg-products-block/issues",
-                "source": "https://github.com/woocommerce/woocommerce-gutenberg-products-block/tree/v5.5.1"
+                "source": "https://github.com/woocommerce/woocommerce-gutenberg-products-block/tree/v7.3.0"
             },
-            "time": "2021-07-14T20:59:04+00:00"
+            "time": "2022-03-28T14:43:54+00:00"
         },
         {
             "name": "woocommerce/woocommerce-sniffs",
-            "version": "0.1.1",
+            "version": "0.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/woocommerce/woocommerce-sniffs.git",
-                "reference": "eb604d751b61c42f31ff1aa24113c7c0de438553"
+                "reference": "5566270d280a300bc24bd0cb055a8b9325afdd6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/woocommerce/woocommerce-sniffs/zipball/eb604d751b61c42f31ff1aa24113c7c0de438553",
-                "reference": "eb604d751b61c42f31ff1aa24113c7c0de438553",
+                "url": "https://api.github.com/repos/woocommerce/woocommerce-sniffs/zipball/5566270d280a300bc24bd0cb055a8b9325afdd6b",
+                "reference": "5566270d280a300bc24bd0cb055a8b9325afdd6b",
                 "shasum": ""
             },
             "require": {
@@ -6286,9 +6343,9 @@
             ],
             "support": {
                 "issues": "https://github.com/woocommerce/woocommerce-sniffs/issues",
-                "source": "https://github.com/woocommerce/woocommerce-sniffs/tree/0.1.1"
+                "source": "https://github.com/woocommerce/woocommerce-sniffs/tree/0.1.2"
             },
-            "time": "2021-07-29T17:25:16+00:00"
+            "time": "2022-01-21T20:13:23+00:00"
         },
         {
             "name": "wp-coding-standards/wpcs",
@@ -6391,15 +6448,15 @@
         },
         {
             "name": "wpackagist-plugin/woocommerce",
-            "version": "5.7.2",
+            "version": "6.3.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/woocommerce/",
-                "reference": "tags/5.7.2"
+                "reference": "tags/6.3.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/woocommerce.5.7.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/woocommerce.6.3.1.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"

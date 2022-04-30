@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - develop
-      - main
       - 'release/**'
       - 'feature/**'
       - 'fix/**'
@@ -15,7 +14,7 @@ env:
 
 jobs:
   check:
-    name: Setup & Check
+    name: Setup & Check Internationalization
 
     runs-on: ubuntu-latest
 

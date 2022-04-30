@@ -40,6 +40,7 @@ if ( ! defined( 'WPINC' ) ) {
 if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
 
 	defined( 'WCLOCALPICKUPTIME_PLUGIN_BASE' ) || define( 'WCLOCALPICKUPTIME_PLUGIN_BASE', plugin_basename( __FILE__ ) );
+	defined( 'WCLOCALPICKUPTIME_PLUGIN_DIR' ) || define( 'WCLOCALPICKUPTIME_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
 	/**
 	 * ----------------------------------------------------------------------------
