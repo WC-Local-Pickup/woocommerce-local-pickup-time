@@ -98,8 +98,11 @@
 		"test": "npm run grunt test",
 		"lint": "npm run lint:php",
 		"lint:php": "docker-compose run composer lint",
+		"phpcs": "docker-compose run composer phpcs",
 		"lint:php:fix": "docker-compose run composer lint-fix",
+		"phpcbf": "docker-compose run composer phpcbf",
 		"analyze": "npm run analyze:php",
-		"analyze:php": "docker-compose run composer analyze"
+		"analyze:php": "docker-compose run composer analyze",
+		"phpstan": "docker-compose run composer phpstan"
 	}
 }
