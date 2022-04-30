@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - develop
-      - main
       - 'release/**'
       - 'feature/**'
       - 'fix/**'
@@ -16,7 +15,7 @@ env:
 
 jobs:
   check:
-    name: Setup & Check
+    name: Setup & Check Coding Standards
 
     runs-on: ubuntu-latest
 

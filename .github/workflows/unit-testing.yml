@@ -7,7 +7,6 @@ on:
   push:
     branches:
       - develop
-      - main
 
 env:
   PHP_MIN_VERSION: '7.2'
@@ -31,37 +30,37 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - job-name: 'Latest Stable Requirements'
+          - job-name: 'Unit Test Latest Stable Requirements'
             bleeding-edge: false
             php-version: '7.4'
             wordpress-version: '5.8.*'
             wp-multisite-mode: 0
             woocommerce-version: '6.*'
-          - job-name: 'Preferred Stable Requirements'
+          - job-name: 'Unit Test Preferred Stable Requirements'
             bleeding-edge: false
             php-version: '7.4'
             wordpress-version: '5.7.*'
             wp-multisite-mode: 0
             woocommerce-version: '5.*'
-          - job-name: 'Preferred Minimum Requirements'
+          - job-name: 'Unit Test Preferred Minimum Requirements'
             bleeding-edge: false
             php-version: '7.3'
             wordpress-version: '5.6.*'
             wp-multisite-mode: 0
             woocommerce-version: '4.8.*'
-          - job-name: 'Minimum Requirements'
+          - job-name: 'Unit Test Minimum Requirements'
             bleeding-edge: false
             php-version: '7.2'
             wordpress-version: '5.5.*'
             wp-multisite-mode: 0
             woocommerce-version: '4.6.*'
-          - job-name: 'Bleeding Edge Requirements'
+          - job-name: 'Unit Test Bleeding Edge Requirements'
             bleeding-edge: true
             php-version: '7.4'
             wordpress-version: 'dev-master'
             wp-multisite-mode: 0
             woocommerce-version: 'dev-master'
-          - job-name: 'Multisite Compatibility Requirements'
+          - job-name: 'Unit Test Multisite Compatibility Requirements'
             bleeding-edge: false
             php-version: '7.4'
             wordpress-version: '5.7.*'
@@ -102,8 +101,14 @@ jobs:
     - name: Require Specified WordPress Version
       run: composer require johnpbloch/wordpress-core:${{ matrix.wordpress-version }} --dev --prefer-source --update-with-all-dependencies
 
+    - name: Require Specified WordPress Stubs Version
+      run: composer require php-stubs/wordpress-stubs:${{ matrix.wordpress-version }} --dev --prefer-source --update-with-all-dependencies
+
     - name: Require Specified WooCommerce Version
       run: composer require woocommerce/woocommerce:${{ matrix.woocommerce-version }} --dev --prefer-source --update-with-all-dependencies
+
+    - name: Require Specified WooCommerce Stubs Version
+      run: composer require php-stubs/woocommerce-stubs:${{ matrix.woocommerce-version }} --dev --prefer-source --update-with-all-dependencies
 
     - name: Require Specified WooCommerce Admin Version
       if: matrix.woocommerce-version == 'dev-master'

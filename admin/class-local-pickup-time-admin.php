@@ -63,6 +63,15 @@ class Local_Pickup_Time_Admin {
 		add_filter( 'woocommerce_shipping_methods', array( $this, 'shipping_methods_settings_override' ) );
 
 		/*
+		 * Add support for a Ready for Pickup Order Status.
+		 */
+		add_action( 'init', array( $this, 'register_post_status' ) );
+		add_filter( 'wc_order_statuses', array( $this, 'wc_order_statuses' ), 10, 1 );
+		add_filter( 'bulk_actions-edit-shop_order', array( $this, 'add_bulk_actions_edit_shop_order' ), 50, 1 );
+		add_action( 'woocommerce_email_actions', array( $this, 'woocommerce_email_actions' ) );
+		add_action( 'woocommerce_email_classes', array( $this, 'woocommerce_email_classes' ) );
+
+		/*
 		 * Show Pickup Time in the Order Details in the Admin Screen
 		 */
 		$admin_hooked_location = apply_filters( 'local_pickup_time_admin_location', 'woocommerce_admin_order_data_after_billing_address' );
@@ -483,6 +492,96 @@ class Local_Pickup_Time_Admin {
 		}
 
 		return $args;
+
+	}
+
+	/**
+	 * Add a post status for Ready for Pickup for WooCommerce.
+	 *
+	 * @since 0.0.0
+	 *
+	 * @return void
+	 */
+	public function register_post_status() {
+		register_post_status(
+			'wc-ready-for-pickup',
+			array(
+				'label'                     => _x( 'Ready for Pickup', 'Order status', 'woocommerce-local-pickup-time-select' ),
+				'public'                    => true,
+				'exclude_from_search'       => false,
+				'show_in_admin_all_list'    => true,
+				'show_in_admin_status_list' => true,
+				/* translators: %s: number of orders */
+				'label_count'               => _n_noop( 'Ready for Pickup <span class="count">(%s)</span>', 'Ready for Pickup <span class="count">(%s)</span>', 'woocommerce-local-pickup-time-select' ),
+			)
+		);
+	}
+
+	/**
+	 * Add a Ready for Pickup Order Status to WooCommerce.
+	 *
+	 * @since 0.0.0
+	 *
+	 * @param array<string> $order_statuses The array of WooCommerce Order Statuses.
+	 *
+	 * @return array<string>
+	 */
+	public function wc_order_statuses( $order_statuses ) {
+
+		$order_statuses['wc-ready-for-pickup'] = _x( 'Ready for Pickup', 'Order status', 'woocommerce-local-pickup-time-select' );
+
+		return $order_statuses;
+
+	}
+
+	/**
+	 * Add a bulk order action to change statuses to Ready for Pickup.
+	 *
+	 * @since 0.0.0
+	 *
+	 * @param array<string> $actions The array of bulk order actions from the Order listing.
+	 *
+	 * @return array<string>
+	 */
+	public function add_bulk_actions_edit_shop_order( $actions ) {
+
+		$actions['mark_ready-for-pickup'] = __( 'Change status to ready for pickup', 'woocommerce-local-pickup-time-select' );
+
+		return $actions;
+
+	}
+
+	/**
+	 * Add a Ready for Pickup Order Status email action to WooCommerce..
+	 *
+	 * @since 0.0.0
+	 *
+	 * @param array<string> $email_actions The array of transactional emails in WooCommerce.
+	 *
+	 * @return array<string>
+	 */
+	public function woocommerce_email_actions( $email_actions ) {
+
+		$email_actions[] = 'woocommerce_order_status_ready-for-pickup';
+
+		return $email_actions;
+
+	}
+
+	/**
+	 * Add a Ready for Pickup Order Status email class to WooCommerce.
+	 *
+	 * @since 0.0.0
+	 *
+	 * @param array<mixed> $email_classes The array of email class files.
+	 *
+	 * @return array<mixed>
+	 */
+	public function woocommerce_email_classes( $email_classes ) {
+
+		$email_classes['WC_Email_Customer_Ready_For_Pickup_Order'] = include __DIR__ . '/emails/class-wc-email-customer-ready-for-pickup-order.php';
+
+		return $email_classes;
 
 	}
 
