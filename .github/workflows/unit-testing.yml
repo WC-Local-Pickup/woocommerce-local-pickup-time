@@ -104,6 +104,9 @@ jobs:
     - name: Require Specified WordPress Stubs Version
       run: composer require php-stubs/wordpress-stubs:${{ matrix.wordpress-version }} --dev --prefer-source --update-with-all-dependencies
 
+    - name: Require Specified WordPress PHPUnit Version
+      run: composer require wp-phpunit/wp-phpunit:${{ matrix.wordpress-version }} --dev --prefer-source --update-with-all-dependencies
+
     - name: Require Specified WooCommerce Version
       run: composer require woocommerce/woocommerce:${{ matrix.woocommerce-version }} --dev --prefer-source --update-with-all-dependencies
 
