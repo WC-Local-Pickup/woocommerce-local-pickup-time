@@ -16,6 +16,7 @@
 				"https://downloads.wordpress.org/plugin/debug-bar-post-meta.zip",
 				"https://downloads.wordpress.org/plugin/transients-manager.zip",
 				"https://downloads.wordpress.org/plugin/wp-cfm.zip",
+				"https://downloads.wordpress.org/plugin/wp-mail-logging.zip",
 				"https://downloads.wordpress.org/plugin/wordpress-importer.zip"
 			],
 			"themes": ["https://downloads.wordpress.org/theme/storefront.zip"]
