@@ -12,6 +12,7 @@ on:
 env:
   PHP_VERSION: 7.4
   WP_MULTISITE: 0
+  ACTION_VERSION: 2
 
 jobs:
   check:
@@ -30,17 +31,19 @@ jobs:
         php-version: ${{ env.PHP_VERSION }}
         tools: composer:v2
 
+    - name: Get Composer Cache Directory
+      id: composer-cache
+      run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
     - name: Cache Composer dependencies
       uses: actions/cache@v2
       env:
-        composer-cache-name: cache-vendor
+        composer-cache-name: cache-composer
       with:
-        path: ~/vendor
-        key: ${{ runner.os }}-build-${{ env.composer-cache-name }}-${{ hashFiles('**/composer.lock') }}
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: ${{ runner.os }}-build-${{ env.composer-cache-name }}-v${{ env.ACTION_VERSION }}-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
-          ${{ runner.os }}-build-${{ env.composer-cache-name }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
+          ${{ runner.os }}-build-${{ env.composer-cache-name }}-v${{ env.ACTION_VERSION }}-
 
     - name: Install Composer Dependencies
       run: composer install

@@ -11,6 +11,7 @@ env:
   WP_STABLE_VERSION: '5.7.*'
   WP_MULTISITE: 0
   WC_STABLE_VERSION: '5.7.*'
+  ACTION_VERSION: 2
 
 jobs:
   test:
@@ -46,17 +47,34 @@ jobs:
       with:
         node-version: 14.x
 
+    - name: Get NPM Cache Directory
+      id: npm-cache
+      run: echo "::set-output name=dir::$(npm config get cache)"
+
+    - name: Cache Node Modules
+      uses: actions/cache@v2
+      env:
+        npm-cache-name: cache-node-modules
+      with:
+        # npm cache files are stored in `~/.npm` on Linux/macOS
+        path: ${{ steps.npm-cache.outputs.dir }}
+        key: ${{ runner.os }}-build-${{ env.npm-cache-name }}-v${{ env.ACTION_VERSION }}-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.npm-cache-name }}-v${{ env.ACTION_VERSION }}-
+
+    - name: Get Composer Cache Directory
+      id: composer-cache
+      run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
     - name: Cache Composer dependencies
       uses: actions/cache@v2
       env:
-        composer-cache-name: cache-vendor
+        composer-cache-name: cache-composer
       with:
-        path: ~/vendor
-        key: ${{ runner.os }}-build-${{ env.composer-cache-name }}-${{ hashFiles('**/composer.lock') }}
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: ${{ runner.os }}-build-${{ env.composer-cache-name }}-wp-${{ matrix.wordpress-version }}-wc-${{ matrix.woocommerce-version }}-v${{ env.ACTION_VERSION }}-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
-          ${{ runner.os }}-build-${{ env.composer-cache-name }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
+          ${{ runner.os }}-build-${{ env.composer-cache-name }}-wp-${{ matrix.wordpress-version }}-wc-${{ matrix.woocommerce-version }}-v${{ env.ACTION_VERSION }}-
 
     - name: Require Specified WordPress Version
       run: composer require johnpbloch/wordpress-core:${{ matrix.wordpress-version }} --dev --prefer-source --update-with-all-dependencies
