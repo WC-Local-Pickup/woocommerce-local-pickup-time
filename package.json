@@ -30,7 +30,7 @@
 		"@wordpress/env": "4.0.5",
 		"@wordpress/scripts": "~12.6.1",
 		"check-node-version": "~4.1.0",
-		"grunt": "1.4.1",
+		"grunt": "1.5.2",
 		"grunt-checkbranch": "^1.0.4",
 		"grunt-checktextdomain": "^1.0.1",
 		"grunt-cli": "1.4.3",
@@ -98,8 +98,11 @@
 		"test": "npm run grunt test",
 		"lint": "npm run lint:php",
 		"lint:php": "docker-compose run composer lint",
+		"phpcs": "docker-compose run composer phpcs",
 		"lint:php:fix": "docker-compose run composer lint-fix",
+		"phpcbf": "docker-compose run composer phpcbf",
 		"analyze": "npm run analyze:php",
-		"analyze:php": "docker-compose run composer analyze"
+		"analyze:php": "docker-compose run composer analyze",
+		"phpstan": "docker-compose run composer phpstan"
 	}
 }

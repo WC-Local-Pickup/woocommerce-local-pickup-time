@@ -17,3 +17,6 @@ defined( 'WP_LANG_DIR' ) || define( 'WP_LANG_DIR', 'wordpress/wp-includes/langua
 
 // Define Plugin base directory.
 defined( 'WCLOCALPICKUPTIME_PLUGIN_BASE' ) || define( 'WCLOCALPICKUPTIME_PLUGIN_BASE', '.' );
+
+// Define Plugin base path.
+defined( 'WCLOCALPICKUPTIME_PLUGIN_DIR' ) || define( 'WCLOCALPICKUPTIME_PLUGIN_DIR', dirname( __DIR__ ) );
