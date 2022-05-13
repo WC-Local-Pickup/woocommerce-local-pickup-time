@@ -1,0 +1,21 @@
+current_theme: Storefront
+current_theme_supports_woocommerce: 'yes'
+stylesheet: storefront
+theme_mods_storefront:
+    0: false
+    nav_menu_locations: {  }
+    custom_css_post_id: -1
+    sidebars_widgets:
+        time: 1649018746
+        data:
+            wp_inactive_widgets: {  }
+            sidebar-1:
+                - search-2
+                - recent-posts-2
+                - recent-comments-2
+                - archives-2
+                - categories-2
+                - meta-2
+            sidebar-2: {  }
+.label: 'Active Theme'
+.theme_mods_storefront_format: serialized

@@ -10,7 +10,13 @@
  */
 
 // Define WooCommerce path for autoloading in phpstan.
-defined( 'WC_ABSPATH' ) || define( 'WC_ABSPATH', 'vendor/woocommerce/woocommerce/' );
+defined( 'WC_ABSPATH' ) || define( 'WC_ABSPATH', 'wordpress/wp-content/plugins/woocommerce/' );
 
 // Define WordPress language directory.
-defined( 'WP_LANG_DIR' ) || define( 'WP_LANG_DIR', 'wordpress/src/wp-includes/languages/' );
+defined( 'WP_LANG_DIR' ) || define( 'WP_LANG_DIR', 'wordpress/wp-includes/languages/' );
+
+// Define Plugin base directory.
+defined( 'WCLOCALPICKUPTIME_PLUGIN_BASE' ) || define( 'WCLOCALPICKUPTIME_PLUGIN_BASE', '.' );
+
+// Define Plugin base path.
+defined( 'WCLOCALPICKUPTIME_PLUGIN_DIR' ) || define( 'WCLOCALPICKUPTIME_PLUGIN_DIR', dirname( __DIR__ ) );

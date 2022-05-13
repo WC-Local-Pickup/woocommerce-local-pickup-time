@@ -7,86 +7,76 @@ on:
   pull_request:
 
 env:
-  PHP_PREF_MIN_VERSION: '7.3'
-  WP_STABLE_VERSION: '5.5.*'
+  PHP_PREF_MIN_VERSION: '7.4'
+  WP_STABLE_VERSION: '5.7.*'
   WP_MULTISITE: 0
-  WC_STABLE_VERSION: '4.8.*'
+  WC_STABLE_VERSION: '5.7.*'
+  COMPOSER_VERSION: '2.2'
+  ACTION_VERSION: 2
 
 jobs:
-  test:
+  pr_unit_testing:
     runs-on: ubuntu-latest
 
     strategy:
       fail-fast: false
       matrix:
         include:
-          - job-name: 'Latest Stable Requirements'
+          - job-name: 'Unit Test Latest Stable Requirements'
             bleeding-edge: false
-            php-version: '7.3'
-            wordpress-version: '5.5.*'
+            php-version: '7.4'
+            wordpress-version: '5.7.*'
             wp-multisite-mode: 0
-            woocommerce-version: '4.8.*'
+            woocommerce-version: '5.7.*'
 
     name: '${{ matrix.job-name }} (PHP:${{ matrix.php-version }}/WP:${{ matrix.wordpress-version }}/WC:${{ matrix.woocommerce-version }})'
 
     steps:
     - name: Checkout Code
+      # https://github.com/marketplace/actions/checkout
       uses: actions/checkout@v2
 
-    - name: Setup PHP Environment
-      uses: shivammathur/setup-php@v2
-      # https://github.com/marketplace/actions/setup-php-action
-      with:
-        php-version: ${{ matrix.php-version }}
-        tools: composer:v1
-
-    - name: Setup Node Environment
-      uses: actions/setup-node@v1
-      # https://github.com/marketplace/actions/setup-node-js-environment
-      with:
-        node-version: 12.x
+    - name: Get Composer Cache Directory
+      id: composer-cache
+      if: ${{ !env.ACT }}
+      run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
     - name: Cache Composer dependencies
+      if: ${{ !env.ACT }}
       uses: actions/cache@v2
       env:
-        composer-cache-name: cache-vendor
+        composer-cache-name: cache-composer
       with:
-        path: ~/vendor
-        key: ${{ runner.os }}-build-${{ env.composer-cache-name }}-${{ hashFiles('**/composer.lock') }}
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: ${{ runner.os }}-build-${{ env.composer-cache-name }}-wp-${{ matrix.wordpress-version }}-wc-${{ matrix.woocommerce-version }}-v${{ env.ACTION_VERSION }}-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
-          ${{ runner.os }}-build-${{ env.composer-cache-name }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
+          ${{ runner.os }}-build-${{ env.composer-cache-name }}-wp-${{ matrix.wordpress-version }}-wc-${{ matrix.woocommerce-version }}-v${{ env.ACTION_VERSION }}-
 
-    - name: Require Specified WordPress Version
-      run: composer require wordpress/wordpress:${{ matrix.wordpress-version }} --dev --prefer-source --update-with-all-dependencies
+    - name: Setup Node Environment
+      # https://github.com/marketplace/actions/setup-node-js-environment
+      uses: actions/setup-node@v2
+      with:
+        node-version-file: '.nvmrc'
+        cache: ${{ !env.ACT && 'npm' || '' }}
 
-    - name: Update Composer Lockfile for Specified WordPress Version
-      run: composer update wordpress/wordpress:${{ matrix.wordpress-version }} --lock --prefer-source
+    - name: Setup PHP & Composer Environment
+      # https://github.com/marketplace/actions/setup-php-action
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: "${{ matrix.php-version }}"
+        tools: "composer:${{ env.COMPOSER_VERSION }}"
 
-    - name: Require Specified WooCommerce Version
-      run: composer require woocommerce/woocommerce:${{ matrix.woocommerce-version }} --dev --prefer-source --update-with-all-dependencies
+    - name: Environment Check
+      run: php -v && composer --version
 
-    - name: Update Composer Lockfile for Specified WooCommerce Version
-      run: composer update woocommerce/woocommerce:${{ matrix.woocommerce-version }} --lock --prefer-source
+    - name: Require Specified WordPress & WooCommerce Version
+      run: composer require johnpbloch/wordpress-core:${{ matrix.wordpress-version }} php-stubs/wordpress-stubs:${{ matrix.wordpress-version }} wp-phpunit/wp-phpunit:${{ matrix.wordpress-version }} wpackagist-plugin/woocommerce:${{ matrix.woocommerce-version }} php-stubs/woocommerce-stubs:${{ matrix.woocommerce-version }} --dev --prefer-source --update-with-all-dependencies
 
-    - name: Require Specified WooCommerce Admin Version
-      if: matrix.woocommerce-version == 'dev-master'
-      run: composer require woocommerce/woocommerce-admin:v1.3.0-beta.1 --dev --prefer-source --update-with-all-dependencies
-
-    - name: Update Composer Lockfile for Specified WooCommerce Admin Version
-      if: matrix.woocommerce-version == 'dev-master'
-      run: composer update woocommerce/woocommerce-admin:v1.3.0-beta.1 --lock --prefer-source
-
-    - name: PHPUnit PHP 7.4 Support
-      if: matrix.php-version == '7.4'
-      run: |
-        composer global require phpunit/php-code-coverage=dev-master
-        composer global require sebastian/global-state:dev-master
-        composer global require phpunit/phpunit=dev-master
+    - name: Install Composer Dependencies
+      run: composer install --prefer-dist
 
     - name: NPM Setup
-      run: npm install
+      run: npm ci
 
     - name: Unit Tests
       run: npm run test

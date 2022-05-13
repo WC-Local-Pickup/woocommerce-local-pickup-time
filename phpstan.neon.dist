@@ -9,8 +9,11 @@ includes:
 parameters:
   level: max
   inferPrivatePropertyTypeFromConstructor: true
+  reportUnmatchedIgnoredErrors: false
   bootstrapFiles:
     - tests/phpstan-bootstrap.php
+    - %rootDir%/../../php-stubs/wordpress-stubs/wordpress-stubs.php
+    - %rootDir%/../../php-stubs/woocommerce-stubs/woocommerce-stubs.php
   # autoload_files:
     # Missing constants, function and class stubs
     # - tests/phpstan/bootstrap.php
@@ -24,26 +27,16 @@ parameters:
     - admin/
     - public/
     - ./
-  excludes_analyse:
-    - node_modules/
-    - scripts/
-    - tests/
-    - tools/
-    - vendor/
-    - wordpress/
-  scanFiles:
-    - vendor/woocommerce/woocommerce/includes/wc-core-functions.php
-    - vendor/woocommerce/woocommerce/includes/wc-formatting-functions.php
-    - vendor/woocommerce/woocommerce/includes/wc-conditional-functions.php
-    - vendor/woocommerce/woocommerce/includes/wc-attribute-functions.php
-    - vendor/woocommerce/woocommerce/includes/wc-cart-functions.php
-    - vendor/woocommerce/woocommerce/includes/wc-order-functions.php
-    - vendor/woocommerce/woocommerce/includes/wc-order-item-functions.php
-    - vendor/woocommerce/woocommerce/includes/wc-template-functions.php
-    - vendor/woocommerce/woocommerce/includes/wc-notice-functions.php
-  scanDirectories:
-    - wordpress/src/
-    - vendor/woocommerce/woocommerce/includes/
+  excludePaths:
+    analyse:
+      - node_modules/
+      - scripts/
+      - tests/
+      - tools/
+      - vendor/
+      - wordpress/
+    analyseAndScan:
+      - wordpress/wp-content/uploads/
   ignoreErrors:
     # Uses func_get_args()
     - '#^Function apply_filters(_ref_array)? invoked with [34567] parameters, 2 required\.$#'

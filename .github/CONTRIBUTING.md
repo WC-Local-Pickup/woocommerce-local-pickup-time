@@ -8,7 +8,7 @@ There are many ways to contribute to the project!
 - Answering questions on the [WP.org support forums](https://wordpress.org/support/plugin/woocommerce-local-pickup-time-select/).
 - Testing open [issues](https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time/issues) or [pull requests](https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time/pulls) and sharing your findings in a comment.
 - Submitting fixes, improvements, and enhancements.
-- To disclose a security issue to our team.
+- Disclose a security issue to our team by responsibly contacting the lead developer via DM to `@tnolte` in the [WordPress Slack](https://wordpress.slack.com/) or via secure message to [timnolte](https://keybase.io/timnolte/chat). (*NOTE*: Please disclose responsibly and not via GitHub, which allows for exploiting issues in the wild before the patch is released.)
 
 If you wish to contribute code, please read the information in the sections below. Then [fork](https://help.github.com/articles/fork-a-repo/) the plugin, commit your changes, and [submit a pull request](https://help.github.com/articles/using-pull-requests/) 🎉
 
