@@ -28,9 +28,11 @@ jobs:
 
     - name: Get NPM Cache Directory
       id: npm-cache
+      if: ${{ !env.ACT }}
       run: echo "::set-output name=dir::$(npm config get cache)"
 
     - name: Cache Node Modules
+      if: ${{ !env.ACT }}
       uses: actions/cache@v2
       env:
         npm-cache-name: cache-node-modules
