@@ -15,7 +15,7 @@
  *
  * @see https://docs.woocommerce.com/document/template-structure/
  * @package Local_Pickup_Time\Templates\Emails\Plain
- * @since 0.0.0
+ * @since 1.4.0
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -33,7 +33,7 @@ echo esc_html__( 'We have finished preparing your order for pickup.', 'woocommer
  * @hooked WC_Emails::order_details() Shows the order details table.
  * @hooked WC_Structured_Data::generate_order_data() Generates structured data.
  * @hooked WC_Structured_Data::output_structured_data() Outputs structured data.
- * @since 0.0.0
+ * @since 1.4.0
  */
 /* @phpstan-ignore-next-line */
 do_action( 'woocommerce_email_order_details', $order, $sent_to_admin, $plain_text, $email );

@@ -109,7 +109,7 @@ class Local_Pickup_Time_Admin {
 	 *
 	 * @link https://developer.wordpress.org/reference/hooks/plugin_action_links_plugin_file/
 	 *
-	 * @since 0.0.0
+	 * @since 1.4.0
 	 *
 	 * @param string[] $actions The plugin action links.
 	 *
@@ -130,7 +130,7 @@ class Local_Pickup_Time_Admin {
 	 *
 	 * @link https://woocommerce.com/document/adding-a-section-to-a-settings-tab/
 	 *
-	 * @since 0.0.0
+	 * @since 1.4.0
 	 *
 	 * @param array<string> $sections The array of Settings screen sections.
 	 *
@@ -430,7 +430,7 @@ class Local_Pickup_Time_Admin {
 	/**
 	 * Optionally adds the Local Pickup Time enabling option to a Local Pickup Shipping method.
 	 *
-	 * @since 0.0.0
+	 * @since 1.4.0
 	 *
 	 * @param array<mixed[]> $shipping_methods An array of WC_Shipping methods.
 	 *
@@ -453,7 +453,7 @@ class Local_Pickup_Time_Admin {
 	/**
 	 * Adds a Local Pickup Time flag to a shipping method.
 	 *
-	 * @since 0.0.0
+	 * @since 1.4.0
 	 *
 	 * @param array<mixed[]> $fields The array of settings fields.
 	 *
@@ -478,7 +478,7 @@ class Local_Pickup_Time_Admin {
 	/**
 	 * Support processing the Local Pickup Time enabled option on Local Pickup shipping instances.
 	 *
-	 * @since 0.0.0
+	 * @since 1.4.0
 	 *
 	 * @param array<mixed[]>     $args            The shipping method arguments.
 	 * @param WC_Shipping_Method $shipping_method The WC_Shipping_Method instance object.
@@ -498,7 +498,7 @@ class Local_Pickup_Time_Admin {
 	/**
 	 * Add a post status for Ready for Pickup for WooCommerce.
 	 *
-	 * @since 0.0.0
+	 * @since 1.4.0
 	 *
 	 * @return void
 	 */
@@ -520,7 +520,7 @@ class Local_Pickup_Time_Admin {
 	/**
 	 * Add a Ready for Pickup Order Status to WooCommerce.
 	 *
-	 * @since 0.0.0
+	 * @since 1.4.0
 	 *
 	 * @param array<string> $order_statuses The array of WooCommerce Order Statuses.
 	 *
@@ -537,7 +537,7 @@ class Local_Pickup_Time_Admin {
 	/**
 	 * Add a bulk order action to change statuses to Ready for Pickup.
 	 *
-	 * @since 0.0.0
+	 * @since 1.4.0
 	 *
 	 * @param array<string> $actions The array of bulk order actions from the Order listing.
 	 *
@@ -554,7 +554,7 @@ class Local_Pickup_Time_Admin {
 	/**
 	 * Add a Ready for Pickup Order Status email action to WooCommerce..
 	 *
-	 * @since 0.0.0
+	 * @since 1.4.0
 	 *
 	 * @param array<string> $email_actions The array of transactional emails in WooCommerce.
 	 *
@@ -571,7 +571,7 @@ class Local_Pickup_Time_Admin {
 	/**
 	 * Add a Ready for Pickup Order Status email class to WooCommerce.
 	 *
-	 * @since 0.0.0
+	 * @since 1.4.0
 	 *
 	 * @param array<mixed> $email_classes The array of email class files.
 	 *

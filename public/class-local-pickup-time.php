@@ -20,12 +20,12 @@ class Local_Pickup_Time {
 	 *
 	 * @var     string
 	 */
-	const VERSION = '1.3.13';
+	const VERSION = '1.4.0';
 
 	/**
 	 * Plugin version wp_options meta key.
 	 *
-	 * @since    0.0.0
+	 * @since    1.4.0
 	 *
 	 * @var      string
 	 */
@@ -97,7 +97,7 @@ class Local_Pickup_Time {
 	/**
 	 * Configured checkout time selection required setting. Default: 'yes'.
 	 *
-	 * @since 0.0.0
+	 * @since 1.4.0
 	 *
 	 * @var   string
 	 */
@@ -106,7 +106,7 @@ class Local_Pickup_Time {
 	/**
 	 * Configured Local Pickup Shipping method only setting. Default: 'no'.
 	 *
-	 * @since 0.0.0
+	 * @since 1.4.0
 	 *
 	 * @var   string
 	 */
@@ -115,7 +115,7 @@ class Local_Pickup_Time {
 	/**
 	 * Legacy Local Pickup Time checkout display flag. Default: false.
 	 *
-	 * @since 0.0.0
+	 * @since 1.4.0
 	 *
 	 * @var boolean
 	 */
@@ -133,7 +133,7 @@ class Local_Pickup_Time {
 	/**
 	 * Order $_POST key for storing Local Pickup Time.
 	 *
-	 * @since     0.0.0
+	 * @since     1.4.0
 	 *
 	 * @var       string
 	 */
@@ -142,7 +142,7 @@ class Local_Pickup_Time {
 	/**
 	 * Order pickup time nonce key.
 	 *
-	 * @since     0.0.0
+	 * @since     1.4.0
 	 *
 	 * @var       string
 	 */
@@ -151,7 +151,7 @@ class Local_Pickup_Time {
 	/**
 	 * Order pickup time action key.
 	 *
-	 * @since     0.0.0
+	 * @since     1.4.0
 	 *
 	 * @var       string
 	 */
@@ -309,7 +309,7 @@ class Local_Pickup_Time {
 	/**
 	 * Return the plugin pickup time required during checkout setting.
 	 *
-	 * @since 0.0.0
+	 * @since 1.4.0
 	 *
 	 * @return string
 	 */
@@ -322,7 +322,7 @@ class Local_Pickup_Time {
 	/**
 	 * Return the plugin pickup time only on Local Pickup Shipping methods setting.
 	 *
-	 * @since 0.0.0
+	 * @since 1.4.0
 	 *
 	 * @return string
 	 */
@@ -334,7 +334,7 @@ class Local_Pickup_Time {
 
 	/** Return the plugin checkout pickup time legacy display flag.
 	 *
-	 * @since 0.0.0
+	 * @since 1.4.0
 	 *
 	 * @return boolean
 	 */
@@ -360,7 +360,7 @@ class Local_Pickup_Time {
 	/**
 	 * Return the plugin order $_POST key used for submitting the Local Pickup Time.
 	 *
-	 * @since     0.0.0
+	 * @since     1.4.0
 	 *
 	 * @return    string   The order $_POST key that stores the submitted Local Pickup Time.
 	 */
@@ -373,7 +373,7 @@ class Local_Pickup_Time {
 	/**
 	 * Return the plugin order pickup time nonce key, used to validate submissions.
 	 *
-	 * @since     0.0.0
+	 * @since     1.4.0
 	 *
 	 * @return    string
 	 */
@@ -387,7 +387,7 @@ class Local_Pickup_Time {
 	 * Return the plugin order pickup time action key, used to create and
 	 * validate the field nonce.
 	 *
-	 * @since     0.0.0
+	 * @since     1.4.0
 	 *
 	 * @return    string
 	 */
@@ -565,7 +565,7 @@ class Local_Pickup_Time {
 	/**
 	 * Perform a version check of the plugin against the last activated version.
 	 *
-	 * @since    0.0.0
+	 * @since    1.4.0
 	 *
 	 * @return boolean   Returns TRUE if the plugin and database versions match, otherwise FALSE if the values don't match.
 	 */
@@ -794,7 +794,7 @@ class Local_Pickup_Time {
 	/**
 	 * Add the local pickup time field to the checkout page.
 	 *
-	 * @since 0.0.0
+	 * @since 1.4.0
 	 *
 	 * @param WC_Shipping_Rate|null $rate The shipping rate object.
 	 *
