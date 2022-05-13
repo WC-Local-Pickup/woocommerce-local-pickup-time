@@ -14,35 +14,22 @@ env:
   ACTION_VERSION: 2
 
 jobs:
-  check:
+  check_i18n:
     name: Setup & Check Internationalization
 
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout Code
+      # https://github.com/marketplace/actions/checkout
       uses: actions/checkout@v2
 
     - name: Setup Node Environment
-      uses: actions/setup-node@v1
       # https://github.com/marketplace/actions/setup-node-js-environment
+      uses: actions/setup-node@v2
       with:
-        node-version: 14.x
-
-    - name: Get NPM Cache Directory
-      id: npm-cache
-      run: echo "::set-output name=dir::$(npm config get cache)"
-
-    - name: Cache Node Modules
-      uses: actions/cache@v2
-      env:
-        npm-cache-name: cache-node-modules
-      with:
-        # npm cache files are stored in `~/.npm` on Linux/macOS
-        path: ${{ steps.npm-cache.outputs.dir }}
-        key: ${{ runner.os }}-build-${{ env.npm-cache-name }}-v${{ env.ACTION_VERSION }}-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-build-${{ env.npm-cache-name }}-v${{ env.ACTION_VERSION }}-
+        node-version-file: '.nvmrc'
+        cache: ${{ !env.ACT && 'npm' || '' }}
 
     - name: NPM Install
       run: npm ci

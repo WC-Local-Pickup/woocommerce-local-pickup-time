@@ -20,10 +20,11 @@ env:
   WC_PREF_MIN_VERSION: '4.8.*'
   WC_PREF_STABLE_VERSION: '5.*'
   WC_STABLE_VERSION: '6.*'
+  COMPOSER_VERSION: '2.2'
   ACTION_VERSION: 2
 
 jobs:
-  test:
+  matrix_unit_testing:
     runs-on: ubuntu-latest
     continue-on-error: ${{ matrix.bleeding-edge }}
 
@@ -55,12 +56,18 @@ jobs:
             wordpress-version: '5.5.*'
             wp-multisite-mode: 0
             woocommerce-version: '4.6.*'
+          - job-name: 'Unit Test Latest Compatibility Requirements'
+            bleeding-edge: false
+            php-version: '8.0'
+            wordpress-version: '5.9.*'
+            wp-multisite-mode: 0
+            woocommerce-version: '6.4.*'
           - job-name: 'Unit Test Bleeding Edge Requirements'
             bleeding-edge: true
             php-version: '7.4'
             wordpress-version: 'dev-master'
             wp-multisite-mode: 0
-            woocommerce-version: 'dev-master'
+            woocommerce-version: 'dev-trunk'
           - job-name: 'Unit Test Multisite Compatibility Requirements'
             bleeding-edge: false
             php-version: '7.4'
@@ -72,41 +79,16 @@ jobs:
 
     steps:
     - name: Checkout Code
+      # https://github.com/marketplace/actions/checkout
       uses: actions/checkout@v2
-
-    - name: Setup PHP Environment
-      uses: shivammathur/setup-php@v2
-      # https://github.com/marketplace/actions/setup-php-action
-      with:
-        php-version: ${{ matrix.php-version }}
-        tools: composer:v2
-
-    - name: Setup Node Environment
-      uses: actions/setup-node@v1
-      # https://github.com/marketplace/actions/setup-node-js-environment
-      with:
-        node-version: 14.x
-
-    - name: Get NPM Cache Directory
-      id: npm-cache
-      run: echo "::set-output name=dir::$(npm config get cache)"
-
-    - name: Cache Node Modules
-      uses: actions/cache@v2
-      env:
-        npm-cache-name: cache-node-modules
-      with:
-        # npm cache files are stored in `~/.npm` on Linux/macOS
-        path: ${{ steps.npm-cache.outputs.dir }}
-        key: ${{ runner.os }}-build-${{ env.npm-cache-name }}-v${{ env.ACTION_VERSION }}-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-build-${{ env.npm-cache-name }}-v${{ env.ACTION_VERSION }}-
 
     - name: Get Composer Cache Directory
       id: composer-cache
+      if: ${{ !env.ACT }}
       run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
     - name: Cache Composer dependencies
+      if: ${{ !env.ACT }}
       uses: actions/cache@v2
       env:
         composer-cache-name: cache-composer
@@ -116,39 +98,56 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-build-${{ env.composer-cache-name }}-wp-${{ matrix.wordpress-version }}-wc-${{ matrix.woocommerce-version }}-v${{ env.ACTION_VERSION }}-
 
-    - name: Require Specified WordPress Version
-      run: composer require johnpbloch/wordpress-core:${{ matrix.wordpress-version }} --dev --prefer-source --update-with-all-dependencies
+    - name: Setup Node Environment
+      # https://github.com/marketplace/actions/setup-node-js-environment
+      uses: actions/setup-node@v2
+      with:
+        node-version-file: '.nvmrc'
+        cache: ${{ !env.ACT && 'npm' || '' }}
 
-    - name: Require Specified WordPress Stubs Version
-      run: composer require php-stubs/wordpress-stubs:${{ matrix.wordpress-version }} --dev --prefer-source --update-with-all-dependencies
+    - name: Setup PHP & Composer Environment
+      # https://github.com/marketplace/actions/setup-php-action
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: "${{ matrix.php-version }}"
+        tools: "composer:${{ env.COMPOSER_VERSION }}"
 
-    - name: Require Specified WordPress PHPUnit Version
-      run: composer require wp-phpunit/wp-phpunit:${{ matrix.wordpress-version }} --dev --prefer-source --update-with-all-dependencies
+    - name: Environment Check
+      run: php -v && composer --version
 
-    - name: Require Specified WooCommerce Version
-      run: composer require woocommerce/woocommerce:${{ matrix.woocommerce-version }} --dev --prefer-source --update-with-all-dependencies
+    - name: Require Specified WordPress & WooCommerce Version (PHP <7.4)
+      if: matrix.php-version == '7.3' || matrix.php-version == '7.2'
+      run: composer require johnpbloch/wordpress-core:${{ matrix.wordpress-version }} php-stubs/wordpress-stubs:${{ matrix.wordpress-version }} wp-phpunit/wp-phpunit:${{ matrix.wordpress-version }} wpackagist-plugin/woocommerce:${{ matrix.woocommerce-version }} php-stubs/woocommerce-stubs:${{ matrix.woocommerce-version }} --dev --prefer-source --update-with-all-dependencies --ignore-platform-req=php
 
-    - name: Require Specified WooCommerce Stubs Version
-      run: composer require php-stubs/woocommerce-stubs:${{ matrix.woocommerce-version }} --dev --prefer-source --update-with-all-dependencies
+    - name: Require Specified WordPress & WooCommerce Version (Bleeding Edge)
+      if: matrix.bleeding-edge
+      run: composer require johnpbloch/wordpress-core:${{ matrix.wordpress-version }} php-stubs/wordpress-stubs:${{ matrix.wordpress-version }} szepeviktor/phpstan-wordpress:* wp-phpunit/wp-phpunit:${{ matrix.wordpress-version }} wpackagist-plugin/woocommerce:${{ matrix.woocommerce-version }} php-stubs/woocommerce-stubs:* --dev --prefer-source --update-with-all-dependencies
+
+    - name: Require Specified WordPress & WooCommerce Version
+      if: matrix.php-version != '7.3' && matrix.php-version != '7.2' && ! matrix.bleeding-edge
+      run: composer require johnpbloch/wordpress-core:${{ matrix.wordpress-version }} php-stubs/wordpress-stubs:${{ matrix.wordpress-version }} wp-phpunit/wp-phpunit:${{ matrix.wordpress-version }} wpackagist-plugin/woocommerce:${{ matrix.woocommerce-version }} php-stubs/woocommerce-stubs:${{ matrix.woocommerce-version }} --dev --prefer-source --update-with-all-dependencies
 
     - name: Require Specified WooCommerce Admin Version
       if: matrix.woocommerce-version == 'dev-master'
       run: composer require woocommerce/woocommerce-admin:v1.3.0-beta.1 --dev --prefer-source --update-with-all-dependencies
 
+    - name: PHPUnit Bleeding Edge Support
+      if: matrix.bleeding-edge
+      run: |
+        composer require sebastian/code-unit:dev-main phpunit/phpunit:dev-master phpro/grumphp:dev-master --dev -W --ignore-platform-req=php --update-with-all-dependencies
+
     - name: PHPUnit PHP 8.0 Support
       if: matrix.php-version == '8.0'
       run: |
-        composer require sebastian/code-unit:^2.0 --dev -W --ignore-platform-req=php
-        composer require phpunit/phpunit:dev-master --dev -W --ignore-platform-req=php
-        composer require phpro/grumphp:dev-master --dev -W --ignore-platform-req=php
+        composer require phpunit/phpunit:^8.0 phpro/grumphp:^1.10.0 --dev -W --ignore-platform-req=php
 
     - name: Install Composer Dependencies (PHP 8.0)
       if: matrix.php-version == '8.0'
-      run: composer install --ignore-platform-req=php
+      run: composer install --prefer-dist --ignore-platform-req=php
 
     - name: Install Composer Dependencies
       if: matrix.php-version != '8.0'
-      run: composer install
+      run: composer install --prefer-dist
 
     - name: NPM Setup
       run: npm ci

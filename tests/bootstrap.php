@@ -98,7 +98,7 @@ class WC_Local_Pickup_Time_Unit_Tests_Bootstrap {
 		// phpcs:enable WordPress.VIP.SuperGlobalInputUsage.AccessDetected .
 		$this->tests_dir    = dirname( __FILE__ );
 		$this->plugin_dir   = dirname( $this->tests_dir );
-		$this->wc_dir       = $this->plugin_dir . '/vendor/woocommerce/woocommerce';
+		$this->wc_dir       = $this->plugin_dir . '/wordpress/wp-content/plugins/woocommerce';
 		$this->wc_tests_dir = $this->wc_dir . '/tests';
 		$this->wp_tests_dir = getenv( 'WP_TESTS_DIR' ) ? getenv( 'WP_TESTS_DIR' ) : ( getenv( 'TMPDIR' ) ? getenv( 'TMPDIR' ) : '/tmp' ) . '/wordpress-tests-lib';
 

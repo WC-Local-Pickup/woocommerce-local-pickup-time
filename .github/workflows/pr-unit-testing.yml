@@ -11,10 +11,11 @@ env:
   WP_STABLE_VERSION: '5.7.*'
   WP_MULTISITE: 0
   WC_STABLE_VERSION: '5.7.*'
+  COMPOSER_VERSION: '2.2'
   ACTION_VERSION: 2
 
 jobs:
-  test:
+  pr_unit_testing:
     runs-on: ubuntu-latest
 
     strategy:
@@ -32,41 +33,16 @@ jobs:
 
     steps:
     - name: Checkout Code
+      # https://github.com/marketplace/actions/checkout
       uses: actions/checkout@v2
-
-    - name: Setup PHP Environment
-      uses: shivammathur/setup-php@v2
-      # https://github.com/marketplace/actions/setup-php-action
-      with:
-        php-version: ${{ matrix.php-version }}
-        tools: composer:v2
-
-    - name: Setup Node Environment
-      uses: actions/setup-node@v1
-      # https://github.com/marketplace/actions/setup-node-js-environment
-      with:
-        node-version: 14.x
-
-    - name: Get NPM Cache Directory
-      id: npm-cache
-      run: echo "::set-output name=dir::$(npm config get cache)"
-
-    - name: Cache Node Modules
-      uses: actions/cache@v2
-      env:
-        npm-cache-name: cache-node-modules
-      with:
-        # npm cache files are stored in `~/.npm` on Linux/macOS
-        path: ${{ steps.npm-cache.outputs.dir }}
-        key: ${{ runner.os }}-build-${{ env.npm-cache-name }}-v${{ env.ACTION_VERSION }}-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-build-${{ env.npm-cache-name }}-v${{ env.ACTION_VERSION }}-
 
     - name: Get Composer Cache Directory
       id: composer-cache
+      if: ${{ !env.ACT }}
       run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
     - name: Cache Composer dependencies
+      if: ${{ !env.ACT }}
       uses: actions/cache@v2
       env:
         composer-cache-name: cache-composer
@@ -76,23 +52,28 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-build-${{ env.composer-cache-name }}-wp-${{ matrix.wordpress-version }}-wc-${{ matrix.woocommerce-version }}-v${{ env.ACTION_VERSION }}-
 
-    - name: Require Specified WordPress Version
-      run: composer require johnpbloch/wordpress-core:${{ matrix.wordpress-version }} --dev --prefer-source --update-with-all-dependencies
+    - name: Setup Node Environment
+      # https://github.com/marketplace/actions/setup-node-js-environment
+      uses: actions/setup-node@v2
+      with:
+        node-version-file: '.nvmrc'
+        cache: ${{ !env.ACT && 'npm' || '' }}
 
-    - name: Require Specified WordPress Stubs Version
-      run: composer require php-stubs/wordpress-stubs:${{ matrix.wordpress-version }} --dev --prefer-source --update-with-all-dependencies
+    - name: Setup PHP & Composer Environment
+      # https://github.com/marketplace/actions/setup-php-action
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: "${{ matrix.php-version }}"
+        tools: "composer:${{ env.COMPOSER_VERSION }}"
 
-    - name: Require Specified WordPress PHPUnit Version
-      run: composer require wp-phpunit/wp-phpunit:${{ matrix.wordpress-version }} --dev --prefer-source --update-with-all-dependencies
+    - name: Environment Check
+      run: php -v && composer --version
 
-    - name: Require Specified WooCommerce Version
-      run: composer require wpackagist-plugin/woocommerce:${{ matrix.woocommerce-version }} --dev --prefer-source --update-with-all-dependencies
-
-    - name: Require Specified WooCommerce Stubs Version
-      run: composer require php-stubs/woocommerce-stubs:${{ matrix.woocommerce-version }} --dev --prefer-source --update-with-all-dependencies
+    - name: Require Specified WordPress & WooCommerce Version
+      run: composer require johnpbloch/wordpress-core:${{ matrix.wordpress-version }} php-stubs/wordpress-stubs:${{ matrix.wordpress-version }} wp-phpunit/wp-phpunit:${{ matrix.wordpress-version }} wpackagist-plugin/woocommerce:${{ matrix.woocommerce-version }} php-stubs/woocommerce-stubs:${{ matrix.woocommerce-version }} --dev --prefer-source --update-with-all-dependencies
 
     - name: Install Composer Dependencies
-      run: composer install
+      run: composer install --prefer-dist
 
     - name: NPM Setup
       run: npm ci
