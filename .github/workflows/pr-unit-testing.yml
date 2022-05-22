@@ -12,7 +12,7 @@ env:
   WP_MULTISITE: 0
   WC_VERSION: '6.4.*'
   COMPOSER_VERSION: '2.2'
-  ACTION_VERSION: 2
+  ACTION_VERSION: 3
 
 jobs:
   pr_unit_testing:
