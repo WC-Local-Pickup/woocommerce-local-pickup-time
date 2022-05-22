@@ -9,17 +9,10 @@ on:
       - develop
 
 env:
-  PHP_MIN_VERSION: '7.2'
-  PHP_PREF_MIN_VERSION: '7.3'
-  PHP_STABLE_VERSION: '7.4'
-  WP_MIN_VERSION: '5.5.*'
-  WP_PREF_MIN_VERSION: '5.6.*'
-  WP_PREF_STABLE_VERSION: '5.7.*'
-  WP_STABLE_VERSION: '5.8.*'
-  WC_MIN_VERSION: '4.6.*'
-  WC_PREF_MIN_VERSION: '4.8.*'
-  WC_PREF_STABLE_VERSION: '5.*'
-  WC_STABLE_VERSION: '6.*'
+  PHP_STABLE_VERSION: '8.0'
+  PHP_LATEST_VERSION: '8.1'
+  WP_STABLE_VERSION: '5.9.*'
+  WC_STABLE_VERSION: '6.4.*'
   COMPOSER_VERSION: '2.2'
   ACTION_VERSION: 2
 
@@ -31,49 +24,25 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        job-name: ['Unit Test']
+        php-version: ['7.2','7.3','7.4','8.0']
+        wordpress-version: ['5.5.*','5.6.*','5.7.*','5.8.*','5.9.*']
+        woocommerce-version: ['4.0.*','4.*','5.0.*','5.*','6.0.*','6.4.*']
+        wp-multisite-mode: [0]
+        bleeding-edge: [false]
         include:
-          - job-name: 'Unit Test Latest Stable Requirements'
-            bleeding-edge: false
-            php-version: '7.4'
-            wordpress-version: '5.8.*'
-            wp-multisite-mode: 0
-            woocommerce-version: '6.*'
-          - job-name: 'Unit Test Preferred Stable Requirements'
-            bleeding-edge: false
-            php-version: '7.4'
-            wordpress-version: '5.7.*'
-            wp-multisite-mode: 0
-            woocommerce-version: '5.*'
-          - job-name: 'Unit Test Preferred Minimum Requirements'
-            bleeding-edge: false
-            php-version: '7.3'
-            wordpress-version: '5.6.*'
-            wp-multisite-mode: 0
-            woocommerce-version: '4.8.*'
-          - job-name: 'Unit Test Minimum Requirements'
-            bleeding-edge: false
-            php-version: '7.2'
-            wordpress-version: '5.5.*'
-            wp-multisite-mode: 0
-            woocommerce-version: '4.6.*'
-          - job-name: 'Unit Test Latest Compatibility Requirements'
-            bleeding-edge: false
-            php-version: '8.0'
-            wordpress-version: '5.9.*'
-            wp-multisite-mode: 0
-            woocommerce-version: '6.4.*'
           - job-name: 'Unit Test Bleeding Edge Requirements'
             bleeding-edge: true
-            php-version: '7.4'
+            php-version: '${{ env.PHP_LATEST_VERSION }}'
             wordpress-version: 'dev-master'
             wp-multisite-mode: 0
             woocommerce-version: 'dev-trunk'
           - job-name: 'Unit Test Multisite Compatibility Requirements'
             bleeding-edge: false
-            php-version: '7.4'
-            wordpress-version: '5.7.*'
+            php-version: '${{ env.PHP_STABLE_VERSION }}'
+            wordpress-version: '${{ env.WP_STABLE_VERSION }}'
             wp-multisite-mode: 1
-            woocommerce-version: '5.*'
+            woocommerce-version: '${{ env.WC_STABLE_VERSION }}'
 
     name: '${{ matrix.job-name }} (PHP:${{ matrix.php-version }}/WP:${{ matrix.wordpress-version }}/WC:${{ matrix.woocommerce-version }})'
 
@@ -141,12 +110,12 @@ jobs:
       run: |
         composer require phpunit/phpunit:^8.0 phpro/grumphp:^1.10.0 --dev -W --ignore-platform-req=php
 
-    - name: Install Composer Dependencies (PHP 8.0)
-      if: matrix.php-version == '8.0'
+    - name: Install Composer Dependencies (PHP 8.x)
+      if: matrix.php-version == '8.0' || matrix.php-version == '8.1'
       run: composer install --prefer-dist --ignore-platform-req=php
 
     - name: Install Composer Dependencies
-      if: matrix.php-version != '8.0'
+      if: matrix.php-version != '8.0' && matrix.php-version != '8.1'
       run: composer install --prefer-dist
 
     - name: NPM Setup
