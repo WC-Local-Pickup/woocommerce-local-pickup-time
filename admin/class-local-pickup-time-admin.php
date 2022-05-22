@@ -480,14 +480,18 @@ class Local_Pickup_Time_Admin {
 	 *
 	 * @since 1.4.0
 	 *
-	 * @param array<mixed[]>     $args            The shipping method arguments.
-	 * @param WC_Shipping_Method $shipping_method The WC_Shipping_Method instance object.
+	 * @param array<mixed[]>          $args            The shipping method arguments.
+	 * @param WC_Shipping_Method|null $shipping_method The WC_Shipping_Method instance object.
 	 *
 	 * @return array<mixed[]>
 	 */
-	public function shipping_method_add_rate_pickup_time_args( $args, $shipping_method ) {
+	public function shipping_method_add_rate_pickup_time_args( $args, $shipping_method = null ) {
 
-		if ( 'local_pickup' === $shipping_method->get_rate_id() ) {
+		if ( empty( $shipping_method ) ) {
+			return $args;
+		}
+
+		if ( 'yes' === $this->plugin->get_local_pickup_only() && 'local_pickup' === $shipping_method->get_rate_id() ) {
 			$args['meta_data']['wclpt_shipping_method_enabled'] = $shipping_method->get_option( 'wclpt_shipping_method_enabled' );
 		}
 
