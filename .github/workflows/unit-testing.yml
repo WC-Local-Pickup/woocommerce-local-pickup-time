@@ -33,16 +33,16 @@ jobs:
         include:
           - job-name: 'Unit Test Bleeding Edge Requirements'
             bleeding-edge: true
-            php-version: '${{ env.PHP_LATEST_VERSION }}'
+            php-version: ${{ env.PHP_LATEST_VERSION }}
             wordpress-version: 'dev-master'
             wp-multisite-mode: 0
             woocommerce-version: 'dev-trunk'
           - job-name: 'Unit Test Multisite Compatibility Requirements'
             bleeding-edge: false
-            php-version: '${{ env.PHP_STABLE_VERSION }}'
-            wordpress-version: '${{ env.WP_STABLE_VERSION }}'
+            php-version: ${{ env.PHP_STABLE_VERSION }}
+            wordpress-version: ${{ env.WP_STABLE_VERSION }}
             wp-multisite-mode: 1
-            woocommerce-version: '${{ env.WC_STABLE_VERSION }}'
+            woocommerce-version: ${{ env.WC_STABLE_VERSION }}
 
     name: '${{ matrix.job-name }} (PHP:${{ matrix.php-version }}/WP:${{ matrix.wordpress-version }}/WC:${{ matrix.woocommerce-version }})'
 
