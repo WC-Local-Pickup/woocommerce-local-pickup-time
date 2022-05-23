@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.4.1
+
+### Changed
+
+- Updated the README to provide details and usage on the latest functionality and features.
+
+### Fixed
+
+- Possible PHP Fatal Error when using new Local Pickup association functionality.
+
+### Added
+
+- Added new screenshot for "Ready for Pickup" email notification.
+
 ## 1.4.0
 
 ### Changed
@@ -10,7 +24,7 @@
 
 - Updated Plugin Development Dependencies
 
-### Adds
+### Added
 
 - Added New Ready for Pickup Order Status & Customer Email
 - Added Pickup Time Required & Local Pickup Link Capabilities

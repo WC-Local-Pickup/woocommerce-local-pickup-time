@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: WooCommerce Local Pickup Time\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-local-"
 "pickup-time\n"
-"POT-Creation-Date: 2022-05-13 05:32:56+00:00\n"
+"POT-Creation-Date: 2022-05-23 04:03:40+00:00\n"
 "PO-Revision-Date: 2019-02-01 14:28:47+0000\n"
 "Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
@@ -366,7 +366,7 @@ msgid ""
 msgstr ""
 
 #: admin/class-local-pickup-time-admin.php:465
-#: admin/class-local-pickup-time-admin.php:628
+#: admin/class-local-pickup-time-admin.php:632
 #: public/class-local-pickup-time.php:863
 #: public/class-local-pickup-time.php:935
 msgid "Pickup Time"
@@ -381,18 +381,18 @@ msgid "This controls whether a Pickup Time is tied to the shipping method."
 msgstr ""
 
 #. translators: %s: number of orders
-#: admin/class-local-pickup-time-admin.php:515
+#: admin/class-local-pickup-time-admin.php:519
 msgid "Ready for Pickup <span class=\"count\">(%s)</span>"
 msgid_plural "Ready for Pickup <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: admin/class-local-pickup-time-admin.php:548
+#: admin/class-local-pickup-time-admin.php:552
 msgid "Change status to ready for pickup"
 msgstr ""
 
-#: admin/class-local-pickup-time-admin.php:607
+#: admin/class-local-pickup-time-admin.php:611
 msgid "Pickup Time:"
 msgstr "Čas vyzvednutí:"
 
@@ -494,8 +494,8 @@ msgstr ""
 msgid "https://www.ndigitals.com/"
 msgstr ""
 
-#: admin/class-local-pickup-time-admin.php:509
-#: admin/class-local-pickup-time-admin.php:531
+#: admin/class-local-pickup-time-admin.php:513
+#: admin/class-local-pickup-time-admin.php:535
 msgctxt "Order status"
 msgid "Ready for Pickup"
 msgstr ""
