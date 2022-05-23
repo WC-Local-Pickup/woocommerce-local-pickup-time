@@ -4,7 +4,7 @@ Donate link: https://www.ndigitals.com/donate/
 Tags: woocommcerce, shipping, local pickup, checkout fields, ecommerce, e-commerce, wordpress ecommerce
 Requires at least: 4.9
 Tested up to: 5.9.3
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -84,6 +84,16 @@ The location, by default, is hooked to `woocommerce_admin_order_data_after_billi
 
 == Changelog ==
 
+### 1.4.1
+#### Changed
+- Updated the README to provide details and usage on the latest functionality and features.
+
+#### Fixed
+- Possible PHP Fatal Error when using new Local Pickup association functionality.
+
+#### Added
+- Added new screenshot for "Ready for Pickup" email notification.
+
 ### 1.4.0
 #### Changed
 - Updated WordPress & WooCommerce Supported Versions.
@@ -91,7 +101,7 @@ The location, by default, is hooked to `woocommerce_admin_order_data_after_billi
 #### Fixed
 - Updated Plugin Development Dependencies
 
-#### Adds
+#### Added
 - Added New Ready for Pickup Order Status & Customer Email
 - Added Pickup Time Required & Local Pickup Link Capabilities
 
