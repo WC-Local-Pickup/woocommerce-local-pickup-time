@@ -12,7 +12,7 @@
  * Plugin Name:                WooCommerce Local Pickup Time Select
  * Plugin URI:                 https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time
  * Description:                Add an an option to WooCommerce checkout pages for Local Pickup that allows the user to choose a pickup time.
- * Version:                    1.4.0
+ * Version:                    1.4.1
  * Requires at least:          4.9
  * Requires PHP:               7.2
  * Author:                     Tim Nolte
