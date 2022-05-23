@@ -9,12 +9,8 @@ on:
       - develop
 
 env:
-  PHP_STABLE_VERSION: '8.0'
-  PHP_LATEST_VERSION: '8.1'
-  WP_STABLE_VERSION: '5.9.*'
-  WC_STABLE_VERSION: '6.4.*'
   COMPOSER_VERSION: '2.2'
-  ACTION_VERSION: 2
+  ACTION_VERSION: 3
 
 jobs:
   matrix_unit_testing:
@@ -33,16 +29,16 @@ jobs:
         include:
           - job-name: 'Unit Test Bleeding Edge Requirements'
             bleeding-edge: true
-            php-version: ${{ env.PHP_LATEST_VERSION }}
+            php-version: '8.1'
             wordpress-version: 'dev-master'
             wp-multisite-mode: 0
             woocommerce-version: 'dev-trunk'
           - job-name: 'Unit Test Multisite Compatibility Requirements'
             bleeding-edge: false
-            php-version: ${{ env.PHP_STABLE_VERSION }}
-            wordpress-version: ${{ env.WP_STABLE_VERSION }}
+            php-version: '8.0'
+            wordpress-version: '5.9.*'
             wp-multisite-mode: 1
-            woocommerce-version: ${{ env.WC_STABLE_VERSION }}
+            woocommerce-version: '6.4.*'
 
     name: '${{ matrix.job-name }} (PHP:${{ matrix.php-version }}/WP:${{ matrix.wordpress-version }}/WC:${{ matrix.woocommerce-version }})'
 
