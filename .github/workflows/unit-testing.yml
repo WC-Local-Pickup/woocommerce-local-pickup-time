@@ -92,10 +92,6 @@ jobs:
       if: matrix.php-version != '7.3' && matrix.php-version != '7.2' && ! matrix.bleeding-edge
       run: composer require johnpbloch/wordpress-core:${{ matrix.wordpress-version }} php-stubs/wordpress-stubs:${{ matrix.wordpress-version }} wp-phpunit/wp-phpunit:${{ matrix.wordpress-version }} wpackagist-plugin/woocommerce:${{ matrix.woocommerce-version }} php-stubs/woocommerce-stubs:${{ matrix.woocommerce-version }} --dev --prefer-source --update-with-all-dependencies
 
-    - name: Require Specified WooCommerce Admin Version
-      if: matrix.woocommerce-version == 'dev-master'
-      run: composer require woocommerce/woocommerce-admin:v1.3.0-beta.1 --dev --prefer-source --update-with-all-dependencies
-
     - name: PHPUnit Bleeding Edge Support
       if: matrix.bleeding-edge
       run: |
