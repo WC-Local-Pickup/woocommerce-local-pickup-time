@@ -12,9 +12,12 @@
 
 # Local Development files/folders.
 .env
+.wp-env.override.json
 phpcs.xml
 phpstan.neon
 phpunit.xml
+tools/local-env/mu-plugins/mu-require.php
+tools/local-env/mu-plugins/wp-local-media-proxy
 
 # OS or Editor folders
 .DS_Store

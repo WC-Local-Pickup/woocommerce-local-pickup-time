@@ -883,13 +883,16 @@ class Local_Pickup_Time {
 	public function field_process() {
 
 		$nonce = strval( wc_get_post_data_by_key( $this->get_order_pickup_time_nonce_key() ) );
-		if ( ! empty( $nonce ) && wp_verify_nonce( $nonce, $this->get_order_pickup_time_action_key() ) == 1 ) {
-			// Check if set, if its not set add an error.
+		if ( ! empty( $nonce ) ) {
+			if ( ! wp_verify_nonce( $nonce, $this->get_order_pickup_time_action_key() ) ) {
+				wc_add_notice( __( 'Expired or invalid submission!.', 'woocommerce-local-pickup-time-select' ), 'error' );
+				exit;
+			}
+
+			// Check if the Pickup Time is set, if it's not set add an error.
 			if ( empty( wc_get_post_data_by_key( $this->get_order_post_key() ) ) ) {
 				wc_add_notice( __( 'Please select a pickup time.', 'woocommerce-local-pickup-time-select' ), 'error' );
 			}
-		} else {
-			wc_add_notice( __( 'Expired or invalid submission!.', 'woocommerce-local-pickup-time-select' ), 'error' );
 		}
 
 	}
@@ -906,13 +909,16 @@ class Local_Pickup_Time {
 	public function update_order_meta( $order_id ) {
 
 		$nonce = strval( wc_get_post_data_by_key( $this->get_order_pickup_time_nonce_key() ) );
-		if ( ! empty( $nonce ) && wp_verify_nonce( $nonce, $this->get_order_pickup_time_action_key() ) == 1 ) {
+		if ( ! empty( $nonce ) ) {
+			if ( ! wp_verify_nonce( $nonce, $this->get_order_pickup_time_action_key() ) ) {
+				wc_add_notice( __( 'Expired or invalid submission!.', 'woocommerce-local-pickup-time-select' ), 'error' );
+				exit;
+			}
+
 			// Update the order pickup time if set.
 			if ( ! empty( wc_get_post_data_by_key( $this->get_order_post_key() ) ) ) {
 				update_post_meta( $order_id, $this->get_order_meta_key(), wc_get_post_data_by_key( $this->get_order_post_key() ) );
 			}
-		} else {
-			wc_add_notice( __( 'Expired or invalid submission!.', 'woocommerce-local-pickup-time-select' ), 'error' );
 		}
 
 	}
