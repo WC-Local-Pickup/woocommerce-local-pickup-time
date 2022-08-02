@@ -5,19 +5,22 @@
 	"mappings": {
 		"wp-content/mu-plugins": "./tools/local-env/mu-plugins",
 		"wp-content/config": "./tools/local-env/config",
-		"wp-content/uploads/backups": "./tools/local-env/backups"
+		"wp-content/uploads/backups": "./tools/local-env/backups",
+		"../vendor": "./vendor"
 	},
 	"env": {
 		"development": {
 			"plugins": [
 				".",
 				"https://downloads.wordpress.org/plugin/debug-bar.zip",
-				"https://downloads.wordpress.org/plugin/query-monitor.zip",
 				"https://downloads.wordpress.org/plugin/debug-bar-post-meta.zip",
+				"https://downloads.wordpress.org/plugin/display-environment-type.zip",
+				"https://downloads.wordpress.org/plugin/query-monitor.zip",
 				"https://downloads.wordpress.org/plugin/transients-manager.zip",
+				"https://downloads.wordpress.org/plugin/woo-order-test.zip",
+				"https://downloads.wordpress.org/plugin/wordpress-importer.zip",
 				"https://downloads.wordpress.org/plugin/wp-cfm.zip",
-				"https://downloads.wordpress.org/plugin/wp-mail-logging.zip",
-				"https://downloads.wordpress.org/plugin/wordpress-importer.zip"
+				"https://downloads.wordpress.org/plugin/wp-mail-logging.zip"
 			],
 			"themes": ["https://downloads.wordpress.org/theme/storefront.zip"]
 		},
@@ -28,6 +31,7 @@
 	"config": {
 		"PHP_INI_MEMORY_LIMIT": "512M",
 		"WP_MEMORY_LIMIT": "512M",
+		"WP_ENVIRONMENT_TYPE": "local",
 		"WP_DEBUG": true,
 		"WP_DEBUG_LOG": true,
 		"WP_DEBUG_DISPLAY": false,

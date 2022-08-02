@@ -3,12 +3,13 @@ active_plugins:
     - action-scheduler/action-scheduler.php
     - debug-bar-post-meta/debug-bar-post-meta.php
     - debug-bar/debug-bar.php
+    - display-environment-type/display-environment-type.php
     - transients-manager/transients-manager.php
-    - woocommerce-admin/woocommerce-admin.php
-    - woocommerce-blocks/woocommerce-gutenberg-products-block.php
+    - woo-order-test/wc-ot.php
     - woocommerce-local-pickup-time/woocommerce-local-pickup-time.php
     - woocommerce/woocommerce.php
     - wordpress-importer/wordpress-importer.php
     - wp-cfm/wp-cfm.php
+    - wp-mail-logging/wp-mail-logging.php
 .label: 'Active Plugins'
 .active_plugins_format: serialized
