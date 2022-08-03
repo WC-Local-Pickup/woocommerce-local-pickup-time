@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: WooCommerce Local Pickup Time\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-local-"
 "pickup-time\n"
-"POT-Creation-Date: 2022-05-23 04:03:40+00:00\n"
+"POT-Creation-Date: 2022-08-03 03:26:11+00:00\n"
 "PO-Revision-Date: 2019-02-01 14:28:47+0000\n"
 "Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
@@ -368,7 +368,7 @@ msgstr ""
 #: admin/class-local-pickup-time-admin.php:465
 #: admin/class-local-pickup-time-admin.php:632
 #: public/class-local-pickup-time.php:863
-#: public/class-local-pickup-time.php:935
+#: public/class-local-pickup-time.php:941
 msgid "Pickup Time"
 msgstr "Čas vyzvednutí"
 
@@ -446,16 +446,16 @@ msgstr "Sobota"
 msgid "Sunday"
 msgstr "Neděle"
 
-#: public/class-local-pickup-time.php:889
-msgid "Please select a pickup time."
-msgstr "vyberte si čas vyzvednutí."
-
-#: public/class-local-pickup-time.php:892
-#: public/class-local-pickup-time.php:915
+#: public/class-local-pickup-time.php:888
+#: public/class-local-pickup-time.php:914
 msgid "Expired or invalid submission!."
 msgstr ""
 
-#: public/class-local-pickup-time.php:956
+#: public/class-local-pickup-time.php:894
+msgid "Please select a pickup time."
+msgstr "vyberte si čas vyzvednutí."
+
+#: public/class-local-pickup-time.php:962
 msgid "None"
 msgstr "Žádná"
 
