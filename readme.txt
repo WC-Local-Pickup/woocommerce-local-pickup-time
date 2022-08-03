@@ -3,8 +3,8 @@ Contributors: tnolte, mjbanks, vyskoczilova
 Donate link: https://www.ndigitals.com/donate/
 Tags: woocommcerce, shipping, local pickup, checkout fields, ecommerce, e-commerce, wordpress ecommerce
 Requires at least: 4.9
-Tested up to: 5.9.3
-Stable tag: 1.4.1
+Tested up to: 6.0.1
+Stable tag: 1.4.2
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -83,6 +83,11 @@ The location, by default, is hooked to `woocommerce_admin_order_data_after_billi
 6. Ready for Pickup Order Email Notification
 
 == Changelog ==
+
+### 1.4.2
+#### Fixed
+- Checkout prevented on non-Local Shipping methods.
+- Updated WordPress Supported Versions.
 
 ### 1.4.1
 #### Changed
