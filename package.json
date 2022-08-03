@@ -1,6 +1,6 @@
 {
 	"name": "woocommerce-local-pickup-time",
-	"version": "1.4.1",
+	"version": "1.4.2",
 	"description": "Add an an option to WooCommerce checkout pages for Local Pickup that allows the user to choose a pickup time.",
 	"main": "Gruntfile.js",
 	"repository": {

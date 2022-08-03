@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.4.2
+
+### Fixed
+
+- Checkout prevented on non-Local Shipping methods.
+- Updated WordPress Supported Versions.
+
 ## 1.4.1
 
 ### Changed
