@@ -853,7 +853,7 @@ class Local_Pickup_Time {
 			),
 		);
 
-		echo wp_kses( '<div id="' . $this->get_order_post_key() . '">', $allowed_html );
+		echo wp_kses( '<div id="' . $this->get_order_post_key() . '_wrapper">', $allowed_html );
 
 		woocommerce_form_field(
 			$this->get_order_post_key(),
