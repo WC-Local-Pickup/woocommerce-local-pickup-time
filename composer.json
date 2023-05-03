@@ -70,7 +70,7 @@
 		"woocommerce/action-scheduler": "~3.4.2",
 		"woocommerce/woocommerce-sniffs": "~0.1.0",
 		"wp-coding-standards/wpcs": "^2.2",
-		"wp-phpunit/wp-phpunit": "~5.9.0",
+		"wp-phpunit/wp-phpunit": "~5.9.4",
 		"wpackagist-plugin/woocommerce": "6.4.1",
 		"yoast/phpunit-polyfills": "^1.0"
 	},
