@@ -28,7 +28,7 @@
 		"@floatwork/grunt-po2mo": "^0.3.0",
 		"@ndigitals/grunt-checkrepo": "^0.2.3",
 		"@wordpress/env": "4.0.5",
-		"@wordpress/scripts": "~12.6.1",
+		"@wordpress/scripts": "~26.3.0",
 		"check-node-version": "~4.1.0",
 		"grunt": "1.5.3",
 		"grunt-checkbranch": "^1.0.4",
