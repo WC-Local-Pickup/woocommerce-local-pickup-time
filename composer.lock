@@ -1731,21 +1731,21 @@
         },
         {
             "name": "ndigitals/wp-local-media-proxy",
-            "version": "1.1.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ndigitals/wp-local-media-proxy.git",
-                "reference": "235d7868b86ea285b9ad4cde5aaca392307058dd"
+                "reference": "8a62ef369665035aa22f6bd33a0d8f892409d3ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ndigitals/wp-local-media-proxy/zipball/235d7868b86ea285b9ad4cde5aaca392307058dd",
-                "reference": "235d7868b86ea285b9ad4cde5aaca392307058dd",
+                "url": "https://api.github.com/repos/ndigitals/wp-local-media-proxy/zipball/8a62ef369665035aa22f6bd33a0d8f892409d3ce",
+                "reference": "8a62ef369665035aa22f6bd33a0d8f892409d3ce",
                 "shasum": ""
             },
             "require": {
                 "boxuk/wp-muplugin-loader": "^2.0",
-                "composer/installers": "^2.1",
+                "composer/installers": "^1.0|^2.1",
                 "php": ">=7.4.0"
             },
             "require-dev": {
@@ -1784,9 +1784,9 @@
             ],
             "support": {
                 "issues": "https://github.com/ndigitals/wp-local-media-proxy/issues",
-                "source": "https://github.com/ndigitals/wp-local-media-proxy/tree/1.1.0"
+                "source": "https://github.com/ndigitals/wp-local-media-proxy/tree/1.1.1"
             },
-            "time": "2022-07-28T00:58:50+00:00"
+            "time": "2022-08-19T18:27:03+00:00"
         },
         {
             "name": "ondram/ci-detector",
