@@ -68,8 +68,8 @@ class Local_Pickup_Time_Admin {
 		add_action( 'init', array( $this, 'register_post_status' ) );
 		add_filter( 'wc_order_statuses', array( $this, 'wc_order_statuses' ), 10, 1 );
 		add_filter( 'bulk_actions-edit-shop_order', array( $this, 'add_bulk_actions_edit_shop_order' ), 50, 1 );
-		add_action( 'woocommerce_email_actions', array( $this, 'woocommerce_email_actions' ) );
-		add_action( 'woocommerce_email_classes', array( $this, 'woocommerce_email_classes' ) );
+		add_filter( 'woocommerce_email_actions', array( $this, 'woocommerce_email_actions' ) );
+		add_filter( 'woocommerce_email_classes', array( $this, 'woocommerce_email_classes' ) );
 
 		/*
 		 * Show Pickup Time in the Order Details in the Admin Screen
@@ -82,9 +82,8 @@ class Local_Pickup_Time_Admin {
 		 */
 		add_filter( 'manage_edit-shop_order_columns', array( $this, 'add_orders_list_pickup_date_column_header' ) );
 		add_action( 'manage_shop_order_posts_custom_column', array( $this, 'add_orders_list_pickup_date_column_content' ) );
-		add_action( 'manage_edit-shop_order_sortable_columns', array( $this, 'add_orders_list_pickup_date_column_sorting' ) );
-		add_action( 'pre_get_posts', array( $this, 'filter_orders_list_by_pickup_date' ) );
-
+		add_filter( 'manage_edit-shop_order_sortable_columns', array( $this, 'add_orders_list_pickup_date_column_sorting' ) );
+		add_filter( 'pre_get_posts', array( $this, 'filter_orders_list_by_pickup_date' ) );
 	}
 
 	/**
@@ -122,7 +121,6 @@ class Local_Pickup_Time_Admin {
 		array_unshift( $actions, $settings_link );
 
 		return $actions;
-
 	}
 
 	/**
@@ -141,7 +139,6 @@ class Local_Pickup_Time_Admin {
 		$sections[ $this->plugin->get_plugin_slug() ] = __( 'Local Pickup Time settings', 'woocommerce-local-pickup-time-select' );
 
 		return $sections;
-
 	}
 
 	/**
@@ -424,7 +421,6 @@ class Local_Pickup_Time_Admin {
 		}
 
 		return $settings;
-
 	}
 
 	/**
@@ -447,7 +443,6 @@ class Local_Pickup_Time_Admin {
 		}
 
 		return $shipping_methods;
-
 	}
 
 	/**
@@ -472,7 +467,6 @@ class Local_Pickup_Time_Admin {
 		);
 
 		return $fields;
-
 	}
 
 	/**
@@ -496,7 +490,6 @@ class Local_Pickup_Time_Admin {
 		}
 
 		return $args;
-
 	}
 
 	/**
@@ -535,7 +528,6 @@ class Local_Pickup_Time_Admin {
 		$order_statuses['wc-ready-for-pickup'] = _x( 'Ready for Pickup', 'Order status', 'woocommerce-local-pickup-time-select' );
 
 		return $order_statuses;
-
 	}
 
 	/**
@@ -552,7 +544,6 @@ class Local_Pickup_Time_Admin {
 		$actions['mark_ready-for-pickup'] = __( 'Change status to ready for pickup', 'woocommerce-local-pickup-time-select' );
 
 		return $actions;
-
 	}
 
 	/**
@@ -569,7 +560,6 @@ class Local_Pickup_Time_Admin {
 		$email_actions[] = 'woocommerce_order_status_ready-for-pickup';
 
 		return $email_actions;
-
 	}
 
 	/**
@@ -586,7 +576,6 @@ class Local_Pickup_Time_Admin {
 		$email_classes['WC_Email_Customer_Ready_For_Pickup_Order'] = include __DIR__ . '/emails/class-wc-email-customer-ready-for-pickup-order.php';
 
 		return $email_classes;
-
 	}
 
 	/**
@@ -601,7 +590,10 @@ class Local_Pickup_Time_Admin {
 	public function show_metabox( $order ) {
 
 		$order_meta  = get_post_custom( $order->get_id() );
-		$pickup_time = $order_meta[ $this->plugin->get_order_meta_key() ][0];
+		$pickup_time = '';
+		if ( is_array( $order_meta ) ) {
+			$pickup_time = $order_meta[ $this->plugin->get_order_meta_key() ][0];
+		}
 
 		$allowed_html = array(
 			'p' => array(),
@@ -609,7 +601,6 @@ class Local_Pickup_Time_Admin {
 		);
 
 		echo wp_kses( '<p><strong>' . __( 'Pickup Time:', 'woocommerce-local-pickup-time-select' ) . '</strong> ' . esc_html( $this->pickup_time_select_translatable( $pickup_time ) ) . '</p>', $allowed_html );
-
 	}
 
 	/**
@@ -634,7 +625,6 @@ class Local_Pickup_Time_Admin {
 		}
 
 		return $new_columns;
-
 	}
 
 	/**
@@ -653,7 +643,6 @@ class Local_Pickup_Time_Admin {
 		if ( $this->plugin->get_order_meta_key() === $column ) {
 			echo esc_html( $this->pickup_time_select_translatable( $the_order->get_meta( $this->plugin->get_order_meta_key() ) ) );
 		}
-
 	}
 
 	/**
@@ -670,7 +659,6 @@ class Local_Pickup_Time_Admin {
 		$new_columns[ $this->plugin->get_order_meta_key() ] = 'pickup_time';
 
 		return wp_parse_args( $new_columns, $columns );
-
 	}
 
 	/**
@@ -691,7 +679,6 @@ class Local_Pickup_Time_Admin {
 		}
 
 		return $query;
-
 	}
 
 	/**
@@ -705,7 +692,6 @@ class Local_Pickup_Time_Admin {
 	public function woocommerce_admin_order_preview_get_order_details( $order_details ) {
 
 		return $order_details;
-
 	}
 
 	/**
@@ -723,7 +709,5 @@ class Local_Pickup_Time_Admin {
 
 		// Call the Public plugin instance of this method to reduce code redundancy.
 		return $plugin->pickup_time_select_translatable( $value );
-
 	}
-
 }

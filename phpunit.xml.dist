@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <phpunit
-	bootstrap="tests/bootstrap.php"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+	bootstrap="tests/phpunit/bootstrap.php"
 	backupGlobals="false"
 	colors="true"
 	convertErrorsToExceptions="true"
@@ -8,28 +10,28 @@
 	convertWarningsToExceptions="true"
 	>
 	<php>
-		<env name="WP_PHPUNIT__TESTS_CONFIG" value="tests/wp-config.php" />
+		<env name="WP_PHPUNIT__TESTS_CONFIG" value="tests/phpunit/wp-tests-config.php"/>
 	</php>
 	<testsuites>
-		<testsuite name="Admin">
-			<directory suffix="_test.php">./tests/phpunit/admin/</directory>
+		<testsuite name="Plugin">
+			<file>tests/phpunit/woocommerce-local-pickup-time_test.php</file>
 		</testsuite>
-
+		<testsuite name="Admin">
+			<directory suffix="_test.php">tests/phpunit/admin/</directory>
+		</testsuite>
 		<testsuite name="Public">
-			<directory suffix="_test.php">./tests/phpunit/public/</directory>
+			<directory suffix="_test.php">tests/phpunit/public/</directory>
 		</testsuite>
 	</testsuites>
-	<filter>
-		<whitelist processUncoveredFilesFromWhitelist="true">
-			<directory suffix=".php">src/</directory>
-			<!-- <file>/path/to/file</file> -->
-			<exclude>
-				<directory suffix=".php">src/views</directory>
-				<!-- <file>/path/to/file</file> -->
-			</exclude>
-		</whitelist>
-	</filter>
-	<logging>
-		<log type="coverage-clover" target="clover.xml"/>
-	</logging>
+  <coverage processUncoveredFiles="true">
+    <include>
+			<file>woocommerce-local-pickup-time.php</file>
+      <directory suffix=".php">admin/</directory>
+      <directory suffix=".php">public/</directory>
+    </include>
+    <report>
+      <clover outputFile="clover.xml"/>
+    </report>
+  </coverage>
+	<logging/>
 </phpunit>

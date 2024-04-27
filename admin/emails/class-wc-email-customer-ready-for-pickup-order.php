@@ -47,28 +47,26 @@ if ( ! class_exists( 'WC_Email_Customer_Ready_For_Pickup_Order', false ) ) {
 		/**
 		 * Trigger the sending of this email.
 		 *
-		 * @param int                    $order_id The order ID.
-		 * @param object|WC_Order|string $order    Order object.
+		 * @param int                  $order_id The order ID.
+		 * @param object|WC_Order|null $order    Order object.
 		 *
 		 * @return void
 		 */
-		public function trigger( $order_id, $order = '' ) {
+		public function trigger( $order_id, $order = null ) {
 			$this->setup_locale();
 
-			if ( $order_id && ! is_a( $order, 'WC_Order' ) ) {
+			if ( ! empty( $order_id ) && empty( $order ) ) {
 				$order = wc_get_order( $order_id );
 			}
 
-			/* @phpstan-ignore-next-line */
-			if ( is_a( $order, 'WC_Order' ) ) {
+			if ( ! empty( $order ) && is_object( $order ) && is_a( $order, 'WC_Order' ) ) {
 				$this->object                         = $order;
 				$this->recipient                      = $this->object->get_billing_email();
-				/* @phpstan-ignore-next-line */
-				$this->placeholders['{order_date}']   = wc_format_datetime( $this->object->get_date_created() );
+				$this->placeholders['{order_date}']   = ! empty( $this->object->get_date_created() ) ? wc_format_datetime( $this->object->get_date_created() ) : 'Unknown';
 				$this->placeholders['{order_number}'] = $this->object->get_order_number();
 			}
 
-			if ( $this->is_enabled() && $this->get_recipient() ) {
+			if ( is_object( $order ) && $this->is_enabled() && $this->get_recipient() ) {
 				$this->send( $this->get_recipient(), $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
 			}
 

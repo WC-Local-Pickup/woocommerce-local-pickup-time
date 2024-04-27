@@ -10,8 +10,8 @@ on:
       - 'fix/**'
 
 env:
+  ACTION_VERSION: 3
   WP_MULTISITE: 0
-  ACTION_VERSION: 2
 
 jobs:
   check_i18n:

@@ -3,13 +3,17 @@
  * Plugin Name: MailHog PhpMailer Setup
  * Description: Establishes a connection between the PhpMailer library and the MailHog local-dev Docker container.
  *
- * @package WC_Local_Pickup_Time_MuPlugins
+ * @package OpenID_Connect_Generic_MuPlugins
  */
+
+use PHPMailer\PHPMailer\PHPMailer;
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
+
+defined( 'SMTP_FROM' ) || define( 'SMTP_FROM', 'no-reply@example.com' );
 
 /**
  * Provides the configuration for PhpMailer to use MailHog.
@@ -33,11 +37,21 @@ function mailhog_phpmailer_setup( PHPMailer $phpmailer ) {
 	$phpmailer->IsSMTP();
 
 }
+add_action( 'phpmailer_init', 'mailhog_phpmailer_setup', 10, 1 );
 
-/**
- * Disabled due to the limitation of setting up a MailHog Docker container with @wordpress/env.
- *
- * @todo Figure out a way to attach a MailHog Docker container to the @wordpress/env Docker containers.
- *
- * add_action( 'phpmailer_init', 'mailhog_phpmailer_setup', 10, 2 );
- */
+if ( defined('WP_CLI' ) ) {
+	WP_CLI::add_wp_hook(
+		'wp_mail_from',
+		function () {
+			return SMTP_FROM;
+		}
+	);
+} else {
+	add_filter(
+		'wp_mail_from',
+		function () {
+			return SMTP_FROM;
+		}
+	);
+}
+

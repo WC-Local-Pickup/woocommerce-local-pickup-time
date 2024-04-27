@@ -22,7 +22,7 @@
 	-->
 
 	<!-- Check up to 8 files simultanously. -->
-	<arg name="parallel" value="8"/>
+	<arg name="parallel" value="8" />
 
 	<arg name="basepath" value="." />
 	<!-- Check all PHP files in directory tree by default. -->
@@ -33,7 +33,10 @@
 	<!-- Show progress. -->
 	<arg value="p" />
 	<!-- Show sniff codes in all reports -->
-	<arg value="s"/>
+	<arg value="s" />
+	<!-- Print verbose output. -->
+	<arg value="v" />
+	<!-- Do not print warnings. -->
 	<arg value="n" />
 
 	<!-- Check all files in this directory and the directories below it. -->
@@ -41,10 +44,8 @@
 
 	<exclude-pattern>*/dist/*</exclude-pattern>
 	<exclude-pattern>*/node_modules/*</exclude-pattern>
-	<exclude-pattern>*/tests/*</exclude-pattern>
 	<exclude-pattern>*/tools/*</exclude-pattern>
 	<exclude-pattern>*/vendor/*</exclude-pattern>
-	<exclude-pattern>*/wordpress/*</exclude-pattern>
 
 	<!--
 	#############################################################################
@@ -54,7 +55,8 @@
 	<rule ref="WordPress" />
 	<rule ref="WordPress-Core" />
 	<rule ref="WordPress-Docs" />
-	<rule ref="WooCommerce-Core" />
+	<rule ref="WordPress-Extra" />
+		<!-- <rule ref="WooCommerce-Core" /> -->
 
 	<!--
 	#############################################################################
@@ -65,13 +67,13 @@
 	<!-- Set the minimum supported WP version. This is used by several sniffs.
 		 The minimum version set here should be in line with the minimum WP version
 		 as set in the "Requires at least" tag in the readme.txt file. -->
-	<config name="minimum_supported_wp_version" value="5.0"/>
+	<config name="minimum_supported_wp_version" value="5.0" />
 
 	<!-- Verify that the text_domain is set to the desired text-domain.
 		 Multiple valid text domains can be provided as a comma-delimited list. -->
 	<rule ref="WordPress.WP.I18n">
 		<properties>
-			<property name="text_domain" type="array" value="woocommerce-local-pickup-time-select"/>
+			<property name="text_domain" type="array" value="woocommerce-local-pickup-time-select" />
 		</properties>
 	</rule>
 
@@ -80,7 +82,6 @@
 	<rule ref="WordPress.Files.FileName">
 		<properties>
 			<property name="strict_class_file_names" value="false" />
-			<property name="is_plugin" value="true"/>
 		</properties>
 		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase" />
 		<exclude name="WordPress.Files.FileName.InvalidClassFileName" />
@@ -89,29 +90,20 @@
 	<rule ref="WordPress.Arrays.MultipleStatementAlignment">
 		<properties>
 			<!-- No need to adjust alignment of large arrays when the item with the largest key is removed. -->
-			<property name="exact" value="false"/>
+			<property name="exact" value="false" />
 			<!-- Don't align multi-line items if ALL items in the array are multi-line. -->
-			<property name="alignMultilineItems" value="!=100"/>
+			<property name="alignMultilineItems" value="!=100" />
 			<!-- Array assignment operator should always be on the same line as the array key. -->
-			<property name="ignoreNewlines" value="false"/>
+			<property name="ignoreNewlines" value="false" />
 		</properties>
 	</rule>
 
 	<!-- Exclude test from Commenting Rules. -->
 	<rule ref="Squiz.Commenting">
 		<exclude-pattern>tests/</exclude-pattern>
+		<exclude-pattern>tests/*</exclude-pattern>
 		<exclude name="Squiz.Commenting.LongConditionClosingComment" />
 		<exclude name="Squiz.Commenting.PostStatementComment" />
 		<exclude name="Squiz.Commenting.FunctionComment.MissingParamComment" />
-		<exclude-pattern>tests/*</exclude-pattern>
 	</rule>
-
-	<!--
-	#############################################################################
-	USE THE PHPCompatibility RULESET
-	#############################################################################
-	-->
-
-	<config name="testVersion" value="7.4-"/>
-	<rule ref="PHPCompatibilityWP" />
 </ruleset>

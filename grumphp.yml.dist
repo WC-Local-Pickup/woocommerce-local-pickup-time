@@ -26,7 +26,9 @@ grumphp:
       allow_detached_head: false
     git_commit_message:
       allow_empty_message: false
-      enforce_capitalized_subject: true
+      enforce_capitalized_subject: false
+      max_body_width: 160
+      max_subject_width: 120
     phpcs:
       standard: './phpcs.xml.dist'
       report: 'summary'

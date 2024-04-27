@@ -8,24 +8,24 @@
 /**
  * Local Pickup Time test case.
  */
-class Local_Pickup_Time_Test extends WC_Unit_Test_Case {
+class Local_Pickup_Time_Test extends WP_UnitTestCase {
 
 	/**
 	 * Test case setup method.
+	 *
+	 * @return void
 	 */
-	public function setUp() {
-
+	public function setUp(): void {
 		parent::setUp();
-
 	}
 
 	/**
 	 * Test case cleanup method.
+	 *
+	 * @return void
 	 */
-	public function tearDown() {
-
+	public function tearDown(): void {
 		parent::tearDown();
-
 	}
 
 	/**
@@ -42,7 +42,5 @@ class Local_Pickup_Time_Test extends WC_Unit_Test_Case {
 		 */
 
 		$this->assertTrue( true, 'Needs Unit Tests.' );
-
 	}
-
 }

@@ -33,14 +33,13 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+defined( 'WCLOCALPICKUPTIME_PLUGIN_BASE' ) || define( 'WCLOCALPICKUPTIME_PLUGIN_BASE', plugin_basename( __FILE__ ) );
+defined( 'WCLOCALPICKUPTIME_PLUGIN_DIR' ) || define( 'WCLOCALPICKUPTIME_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
 /**
  * Check if WooCommerce is active
  */
 if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
-
-	defined( 'WCLOCALPICKUPTIME_PLUGIN_BASE' ) || define( 'WCLOCALPICKUPTIME_PLUGIN_BASE', plugin_basename( __FILE__ ) );
-	defined( 'WCLOCALPICKUPTIME_PLUGIN_DIR' ) || define( 'WCLOCALPICKUPTIME_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
 	/**
 	 * ----------------------------------------------------------------------------
@@ -51,7 +50,7 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 	/**
 	 * Require public facing functionality
 	 */
-	require_once( plugin_dir_path( __FILE__ ) . 'public/class-local-pickup-time.php' );
+	require_once plugin_dir_path( __FILE__ ) . 'public/class-local-pickup-time.php';
 
 	/**
 	 * Register hooks that are fired when the plugin is activated or deactivated.
@@ -63,7 +62,12 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 	/**
 	 * Get instance
 	 */
-	add_action( 'plugins_loaded', array( 'Local_Pickup_Time', 'get_instance' ) );
+	add_action(
+		'plugins_loaded',
+		function () {
+			Local_Pickup_Time::get_instance();
+		}
+	);
 
 	/**
 	 * ----------------------------------------------------------------------------
@@ -76,8 +80,13 @@ if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', g
 	 */
 	if ( is_admin() ) {
 
-		require_once( plugin_dir_path( __FILE__ ) . 'admin/class-local-pickup-time-admin.php' );
-		add_action( 'plugins_loaded', array( 'Local_Pickup_Time_Admin', 'get_instance' ) );
+		require_once plugin_dir_path( __FILE__ ) . 'admin/class-local-pickup-time-admin.php';
+		add_action(
+			'plugins_loaded',
+			function () {
+				Local_Pickup_Time_Admin::get_instance();
+			}
+		);
 
 	}
 }
