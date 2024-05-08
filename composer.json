@@ -51,7 +51,7 @@
 		"php": ">=7.4",
 		"brain/monkey": "^2.6",
 		"dealerdirect/phpcodesniffer-composer-installer": "^1.0",
-		"johnpbloch/wordpress-core": "~6.5.0",
+		"johnpbloch/wordpress-core": "~6.5.3",
 		"johnpbloch/wordpress-core-installer": "^2.0",
 		"mockery/mockery": "^1.5",
 		"php-stubs/woocommerce-stubs": "~8.7.0",
