@@ -1,0 +1,379 @@
+# Copyright (C) 2021 Tim Nolte
+# This file is distributed under the GPL-2.0+.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Local Pickup Time Select 1.3.13\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-local-"
+"pickup-time\n"
+"POT-Creation-Date: 2021-03-18 01:26:39+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2021-12-20 15:38+0900\n"
+"Language-Team: \n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;"
+"_nx_noop:1,2,3c;esc_attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;"
+"esc_html_x:1,2c\n"
+"X-Poedit-Basepath: ..\n"
+"X-Textdomain-Support: yes\n"
+"X-Generator: Poedit 3.0\n"
+"Last-Translator: \n"
+"Language: fr\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: admin/class-local-pickup-time-admin.php:96
+msgid "Store Hours and Closings for Local Pickup"
+msgstr "Horaires et jours de fermeture pour le retrait en magasin"
+
+#: admin/class-local-pickup-time-admin.php:98
+msgid ""
+"The following options affect when order pickups begin and end each day, and "
+"which days to not allow order pickups."
+msgstr ""
+"Les options suivantes permettent de définir pour chaque jour les heures de "
+"début et de fin des retraits, et quels jours les retraits ne sont pas "
+"possibles."
+
+#: admin/class-local-pickup-time-admin.php:102
+msgid "Monday Pickup Start Time (use 24-hour time)"
+msgstr "Lundi, début des retraits (horaire sur 24 heures)"
+
+#: admin/class-local-pickup-time-admin.php:103
+msgid "This sets the pickup start time for Monday. Use 24-hour time format."
+msgstr ""
+"Définit l’heure de début des retraits le lundi. Format de l’heure sur 24 "
+"heures."
+
+#: admin/class-local-pickup-time-admin.php:111
+msgid "Monday Pickup End Time (use 24-hour time)"
+msgstr "Lundi, fin des retraits (horaire sur 24 heures)"
+
+#: admin/class-local-pickup-time-admin.php:112
+msgid "This sets the pickup end time for Monday. Use 24-hour time format."
+msgstr ""
+"Définit l’heure de fin des retraits le lundi. Format de l’heure sur 24 "
+"heures."
+
+#: admin/class-local-pickup-time-admin.php:120
+msgid "Tuesday Pickup Start Time (use 24-hour time)"
+msgstr "Mardi, début des retraits (horaire sur 24 heures)"
+
+#: admin/class-local-pickup-time-admin.php:121
+msgid "This sets the pickup start time for Tuesday. Use 24-hour time format."
+msgstr ""
+"Définit l’heure de début des retraits le mardi. Format de l’heure sur 24 "
+"heures."
+
+#: admin/class-local-pickup-time-admin.php:129
+msgid "Tuesday Pickup End Time (use 24-hour time)"
+msgstr "Mardi, fin des retraits (horaire sur 24 heures)"
+
+#: admin/class-local-pickup-time-admin.php:130
+msgid "This sets the pickup end time for Tuesday. Use 24-hour time format."
+msgstr ""
+"Définit l’heure de fin des retraits le mardi. Format de l’heure sur 24 "
+"heures."
+
+#: admin/class-local-pickup-time-admin.php:138
+msgid "Wednesday Pickup Start Time (use 24-hour time)"
+msgstr "Mercredi, début des retraits (horaire sur 24 heures)"
+
+#: admin/class-local-pickup-time-admin.php:139
+msgid "This sets the pickup start time for Wednesday. Use 24-hour time format."
+msgstr ""
+"Définit l’heure de début des retraits le mercredi. Format de l’heure sur 24 "
+"heures."
+
+#: admin/class-local-pickup-time-admin.php:147
+msgid "Wednesday Pickup End Time (use 24-hour time)"
+msgstr "Mercredi, fin des retraits (horaire sur 24 heures)"
+
+#: admin/class-local-pickup-time-admin.php:148
+msgid "This sets the pickup end time for Wednesday. Use 24-hour time format."
+msgstr ""
+"Définit l’heure de fin des retraits le mercredi. Format de l’heure sur 24 "
+"heures."
+
+#: admin/class-local-pickup-time-admin.php:156
+msgid "Thursday Pickup Start Time (use 24-hour time)"
+msgstr "Jeudi, début des retraits (horaire sur 24 heures)"
+
+#: admin/class-local-pickup-time-admin.php:157
+msgid "This sets the pickup start time for Thursday. Use 24-hour time format."
+msgstr ""
+"Définit l’heure de début des retraits le jeudi. Format de l’heure sur 24 "
+"heures."
+
+#: admin/class-local-pickup-time-admin.php:165
+msgid "Thursday Pickup End Time (use 24-hour time)"
+msgstr "Jeudi, fin des retraits (horaire sur 24 heures)"
+
+#: admin/class-local-pickup-time-admin.php:166
+msgid "This sets the pickup end time for Thursday. Use 24-hour time format."
+msgstr ""
+"Définit l’heure de fin des retraits le jeudi. Format de l’heure sur 24 "
+"heures."
+
+#: admin/class-local-pickup-time-admin.php:174
+msgid "Friday Pickup Start Time (use 24-hour time)"
+msgstr "Vendredi, début des retraits (horaire sur 24 heures)"
+
+#: admin/class-local-pickup-time-admin.php:175
+msgid "This sets the pickup start time for Friday. Use 24-hour time format."
+msgstr ""
+"Définit l’heure de début des retraits le vendredi. Format de l’heure sur 24 "
+"heures."
+
+#: admin/class-local-pickup-time-admin.php:183
+msgid "Friday Pickup End Time (use 24-hour time)"
+msgstr "Vendredi, fin des retraits (horaire sur 24 heures)"
+
+#: admin/class-local-pickup-time-admin.php:184
+msgid "This sets the pickup end time for Friday. Use 24-hour time format."
+msgstr ""
+"Définit l’heure de fin des retraits le vendredi. Format de l’heure sur 24 "
+"heures."
+
+#: admin/class-local-pickup-time-admin.php:192
+msgid "Saturday Pickup Start Time (use 24-hour time)"
+msgstr "Samedi, début des retraits (horaire sur 24 heures)"
+
+#: admin/class-local-pickup-time-admin.php:193
+msgid "This sets the pickup start time for Saturday. Use 24-hour time format."
+msgstr ""
+"Définit l’heure de début des retraits le samedi. Format de l’heure sur 24 "
+"heures."
+
+#: admin/class-local-pickup-time-admin.php:201
+msgid "Saturday Pickup End Time (use 24-hour time)"
+msgstr "Samedi, fin des retraits (horaire sur 24 heures)"
+
+#: admin/class-local-pickup-time-admin.php:202
+msgid "This sets the pickup end time for Saturday. Use 24-hour time format."
+msgstr ""
+"Définit l’heure de fin des retraits le samedi. Format de l’heure sur 24 "
+"heures."
+
+#: admin/class-local-pickup-time-admin.php:210
+msgid "Sunday Pickup Start Time (use 24-hour time)"
+msgstr "Dimanche, début des retraits (horaire sur 24 heures)"
+
+#: admin/class-local-pickup-time-admin.php:211
+msgid "This sets the pickup start time for Sunday. Use 24-hour time format."
+msgstr ""
+"Définit l’heure de début des retraits le dimanche. Format de l’heure sur 24 "
+"heures."
+
+#: admin/class-local-pickup-time-admin.php:219
+msgid "Sunday Pickup End Time (use 24-hour time)"
+msgstr "Dimanche, fin des retraits (horaire sur 24 heures)"
+
+#: admin/class-local-pickup-time-admin.php:220
+msgid "This sets the pickup end time for Sunday. Use 24-hour time format."
+msgstr ""
+"Définit l’heure de fin des retraits le dimanche. Format de l’heure sur 24 "
+"heures."
+
+#: admin/class-local-pickup-time-admin.php:228
+msgid "Store Closing Days (use MM/DD/YYYY format)"
+msgstr "Jours de fermeture (Attention au format des dates MM/JJ/AAAA)"
+
+#: admin/class-local-pickup-time-admin.php:229
+msgid ""
+"This sets the days the store is closed. Enter one date per line, in format "
+"MM/DD/YYYY."
+msgstr ""
+"Définit les jours de fermeture du magasin (pour les retraits). Saisir une "
+"date par ligne, au format MM/JJ/AAAA."
+
+#: admin/class-local-pickup-time-admin.php:237
+msgid "Pickup Time Interval"
+msgstr "Intervalle de temps pour les retraits"
+
+#: admin/class-local-pickup-time-admin.php:238
+msgid "Choose the time interval for allowing local pickup orders."
+msgstr ""
+"Choisissez la durée autorisée pour chaque retrait de commande en magasin."
+
+#: admin/class-local-pickup-time-admin.php:246
+#: admin/class-local-pickup-time-admin.php:266
+msgid "5 minutes"
+msgstr "5 minutes"
+
+#: admin/class-local-pickup-time-admin.php:247
+#: admin/class-local-pickup-time-admin.php:267
+msgid "10 minutes"
+msgstr "10 minutes"
+
+#: admin/class-local-pickup-time-admin.php:248
+#: admin/class-local-pickup-time-admin.php:268
+msgid "15 minutes"
+msgstr "15 minutes"
+
+#: admin/class-local-pickup-time-admin.php:249
+#: admin/class-local-pickup-time-admin.php:269
+msgid "20 minutes"
+msgstr "20 minutes"
+
+#: admin/class-local-pickup-time-admin.php:250
+#: admin/class-local-pickup-time-admin.php:270
+msgid "30 minutes"
+msgstr "30 minutes"
+
+#: admin/class-local-pickup-time-admin.php:251
+#: admin/class-local-pickup-time-admin.php:271
+msgid "45 minutes"
+msgstr "45 minutes"
+
+#: admin/class-local-pickup-time-admin.php:252
+#: admin/class-local-pickup-time-admin.php:272
+msgid "1 hour"
+msgstr "1 heure"
+
+#: admin/class-local-pickup-time-admin.php:253
+#: admin/class-local-pickup-time-admin.php:273
+msgid "2 hours"
+msgstr "2 heures"
+
+#: admin/class-local-pickup-time-admin.php:257
+msgid "Pickup Time Delay"
+msgstr "Délai avant retrait"
+
+#: admin/class-local-pickup-time-admin.php:258
+msgid ""
+"Choose the time delay from the time of ordering for allowing local pickup "
+"orders."
+msgstr ""
+"Choisissez le temps de préparation minimum avant lequel le retrait de la "
+"commande n’est pas possible."
+
+#: admin/class-local-pickup-time-admin.php:274
+msgid "4 hours"
+msgstr "4 heures"
+
+#: admin/class-local-pickup-time-admin.php:275
+msgid "8 hours"
+msgstr "8 heures"
+
+#: admin/class-local-pickup-time-admin.php:276
+msgid "16 hours"
+msgstr "16 heures"
+
+#: admin/class-local-pickup-time-admin.php:277
+msgid "24 hours"
+msgstr "24 heures"
+
+#: admin/class-local-pickup-time-admin.php:278
+msgid "36 hours"
+msgstr "36 heures"
+
+#: admin/class-local-pickup-time-admin.php:279
+msgid "48 hours"
+msgstr "48 heures"
+
+#: admin/class-local-pickup-time-admin.php:280
+msgid "3 days"
+msgstr "3 jours"
+
+#: admin/class-local-pickup-time-admin.php:281
+msgid "5 days"
+msgstr "5 jours"
+
+#: admin/class-local-pickup-time-admin.php:282
+msgid "1 week"
+msgstr "1 semaine"
+
+#: admin/class-local-pickup-time-admin.php:286
+msgid "Pickup Time Open Days Ahead"
+msgstr "Retraits possibles pendant (en jours d’ouverture)"
+
+#: admin/class-local-pickup-time-admin.php:287
+msgid ""
+"Choose the number of open days ahead for allowing local pickup orders. This "
+"is inclusive of the current day, if timeslots are still available."
+msgstr ""
+"Choisissez le nombre de jours d’ouverture pendant lesquels le retrait est "
+"possible. Le jour courant est inclus si des créneaux horaires sont toujours "
+"disponibles."
+
+#: admin/class-local-pickup-time-admin.php:332
+msgid "Pickup Time:"
+msgstr "Heure de retrait :"
+
+#: admin/class-local-pickup-time-admin.php:353
+#: public/class-local-pickup-time.php:692
+#: public/class-local-pickup-time.php:699
+#: public/class-local-pickup-time.php:787
+msgid "Pickup Time"
+msgstr "Retrait en magasin"
+
+#: public/class-local-pickup-time.php:525
+msgid "Monday"
+msgstr "Lundi"
+
+#: public/class-local-pickup-time.php:526
+msgid "Tuesday"
+msgstr "Mardi"
+
+#: public/class-local-pickup-time.php:527
+msgid "Wednesday"
+msgstr "Mercredi"
+
+#: public/class-local-pickup-time.php:528
+msgid "Thursday"
+msgstr "Jeudi"
+
+#: public/class-local-pickup-time.php:529
+msgid "Friday"
+msgstr "Vendredi"
+
+#: public/class-local-pickup-time.php:530
+msgid "Saturday"
+msgstr "Samedi"
+
+#: public/class-local-pickup-time.php:531
+msgid "Sunday"
+msgstr "Dimanche"
+
+#: public/class-local-pickup-time.php:555
+msgid "Select time"
+msgstr "Sélectionnez un créneau horaire"
+
+#: public/class-local-pickup-time.php:742
+msgid "Please select a pickup time."
+msgstr "Veuillez sélectionner une heure de retrait."
+
+#: public/class-local-pickup-time.php:745
+#: public/class-local-pickup-time.php:768
+msgid "Expired or invalid submission!."
+msgstr "Heure de retrait expirée ou invalide."
+
+#: public/class-local-pickup-time.php:807
+msgid "None"
+msgstr "Aucune"
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Local Pickup Time Select"
+msgstr "WooCommerce Local Pickup Time Select"
+
+#. Plugin URI of the plugin/theme
+msgid "https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time"
+msgstr "https://github.com/WC-Local-Pickup/woocommerce-local-pickup-time"
+
+#. Description of the plugin/theme
+msgid ""
+"Add an an option to WooCommerce checkout pages for Local Pickup that allows "
+"the user to choose a pickup time."
+msgstr ""
+"Ajoute une option sur les pages de paiement de WooCommerce pour permettre à "
+"l’utilisateur de choisir une heure de retrait en magasin."
+
+#. Author of the plugin/theme
+msgid "Tim Nolte"
+msgstr "Tim Nolte"
+
+#. Author URI of the plugin/theme
+msgid "https://www.ndigitals.com/"
+msgstr "https://www.ndigitals.com/"
